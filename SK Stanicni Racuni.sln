@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK Stanicni Racuni", "SK Stanicni Racuni\SK Stanicni Racuni.csproj", "{CCD9002D-588F-44A3-872B-A5399BEFD26E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDLC", "RDLC\RDLC.csproj", "{93E340E0-3790-4E6D-8E56-A9909CB5B45E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCD9002D-588F-44A3-872B-A5399BEFD26E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD9002D-588F-44A3-872B-A5399BEFD26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD9002D-588F-44A3-872B-A5399BEFD26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD9002D-588F-44A3-872B-A5399BEFD26E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E340E0-3790-4E6D-8E56-A9909CB5B45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E340E0-3790-4E6D-8E56-A9909CB5B45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E340E0-3790-4E6D-8E56-A9909CB5B45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E340E0-3790-4E6D-8E56-A9909CB5B45E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FF02326-AD20-422C-ADDA-B6A199284E83}
+	EndGlobalSection
+EndGlobal

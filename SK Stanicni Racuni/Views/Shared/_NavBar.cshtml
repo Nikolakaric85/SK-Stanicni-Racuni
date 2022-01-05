@@ -1,0 +1,167 @@
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-bg-transparent border-bottom">
+    <div class="container">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav">
+
+                <li class="nav-item dropdown" id="myDropdown">
+                    <a class="nav-link dropdown-toggle text-black" href="#" data-bs-toggle="dropdown">  Dnevni računi na stanici  </a>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a class="dropdown-item" href="#">Magacinska knjiga</a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Home" asp-action="Privacy">K254 Prispeća</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Računi unutrašnji saobraćaj</a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="RacuniUnutrasnjiSaobracaj" asp-action="RacuniUnutrasnjiSaobracaj" >K140 Prispeća</a></li>
+                                <li><a class="dropdown-item" href="#">K165 Otpravljanje</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#"> Računi medjunarodni saobraćaj </a>
+                            <ul class="submenu dropdown-menu">
+                                <li><a class="dropdown-item" href="#">K140m Prispeća</a></li>
+                                <li><a class="dropdown-item" href="#">K140trz Tranzitni ulaz</a></li>
+                                <li><a class="dropdown-item" href="#">K165trz Tranzitni izlaz</a></li>
+                            </ul>
+                        </li>
+
+                        <li> <a class="dropdown-item text-black" href="#"> K165a Iskupljeni tovarni listovi </a></li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-black" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Glavni računi
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item">K167 Prispeća</a></li>
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="Privacy">K157 Otpravljanja</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-black" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Unos podataka
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">K161f Račun</a></li>
+                        <li><a class="dropdown-item" href="#">K121a Priznanica za položen frankaturni depozit</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-black" asp-controller="Home" asp-action="Index">Rezervisano</a>
+                </li>
+
+
+
+
+            </ul>
+        </div>
+        <!-- navbar-collapse.// -->
+    </div>
+    <!-- container-fluid.// -->
+</nav>
+
+
+
+<style>
+        /* ============ desktop view ============ */
+        @@media all and (min-width: 992px) {
+            .dropdown-menu li {
+                position: relative;
+            }
+
+            .nav-item .submenu {
+                display: none;
+                position: absolute;
+                left: 100%;
+                top: -7px;
+            }
+
+            .nav-item .submenu-left {
+                right: 100%;
+                left: auto;
+            }
+
+            .dropdown-menu > li:hover {
+                background-color: #f1f1f1
+            }
+
+                .dropdown-menu > li:hover > .submenu {
+                    display: block;
+                }
+        }
+        /* ============ desktop view .end// ============ */
+
+        /* ============ small devices ============ */
+        @@media (max-width: 991px) {
+            .dropdown-menu .dropdown-menu {
+                margin-left: 0.7rem;
+                margin-right: 0.7rem;
+                margin-bottom: .5rem;
+            }
+        }
+        /* ============ small devices .end// ============ */
+
+        /*.navbar-light .navbar-toggler-icon{
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+    */
+
+
+</style>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+
+        document.addEventListener("DOMContentLoaded", function(){
+// make it as accordion for smaller screens
+if (window.innerWidth < 992) {
+
+  // close all inner dropdowns when parent is closed
+  document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown){
+    everydropdown.addEventListener('hidden.bs.dropdown', function () {
+      // after dropdown is hidden, then find all submenus
+        this.querySelectorAll('.submenu').forEach(function(everysubmenu){
+          // hide every submenu as well
+          everysubmenu.style.display = 'none';
+        });
+    })
+  });
+
+  document.querySelectorAll('.dropdown-menu a').forEach(function(element){
+    element.addEventListener('click', function (e) {
+        let nextEl = this.nextElementSibling;
+        if(nextEl && nextEl.classList.contains('submenu')) {
+          // prevent opening link if link needs to open dropdown
+          e.preventDefault();
+          if(nextEl.style.display == 'block'){
+            nextEl.style.display = 'none';
+          } else {
+            nextEl.style.display = 'block';
+          }
+
+        }
+    });
+  })
+}
+// end if innerWidth
+});
+// DOMContentLoaded  end
+
+    </script>
+}
