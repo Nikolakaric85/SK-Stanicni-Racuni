@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="K140" targetNamespace="http://tempuri.org/K140.xsd" xmlns:mstns="http://tempuri.org/K140.xsd" xmlns="http://tempuri.org/K140.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="K140" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="K140" msprop:Generator_UserDSName="K140">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="K140" msprop:Generator_TableClassName="K140DataTable" msprop:Generator_TableVarName="tableK140" msprop:Generator_TablePropName="_K140" msprop:Generator_RowDeletingName="K140RowDeleting" msprop:Generator_RowChangingName="K140RowChanging" msprop:Generator_RowEvHandlerName="K140RowChangeEventHandler" msprop:Generator_RowDeletedName="K140RowDeleted" msprop:Generator_UserTableName="K140" msprop:Generator_RowChangedName="K140RowChanged" msprop:Generator_RowEvArgName="K140RowChangeEvent" msprop:Generator_RowClassName="K140Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BrOtpr" msprop:Generator_ColumnVarNameInTable="columnBrOtpr" msprop:Generator_ColumnPropNameInRow="BrOtpr" msprop:Generator_ColumnPropNameInTable="BrOtprColumn" msprop:Generator_UserColumnName="BrOtpr" type="xs:string" minOccurs="0" />
+              <xs:element name="UputnaStanica" msprop:Generator_ColumnVarNameInTable="columnUputnaStanica" msprop:Generator_ColumnPropNameInRow="UputnaStanica" msprop:Generator_ColumnPropNameInTable="UputnaStanicaColumn" msprop:Generator_UserColumnName="UputnaStanica" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

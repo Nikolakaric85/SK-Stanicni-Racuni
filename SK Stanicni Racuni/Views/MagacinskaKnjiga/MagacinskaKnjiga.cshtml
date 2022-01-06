@@ -8,19 +8,11 @@
 
             <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                 <label>Stanica</label>
-                <input class="form-control" list="myDatalist"  id="myDatalistInput" name="stanica" />
+                <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanica" />
                 <datalist id="myDatalist" open="open">
                 </datalist>
             </div>
 
-            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
-                <label>Blagajna</label>
-                <select class="form-select" aria-label="Default select example" name="blagajna">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-            </div>
 
             <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
 
@@ -35,12 +27,8 @@
             </div>
 
             <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
-                <button type="submit" class="btn btn-primary align-bottom" asp-controller="RacuniUnutrasnjiSaobracaj" asp-action="Print" target="_blank">PDF</button>
+                <button type="submit" class="btn btn-primary align-bottom" asp-controller="MagacinskaKnjiga" asp-action="Print" target="_blank">PDF</button>
             </div>
-
-
-
-
 
         </div>
 
@@ -143,4 +131,4 @@
 
 
 
-  @*https://stackoverflow.com/questions/15622076/making-html5-datalist-visible-when-focus-event-fires-on-input*@
+@*https://stackoverflow.com/questions/15622076/making-html5-datalist-visible-when-focus-event-fires-on-input*@
