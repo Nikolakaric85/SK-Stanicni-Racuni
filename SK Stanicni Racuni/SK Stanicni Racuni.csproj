@@ -7,6 +7,13 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\css\K140.rdlc" />
+    <Content Remove="wwwroot\Reports\K117.rdlc" />
+    <Content Remove="wwwroot\Reports\K254.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Reports\K254.rdlc" />
+    <None Include="wwwroot\Reports\K117.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,23 +30,59 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\Reports\K140m.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Reports\K165.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\Reports\K140.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DataSet\K117.Designer.cs">
+      <DependentUpon>K117.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="DataSet\K140.Designer.cs">
       <DependentUpon>K140.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DataSet\K254.Designer.cs">
+      <DependentUpon>K254.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DataSet\К140m.Designer.cs">
+      <DependentUpon>К140m.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DataSet\K117.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K117.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
     <None Update="DataSet\K140.xsd">
       <SubType>Designer</SubType>
       <LastGenOutput>K140.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="DataSet\K254.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K254.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="DataSet\К140m.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>К140m.Designer.cs</LastGenOutput>
       <Generator>MSDataSetGenerator</Generator>
     </None>
   </ItemGroup>

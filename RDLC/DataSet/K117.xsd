@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="K117" targetNamespace="http://tempuri.org/K117.xsd" xmlns:mstns="http://tempuri.org/K117.xsd" xmlns="http://tempuri.org/K117.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="K117" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="K117" msprop:Generator_UserDSName="K117">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="K117_Table" msprop:Generator_TableClassName="K117_TableDataTable" msprop:Generator_TableVarName="tableK117_Table" msprop:Generator_TablePropName="K117_Table" msprop:Generator_RowDeletingName="K117_TableRowDeleting" msprop:Generator_RowChangingName="K117_TableRowChanging" msprop:Generator_RowEvHandlerName="K117_TableRowChangeEventHandler" msprop:Generator_RowDeletedName="K117_TableRowDeleted" msprop:Generator_UserTableName="K117_Table" msprop:Generator_RowChangedName="K117_TableRowChanged" msprop:Generator_RowEvArgName="K117_TableRowChangeEvent" msprop:Generator_RowClassName="K117_TableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Broj_x0020_Tovarnog_x0020_Lista" msprop:Generator_ColumnVarNameInTable="columnBroj_Tovarnog_Lista" msprop:Generator_ColumnPropNameInRow="Broj_Tovarnog_Lista" msprop:Generator_ColumnPropNameInTable="Broj_Tovarnog_ListaColumn" msprop:Generator_UserColumnName="Broj Tovarnog Lista" type="xs:string" minOccurs="0" />
+              <xs:element name="Predato_x0020_Dana" msprop:Generator_ColumnVarNameInTable="columnPredato_Dana" msprop:Generator_ColumnPropNameInRow="Predato_Dana" msprop:Generator_ColumnPropNameInTable="Predato_DanaColumn" msprop:Generator_UserColumnName="Predato Dana" type="xs:string" minOccurs="0" />
+              <xs:element name="Uputna_x0020_Stanica" msprop:Generator_ColumnVarNameInTable="columnUputna_Stanica" msprop:Generator_ColumnPropNameInRow="Uputna_Stanica" msprop:Generator_ColumnPropNameInTable="Uputna_StanicaColumn" msprop:Generator_UserColumnName="Uputna Stanica" type="xs:string" minOccurs="0" />
+              <xs:element name="Broj_x0020_Kola" msprop:Generator_ColumnVarNameInTable="columnBroj_Kola" msprop:Generator_ColumnPropNameInRow="Broj_Kola" msprop:Generator_ColumnPropNameInTable="Broj_KolaColumn" msprop:Generator_UserColumnName="Broj Kola" type="xs:string" minOccurs="0" />
+              <xs:element name="Naznacenje_x0020_Vrste_x0020_Robe" msprop:Generator_ColumnVarNameInTable="columnNaznacenje_Vrste_Robe" msprop:Generator_ColumnPropNameInRow="Naznacenje_Vrste_Robe" msprop:Generator_ColumnPropNameInTable="Naznacenje_Vrste_RobeColumn" msprop:Generator_UserColumnName="Naznacenje Vrste Robe" type="xs:string" minOccurs="0" />
+              <xs:element name="Navedeno_x0020_u_x0020_tovarnom_x0020_listu" msprop:Generator_ColumnVarNameInTable="columnNavedeno_u_tovarnom_listu" msprop:Generator_ColumnPropNameInRow="Navedeno_u_tovarnom_listu" msprop:Generator_ColumnPropNameInTable="Navedeno_u_tovarnom_listuColumn" msprop:Generator_UserColumnName="Navedeno u tovarnom listu" type="xs:string" minOccurs="0" />
+              <xs:element name="Utvrdjena_x0020_vaganjem" msprop:Generator_ColumnVarNameInTable="columnUtvrdjena_vaganjem" msprop:Generator_ColumnPropNameInRow="Utvrdjena_vaganjem" msprop:Generator_ColumnPropNameInTable="Utvrdjena_vaganjemColumn" msprop:Generator_UserColumnName="Utvrdjena vaganjem" type="xs:string" minOccurs="0" />
+              <xs:element name="Individualni_x0020_broj_x0020_kola_x002F_primedbe" msprop:Generator_ColumnVarNameInTable="_columnIndividualni_broj_kola_primedbe" msprop:Generator_ColumnPropNameInRow="_Individualni_broj_kola_primedbe" msprop:Generator_ColumnPropNameInTable="_Individualni_broj_kola_primedbeColumn" msprop:Generator_UserColumnName="Individualni broj kola/primedbe" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

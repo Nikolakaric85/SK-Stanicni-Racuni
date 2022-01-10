@@ -34,8 +34,9 @@ namespace SK_Stanicni_Racuni.Controllers
         }
 
 
-        public IActionResult RacuniUnutrasnjiSaobracaj()
+        public IActionResult RacuniUnutrasnjiSaobracaj(string id)
         {
+            ViewBag.Id = id;
             return View();
         }
 

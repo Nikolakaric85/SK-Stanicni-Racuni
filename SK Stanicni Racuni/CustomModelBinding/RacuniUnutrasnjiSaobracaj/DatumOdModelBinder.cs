@@ -16,6 +16,11 @@ namespace SK_Stanicni_Racuni.CustomModelBinding.RacuniUnutrasnjiSaobracaj
                 throw new ArgumentNullException(nameof(bindingContext));
             }
 
+            var valueProviderResult = bindingContext.ValueProvider.GetValue("datumOd");
+
+
+            var nesto = bindingContext.HttpContext.Request.Body;
+
             var data = bindingContext.HttpContext.Request.Form;
             var resultDatum = data.TryGetValue("datumOd", out var VaziOd);
 

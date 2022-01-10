@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="К140m" targetNamespace="http://tempuri.org/К140m.xsd" xmlns:mstns="http://tempuri.org/К140m.xsd" xmlns="http://tempuri.org/К140m.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="К140m" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="К140m" msprop:Generator_UserDSName="К140m">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="K140m_Table" msprop:Generator_TableClassName="K140m_TableDataTable" msprop:Generator_TableVarName="tableK140m_Table" msprop:Generator_RowChangedName="K140m_TableRowChanged" msprop:Generator_TablePropName="K140m_Table" msprop:Generator_RowDeletingName="K140m_TableRowDeleting" msprop:Generator_RowChangingName="K140m_TableRowChanging" msprop:Generator_RowEvHandlerName="K140m_TableRowChangeEventHandler" msprop:Generator_RowDeletedName="K140m_TableRowDeleted" msprop:Generator_RowClassName="K140m_TableRow" msprop:Generator_UserTableName="K140m_Table" msprop:Generator_RowEvArgName="K140m_TableRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TovarniListBroj" msprop:Generator_ColumnVarNameInTable="columnTovarniListBroj" msprop:Generator_ColumnPropNameInRow="TovarniListBroj" msprop:Generator_ColumnPropNameInTable="TovarniListBrojColumn" msprop:Generator_UserColumnName="TovarniListBroj" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

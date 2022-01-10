@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="K254" targetNamespace="http://tempuri.org/K254.xsd" xmlns:mstns="http://tempuri.org/K254.xsd" xmlns="http://tempuri.org/K254.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="K254" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="K254" msprop:Generator_UserDSName="K254">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="K254_Table" msprop:Generator_TableClassName="K254_TableDataTable" msprop:Generator_TableVarName="tableK254_Table" msprop:Generator_TablePropName="K254_Table" msprop:Generator_RowDeletingName="K254_TableRowDeleting" msprop:Generator_RowChangingName="K254_TableRowChanging" msprop:Generator_RowEvHandlerName="K254_TableRowChangeEventHandler" msprop:Generator_RowDeletedName="K254_TableRowDeleted" msprop:Generator_UserTableName="K254_Table" msprop:Generator_RowChangedName="K254_TableRowChanged" msprop:Generator_RowEvArgName="K254_TableRowChangeEvent" msprop:Generator_RowClassName="K254_TableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BrojPrispeca" msprop:Generator_ColumnVarNameInTable="columnBrojPrispeca" msprop:Generator_ColumnPropNameInRow="BrojPrispeca" msprop:Generator_ColumnPropNameInTable="BrojPrispecaColumn" msprop:Generator_UserColumnName="BrojPrispeca" type="xs:string" minOccurs="0" />
+              <xs:element name="OtpravnaStanica" msprop:Generator_ColumnVarNameInTable="columnOtpravnaStanica" msprop:Generator_ColumnPropNameInRow="OtpravnaStanica" msprop:Generator_ColumnPropNameInTable="OtpravnaStanicaColumn" msprop:Generator_UserColumnName="OtpravnaStanica" type="xs:string" minOccurs="0" />
+              <xs:element name="BrojTovarnogLista" msprop:Generator_ColumnVarNameInTable="columnBrojTovarnogLista" msprop:Generator_ColumnPropNameInRow="BrojTovarnogLista" msprop:Generator_ColumnPropNameInTable="BrojTovarnogListaColumn" msprop:Generator_UserColumnName="BrojTovarnogLista" type="xs:string" minOccurs="0" />
+              <xs:element name="BrojKola" msprop:Generator_ColumnVarNameInTable="columnBrojKola" msprop:Generator_ColumnPropNameInRow="BrojKola" msprop:Generator_ColumnPropNameInTable="BrojKolaColumn" msprop:Generator_UserColumnName="BrojKola" type="xs:string" minOccurs="0" />
+              <xs:element name="NaznacenjeVrsteRobe" msprop:Generator_ColumnVarNameInTable="columnNaznacenjeVrsteRobe" msprop:Generator_ColumnPropNameInRow="NaznacenjeVrsteRobe" msprop:Generator_ColumnPropNameInTable="NaznacenjeVrsteRobeColumn" msprop:Generator_UserColumnName="NaznacenjeVrsteRobe" type="xs:string" minOccurs="0" />
+              <xs:element name="MasaUkg" msprop:Generator_ColumnVarNameInTable="columnMasaUkg" msprop:Generator_ColumnPropNameInRow="MasaUkg" msprop:Generator_ColumnPropNameInTable="MasaUkgColumn" msprop:Generator_UserColumnName="MasaUkg" type="xs:string" minOccurs="0" />
+              <xs:element name="IBK" msprop:Generator_ColumnVarNameInTable="columnIBK" msprop:Generator_ColumnPropNameInRow="IBK" msprop:Generator_ColumnPropNameInTable="IBKColumn" msprop:Generator_UserColumnName="IBK" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

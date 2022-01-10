@@ -13,6 +13,14 @@
                 </datalist>
             </div>
 
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                <label>Blagajna</label>
+                <select class="form-select" aria-label="Default select example" name="blagajna">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
 
             <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
 
@@ -27,12 +35,9 @@
             </div>
 
             <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
-
-                <button type="submit" class="btn btn-primary align-bottom" asp-controller="MagacinskaKnjiga" asp-action="Print" asp-route-id="@ViewBag.Id" target="_blank">PDF</button>
-                            
-                @*<a  class="btn btn-primary align-bottom" onclick="window.open('@Url.Action("Print", "MagacinskaKnjiga", new { target = "_blank" })')">PDF</a>*@
-
+                <button type="submit" class="btn btn-primary align-bottom" asp-controller="RacuniМedjunarodniSaobracaj" asp-action="Print" asp-route-id="@ViewBag.Id" target="_blank">PDF</button>
             </div>
+
 
         </div>
 
@@ -108,23 +113,7 @@
 
             })
 
-
-
-
-
-
-
         })
-
-
-
-
-
-
-
-
-
-
 
     </script>
 }

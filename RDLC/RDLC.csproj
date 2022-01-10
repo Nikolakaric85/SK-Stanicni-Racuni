@@ -12,17 +12,44 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DataSet\K117.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>K117.xsd</DependentUpon>
+    </Compile>
     <Compile Update="DataSet\K140.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>K140.xsd</DependentUpon>
     </Compile>
+    <Compile Update="DataSet\K254.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>K254.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="DataSet\К140m.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>К140m.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DataSet\K117.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>K117.Designer.cs</LastGenOutput>
+    </None>
     <None Update="DataSet\K140.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>K140.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="DataSet\K254.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>K254.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="DataSet\К140m.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>К140m.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
