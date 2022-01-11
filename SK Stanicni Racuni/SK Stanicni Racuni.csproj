@@ -30,6 +30,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\Reports\K165trz.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Reports\K140trz.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Reports\K165m.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\Reports\K140m.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -49,6 +58,16 @@
     </Compile>
     <Compile Update="DataSet\K140.Designer.cs">
       <DependentUpon>K140.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DataSet\K140tzr.Designer.cs">
+      <DependentUpon>K140tzr.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DataSet\K165trz.Designer.cs">
+      <DependentUpon>K165trz.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -73,6 +92,16 @@
     <None Update="DataSet\K140.xsd">
       <SubType>Designer</SubType>
       <LastGenOutput>K140.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="DataSet\K140tzr.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K140tzr.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="DataSet\K165trz.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K165trz.Designer.cs</LastGenOutput>
       <Generator>MSDataSetGenerator</Generator>
     </None>
     <None Update="DataSet\K254.xsd">

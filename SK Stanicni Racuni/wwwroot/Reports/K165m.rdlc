@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
-  <DataSources>
-    <DataSource Name="К140m">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>49ea3583-9549-4570-9dfb-dd32cbd6aa8a</rd:DataSourceID>
-    </DataSource>
-  </DataSources>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -30,7 +21,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.97578cm</Top>
-            <Left>14.43838cm</Left>
+            <Left>16.10948cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <Style>
@@ -58,8 +49,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>1.75217cm</Top>
-            <Left>14.43838cm</Left>
+            <Top>1.71689cm</Top>
+            <Left>16.10948cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <ZIndex>1</ZIndex>
@@ -80,7 +71,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>РАЧУН ОТПРАВЉАЊА</Value>
+                    <Value>ДНЕВНИ РАЧУН ОТПРАВЉАЊА</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -92,10 +83,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>4.06258cm</Top>
-            <Left>7.79479cm</Left>
+            <Top>2.47508cm</Top>
+            <Left>7.63604cm</Left>
             <Height>0.6cm</Height>
-            <Width>5.41042cm</Width>
+            <Width>5.72792cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -124,8 +115,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>4.83897cm</Top>
-            <Left>4.8387cm</Left>
+            <Top>3.25147cm</Top>
+            <Left>4.5212cm</Left>
             <Height>0.6cm</Height>
             <Width>5.41923cm</Width>
             <ZIndex>3</ZIndex>
@@ -146,15 +137,8 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>К-140</Value>
+                    <Value>К-165м</Value>
                     <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value>M</Value>
-                    <Style>
-                      <FontSize>8pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -164,7 +148,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
             <Top>0.17639cm</Top>
-            <Left>18.59643cm</Left>
+            <Left>19.05928cm</Left>
             <Height>0.6cm</Height>
             <Width>1.30937cm</Width>
             <ZIndex>4</ZIndex>
@@ -194,7 +178,7 @@
             </Paragraphs>
             <rd:DefaultName>Stanica</rd:DefaultName>
             <Top>0.97578cm</Top>
-            <Left>16.37394cm</Left>
+            <Left>17.86865cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>5</ZIndex>
@@ -226,8 +210,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Blagajna</rd:DefaultName>
-            <Top>1.75217cm</Top>
-            <Left>16.37394cm</Left>
+            <Top>1.71689cm</Top>
+            <Left>17.86865cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>6</ZIndex>
@@ -262,8 +246,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DatumOd</rd:DefaultName>
-            <Top>4.83897cm</Top>
-            <Left>10.32849cm</Left>
+            <Top>3.25147cm</Top>
+            <Left>10.01099cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>7</ZIndex>
@@ -295,8 +279,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DatumDo</rd:DefaultName>
-            <Top>4.83897cm</Top>
-            <Left>13.37057cm</Left>
+            <Top>3.25147cm</Top>
+            <Left>13.05307cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>8</ZIndex>
@@ -326,8 +310,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>4.83897cm</Top>
-            <Left>12.82849cm</Left>
+            <Top>3.25147cm</Top>
+            <Left>12.51099cm</Left>
             <Height>0.6cm</Height>
             <Width>0.54208cm</Width>
             <ZIndex>9</ZIndex>
@@ -341,74 +325,11 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox7">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Рачунополагач</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>2.52856cm</Top>
-            <Left>14.43838cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.79103cm</Width>
-            <ZIndex>10</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Blagajna2">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value />
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Blagajna</rd:DefaultName>
-            <Top>2.52856cm</Top>
-            <Left>17.4058cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>11</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BottomBorder>
-                <Style>Solid</Style>
-              </BottomBorder>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
         </ReportItems>
         <Height>29.7cm</Height>
         <Style />
       </Body>
-      <Width>21.10934cm</Width>
+      <Width>23.22646cm</Width>
       <Page>
         <PageHeader>
           <Height>1.69333cm</Height>
@@ -433,7 +354,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0.86995cm</Top>
-              <Left>5.00393cm</Left>
+              <Left>6.33958cm</Left>
               <Height>0.6cm</Height>
               <Width>8.32084cm</Width>
               <Style>

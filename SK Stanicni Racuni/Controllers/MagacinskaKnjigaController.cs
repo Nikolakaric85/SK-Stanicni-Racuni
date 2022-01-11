@@ -71,7 +71,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     row = dt.NewRow();
                     row["BrojTovarnogLista"] = item.Broj_tovarnog_lista;
-                    row["PredatoDana"] = item.Predato_dana;
+                    row["PredatoDana"] = item.Predato_dana.ToString("dd.MM.yyyy");
                     row["UputnaStanica"] = item.Uputna_stanica;
                     row["BrojKola"] = item.Broj_Kola;
                     row["NaznacenjeVrsteRobe"] = item.Naznačenje_vrste_robe;
@@ -148,7 +148,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
                 paramtars.Add("Stanica", sifraStanice);
-                paramtars.Add("DatumOd", DatumOd.ToString());
+                
                 paramtars.Add("DatumDo", DatumDo.ToString());
 
                 var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K254.rdlc";

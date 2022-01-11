@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="K140tzr" targetNamespace="http://tempuri.org/K140tzr.xsd" xmlns:mstns="http://tempuri.org/K140tzr.xsd" xmlns="http://tempuri.org/K140tzr.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="K140tzr" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="K140tzr" msprop:Generator_UserDSName="K140tzr">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="K140tzr_Table" msprop:Generator_TableClassName="K140tzr_TableDataTable" msprop:Generator_TableVarName="tableK140tzr_Table" msprop:Generator_TablePropName="K140tzr_Table" msprop:Generator_RowDeletingName="K140tzr_TableRowDeleting" msprop:Generator_RowChangingName="K140tzr_TableRowChanging" msprop:Generator_RowEvHandlerName="K140tzr_TableRowChangeEventHandler" msprop:Generator_RowDeletedName="K140tzr_TableRowDeleted" msprop:Generator_UserTableName="K140tzr_Table" msprop:Generator_RowChangedName="K140tzr_TableRowChanged" msprop:Generator_RowEvArgName="K140tzr_TableRowChangeEvent" msprop:Generator_RowClassName="K140tzr_TableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="UlaznaEtiketa" msprop:Generator_ColumnVarNameInTable="columnUlaznaEtiketa" msprop:Generator_ColumnPropNameInRow="UlaznaEtiketa" msprop:Generator_ColumnPropNameInTable="UlaznaEtiketaColumn" msprop:Generator_UserColumnName="UlaznaEtiketa" type="xs:string" minOccurs="0" />
+              <xs:element name="OtpUprava" msprop:Generator_ColumnVarNameInTable="columnOtpUprava" msprop:Generator_ColumnPropNameInRow="OtpUprava" msprop:Generator_ColumnPropNameInTable="OtpUpravaColumn" msprop:Generator_UserColumnName="OtpUprava" type="xs:string" minOccurs="0" />
+              <xs:element name="OtpStanica" msprop:Generator_ColumnVarNameInTable="columnOtpStanica" msprop:Generator_ColumnPropNameInRow="OtpStanica" msprop:Generator_ColumnPropNameInTable="OtpStanicaColumn" msprop:Generator_UserColumnName="OtpStanica" type="xs:string" minOccurs="0" />
+              <xs:element name="OtpBroj" msprop:Generator_ColumnVarNameInTable="columnOtpBroj" msprop:Generator_ColumnPropNameInRow="OtpBroj" msprop:Generator_ColumnPropNameInTable="OtpBrojColumn" msprop:Generator_UserColumnName="OtpBroj" type="xs:string" minOccurs="0" />
+              <xs:element name="OtpDatum" msprop:Generator_ColumnVarNameInTable="columnOtpDatum" msprop:Generator_ColumnPropNameInRow="OtpDatum" msprop:Generator_ColumnPropNameInTable="OtpDatumColumn" msprop:Generator_UserColumnName="OtpDatum" type="xs:string" minOccurs="0" />
+              <xs:element name="PrUprava" msprop:Generator_ColumnVarNameInTable="columnPrUprava" msprop:Generator_ColumnPropNameInRow="PrUprava" msprop:Generator_ColumnPropNameInTable="PrUpravaColumn" msprop:Generator_UserColumnName="PrUprava" type="xs:string" minOccurs="0" />
+              <xs:element name="PrStanica" msprop:Generator_ColumnVarNameInTable="columnPrStanica" msprop:Generator_ColumnPropNameInRow="PrStanica" msprop:Generator_ColumnPropNameInTable="PrStanicaColumn" msprop:Generator_UserColumnName="PrStanica" type="xs:string" minOccurs="0" />
+              <xs:element name="RbKola" msprop:Generator_ColumnVarNameInTable="columnRbKola" msprop:Generator_ColumnPropNameInRow="RbKola" msprop:Generator_ColumnPropNameInTable="RbKolaColumn" msprop:Generator_UserColumnName="RbKola" type="xs:string" minOccurs="0" />
+              <xs:element name="IBK" msprop:Generator_ColumnVarNameInTable="columnIBK" msprop:Generator_ColumnPropNameInRow="IBK" msprop:Generator_ColumnPropNameInTable="IBKColumn" msprop:Generator_UserColumnName="IBK" type="xs:string" minOccurs="0" />
+              <xs:element name="TrasaVoza" msprop:Generator_ColumnVarNameInTable="columnTrasaVoza" msprop:Generator_ColumnPropNameInRow="TrasaVoza" msprop:Generator_ColumnPropNameInTable="TrasaVozaColumn" msprop:Generator_UserColumnName="TrasaVoza" type="xs:string" minOccurs="0" />
+              <xs:element name="SatVoza" msprop:Generator_ColumnVarNameInTable="columnSatVoza" msprop:Generator_ColumnPropNameInRow="SatVoza" msprop:Generator_ColumnPropNameInTable="SatVozaColumn" msprop:Generator_UserColumnName="SatVoza" type="xs:string" minOccurs="0" />
+              <xs:element name="TarifaUgovor" msprop:Generator_ColumnVarNameInTable="columnTarifaUgovor" msprop:Generator_ColumnPropNameInRow="TarifaUgovor" msprop:Generator_ColumnPropNameInTable="TarifaUgovorColumn" msprop:Generator_UserColumnName="TarifaUgovor" type="xs:string" minOccurs="0" />
+              <xs:element name="IzlazniPrelaz" msprop:Generator_ColumnVarNameInTable="columnIzlazniPrelaz" msprop:Generator_ColumnPropNameInRow="IzlazniPrelaz" msprop:Generator_ColumnPropNameInTable="IzlazniPrelazColumn" msprop:Generator_UserColumnName="IzlazniPrelaz" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

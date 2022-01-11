@@ -1013,8 +1013,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PredatoDana.Value</Value>
-                                  <Style />
+                                  <Value>=CDate(Fields!PredatoDana.Value).ToString("dd.MM.yyyy")</Value>
+                                  <Style>
+                                    <Format>dd.MM.yyyy</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1364,27 +1366,23 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Textbox Name="PageNumber">
+            <Textbox Name="TotalPages">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Globals!PageNumber</Value>
-                      <Style />
-                    </TextRun>
-                    <TextRun>
-                      <Value>1</Value>
+                      <Value>=Globals!TotalPages</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>PageNumber</rd:DefaultName>
+              <rd:DefaultName>TotalPages</rd:DefaultName>
               <Top>0.61328cm</Top>
-              <Left>26.08275cm</Left>
+              <Left>26.35cm</Left>
               <Height>0.6cm</Height>
               <Width>2.5cm</Width>
               <ZIndex>1</ZIndex>
