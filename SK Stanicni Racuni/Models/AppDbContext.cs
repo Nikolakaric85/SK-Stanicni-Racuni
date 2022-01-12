@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using SK_Stanicni_Racuni.ViewModels;
 
 #nullable disable
 
@@ -23,13 +24,18 @@ namespace SK_Stanicni_Racuni.Models
         public virtual DbSet<SlogKalkPdv> SlogKalkPdvs { get; set; }
         public virtual DbSet<SlogKola> SlogKolas { get; set; }
         public virtual DbSet<SlogRoba> SlogRobas { get; set; }
+        public virtual DbSet<SrK121a> SrK121as { get; set; }
+        public virtual DbSet<SrK161f> SrK161fs { get; set; }
         public virtual DbSet<Ugovori> Ugovoris { get; set; }
         public virtual DbSet<UicOperateri> UicOperateris { get; set; }
         public virtual DbSet<UicStanice> UicStanices { get; set; }
         public virtual DbSet<UserTab> UserTabs { get; set; }
+        public virtual DbSet<ZsPrelazi> ZsPrelazis { get; set; }
         public virtual DbSet<ZsStanice> ZsStanices { get; set; }
+        public virtual DbSet<ZsTarifa> ZsTarifas { get; set; }
         public virtual DbSet<ZsVrsteSaobracaja> ZsVrsteSaobracajas { get; set; }
         public virtual DbSet<ZsVsStavke> ZsVsStavkes { get; set; }
+        public virtual DbSet<SlogKalkSlogKolaZsTarifaZsPrelaziViewModel> SlogKalkSlogKolaZsTarifaZsPrelaziViewModel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,6 +49,12 @@ namespace SK_Stanicni_Racuni.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<SlogKalkSlogKolaZsTarifaZsPrelaziViewModel>(entity =>
+            {
+                entity.HasNoKey();
+                
+            });
 
             modelBuilder.Entity<Komitent>(entity =>
             {
@@ -717,6 +729,108 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
             });
 
+            modelBuilder.Entity<SrK121a>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("SR_K121a");
+
+                entity.Property(e => e.Blagajnik)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Datum).HasColumnType("date");
+
+                entity.Property(e => e.Iznos)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.OtpDatum).HasColumnType("date");
+
+                entity.Property(e => e.Pošiljalac).HasMaxLength(150);
+
+                entity.Property(e => e.PrStanica)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Primalac).HasMaxLength(150);
+
+                entity.Property(e => e.PrimalacAdresa).HasMaxLength(150);
+
+                entity.Property(e => e.PrimalacZemlja).HasMaxLength(50);
+
+                entity.Property(e => e.Stanica)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<SrK161f>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("SR_K161f");
+
+                entity.Property(e => e.BlagajnaTip).HasMaxLength(15);
+
+                entity.Property(e => e.Blagajnik)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.FakturaBroj).HasMaxLength(20);
+
+                entity.Property(e => e.FakturaDatum).HasColumnType("date");
+
+                entity.Property(e => e.FakturaOsnovica)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.FakturaPdv)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasColumnName("FakturaPDV")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Primalac).HasMaxLength(150);
+
+                entity.Property(e => e.PrimalacAdresa).HasMaxLength(150);
+
+                entity.Property(e => e.PrimalacMb)
+                    .HasMaxLength(10)
+                    .HasColumnName("PrimalacMB")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacPib)
+                    .HasMaxLength(10)
+                    .HasColumnName("PrimalacPIB")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacTelefon)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacTr)
+                    .HasMaxLength(10)
+                    .HasColumnName("PrimalacTR")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacZemlja).HasMaxLength(50);
+
+                entity.Property(e => e.Stanica)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.VrstaUslugaOpis).HasMaxLength(200);
+
+                entity.Property(e => e.VrstaUslugaSifra)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+            });
+
             modelBuilder.Entity<Ugovori>(entity =>
             {
                 entity.HasNoKey();
@@ -899,6 +1013,39 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
             });
 
+            modelBuilder.Entity<ZsPrelazi>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("ZsPrelazi");
+
+                entity.Property(e => e.GranicnaUprava)
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Naziv)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SifraCarina)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.SifraPrelaza)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.SifraPrelaza4)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+            });
+
             modelBuilder.Entity<ZsStanice>(entity =>
             {
                 entity.HasNoKey();
@@ -1022,6 +1169,39 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+            });
+
+            modelBuilder.Entity<ZsTarifa>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("ZsTarifa");
+
+                entity.Property(e => e.Naziv)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Opis)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SifraTarife)
+                    .IsRequired()
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.SifraVs).HasColumnName("SifraVS");
+
+                entity.Property(e => e.TarifaStavka)
+                    .IsRequired()
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.VaziDo).HasColumnType("smalldatetime");
+
+                entity.Property(e => e.VaziOd).HasColumnType("smalldatetime");
             });
 
             modelBuilder.Entity<ZsVrsteSaobracaja>(entity =>

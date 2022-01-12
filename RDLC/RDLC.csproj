@@ -27,6 +27,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>K140tzr.xsd</DependentUpon>
     </Compile>
+    <Compile Update="DataSet\K165m.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>K165m.xsd</DependentUpon>
+    </Compile>
     <Compile Update="DataSet\K165trz.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -56,6 +61,10 @@
     <None Update="DataSet\K140tzr.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>K140tzr.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="DataSet\K165m.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>K165m.Designer.cs</LastGenOutput>
     </None>
     <None Update="DataSet\K165trz.xsd">
       <Generator>MSDataSetGenerator</Generator>
