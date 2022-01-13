@@ -41,13 +41,101 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (id == "K140m")
             {
-                Dictionary<string, string> paramtars = new Dictionary<string, string>();
+                var firstJoin = from ZsStanice in context.ZsStanices
+                                join SlogKalk in context.SlogKalks
+                                on ZsStanice.SifraStanice equals SlogKalk.OtpStanica
+                                select new
+                                {
+                                    OtpBroj = SlogKalk.OtpBroj,
+                                    OtpDatum = SlogKalk.OtpDatum,
+                                    PrStanica = SlogKalk.PrStanica,
+                                    PrUprava = SlogKalk.PrUprava,
+                                    TlSumaFrDin = SlogKalk.TlSumaFrDin,
+                                    OtpUprava = SlogKalk.OtpUprava,
+                                    OtpStanica = SlogKalk.OtpStanica,
+                                    RecID = SlogKalk.RecId,
+                                    Stanica = SlogKalk.Stanica,
+                                    Saobracaj = SlogKalk.Saobracaj
 
-                var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140m.rdlc";
-                LocalReport localReport = new LocalReport(path);
-                //localReport.AddDataSource("K117", dt);
+                                };
 
-                result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+                var query = from fij in firstJoin
+                            join SlogKola in context.SlogKolas
+                            on new { OtpUprava = fij.OtpUprava, OtpStanica = fij.OtpStanica, OtpBroj = fij.OtpBroj, OtpDatum = fij.OtpDatum, RecID = fij.RecID, Stanica = fij.Stanica } equals
+                               new { OtpUprava = SlogKola.OtpUprava, OtpStanica = SlogKola.OtpStanica, OtpBroj = SlogKola.OtpBroj, OtpDatum = SlogKola.OtpDatum, RecID = SlogKola.RecId, Stanica = SlogKola.Stanica }
+                            where fij.Saobracaj == "3" &&
+                            fij.OtpDatum == DateTime.Parse("2021-12-15 00:00:00")
+                            && fij.TlSumaFrDin != 0
+                            select new
+                            {
+                                OtpBroj = fij.OtpBroj,
+                                OtpDatum = fij.OtpDatum,
+                                PrStanica = fij.PrStanica,
+                                PrUprava = fij.PrUprava,
+                                TlSumaFrDin = fij.TlSumaFrDin,
+                                IBK = SlogKola.Ibk
+                            };
+
+                if (query.Any())
+                {
+                    var dt = new DataTable();
+
+                    dt.Columns.Add("OtpBroj");
+                    dt.Columns.Add("OtpDatum");
+                    dt.Columns.Add("PrStanica");
+                    dt.Columns.Add("PrUprava");
+                    dt.Columns.Add("TlSumaFrDin");
+                    dt.Columns.Add("TlSumaFrDin_pare");
+                    dt.Columns.Add("IBK");
+
+                    DataRow row;
+                    double intPart = 0.00;
+                    int fractionalPart = 0;
+                    Decimal sve = 0;
+                    foreach (var item in query)
+                    {
+                        
+                        row = dt.NewRow();
+                        row["OtpBroj"] = item.OtpBroj;
+                        row["OtpDatum"] = item.OtpDatum.ToString();
+                        row["PrStanica"] = item.PrStanica;
+                        row["PrUprava"] = item.PrUprava;
+
+                        var TlSuma = item.TlSumaFrDin.ToString();
+                        string[] array = TlSuma.Split('.');
+
+                        row["TlSumaFrDin"] = array[0];
+                        row["TlSumaFrDin_pare"] = array[1];
+                        row["IBK"] = item.IBK;
+
+                        intPart += Double.Parse(array[0]);
+                        fractionalPart += Int32.Parse(array[1]); ;
+                        sve += (decimal)item.TlSumaFrDin;
+                        dt.Rows.Add(row);
+                    }
+
+                    int resInt =  fractionalPart / 100;
+                    
+                    
+
+           //     double number;
+
+                    long intPartSum = (long)sve;
+                    double fractionalPartSum = (double)(sve - intPartSum);
+
+
+
+                    Dictionary<string, string> paramtars = new Dictionary<string, string>();
+
+                    paramtars.Add("SumInt", intPartSum.ToString());
+                    paramtars.Add("SumDec", fractionalPartSum.ToString() );
+
+                    var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140m.rdlc";
+                    LocalReport localReport = new LocalReport(path);
+                    localReport.AddDataSource("K140m", dt);
+
+                    result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+                }
             }
             else if (id == "K165m")
             {
@@ -272,10 +360,6 @@ namespace SK_Stanicni_Racuni.Controllers
 
                     result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
                 }
-
-
-
-
             }
             else if (id == "K165trz")
             {
@@ -360,8 +444,15 @@ namespace SK_Stanicni_Racuni.Controllers
 
             }
 
+            if (result  != null)
+            {
+                return File(result.MainStream, "application/pdf");
 
-            return File(result.MainStream, "application/pdf");
+            } else
+            {
+                return  RedirectToAction ("RacuniМedjunarodniSaobracaj", new { id = id} );
+            }
+
 
         }
     }

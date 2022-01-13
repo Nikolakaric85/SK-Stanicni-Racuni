@@ -279,7 +279,19 @@ namespace SK_Stanicni_Racuni.DataSet {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class K140m_TableDataTable : global::System.Data.TypedTableBase<K140m_TableRow> {
             
-            private global::System.Data.DataColumn columnTovarniListBroj;
+            private global::System.Data.DataColumn columnOtpBroj;
+            
+            private global::System.Data.DataColumn columnOtpDatum;
+            
+            private global::System.Data.DataColumn columnPrStanica;
+            
+            private global::System.Data.DataColumn columnPrUprava;
+            
+            private global::System.Data.DataColumn columnTlSumaFrDin;
+            
+            private global::System.Data.DataColumn columnTlSumaFrDin_pare;
+            
+            private global::System.Data.DataColumn columnIBK;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -316,9 +328,57 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TovarniListBrojColumn {
+            public global::System.Data.DataColumn OtpBrojColumn {
                 get {
-                    return this.columnTovarniListBroj;
+                    return this.columnOtpBroj;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn OtpDatumColumn {
+                get {
+                    return this.columnOtpDatum;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PrStanicaColumn {
+                get {
+                    return this.columnPrStanica;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PrUpravaColumn {
+                get {
+                    return this.columnPrUprava;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TlSumaFrDinColumn {
+                get {
+                    return this.columnTlSumaFrDin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TlSumaFrDin_pareColumn {
+                get {
+                    return this.columnTlSumaFrDin_pare;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IBKColumn {
+                get {
+                    return this.columnIBK;
                 }
             }
             
@@ -359,10 +419,16 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K140m_TableRow AddK140m_TableRow(string TovarniListBroj) {
+            public K140m_TableRow AddK140m_TableRow(string OtpBroj, string OtpDatum, string PrStanica, string PrUprava, string TlSumaFrDin, string TlSumaFrDin_pare, string IBK) {
                 K140m_TableRow rowK140m_TableRow = ((K140m_TableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        TovarniListBroj};
+                        OtpBroj,
+                        OtpDatum,
+                        PrStanica,
+                        PrUprava,
+                        TlSumaFrDin,
+                        TlSumaFrDin_pare,
+                        IBK};
                 rowK140m_TableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowK140m_TableRow);
                 return rowK140m_TableRow;
@@ -385,14 +451,32 @@ namespace SK_Stanicni_Racuni.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnTovarniListBroj = base.Columns["TovarniListBroj"];
+                this.columnOtpBroj = base.Columns["OtpBroj"];
+                this.columnOtpDatum = base.Columns["OtpDatum"];
+                this.columnPrStanica = base.Columns["PrStanica"];
+                this.columnPrUprava = base.Columns["PrUprava"];
+                this.columnTlSumaFrDin = base.Columns["TlSumaFrDin"];
+                this.columnTlSumaFrDin_pare = base.Columns["TlSumaFrDin_pare"];
+                this.columnIBK = base.Columns["IBK"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnTovarniListBroj = new global::System.Data.DataColumn("TovarniListBroj", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTovarniListBroj);
+                this.columnOtpBroj = new global::System.Data.DataColumn("OtpBroj", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOtpBroj);
+                this.columnOtpDatum = new global::System.Data.DataColumn("OtpDatum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOtpDatum);
+                this.columnPrStanica = new global::System.Data.DataColumn("PrStanica", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrStanica);
+                this.columnPrUprava = new global::System.Data.DataColumn("PrUprava", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrUprava);
+                this.columnTlSumaFrDin = new global::System.Data.DataColumn("TlSumaFrDin", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTlSumaFrDin);
+                this.columnTlSumaFrDin_pare = new global::System.Data.DataColumn("TlSumaFrDin_pare", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTlSumaFrDin_pare);
+                this.columnIBK = new global::System.Data.DataColumn("IBK", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIBK);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -535,30 +619,198 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string TovarniListBroj {
+            public string OtpBroj {
                 get {
                     try {
-                        return ((string)(this[this.tableK140m_Table.TovarniListBrojColumn]));
+                        return ((string)(this[this.tableK140m_Table.OtpBrojColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TovarniListBroj\' in table \'K140m_Table\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'OtpBroj\' in table \'K140m_Table\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableK140m_Table.TovarniListBrojColumn] = value;
+                    this[this.tableK140m_Table.OtpBrojColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTovarniListBrojNull() {
-                return this.IsNull(this.tableK140m_Table.TovarniListBrojColumn);
+            public string OtpDatum {
+                get {
+                    try {
+                        return ((string)(this[this.tableK140m_Table.OtpDatumColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OtpDatum\' in table \'K140m_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK140m_Table.OtpDatumColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTovarniListBrojNull() {
-                this[this.tableK140m_Table.TovarniListBrojColumn] = global::System.Convert.DBNull;
+            public string PrStanica {
+                get {
+                    try {
+                        return ((string)(this[this.tableK140m_Table.PrStanicaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PrStanica\' in table \'K140m_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK140m_Table.PrStanicaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PrUprava {
+                get {
+                    try {
+                        return ((string)(this[this.tableK140m_Table.PrUpravaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PrUprava\' in table \'K140m_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK140m_Table.PrUpravaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TlSumaFrDin {
+                get {
+                    try {
+                        return ((string)(this[this.tableK140m_Table.TlSumaFrDinColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TlSumaFrDin\' in table \'K140m_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK140m_Table.TlSumaFrDinColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TlSumaFrDin_pare {
+                get {
+                    try {
+                        return ((string)(this[this.tableK140m_Table.TlSumaFrDin_pareColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TlSumaFrDin_pare\' in table \'K140m_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK140m_Table.TlSumaFrDin_pareColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string IBK {
+                get {
+                    try {
+                        return ((string)(this[this.tableK140m_Table.IBKColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IBK\' in table \'K140m_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK140m_Table.IBKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOtpBrojNull() {
+                return this.IsNull(this.tableK140m_Table.OtpBrojColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOtpBrojNull() {
+                this[this.tableK140m_Table.OtpBrojColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOtpDatumNull() {
+                return this.IsNull(this.tableK140m_Table.OtpDatumColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOtpDatumNull() {
+                this[this.tableK140m_Table.OtpDatumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPrStanicaNull() {
+                return this.IsNull(this.tableK140m_Table.PrStanicaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPrStanicaNull() {
+                this[this.tableK140m_Table.PrStanicaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPrUpravaNull() {
+                return this.IsNull(this.tableK140m_Table.PrUpravaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPrUpravaNull() {
+                this[this.tableK140m_Table.PrUpravaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTlSumaFrDinNull() {
+                return this.IsNull(this.tableK140m_Table.TlSumaFrDinColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTlSumaFrDinNull() {
+                this[this.tableK140m_Table.TlSumaFrDinColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTlSumaFrDin_pareNull() {
+                return this.IsNull(this.tableK140m_Table.TlSumaFrDin_pareColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTlSumaFrDin_pareNull() {
+                this[this.tableK140m_Table.TlSumaFrDin_pareColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsIBKNull() {
+                return this.IsNull(this.tableK140m_Table.IBKColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetIBKNull() {
+                this[this.tableK140m_Table.IBKColumn] = global::System.Convert.DBNull;
             }
         }
         
