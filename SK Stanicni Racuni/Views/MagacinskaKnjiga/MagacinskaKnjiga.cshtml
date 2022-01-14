@@ -1,14 +1,15 @@
 ﻿
 
 <div class="container">
-
-    <form asp-page-handler="Print">
+    @*method="post" asp-controller="MagacinskaKnjiga" asp-action="Print"*@
+    @*asp-page-handler="Print"*@
+    <form id="form" asp-page-handler="Print">
 
         <div class="row mt-3">
 
             <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                 <label>Stanica</label>
-                <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanica" />
+                <input class="form-control" list="myDatalist" id="stanica" name="stanica" />
                 <datalist id="myDatalist" open="open">
                 </datalist>
             </div>
@@ -28,9 +29,13 @@
 
             <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
 
-                <button type="submit" class="btn btn-primary align-bottom" asp-controller="MagacinskaKnjiga" asp-action="Print" asp-route-id="@ViewBag.Id" target="_blank">PDF</button>
-                            
-                @*<a  class="btn btn-primary align-bottom" onclick="window.open('@Url.Action("Print", "MagacinskaKnjiga", new { target = "_blank" })')">PDF</a>*@
+                @*<button type="submit" class="btn btn-primary align-bottom" asp-controller="MagacinskaKnjiga" asp-action="Print" asp-route-id="@ViewBag.Id" >PDF</button>*@
+
+                <a class="btn btn-primary align-bottom" asp-controller="MagacinskaKnjiga" asp-action="Print" asp-route-id="@ViewBag.Id" target="_blank" >PDF</a>
+
+                @*<a class="btn btn-primary align-bottom" onclick="datumi('@Url.Action("Print", "MagacinskaKnjiga")', 'K254')"  asp-route-id="@ViewBag.Id"  >PDF</a>*@
+
+                @*onclick="sifarnikOstecenja('@Url.Action("_EditSifarnikOstecenja", "EvidencijaOstecenja", Context.Request.Scheme)','Sifarnik Ostecenja')"*@
 
             </div>
 
@@ -108,8 +113,46 @@
 
             })
 
+            datumi = (id) => {
+                var datumOd = $('#DatumOd').val();
+                var datumDo = $('#DatumDo').val();
+                var stanica = $('#stanica').val();
+
+                console.log("id " + id)
+                console.log('datumOd ' + datumOd)
+                console.log('datumDo ' + datumDo)
+                console.log('stanica ' + stanica)
+
+                $.ajax({
+                    type: "POST",
+                    url: "/MagacinskaKnjiga/Datumi",
+                    data: { "datumOd": datumOd, "datumDo": datumDo, "stanica": stanica  },
+                    cache: false,
+                    success: function (data) {
+
+                    }
+                });
+            }
 
 
+            //$('#btn').click(function () {
+
+            //    var datumOd = $('#DatumOd').val();
+            //    var datumDo = $('#DatumDo').val();
+            //    var stanica = $('#stanica').val();
+            //    console.log('datumOd ' + datumOd)
+            //    console.log('datumDo ' + datumDo)
+            //    console.log('stanica ' + stanica)
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/MagacinskaKnjiga/Datumi",
+            //        data: { "datumOd": datumOd, "datumDo": datumDo, "stanica": stanica },
+            //        cache: false,
+            //        success: function (data) {
+
+            //        }
+            //    });
+            //})
 
 
 

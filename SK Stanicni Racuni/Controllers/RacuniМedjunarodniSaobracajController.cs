@@ -31,7 +31,7 @@ namespace SK_Stanicni_Racuni.Controllers
         }
 
 
-        public IActionResult Print(string id, string stanica, string blagajna, [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd,
+        public IActionResult Print(string id, string stanica, string blagajna, /*[ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd*/
           [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
@@ -65,7 +65,7 @@ namespace SK_Stanicni_Racuni.Controllers
                                new { OtpUprava = SlogKola.OtpUprava, OtpStanica = SlogKola.OtpStanica, OtpBroj = SlogKola.OtpBroj, OtpDatum = SlogKola.OtpDatum, RecID = SlogKola.RecId, Stanica = SlogKola.Stanica }
                             where fij.Saobracaj == "3" &&
                             fij.OtpDatum == DateTime.Parse("2021-12-15 00:00:00")
-                            && fij.TlSumaFrDin != 0
+                            
                             select new
                             {
                                 OtpBroj = fij.OtpBroj,
@@ -122,13 +122,14 @@ namespace SK_Stanicni_Racuni.Controllers
 
                     long intPartSum = (long)sve;
                     double fractionalPartSum = (double)(sve - intPartSum);
-
+                    string[] decimalPart = (fractionalPartSum * 100) .ToString().Split('.');
 
 
                     Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
                     paramtars.Add("SumInt", intPartSum.ToString());
-                    paramtars.Add("SumDec", fractionalPartSum.ToString() );
+                    paramtars.Add("SumDec", decimalPart[0]);
+                    paramtars.Add("SifraStanice", _sifraStanice);
 
                     var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140m.rdlc";
                     LocalReport localReport = new LocalReport(path);
@@ -269,12 +270,12 @@ namespace SK_Stanicni_Racuni.Controllers
                     Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
                     paramtars.Add("Stanica", stanica);
-                    paramtars.Add("SifraStanice", _sifraStanice);
+                 //   paramtars.Add("SifraStanice", _sifraStanice);
                     paramtars.Add("DatumDo", DatumDo.ToString());
 
-                    var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140trz.rdlc";
+                    var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165m.rdlc";
                     LocalReport localReport = new LocalReport(path);
-                    localReport.AddDataSource("K140trz", dt);
+                    localReport.AddDataSource("K165m", dt);
 
                     result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
 

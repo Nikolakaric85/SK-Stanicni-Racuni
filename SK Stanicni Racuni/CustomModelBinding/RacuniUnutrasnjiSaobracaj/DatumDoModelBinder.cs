@@ -16,23 +16,23 @@ namespace SK_Stanicni_Racuni.CustomModelBinding.RacuniUnutrasnjiSaobracaj
                 throw new ArgumentNullException(nameof(bindingContext));
             }
 
-            var data = bindingContext.HttpContext.Request.Form;
-            var resultDatum = data.TryGetValue("datumDo", out var VaziOd);
+            //var data = bindingContext.HttpContext.Request.Form;
+            //var resultDatum = data.TryGetValue("datumDo", out var VaziOd);
 
-            if (resultDatum)
-            {
-                try
-                {
-                    var TestTime = DateTime.ParseExact(VaziOd, "dd.MM.yyyy", CultureInfo.InvariantCulture);
-                    bindingContext.Result = ModelBindingResult.Success(TestTime);
-                }
-                catch (Exception)
-                {
+            //if (resultDatum)
+            //{
+            //    try
+            //    {
+            //        var TestTime = DateTime.ParseExact(VaziOd, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            //        bindingContext.Result = ModelBindingResult.Success(TestTime);
+            //    }
+            //    catch (Exception)
+            //    {
 
 
-                }
+            //    }
 
-            }
+            //}
 
             return Task.CompletedTask;
         }

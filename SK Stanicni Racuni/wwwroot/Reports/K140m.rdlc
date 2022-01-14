@@ -83,6 +83,7 @@
               <Border>
                 <Style>None</Style>
               </Border>
+              <VerticalAlign>Bottom</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -113,6 +114,7 @@
               <Border>
                 <Style>None</Style>
               </Border>
+              <VerticalAlign>Bottom</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -209,7 +211,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
-            <Top>0.17639cm</Top>
+            <Top>0.19939cm</Top>
             <Left>18.59643cm</Left>
             <Height>0.6cm</Height>
             <Width>1.30937cm</Width>
@@ -218,39 +220,6 @@
               <Border>
                 <Style>None</Style>
               </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Stanica">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!Stanica.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Stanica</rd:DefaultName>
-            <Top>0.97578cm</Top>
-            <Left>16.37394cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>5</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BottomBorder>
-                <Style>Solid</Style>
-              </BottomBorder>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -275,8 +244,8 @@
             <Top>1.75217cm</Top>
             <Left>16.37394cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>6</ZIndex>
+            <Width>3.53186cm</Width>
+            <ZIndex>5</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -284,6 +253,7 @@
               <BottomBorder>
                 <Style>Solid</Style>
               </BottomBorder>
+              <VerticalAlign>Bottom</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -312,7 +282,7 @@
             <Left>10.32849cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -345,7 +315,7 @@
             <Left>13.37057cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>7</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -376,7 +346,7 @@
             <Left>12.82849cm</Left>
             <Height>0.6cm</Height>
             <Width>0.54208cm</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>8</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -406,11 +376,12 @@
             <Left>14.43838cm</Left>
             <Height>0.6cm</Height>
             <Width>2.79103cm</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>9</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
+              <VerticalAlign>Bottom</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -436,7 +407,7 @@
             <Left>17.4058cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>10</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -444,6 +415,7 @@
               <BottomBorder>
                 <Style>Solid</Style>
               </BottomBorder>
+              <VerticalAlign>Bottom</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -2064,7 +2036,7 @@
             <Left>0.5cm</Left>
             <Height>3.11438cm</Height>
             <Width>20cm</Width>
-            <ZIndex>12</ZIndex>
+            <ZIndex>11</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2094,7 +2066,7 @@
             <Left>5.65442cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>13</ZIndex>
+            <ZIndex>12</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2113,10 +2085,14 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!SumInt.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>SumInt</rd:DefaultName>
@@ -2124,7 +2100,7 @@
             <Left>8.18969cm</Left>
             <Height>0.6cm</Height>
             <Width>1.58795cm</Width>
-            <ZIndex>14</ZIndex>
+            <ZIndex>13</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2143,7 +2119,10 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!SumDec.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Format>0.00;(0.00)</Format>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -2154,11 +2133,45 @@
             <Left>9.77765cm</Left>
             <Height>0.6cm</Height>
             <Width>0.78902cm</Width>
+            <ZIndex>14</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="SifraStanice">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!SifraStanice.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>SifraStanice</rd:DefaultName>
+            <Top>0.97578cm</Top>
+            <Left>16.37394cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.53186cm</Width>
             <ZIndex>15</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
+              <BottomBorder>
+                <Style>Solid</Style>
+              </BottomBorder>
+              <VerticalAlign>Bottom</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -2337,6 +2350,12 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="SifraStanice">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -2372,6 +2391,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>SumDec</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>SifraStanice</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

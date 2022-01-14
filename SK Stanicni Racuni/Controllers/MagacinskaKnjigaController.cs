@@ -1,12 +1,12 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using SK_Stanicni_Racuni.CustomModelBinding.RacuniUnutrasnjiSaobracaj;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Mime;
 
 namespace SK_Stanicni_Racuni.Controllers
 {
@@ -28,13 +28,31 @@ namespace SK_Stanicni_Racuni.Controllers
             return View();
         }
 
+        public IActionResult Datumi(DateTime datumOd, DateTime datumDo)
+        {
+            TempData["datumOd"] = datumOd;
+            TempData["datumDo"] = datumDo;
+            return RedirectToAction("Print", new { datumOd = datumOd, datumDo = datumDo });
+        }
+
         /***************** PRINT PDF DOKUMENT ******************/
 
-        public IActionResult Print(string id, string stanica, [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd,
-         [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
+        public IActionResult Print(string id, string stanica,
+         //[ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd,
+         //[ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo
+         //DateTime DatumOd, DateTime DatumDo,
+         string datumOd, string datumDo
+         )
         {
-            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
 
+            //var DatumOd = DateTime.Parse(datumOd);
+            //var DatumDo = DateTime.Parse(datumDo);
+            stanica = "SMEDEREVO";
+            var DatumOd = DateTime.Parse("01/01/2022");
+            var DatumDo = DateTime.Parse("14/01/2022");
+
+            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
+            id = "K254";
             if (id == "K117")
             {
                 var query = from kalk in context.SlogKalks
@@ -95,7 +113,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
 
-              //  return File(result.MainStream, "application/pdf");
+                //  return File(result.MainStream, "application/pdf");
             }
             else if (id == "K254")
             {
@@ -148,7 +166,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
                 paramtars.Add("Stanica", sifraStanice);
-                
+
                 paramtars.Add("DatumDo", DatumDo.ToString());
 
                 var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K254.rdlc";
@@ -158,11 +176,20 @@ namespace SK_Stanicni_Racuni.Controllers
                 result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
             }
 
-            return File(result.MainStream, "application/pdf");
 
+            return  File(result.MainStream, "application/pdf");
+            //return RedirectToAction("Ivestaj", new {result =  result });
+            
+
+        }
+
+        public IActionResult Izvestaj(ReportResult result)
+        {
+            return File(result.MainStream, "application/pdf");
         }
 
 
 
     }
 }
+
