@@ -2,7 +2,7 @@
 
 <div class="container">
 
-    <form asp-page-handler="Print">
+    <form asp-page-handler="Print" target="_blank">
 
         <div class="row mt-3">
 
@@ -35,7 +35,7 @@
             </div>
 
             <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
-                <button type="submit" class="btn btn-primary align-bottom" asp-controller="RacuniМedjunarodniSaobracaj" asp-action="Print" asp-route-id="@ViewBag.Id" target="_blank">PDF</button>
+                <button type="submit" class="btn btn-primary align-bottom" asp-controller="RacuniМedjunarodniSaobracaj" asp-action="Print" asp-route-id="@ViewBag.Id">PDF</button>
             </div>
 
 

@@ -969,7 +969,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.07625cm</Height>
+                  <Height>0.6cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1273,7 +1273,7 @@
             <DataSetName>K117</DataSetName>
             <Top>3.2512cm</Top>
             <Left>0.85cm</Left>
-            <Height>3.33458cm</Height>
+            <Height>2.85833cm</Height>
             <Width>28cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
@@ -1366,21 +1366,23 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Textbox Name="TotalPages">
+            <Textbox Name="PageNumber">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
               <Paragraphs>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Globals!TotalPages</Value>
+                      <Value>=Globals!PageNumber</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>TotalPages</rd:DefaultName>
+              <rd:DefaultName>PageNumber</rd:DefaultName>
               <Top>0.61328cm</Top>
               <Left>26.35cm</Left>
               <Height>0.6cm</Height>

@@ -1,6 +1,7 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using SK_Stanicni_Racuni.CustomModelBinding.RacuniUnutrasnjiSaobracaj;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
@@ -28,31 +29,15 @@ namespace SK_Stanicni_Racuni.Controllers
             return View();
         }
 
-        public IActionResult Datumi(DateTime datumOd, DateTime datumDo)
-        {
-            TempData["datumOd"] = datumOd;
-            TempData["datumDo"] = datumDo;
-            return RedirectToAction("Print", new { datumOd = datumOd, datumDo = datumDo });
-        }
+ 
 
         /***************** PRINT PDF DOKUMENT ******************/
 
-        public IActionResult Print(string id, string stanica,
-         //[ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd,
-         //[ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo
-         //DateTime DatumOd, DateTime DatumDo,
-         string datumOd, string datumDo
-         )
+        public IActionResult Print(string id, string stanica, DateTime DatumOd, DateTime DatumDo)
         {
-
-            //var DatumOd = DateTime.Parse(datumOd);
-            //var DatumDo = DateTime.Parse(datumDo);
-            stanica = "SMEDEREVO";
-            var DatumOd = DateTime.Parse("01/01/2022");
-            var DatumDo = DateTime.Parse("14/01/2022");
-
+            
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
-            id = "K254";
+            
             if (id == "K117")
             {
                 var query = from kalk in context.SlogKalks
@@ -102,18 +87,21 @@ namespace SK_Stanicni_Racuni.Controllers
                 int extension = 1;
 
                 Dictionary<string, string> paramtars = new Dictionary<string, string>();
-
-                paramtars.Add("Stanica", sifraStanice);
-                paramtars.Add("DatumOd", DatumOd.ToString());
-                paramtars.Add("DatumDo", DatumDo.ToString());
+                
+               // paramtars.Add("Stanica", sifraStanice);
+              //  paramtars.Add("DatumOd", DatumOd.ToString());
+               // paramtars.Add("DatumDo", DatumDo.ToString());
 
                 var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K117.rdlc";
                 LocalReport localReport = new LocalReport(path);
                 localReport.AddDataSource("K117", dt);
-
+                localReport.AddDataSource("Stanica", sifraStanice);
+                localReport.AddDataSource("DatumOd", DatumOd.ToString());
+                localReport.AddDataSource("DatumDo", DatumDo.ToString());
+                extension = (int)(DateTime.Now.Ticks >> 10);
                 result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
 
-                //  return File(result.MainStream, "application/pdf");
+              
             }
             else if (id == "K254")
             {
@@ -164,31 +152,22 @@ namespace SK_Stanicni_Racuni.Controllers
                 int extension = 1;
 
                 Dictionary<string, string> paramtars = new Dictionary<string, string>();
-
+                
                 paramtars.Add("Stanica", sifraStanice);
-
                 paramtars.Add("DatumDo", DatumDo.ToString());
+                paramtars.Add("DatumOd", DatumOd.ToString());
 
                 var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K254.rdlc";
                 LocalReport localReport = new LocalReport(path);
                 localReport.AddDataSource("K254", dt);
-
+                extension = (int)(DateTime.Now.Ticks >> 10);
                 result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
             }
 
 
             return  File(result.MainStream, "application/pdf");
-            //return RedirectToAction("Ivestaj", new {result =  result });
-            
 
         }
-
-        public IActionResult Izvestaj(ReportResult result)
-        {
-            return File(result.MainStream, "application/pdf");
-        }
-
-
 
     }
 }

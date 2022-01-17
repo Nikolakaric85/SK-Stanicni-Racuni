@@ -32,7 +32,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
 
         public IActionResult Print(string id, string stanica, string blagajna, /*[ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd*/
-          [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
+          DateTime DatumDo)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
             var _sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
@@ -116,10 +116,6 @@ namespace SK_Stanicni_Racuni.Controllers
 
                     int resInt =  fractionalPart / 100;
                     
-                    
-
-           //     double number;
-
                     long intPartSum = (long)sve;
                     double fractionalPartSum = (double)(sve - intPartSum);
                     string[] decimalPart = (fractionalPartSum * 100) .ToString().Split('.');
@@ -134,7 +130,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140m.rdlc";
                     LocalReport localReport = new LocalReport(path);
                     localReport.AddDataSource("K140m", dt);
-
+                    extension = (int)(DateTime.Now.Ticks >> 10);
                     result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
                 }
             }
@@ -270,18 +266,17 @@ namespace SK_Stanicni_Racuni.Controllers
                     Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
                     paramtars.Add("Stanica", stanica);
-                 //   paramtars.Add("SifraStanice", _sifraStanice);
+                    //   paramtars.Add("SifraStanice", _sifraStanice);
+                
                     paramtars.Add("DatumDo", DatumDo.ToString());
 
                     var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165m.rdlc";
                     LocalReport localReport = new LocalReport(path);
                     localReport.AddDataSource("K165m", dt);
-
+                    extension = (int)(DateTime.Now.Ticks >> 10);
                     result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
 
                 }
-
-
 
             }
             else if (id == "K140trz")
@@ -358,7 +353,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140trz.rdlc";
                     LocalReport localReport = new LocalReport(path);
                     localReport.AddDataSource("K140trz", dt);
-
+                    extension = (int)(DateTime.Now.Ticks >> 10);
                     result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
                 }
             }
@@ -439,20 +434,22 @@ namespace SK_Stanicni_Racuni.Controllers
                     var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165trz.rdlc";
                     LocalReport localReport = new LocalReport(path);
                     localReport.AddDataSource("K165trz", dt);
-
+                    extension = (int)(DateTime.Now.Ticks >> 10);
                     result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
                 }
 
             }
 
-            if (result  != null)
-            {
-                return File(result.MainStream, "application/pdf");
+            return File(result.MainStream, "application/pdf");
 
-            } else
-            {
-                return  RedirectToAction ("RacuniМedjunarodniSaobracaj", new { id = id} );
-            }
+            //if (result  != null)
+            //{
+            //    return File(result.MainStream, "application/pdf");
+
+            //} else
+            //{
+            //    return  RedirectToAction ("RacuniМedjunarodniSaobracaj", new { id = id} );
+            //}
 
 
         }
