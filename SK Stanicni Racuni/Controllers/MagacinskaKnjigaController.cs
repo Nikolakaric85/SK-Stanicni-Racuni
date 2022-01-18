@@ -26,6 +26,30 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult MagacinskaKnjiga(string id)
         {
             ViewBag.Id = id;
+
+            bool IsLogin = HttpContext.User.Identity.IsAuthenticated; //  da je ulogovan
+            var UserId = HttpContext.User.Identity.Name; // daje UserId
+
+            var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+
+            if (user != null)
+            {
+                if (user.Stanica.StartsWith("000"))
+                {
+                    ViewBag.Admin = true;
+                }
+                else
+                {
+                    ViewBag.Admin = false;
+                    ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                }
+            } else
+            {
+                return RedirectToAction("Login","Account");
+            }
+
+
+
             return View();
         }
 

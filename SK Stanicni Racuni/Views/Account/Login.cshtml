@@ -1,0 +1,79 @@
+﻿@model UserTab
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Login";
+
+}
+
+
+<div class="mt-5">
+    <div class="container">
+
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-link justify-content-start pl-0" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left"></i> Nazad</a>
+                    </div>
+                </div>
+
+                <h3>Ulogujte se</h3>
+                <br />
+                <p>Dobrodošli! Unesite Vaš ID i lozinku da biste se prijavili na svoj nalog.</p>
+                <br />
+
+                <form>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="UserId">Vaš ID</label>
+                        <input asp-for="UserId" class="form-control" />
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Lozinka" id="nesto">Lozinka</label>
+                        <input asp-for="Lozinka" type="password" class="form-control" />
+                        <span asp-validation-for="Lozinka" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <!--<label asp-for="RememberMe">
+                                        Zapamti me
+                                        <input asp-for="RememberMe" />-->
+                                        @*@Html.DisplayNameFor(m => m.RememberMe)*@
+                                    <!--</label>-->
+                                    <div>
+                                        <button type="submit" asp-controller="Account" asp-action="Log" class="btn btn-primary">Uloguj se</button>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+
+            
+
+            </div>
+
+         
+        </div>
+
+    </div>
+
+
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+     
+
+    </script>
+}

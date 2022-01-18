@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SK_Stanicni_Racuni.Controllers
@@ -20,6 +22,10 @@ namespace SK_Stanicni_Racuni.Controllers
 
         public IActionResult Index()
         {
+
+            bool val1 = HttpContext.User.Identity.IsAuthenticated; //  da je ulogovan
+            var UserId = HttpContext.User.Identity.Name; // daje UserId
+
             return View();
         }
 
