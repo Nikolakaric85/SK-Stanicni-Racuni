@@ -120,5 +120,9 @@ namespace SK_Stanicni_Racuni.Models
         public string CarAgent { get; set; }
         public string CarXml { get; set; }
         public string Server { get; set; }
+        public DateTime? K165a_datum { get; set; }
+        public char K165a { get; set; }
+
+        public decimal K165a_iznos { get; set; }
     }
 }

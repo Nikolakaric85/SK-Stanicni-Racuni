@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="K165a" targetNamespace="http://tempuri.org/K165a.xsd" xmlns:mstns="http://tempuri.org/K165a.xsd" xmlns="http://tempuri.org/K165a.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="K165a" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="K165a" msprop:Generator_UserDSName="K165a">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="K165a_Table" msprop:Generator_TableClassName="K165a_TableDataTable" msprop:Generator_TableVarName="tableK165a_Table" msprop:Generator_RowChangedName="K165a_TableRowChanged" msprop:Generator_TablePropName="K165a_Table" msprop:Generator_RowDeletingName="K165a_TableRowDeleting" msprop:Generator_RowChangingName="K165a_TableRowChanging" msprop:Generator_RowEvHandlerName="K165a_TableRowChangeEventHandler" msprop:Generator_RowDeletedName="K165a_TableRowDeleted" msprop:Generator_RowClassName="K165a_TableRow" msprop:Generator_UserTableName="K165a_Table" msprop:Generator_RowEvArgName="K165a_TableRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PrBroj" msprop:Generator_ColumnVarNameInTable="columnPrBroj" msprop:Generator_ColumnPropNameInRow="PrBroj" msprop:Generator_ColumnPropNameInTable="PrBrojColumn" msprop:Generator_UserColumnName="PrBroj" type="xs:string" minOccurs="0" />
+              <xs:element name="UnutrasnjiIznos" msprop:Generator_ColumnVarNameInTable="columnUnutrasnjiIznos" msprop:Generator_ColumnPropNameInRow="UnutrasnjiIznos" msprop:Generator_ColumnPropNameInTable="UnutrasnjiIznosColumn" msprop:Generator_UserColumnName="UnutrasnjiIznos" type="xs:string" minOccurs="0" />
+              <xs:element name="UnutrasnjiIznos_pare" msprop:Generator_ColumnVarNameInTable="columnUnutrasnjiIznos_pare" msprop:Generator_ColumnPropNameInRow="UnutrasnjiIznos_pare" msprop:Generator_ColumnPropNameInTable="UnutrasnjiIznos_pareColumn" msprop:Generator_UserColumnName="UnutrasnjiIznos_pare" type="xs:string" minOccurs="0" />
+              <xs:element name="MedjunarodniIznos" msprop:Generator_ColumnVarNameInTable="columnMedjunarodniIznos" msprop:Generator_ColumnPropNameInRow="MedjunarodniIznos" msprop:Generator_ColumnPropNameInTable="MedjunarodniIznosColumn" msprop:Generator_UserColumnName="MedjunarodniIznos" type="xs:string" minOccurs="0" />
+              <xs:element name="MedjunarodniIznos_pare" msprop:Generator_ColumnVarNameInTable="columnMedjunarodniIznos_pare" msprop:Generator_ColumnPropNameInRow="MedjunarodniIznos_pare" msprop:Generator_ColumnPropNameInTable="MedjunarodniIznos_pareColumn" msprop:Generator_UserColumnName="MedjunarodniIznos_pare" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

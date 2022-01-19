@@ -15,7 +15,7 @@ namespace SK_Stanicni_Racuni.Controllers
     {
         private readonly AppDbContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private ReportResult result; // za pdf izvestaj
+        // private ReportResult TopResult; // za pdf izvestaj
 
         public MagacinskaKnjigaController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
@@ -23,11 +23,17 @@ namespace SK_Stanicni_Racuni.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        public ActionResult ListaStanica()
+        {
+            var stanice = context.ZsStanices.Select(x => x.Naziv);
+            return Json(stanice);
+        }
+
         public IActionResult MagacinskaKnjiga(string id)
         {
             ViewBag.Id = id;
 
-            bool IsLogin = HttpContext.User.Identity.IsAuthenticated; //  da je ulogovan
+          
             var UserId = HttpContext.User.Identity.Name; // daje UserId
 
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
@@ -47,8 +53,6 @@ namespace SK_Stanicni_Racuni.Controllers
             {
                 return RedirectToAction("Login","Account");
             }
-
-
 
             return View();
         }
@@ -122,10 +126,12 @@ namespace SK_Stanicni_Racuni.Controllers
                 localReport.AddDataSource("Stanica", sifraStanice);
                 localReport.AddDataSource("DatumOd", DatumOd.ToString());
                 localReport.AddDataSource("DatumDo", DatumDo.ToString());
-                extension = (int)(DateTime.Now.Ticks >> 10);
-                result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+                Random random = new Random();
+                extension = random.Next();
+               ReportResult result = localReport.Execute(RenderType.Pdf, 1, paramtars, mimtype);
+                return File(result.MainStream, "application/pdf");
 
-              
+
             }
             else if (id == "K254")
             {
@@ -177,19 +183,24 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 Dictionary<string, string> paramtars = new Dictionary<string, string>();
                 
-                paramtars.Add("Stanica", sifraStanice);
-                paramtars.Add("DatumDo", DatumDo.ToString());
-                paramtars.Add("DatumOd", DatumOd.ToString());
+                //paramtars.Add("Stanica", sifraStanice);
+                //paramtars.Add("DatumDo", DatumDo.ToString());
+                //paramtars.Add("DatumOd", DatumOd.ToString());
 
                 var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K254.rdlc";
                 LocalReport localReport = new LocalReport(path);
                 localReport.AddDataSource("K254", dt);
-                extension = (int)(DateTime.Now.Ticks >> 10);
-                result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+                localReport.AddDataSource("Stanica", sifraStanice);
+                localReport.AddDataSource("DatumOd", DatumOd.ToString());
+                localReport.AddDataSource("DatumDo", DatumDo.ToString());
+                Random random = new Random();
+                extension = random.Next();
+                ReportResult  result = localReport.Execute(RenderType.Pdf, 2, paramtars, mimtype);
+                return File(result.MainStream, "application/pdf");
             }
 
 
-            return  File(result.MainStream, "application/pdf");
+            return View();
 
         }
 

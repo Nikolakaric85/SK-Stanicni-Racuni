@@ -27,14 +27,35 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult RacuniМedjunarodniSaobracaj(string id)
         {
             ViewBag.Id = id;
+
+            var UserId = HttpContext.User.Identity.Name;
+            var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+
+            if (user != null)
+            {
+                if (user.Stanica.StartsWith("000"))
+                {
+                    ViewBag.Admin = true;
+                }
+                else
+                {
+                    ViewBag.Admin = false;
+                    ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
             return View();
         }
 
 
-        public IActionResult Print(string id, string stanica, string blagajna, /*[ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd*/
-          DateTime DatumDo)
+        public IActionResult Print(string id, string stanica, string blagajna,  DateTime DatumOd, DateTime DatumDo)
         {
-            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
+            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
             var _sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
             string mimtype = "";
             int extension = 1;
@@ -49,13 +70,13 @@ namespace SK_Stanicni_Racuni.Controllers
                                     OtpBroj = SlogKalk.OtpBroj,
                                     OtpDatum = SlogKalk.OtpDatum,
                                     PrStanica = SlogKalk.PrStanica,
-                                    PrUprava = SlogKalk.PrUprava,
                                     TlSumaFrDin = SlogKalk.TlSumaFrDin,
                                     OtpUprava = SlogKalk.OtpUprava,
                                     OtpStanica = SlogKalk.OtpStanica,
                                     RecID = SlogKalk.RecId,
                                     Stanica = SlogKalk.Stanica,
-                                    Saobracaj = SlogKalk.Saobracaj
+                                    Saobracaj = SlogKalk.Saobracaj,
+                                    OtpRbb = SlogKalk.OtpRbb
 
                                 };
 
@@ -64,14 +85,15 @@ namespace SK_Stanicni_Racuni.Controllers
                             on new { OtpUprava = fij.OtpUprava, OtpStanica = fij.OtpStanica, OtpBroj = fij.OtpBroj, OtpDatum = fij.OtpDatum, RecID = fij.RecID, Stanica = fij.Stanica } equals
                                new { OtpUprava = SlogKola.OtpUprava, OtpStanica = SlogKola.OtpStanica, OtpBroj = SlogKola.OtpBroj, OtpDatum = SlogKola.OtpDatum, RecID = SlogKola.RecId, Stanica = SlogKola.Stanica }
                             where fij.Saobracaj == "3" &&
-                            fij.OtpDatum == DateTime.Parse("2021-12-15 00:00:00")
-                            
+                            fij.OtpRbb == Int32.Parse(blagajna) &&
+                            fij.OtpDatum >= DatumOd && fij.OtpDatum <= DatumDo &&
+                            fij.Stanica == _sifraStanice
+
                             select new
                             {
                                 OtpBroj = fij.OtpBroj,
                                 OtpDatum = fij.OtpDatum,
                                 PrStanica = fij.PrStanica,
-                                PrUprava = fij.PrUprava,
                                 TlSumaFrDin = fij.TlSumaFrDin,
                                 IBK = SlogKola.Ibk
                             };
@@ -99,7 +121,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         row["OtpBroj"] = item.OtpBroj;
                         row["OtpDatum"] = item.OtpDatum.ToString();
                         row["PrStanica"] = item.PrStanica;
-                        row["PrUprava"] = item.PrUprava;
+                        row["PrUprava"] = item.PrStanica.Substring(0,2);
 
                         var TlSuma = item.TlSumaFrDin.ToString();
                         string[] array = TlSuma.Split('.');
@@ -136,7 +158,6 @@ namespace SK_Stanicni_Racuni.Controllers
             }
             else if (id == "K165m")
             {
-
                 var LeftOuterJoin = from ZsPrelazi in context.ZsPrelazis
                                     join SlogKalk in context.SlogKalks
                                     on ZsPrelazi.SifraPrelaza equals SlogKalk.ZsIzPrelaz into gruping
@@ -159,7 +180,8 @@ namespace SK_Stanicni_Racuni.Controllers
                                         Stanica = LeftGroup.Stanica,
                                         SifraTarife = LeftGroup.SifraTarife,
                                         Naziv = ZsPrelazi.Naziv,
-                                        ZsSifraPrelaza = ZsPrelazi.SifraPrelaza
+                                        ZsSifraPrelaza = ZsPrelazi.SifraPrelaza,
+                                        PrDatum = LeftGroup.PrDatum
                                     };
 
                 var RightOuterJoin = from SlogKalk in context.SlogKalks
@@ -184,7 +206,8 @@ namespace SK_Stanicni_Racuni.Controllers
                                          Stanica = SlogKalk.Stanica,
                                          SifraTarife = SlogKalk.SifraTarife,
                                          Naziv = RightGroup.Naziv,
-                                         ZsSifraPrelaza = RightGroup.SifraPrelaza
+                                         ZsSifraPrelaza = RightGroup.SifraPrelaza,
+                                         PrDatum = SlogKalk.PrDatum
 
                                      };
 
@@ -211,16 +234,16 @@ namespace SK_Stanicni_Racuni.Controllers
                                          Stanica = foj.Stanica,
                                          SifraTarife = foj.SifraTarife,
                                          Naziv = foj.Naziv,
-                                         ZsSifraPrelaza = foj.ZsSifraPrelaza
+                                         ZsSifraPrelaza = foj.ZsSifraPrelaza,
+                                         PrDatum = foj.PrDatum
                                      };
 
                 var final = from fij in firstInnerJoin
                             join ZsTarifa in context.ZsTarifas
                             on fij.SifraTarife equals ZsTarifa.SifraTarife
-                            where fij.Saobracaj == "3" &&
-                            ZsTarifa.SifraVs == 3 &&
-                            fij.ZsIzPrelaz == "23499" &&
-                            fij.DatumIzlaza == DateTime.Parse("2022-01-02 00:00:00")
+                            where fij.Saobracaj == "2" &&
+                            fij.PrStanica == sifraStanice &&
+                            fij.PrDatum >= DatumOd && fij.PrDatum <= DatumDo
                             select fij;
 
 
@@ -247,19 +270,19 @@ namespace SK_Stanicni_Racuni.Controllers
                     foreach (var item in final)
                     {
                         row = dt.NewRow();
-                        //row["UlaznaEtiketa"] = item.UlEtiketa;
-                        //row["OtpUprava"] = item.OtpUprava;
-                        //row["OtpStanica"] = item.OtpStanica;
-                        //row["OtpBroj"] = item.OtpBroj;
-                        //row["OtpDatum"] = item.OtpDatum.ToString();
-                        //row["PrUprava"] = item.PrUprava;
-                        //row["PrStanica"] = item.PrStanica;
-                        //row["RbKola"] = item.KolaStavka;
-                        //row["IBK"] = item.IBK;
-                        //row["TrasaVoza"] = item.BrojVoza;
-                        //row["SatVoza"] = item.SatVoza.Trim();
-                        //row["TarifaUgovor"] = item.Ugovor;
-                        //row["IzlazniPrelaz"] = item.ZsIzPrelaz;
+                        row["UlaznaEtiketa"] = item.UlEtiketa;
+                        row["OtpUprava"] = item.OtpUprava;
+                        row["OtpStanica"] = item.OtpStanica;
+                        row["OtpBroj"] = item.OtpBroj;
+                        row["OtpDatum"] = item.OtpDatum.ToString();
+                        row["PrUprava"] = item.PrUprava;
+                        row["PrStanica"] = item.PrStanica;
+                        row["RbKola"] = item.KolaStavka;
+                        row["IBK"] = item.IBK;
+                        row["TrasaVoza"] = item.BrojVoza;
+                        row["SatVoza"] = item.SatVoza.Trim();
+                        row["TarifaUgovor"] = item.Ugovor;
+                        row["IzlazniPrelaz"] = item.ZsIzPrelaz;
                         dt.Rows.Add(row);
                     }
 
@@ -440,16 +463,17 @@ namespace SK_Stanicni_Racuni.Controllers
 
             }
 
-            return File(result.MainStream, "application/pdf");
+            // return File(result.MainStream, "application/pdf");
 
-            //if (result  != null)
-            //{
-            //    return File(result.MainStream, "application/pdf");
+            if (result != null)
+            {
+                return File(result.MainStream, "application/pdf");
 
-            //} else
-            //{
-            //    return  RedirectToAction ("RacuniМedjunarodniSaobracaj", new { id = id} );
-            //}
+            }
+            else
+            {
+                return RedirectToAction("RacuniМedjunarodniSaobracaj", new { id = id });
+            }
 
 
         }
