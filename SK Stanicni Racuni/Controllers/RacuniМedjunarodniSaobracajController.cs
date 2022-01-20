@@ -136,7 +136,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         dt.Rows.Add(row);
                     }
 
-                    int resInt =  fractionalPart / 100;
+                   // int resInt =  fractionalPart / 100;
                     
                     long intPartSum = (long)sve;
                     double fractionalPartSum = (double)(sve - intPartSum);
@@ -181,7 +181,9 @@ namespace SK_Stanicni_Racuni.Controllers
                                         SifraTarife = LeftGroup.SifraTarife,
                                         Naziv = ZsPrelazi.Naziv,
                                         ZsSifraPrelaza = ZsPrelazi.SifraPrelaza,
-                                        PrDatum = LeftGroup.PrDatum
+                                        PrDatum = LeftGroup.PrDatum,
+                                        PrBroj = LeftGroup.PrBroj,
+                                        TlSumaUpDin = LeftGroup.TlSumaUpDin
                                     };
 
                 var RightOuterJoin = from SlogKalk in context.SlogKalks
@@ -207,7 +209,9 @@ namespace SK_Stanicni_Racuni.Controllers
                                          SifraTarife = SlogKalk.SifraTarife,
                                          Naziv = RightGroup.Naziv,
                                          ZsSifraPrelaza = RightGroup.SifraPrelaza,
-                                         PrDatum = SlogKalk.PrDatum
+                                         PrDatum = SlogKalk.PrDatum,
+                                         PrBroj = SlogKalk.PrBroj,
+                                         TlSumaUpDin = SlogKalk.TlSumaUpDin
 
                                      };
 
@@ -215,7 +219,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 var firstInnerJoin = from foj in fullOuterJoin
                                      join SKo in context.SlogKolas on new { OtpUprava = foj.OtpUprava, OtpStanica = foj.OtpStanica, OtpBroj = (int?)foj.OtpBroj, OtpDatum = (DateTime?)foj.OtpDatum, Stanica = foj.Stanica, RecID = (int?)foj.RecID } equals
-                                                                 new { OtpUprava = SKo.OtpUprava, OtpStanica = SKo.OtpStanica, OtpBroj = (int?)SKo.OtpBroj, OtpDatum = (DateTime?)SKo.OtpDatum, Stanica = SKo.Stanica, RecID = (int?)SKo.RecId }
+                                                                      new { OtpUprava = SKo.OtpUprava, OtpStanica = SKo.OtpStanica, OtpBroj = (int?)SKo.OtpBroj, OtpDatum = (DateTime?)SKo.OtpDatum, Stanica = SKo.Stanica, RecID = (int?)SKo.RecId }
                                      select new
                                      {
                                          OtpStanica = foj.OtpStanica,
@@ -235,7 +239,11 @@ namespace SK_Stanicni_Racuni.Controllers
                                          SifraTarife = foj.SifraTarife,
                                          Naziv = foj.Naziv,
                                          ZsSifraPrelaza = foj.ZsSifraPrelaza,
-                                         PrDatum = foj.PrDatum
+                                         PrDatum = foj.PrDatum,
+                                         PrBroj = foj.PrBroj,
+                                         TlSumaUpDin = foj.TlSumaUpDin,
+                                         
+
                                      };
 
                 var final = from fij in firstInnerJoin
@@ -251,38 +259,36 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     var dt = new DataTable();
 
-                    dt.Columns.Add("UlaznaEtiketa");
-                    dt.Columns.Add("OtpUprava");
+                    dt.Columns.Add("PrBroj");
                     dt.Columns.Add("OtpStanica");
+                    dt.Columns.Add("NazivStanice");
+                    dt.Columns.Add("ŠifraStanice");
                     dt.Columns.Add("OtpBroj");
                     dt.Columns.Add("OtpDatum");
-                    dt.Columns.Add("PrUprava");
-                    dt.Columns.Add("PrStanica");
-                    dt.Columns.Add("RbKola");
-                    dt.Columns.Add("IBK");
-                    dt.Columns.Add("TrasaVoza");
-                    dt.Columns.Add("SatVoza");
-                    dt.Columns.Add("TarifaUgovor");
-                    dt.Columns.Add("IzlazniPrelaz");
+                    dt.Columns.Add("TlSumaUpDin");
+                    dt.Columns.Add("TlSumaUpDin_pare");
 
                     DataRow row;
 
                     foreach (var item in final)
                     {
                         row = dt.NewRow();
-                        row["UlaznaEtiketa"] = item.UlEtiketa;
-                        row["OtpUprava"] = item.OtpUprava;
-                        row["OtpStanica"] = item.OtpStanica;
+                        row["PrBroj"] = item.PrBroj;
+                        row["OtpStanica"] = item.OtpStanica.Substring(0,2);
+
+                        var nazivStanice = context.ZsStanices.Where(x => x.SifraStanice == item.OtpStanica).FirstOrDefault();
+                        _ = nazivStanice != null ? row["NazivStanice"] = nazivStanice.Naziv : row["NazivStanice"] = string.Empty;
+
+                        row["ŠifraStanice"] = item.OtpStanica.Substring(2, 5);
                         row["OtpBroj"] = item.OtpBroj;
                         row["OtpDatum"] = item.OtpDatum.ToString();
-                        row["PrUprava"] = item.PrUprava;
-                        row["PrStanica"] = item.PrStanica;
-                        row["RbKola"] = item.KolaStavka;
-                        row["IBK"] = item.IBK;
-                        row["TrasaVoza"] = item.BrojVoza;
-                        row["SatVoza"] = item.SatVoza.Trim();
-                        row["TarifaUgovor"] = item.Ugovor;
-                        row["IzlazniPrelaz"] = item.ZsIzPrelaz;
+
+                        string res = item.TlSumaUpDin.ToString();
+                        string[] array = res.Split('.');
+
+                        row["TlSumaUpDin"] = array[0];
+                        row["TlSumaUpDin_pare"] = array[1];
+
                         dt.Rows.Add(row);
                     }
 

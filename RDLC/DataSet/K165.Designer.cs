@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace SK_Stanicni_Racuni.DataSet {
+namespace RDLC.DataSet {
     
     
     /// <summary>
@@ -20,17 +20,17 @@ namespace SK_Stanicni_Racuni.DataSet {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("K140")]
+    [global::System.Xml.Serialization.XmlRootAttribute("K165")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class K140 : global::System.Data.DataSet {
+    public partial class K165 : global::System.Data.DataSet {
         
-        private K140DataTable tableK140;
+        private K165_TableDataTable tableK165_Table;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public K140() {
+        public K165() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace SK_Stanicni_Racuni.DataSet {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected K140(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected K165(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace SK_Stanicni_Racuni.DataSet {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["K140"] != null)) {
-                    base.Tables.Add(new K140DataTable(ds.Tables["K140"]));
+                if ((ds.Tables["K165_Table"] != null)) {
+                    base.Tables.Add(new K165_TableDataTable(ds.Tables["K165_Table"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace SK_Stanicni_Racuni.DataSet {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public K140DataTable _K140 {
+        public K165_TableDataTable K165_Table {
             get {
-                return this.tableK140;
+                return this.tableK165_Table;
             }
         }
         
@@ -127,7 +127,7 @@ namespace SK_Stanicni_Racuni.DataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            K140 cln = ((K140)(base.Clone()));
+            K165 cln = ((K165)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace SK_Stanicni_Racuni.DataSet {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["K140"] != null)) {
-                    base.Tables.Add(new K140DataTable(ds.Tables["K140"]));
+                if ((ds.Tables["K165_Table"] != null)) {
+                    base.Tables.Add(new K165_TableDataTable(ds.Tables["K165_Table"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace SK_Stanicni_Racuni.DataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableK140 = ((K140DataTable)(base.Tables["K140"]));
+            this.tableK165_Table = ((K165_TableDataTable)(base.Tables["K165_Table"]));
             if ((initTable == true)) {
-                if ((this.tableK140 != null)) {
-                    this.tableK140.InitVars();
+                if ((this.tableK165_Table != null)) {
+                    this.tableK165_Table.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace SK_Stanicni_Racuni.DataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "K140";
+            this.DataSetName = "K165";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/K140.xsd";
+            this.Namespace = "http://tempuri.org/K165.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableK140 = new K140DataTable();
-            base.Tables.Add(this.tableK140);
+            this.tableK165_Table = new K165_TableDataTable();
+            base.Tables.Add(this.tableK165_Table);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerialize_K140() {
+        private bool ShouldSerializeK165_Table() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace SK_Stanicni_Racuni.DataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            K140 ds = new K140();
+            K165 ds = new K165();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,47 +270,39 @@ namespace SK_Stanicni_Racuni.DataSet {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void K140RowChangeEventHandler(object sender, K140RowChangeEvent e);
+        public delegate void K165_TableRowChangeEventHandler(object sender, K165_TableRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class K140DataTable : global::System.Data.TypedTableBase<K140Row> {
+        public partial class K165_TableDataTable : global::System.Data.TypedTableBase<K165_TableRow> {
+            
+            private global::System.Data.DataColumn columnPrBroj;
             
             private global::System.Data.DataColumn columnOtpBroj;
             
-            private global::System.Data.DataColumn columnOtpStanica;
-            
-            private global::System.Data.DataColumn columnOtpRbb;
-            
-            private global::System.Data.DataColumn columnNaziv;
-            
-            private global::System.Data.DataColumn columntlSumaFrDin;
-            
-            private global::System.Data.DataColumn columntlSumaFrDin_pare;
-            
-            private global::System.Data.DataColumn columnPDV1;
-            
-            private global::System.Data.DataColumn columnPDV1_pare;
-            
-            private global::System.Data.DataColumn columnVrstaObracuna;
-            
-            private global::System.Data.DataColumn columnSaobracaj;
-            
-            private global::System.Data.DataColumn columnDatum;
+            private global::System.Data.DataColumn columnOtpDatum;
             
             private global::System.Data.DataColumn columnOtpStNaziv;
+            
+            private global::System.Data.DataColumn columntlSumaUpDin;
+            
+            private global::System.Data.DataColumn columntlSumaUpDin_pare;
             
             private global::System.Data.DataColumn columnPoreskaOsnovica;
             
             private global::System.Data.DataColumn columnPoreskaOsnovica_pare;
             
+            private global::System.Data.DataColumn columnPDV2;
+            
+            private global::System.Data.DataColumn columnPDV2_pare;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K140DataTable() {
-                this.TableName = "K140";
+            public K165_TableDataTable() {
+                this.TableName = "K165_Table";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -318,7 +310,7 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal K140DataTable(global::System.Data.DataTable table) {
+            internal K165_TableDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -335,9 +327,17 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected K140DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected K165_TableDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PrBrojColumn {
+                get {
+                    return this.columnPrBroj;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -350,81 +350,9 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn OtpStanicaColumn {
+            public global::System.Data.DataColumn OtpDatumColumn {
                 get {
-                    return this.columnOtpStanica;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn OtpRbbColumn {
-                get {
-                    return this.columnOtpRbb;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn NazivColumn {
-                get {
-                    return this.columnNaziv;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn tlSumaFrDinColumn {
-                get {
-                    return this.columntlSumaFrDin;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn tlSumaFrDin_pareColumn {
-                get {
-                    return this.columntlSumaFrDin_pare;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PDV1Column {
-                get {
-                    return this.columnPDV1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PDV1_pareColumn {
-                get {
-                    return this.columnPDV1_pare;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn VrstaObracunaColumn {
-                get {
-                    return this.columnVrstaObracuna;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn SaobracajColumn {
-                get {
-                    return this.columnSaobracaj;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DatumColumn {
-                get {
-                    return this.columnDatum;
+                    return this.columnOtpDatum;
                 }
             }
             
@@ -433,6 +361,22 @@ namespace SK_Stanicni_Racuni.DataSet {
             public global::System.Data.DataColumn OtpStNazivColumn {
                 get {
                     return this.columnOtpStNaziv;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn tlSumaUpDinColumn {
+                get {
+                    return this.columntlSumaUpDin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn tlSumaUpDin_pareColumn {
+                get {
+                    return this.columntlSumaUpDin_pare;
                 }
             }
             
@@ -454,6 +398,22 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PDV2Column {
+                get {
+                    return this.columnPDV2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PDV2_pareColumn {
+                get {
+                    return this.columnPDV2_pare;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -463,58 +423,54 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K140Row this[int index] {
+            public K165_TableRow this[int index] {
                 get {
-                    return ((K140Row)(this.Rows[index]));
+                    return ((K165_TableRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event K140RowChangeEventHandler K140RowChanging;
+            public event K165_TableRowChangeEventHandler K165_TableRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event K140RowChangeEventHandler K140RowChanged;
+            public event K165_TableRowChangeEventHandler K165_TableRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event K140RowChangeEventHandler K140RowDeleting;
+            public event K165_TableRowChangeEventHandler K165_TableRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event K140RowChangeEventHandler K140RowDeleted;
+            public event K165_TableRowChangeEventHandler K165_TableRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddK140Row(K140Row row) {
+            public void AddK165_TableRow(K165_TableRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K140Row AddK140Row(string OtpBroj, string OtpStanica, string OtpRbb, string Naziv, string tlSumaFrDin, string tlSumaFrDin_pare, string PDV1, string PDV1_pare, string VrstaObracuna, string Saobracaj, string Datum, string OtpStNaziv, string PoreskaOsnovica, string PoreskaOsnovica_pare) {
-                K140Row rowK140Row = ((K140Row)(this.NewRow()));
+            public K165_TableRow AddK165_TableRow(string PrBroj, string OtpBroj, string OtpDatum, string OtpStNaziv, string tlSumaUpDin, string tlSumaUpDin_pare, string PoreskaOsnovica, string PoreskaOsnovica_pare, string PDV2, string PDV2_pare) {
+                K165_TableRow rowK165_TableRow = ((K165_TableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        PrBroj,
                         OtpBroj,
-                        OtpStanica,
-                        OtpRbb,
-                        Naziv,
-                        tlSumaFrDin,
-                        tlSumaFrDin_pare,
-                        PDV1,
-                        PDV1_pare,
-                        VrstaObracuna,
-                        Saobracaj,
-                        Datum,
+                        OtpDatum,
                         OtpStNaziv,
+                        tlSumaUpDin,
+                        tlSumaUpDin_pare,
                         PoreskaOsnovica,
-                        PoreskaOsnovica_pare};
-                rowK140Row.ItemArray = columnValuesArray;
-                this.Rows.Add(rowK140Row);
-                return rowK140Row;
+                        PoreskaOsnovica_pare,
+                        PDV2,
+                        PDV2_pare};
+                rowK165_TableRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowK165_TableRow);
+                return rowK165_TableRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                K140DataTable cln = ((K140DataTable)(base.Clone()));
+                K165_TableDataTable cln = ((K165_TableDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -522,87 +478,73 @@ namespace SK_Stanicni_Racuni.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new K140DataTable();
+                return new K165_TableDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
+                this.columnPrBroj = base.Columns["PrBroj"];
                 this.columnOtpBroj = base.Columns["OtpBroj"];
-                this.columnOtpStanica = base.Columns["OtpStanica"];
-                this.columnOtpRbb = base.Columns["OtpRbb"];
-                this.columnNaziv = base.Columns["Naziv"];
-                this.columntlSumaFrDin = base.Columns["tlSumaFrDin"];
-                this.columntlSumaFrDin_pare = base.Columns["tlSumaFrDin_pare"];
-                this.columnPDV1 = base.Columns["PDV1"];
-                this.columnPDV1_pare = base.Columns["PDV1_pare"];
-                this.columnVrstaObracuna = base.Columns["VrstaObracuna"];
-                this.columnSaobracaj = base.Columns["Saobracaj"];
-                this.columnDatum = base.Columns["Datum"];
+                this.columnOtpDatum = base.Columns["OtpDatum"];
                 this.columnOtpStNaziv = base.Columns["OtpStNaziv"];
+                this.columntlSumaUpDin = base.Columns["tlSumaUpDin"];
+                this.columntlSumaUpDin_pare = base.Columns["tlSumaUpDin_pare"];
                 this.columnPoreskaOsnovica = base.Columns["PoreskaOsnovica"];
                 this.columnPoreskaOsnovica_pare = base.Columns["PoreskaOsnovica_pare"];
+                this.columnPDV2 = base.Columns["PDV2"];
+                this.columnPDV2_pare = base.Columns["PDV2_pare"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
+                this.columnPrBroj = new global::System.Data.DataColumn("PrBroj", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrBroj);
                 this.columnOtpBroj = new global::System.Data.DataColumn("OtpBroj", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOtpBroj);
-                this.columnOtpStanica = new global::System.Data.DataColumn("OtpStanica", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOtpStanica);
-                this.columnOtpRbb = new global::System.Data.DataColumn("OtpRbb", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOtpRbb);
-                this.columnNaziv = new global::System.Data.DataColumn("Naziv", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNaziv);
-                this.columntlSumaFrDin = new global::System.Data.DataColumn("tlSumaFrDin", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columntlSumaFrDin);
-                this.columntlSumaFrDin_pare = new global::System.Data.DataColumn("tlSumaFrDin_pare", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columntlSumaFrDin_pare);
-                this.columnPDV1 = new global::System.Data.DataColumn("PDV1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPDV1);
-                this.columnPDV1_pare = new global::System.Data.DataColumn("PDV1_pare", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPDV1_pare);
-                this.columnVrstaObracuna = new global::System.Data.DataColumn("VrstaObracuna", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnVrstaObracuna);
-                this.columnSaobracaj = new global::System.Data.DataColumn("Saobracaj", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSaobracaj);
-                this.columnDatum = new global::System.Data.DataColumn("Datum", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDatum);
+                this.columnOtpDatum = new global::System.Data.DataColumn("OtpDatum", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOtpDatum);
                 this.columnOtpStNaziv = new global::System.Data.DataColumn("OtpStNaziv", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOtpStNaziv);
+                this.columntlSumaUpDin = new global::System.Data.DataColumn("tlSumaUpDin", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntlSumaUpDin);
+                this.columntlSumaUpDin_pare = new global::System.Data.DataColumn("tlSumaUpDin_pare", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntlSumaUpDin_pare);
                 this.columnPoreskaOsnovica = new global::System.Data.DataColumn("PoreskaOsnovica", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPoreskaOsnovica);
                 this.columnPoreskaOsnovica_pare = new global::System.Data.DataColumn("PoreskaOsnovica_pare", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPoreskaOsnovica_pare);
-                this.ExtendedProperties.Add("Generator_TablePropName", "_K140");
-                this.ExtendedProperties.Add("Generator_UserTableName", "K140");
+                this.columnPDV2 = new global::System.Data.DataColumn("PDV2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPDV2);
+                this.columnPDV2_pare = new global::System.Data.DataColumn("PDV2_pare", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPDV2_pare);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K140Row NewK140Row() {
-                return ((K140Row)(this.NewRow()));
+            public K165_TableRow NewK165_TableRow() {
+                return ((K165_TableRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new K140Row(builder);
+                return new K165_TableRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(K140Row);
+                return typeof(K165_TableRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.K140RowChanged != null)) {
-                    this.K140RowChanged(this, new K140RowChangeEvent(((K140Row)(e.Row)), e.Action));
+                if ((this.K165_TableRowChanged != null)) {
+                    this.K165_TableRowChanged(this, new K165_TableRowChangeEvent(((K165_TableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -610,8 +552,8 @@ namespace SK_Stanicni_Racuni.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.K140RowChanging != null)) {
-                    this.K140RowChanging(this, new K140RowChangeEvent(((K140Row)(e.Row)), e.Action));
+                if ((this.K165_TableRowChanging != null)) {
+                    this.K165_TableRowChanging(this, new K165_TableRowChangeEvent(((K165_TableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -619,8 +561,8 @@ namespace SK_Stanicni_Racuni.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.K140RowDeleted != null)) {
-                    this.K140RowDeleted(this, new K140RowChangeEvent(((K140Row)(e.Row)), e.Action));
+                if ((this.K165_TableRowDeleted != null)) {
+                    this.K165_TableRowDeleted(this, new K165_TableRowChangeEvent(((K165_TableRow)(e.Row)), e.Action));
                 }
             }
             
@@ -628,14 +570,14 @@ namespace SK_Stanicni_Racuni.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.K140RowDeleting != null)) {
-                    this.K140RowDeleting(this, new K140RowChangeEvent(((K140Row)(e.Row)), e.Action));
+                if ((this.K165_TableRowDeleting != null)) {
+                    this.K165_TableRowDeleting(this, new K165_TableRowChangeEvent(((K165_TableRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveK140Row(K140Row row) {
+            public void RemoveK165_TableRow(K165_TableRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -644,7 +586,7 @@ namespace SK_Stanicni_Racuni.DataSet {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                K140 ds = new K140();
+                K165 ds = new K165();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -662,7 +604,7 @@ namespace SK_Stanicni_Racuni.DataSet {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "K140DataTable";
+                attribute2.FixedValue = "K165_TableDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -706,15 +648,31 @@ namespace SK_Stanicni_Racuni.DataSet {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class K140Row : global::System.Data.DataRow {
+        public partial class K165_TableRow : global::System.Data.DataRow {
             
-            private K140DataTable tableK140;
+            private K165_TableDataTable tableK165_Table;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal K140Row(global::System.Data.DataRowBuilder rb) : 
+            internal K165_TableRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableK140 = ((K140DataTable)(this.Table));
+                this.tableK165_Table = ((K165_TableDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PrBroj {
+                get {
+                    try {
+                        return ((string)(this[this.tableK165_Table.PrBrojColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PrBroj\' in table \'K165_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK165_Table.PrBrojColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -722,174 +680,30 @@ namespace SK_Stanicni_Racuni.DataSet {
             public string OtpBroj {
                 get {
                     try {
-                        return ((string)(this[this.tableK140.OtpBrojColumn]));
+                        return ((string)(this[this.tableK165_Table.OtpBrojColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OtpBroj\' in table \'K140\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'OtpBroj\' in table \'K165_Table\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableK140.OtpBrojColumn] = value;
+                    this[this.tableK165_Table.OtpBrojColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string OtpStanica {
+            public string OtpDatum {
                 get {
                     try {
-                        return ((string)(this[this.tableK140.OtpStanicaColumn]));
+                        return ((string)(this[this.tableK165_Table.OtpDatumColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OtpStanica\' in table \'K140\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'OtpDatum\' in table \'K165_Table\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableK140.OtpStanicaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string OtpRbb {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.OtpRbbColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OtpRbb\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.OtpRbbColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Naziv {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.NazivColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Naziv\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.NazivColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string tlSumaFrDin {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.tlSumaFrDinColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'tlSumaFrDin\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.tlSumaFrDinColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string tlSumaFrDin_pare {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.tlSumaFrDin_pareColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'tlSumaFrDin_pare\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.tlSumaFrDin_pareColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PDV1 {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.PDV1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PDV1\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.PDV1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PDV1_pare {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.PDV1_pareColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PDV1_pare\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.PDV1_pareColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string VrstaObracuna {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.VrstaObracunaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'VrstaObracuna\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.VrstaObracunaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Saobracaj {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.SaobracajColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Saobracaj\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.SaobracajColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Datum {
-                get {
-                    try {
-                        return ((string)(this[this.tableK140.DatumColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Datum\' in table \'K140\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableK140.DatumColumn] = value;
+                    this[this.tableK165_Table.OtpDatumColumn] = value;
                 }
             }
             
@@ -898,14 +712,46 @@ namespace SK_Stanicni_Racuni.DataSet {
             public string OtpStNaziv {
                 get {
                     try {
-                        return ((string)(this[this.tableK140.OtpStNazivColumn]));
+                        return ((string)(this[this.tableK165_Table.OtpStNazivColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OtpStNaziv\' in table \'K140\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'OtpStNaziv\' in table \'K165_Table\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableK140.OtpStNazivColumn] = value;
+                    this[this.tableK165_Table.OtpStNazivColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string tlSumaUpDin {
+                get {
+                    try {
+                        return ((string)(this[this.tableK165_Table.tlSumaUpDinColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'tlSumaUpDin\' in table \'K165_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK165_Table.tlSumaUpDinColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string tlSumaUpDin_pare {
+                get {
+                    try {
+                        return ((string)(this[this.tableK165_Table.tlSumaUpDin_pareColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'tlSumaUpDin_pare\' in table \'K165_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK165_Table.tlSumaUpDin_pareColumn] = value;
                 }
             }
             
@@ -914,14 +760,14 @@ namespace SK_Stanicni_Racuni.DataSet {
             public string PoreskaOsnovica {
                 get {
                     try {
-                        return ((string)(this[this.tableK140.PoreskaOsnovicaColumn]));
+                        return ((string)(this[this.tableK165_Table.PoreskaOsnovicaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PoreskaOsnovica\' in table \'K140\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PoreskaOsnovica\' in table \'K165_Table\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableK140.PoreskaOsnovicaColumn] = value;
+                    this[this.tableK165_Table.PoreskaOsnovicaColumn] = value;
                 }
             }
             
@@ -930,183 +776,167 @@ namespace SK_Stanicni_Racuni.DataSet {
             public string PoreskaOsnovica_pare {
                 get {
                     try {
-                        return ((string)(this[this.tableK140.PoreskaOsnovica_pareColumn]));
+                        return ((string)(this[this.tableK165_Table.PoreskaOsnovica_pareColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PoreskaOsnovica_pare\' in table \'K140\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PoreskaOsnovica_pare\' in table \'K165_Table\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableK140.PoreskaOsnovica_pareColumn] = value;
+                    this[this.tableK165_Table.PoreskaOsnovica_pareColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PDV2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableK165_Table.PDV2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PDV2\' in table \'K165_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK165_Table.PDV2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PDV2_pare {
+                get {
+                    try {
+                        return ((string)(this[this.tableK165_Table.PDV2_pareColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PDV2_pare\' in table \'K165_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK165_Table.PDV2_pareColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPrBrojNull() {
+                return this.IsNull(this.tableK165_Table.PrBrojColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPrBrojNull() {
+                this[this.tableK165_Table.PrBrojColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsOtpBrojNull() {
-                return this.IsNull(this.tableK140.OtpBrojColumn);
+                return this.IsNull(this.tableK165_Table.OtpBrojColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetOtpBrojNull() {
-                this[this.tableK140.OtpBrojColumn] = global::System.Convert.DBNull;
+                this[this.tableK165_Table.OtpBrojColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsOtpStanicaNull() {
-                return this.IsNull(this.tableK140.OtpStanicaColumn);
+            public bool IsOtpDatumNull() {
+                return this.IsNull(this.tableK165_Table.OtpDatumColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetOtpStanicaNull() {
-                this[this.tableK140.OtpStanicaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsOtpRbbNull() {
-                return this.IsNull(this.tableK140.OtpRbbColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetOtpRbbNull() {
-                this[this.tableK140.OtpRbbColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsNazivNull() {
-                return this.IsNull(this.tableK140.NazivColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetNazivNull() {
-                this[this.tableK140.NazivColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IstlSumaFrDinNull() {
-                return this.IsNull(this.tableK140.tlSumaFrDinColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SettlSumaFrDinNull() {
-                this[this.tableK140.tlSumaFrDinColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IstlSumaFrDin_pareNull() {
-                return this.IsNull(this.tableK140.tlSumaFrDin_pareColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SettlSumaFrDin_pareNull() {
-                this[this.tableK140.tlSumaFrDin_pareColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPDV1Null() {
-                return this.IsNull(this.tableK140.PDV1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPDV1Null() {
-                this[this.tableK140.PDV1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPDV1_pareNull() {
-                return this.IsNull(this.tableK140.PDV1_pareColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPDV1_pareNull() {
-                this[this.tableK140.PDV1_pareColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsVrstaObracunaNull() {
-                return this.IsNull(this.tableK140.VrstaObracunaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetVrstaObracunaNull() {
-                this[this.tableK140.VrstaObracunaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsSaobracajNull() {
-                return this.IsNull(this.tableK140.SaobracajColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetSaobracajNull() {
-                this[this.tableK140.SaobracajColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDatumNull() {
-                return this.IsNull(this.tableK140.DatumColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDatumNull() {
-                this[this.tableK140.DatumColumn] = global::System.Convert.DBNull;
+            public void SetOtpDatumNull() {
+                this[this.tableK165_Table.OtpDatumColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsOtpStNazivNull() {
-                return this.IsNull(this.tableK140.OtpStNazivColumn);
+                return this.IsNull(this.tableK165_Table.OtpStNazivColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetOtpStNazivNull() {
-                this[this.tableK140.OtpStNazivColumn] = global::System.Convert.DBNull;
+                this[this.tableK165_Table.OtpStNazivColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstlSumaUpDinNull() {
+                return this.IsNull(this.tableK165_Table.tlSumaUpDinColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettlSumaUpDinNull() {
+                this[this.tableK165_Table.tlSumaUpDinColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstlSumaUpDin_pareNull() {
+                return this.IsNull(this.tableK165_Table.tlSumaUpDin_pareColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettlSumaUpDin_pareNull() {
+                this[this.tableK165_Table.tlSumaUpDin_pareColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsPoreskaOsnovicaNull() {
-                return this.IsNull(this.tableK140.PoreskaOsnovicaColumn);
+                return this.IsNull(this.tableK165_Table.PoreskaOsnovicaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetPoreskaOsnovicaNull() {
-                this[this.tableK140.PoreskaOsnovicaColumn] = global::System.Convert.DBNull;
+                this[this.tableK165_Table.PoreskaOsnovicaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsPoreskaOsnovica_pareNull() {
-                return this.IsNull(this.tableK140.PoreskaOsnovica_pareColumn);
+                return this.IsNull(this.tableK165_Table.PoreskaOsnovica_pareColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetPoreskaOsnovica_pareNull() {
-                this[this.tableK140.PoreskaOsnovica_pareColumn] = global::System.Convert.DBNull;
+                this[this.tableK165_Table.PoreskaOsnovica_pareColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPDV2Null() {
+                return this.IsNull(this.tableK165_Table.PDV2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPDV2Null() {
+                this[this.tableK165_Table.PDV2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPDV2_pareNull() {
+                return this.IsNull(this.tableK165_Table.PDV2_pareColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPDV2_pareNull() {
+                this[this.tableK165_Table.PDV2_pareColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1114,22 +944,22 @@ namespace SK_Stanicni_Racuni.DataSet {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class K140RowChangeEvent : global::System.EventArgs {
+        public class K165_TableRowChangeEvent : global::System.EventArgs {
             
-            private K140Row eventRow;
+            private K165_TableRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K140RowChangeEvent(K140Row row, global::System.Data.DataRowAction action) {
+            public K165_TableRowChangeEvent(K165_TableRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K140Row Row {
+            public K165_TableRow Row {
                 get {
                     return this.eventRow;
                 }

@@ -70,6 +70,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="DataSet\K165.Designer.cs">
+      <DependentUpon>K165.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="DataSet\K165a.Designer.cs">
       <DependentUpon>K165a.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -111,6 +116,11 @@
     <None Update="DataSet\K140tzr.xsd">
       <SubType>Designer</SubType>
       <LastGenOutput>K140tzr.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="DataSet\K165.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K165.Designer.cs</LastGenOutput>
       <Generator>MSDataSetGenerator</Generator>
     </None>
     <None Update="DataSet\K165a.xsd">
