@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -7,6 +8,8 @@ namespace SK_Stanicni_Racuni.Models
 {
     public partial class SrK121a
     {
+        [Key]
+        public int Id { get; set; }
         public string Stanica { get; set; }
         public int? Blagajna { get; set; }
         public int? Broj { get; set; }

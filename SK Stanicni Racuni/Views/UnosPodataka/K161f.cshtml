@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-5 ">
                         <label asp-for="FakturaBroj" class="form-label"><strong> Račun broj</strong></label>
-                        <input type="text" asp-for="FakturaBroj"  class="form-control" id="racunBr">
+                        <input type="text" asp-for="FakturaBroj" class="form-control" id="racunBr">
                     </div>
                 </div>
 
@@ -62,14 +62,14 @@
 
                 <div class="row mt-5">
                     <div class="col-md-5 ">
-                        <label  class="form-label">Kurs dinara</label>
+                        <label class="form-label">Kurs dinara</label>
                         <input asp-for="Kurs" type="text" class="form-control" id="kursDinara">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-5 ">
-                        <label  class="form-label">Faktura osnovica</label>
+                        <label class="form-label">Faktura osnovica</label>
                         <input asp-for="FakturaOsnovica" type="text" class="form-control" id="fakturaOsnovica">
                     </div>
                 </div>
@@ -103,15 +103,15 @@
 
             <div class="col-xxl col-xl col-lg mt-5 mt-md-0">
                 <div class="row-cols-md">
-                    <label  class="form-label">Primalac računa</label>
+                    <label class="form-label">Primalac računa</label>
                     <input asp-for="Primalac" type="text" class="form-control" id="primalac">
                 </div>
                 <div class="row-cols-md">
-                    <label  class="form-label">Adresa primaoca</label>
+                    <label class="form-label">Adresa primaoca</label>
                     <input asp-for="PrimalacAdresa" type="text" class="form-control">
                 </div>
                 <div class="row-cols-md">
-                    <label  class="form-label">Zemlja</label>
+                    <label class="form-label">Zemlja</label>
                     <input asp-for="PrimalacZemlja" type="text" class="form-control">
                 </div>
                 <div class="row-cols-md">
@@ -119,11 +119,11 @@
                     <input asp-for="PrimalacTr" type="text" class="form-control" id="primalacTR">
                 </div>
                 <div class="row-cols-md">
-                    <label  class="form-label">Matični broj</label>
+                    <label class="form-label">Matični broj</label>
                     <input asp-for="PrimalacMb" type="text" class="form-control" id="primalacMB">
                 </div>
                 <div class="row-cols-md">
-                    <label  class="form-label">PIB</label>
+                    <label class="form-label">PIB</label>
                     <input asp-for="PrimalacPib" type="text" class="form-control" id="primalacPIB">
                 </div>
 
@@ -137,6 +137,69 @@
 
         </div>
     </form>
+
+    @if (((IEnumerable<SrK161f>)ViewBag.k161f).Any())
+    {
+
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>Stanica</th>
+                    <th>Blagajna</th>
+                    <th>Blagajna Tip</th>
+                    <th>Faktura broj</th>
+                    <th>Faktura Datum</th>
+                    <th>Faktura Datum P</th>
+                    <th>Faktura Osnovica</th>
+                    <th>Faktura PDV</th>
+                    <th>Primalac</th>
+                    <th>Primalac Adresa</th>
+                    <th>Primalac Zemlja</th>
+                    <th>Primalac Račun</th>
+                    <th>Matični broj</th>
+                    <th>PIB</th>
+                    <th>Vrsta Usluga</th>
+                    <th>Vrsta Usluga Opis</th>
+                    <th>Blagajnik</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ((IEnumerable<SrK161f>)ViewBag.k161f))
+                {
+                <tr>
+                    <td>@item.Stanica</td>
+                    <td>@item.Blagajna</td>
+                    <td>@item.BlagajnaTip</td>
+                    <td>@item.FakturaBroj</td>
+                    @if (item.FakturaDatum != null)
+                    {
+                        <td>@item.FakturaDatum.Value.ToString("dd.MM.yyyy")</td>
+                    }
+
+                    @if (item.FakturaDatumP != null)
+                    {
+                        <td>@item.FakturaDatumP.Value.ToString("dd.MM.yyyy")</td>
+                    }
+
+                    <td>@item.FakturaOsnovica</td>
+                    <td>@item.FakturaPdv</td>
+                    <td>@item.Primalac</td>
+                    <td>@item.PrimalacAdresa</td>
+                    <td>@item.PrimalacZemlja</td>
+                    <td>@item.PrimalacTr</td>
+                    <td>@item.PrimalacMb</td>
+                    <td>@item.PrimalacPib</td>
+                    <td>@item.VrstaUslugaSifra</td>
+                    <td>@item.VrstaUslugaOpis</td>
+                    <td>@item.Blagajnik</td>
+                </tr>
+                }
+                </tbody>
+        </table>
+
+
+
+    }
 
 
 </div>

@@ -26,7 +26,6 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult K165a()
         {
             var UserId = HttpContext.User.Identity.Name; // daje UserId
-
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
 
             if (user != null)
@@ -122,12 +121,22 @@ namespace SK_Stanicni_Racuni.Controllers
             if (user != null)
             {
                 ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+            } else
+            {
+                return RedirectToAction("Login", "Account");
             }
+
+            DateTime date = DateTime.Now;
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            ViewBag.k161f = context.SrK161fs.Where(x => x.FakturaDatum >= firstDayOfMonth && x.FakturaDatum <= lastDayOfMonth).AsEnumerable();
+
             return View();
         }
 
         //***********************  IMA JOS POSLA DA SE OGRANICI UNOS PODATAKA NA FORMI *******************************************************************************
-        public IActionResult K161F_save(SrK161f model, string datumOd, string datumDo, char naplacenoCheckBox = 'N' )
+        public IActionResult K161F_save(SrK161f model, string datumOd, string datumDo, char naplacenoCheckBox = 'N')
         {
             var newModel = new SrK161f();
             newModel.Stanica = model.Stanica;
@@ -142,6 +151,7 @@ namespace SK_Stanicni_Racuni.Controllers
             {
                 newModel.FakturaDatumP = DateTime.Parse(datumDo);
             }
+
             newModel.VrstaUslugaSifra = model.VrstaUslugaSifra;
             newModel.VrstaUslugaOpis = model.VrstaUslugaOpis;
             newModel.Kurs = model.Kurs;
@@ -171,9 +181,71 @@ namespace SK_Stanicni_Racuni.Controllers
 
         public IActionResult K121a()
         {
+            var UserId = HttpContext.User.Identity.Name; // daje UserId
+            var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+            if (user != null)
+            {
+                ViewBag.UserId = UserId;
+                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            DateTime date = DateTime.Now;
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            ViewBag.k121a = context.SrK121as.Where(x => x.Datum >= firstDayOfMonth && x.Datum <= lastDayOfMonth).AsEnumerable();
+
+
             return View();
         }
 
+        public IActionResult K121a_save(SrK121a model, string otpDatum, string datum, string stanica_)
+        {
+            var newModel = new SrK121a();
+
+            newModel.Broj = model.Broj;
+            newModel.Pošiljalac = model.Pošiljalac;
+            newModel.Iznos = model.Iznos;
+            newModel.OtpBroj = model.OtpBroj;
+
+            if (otpDatum != null)
+            {
+                newModel.OtpDatum = DateTime.Parse(otpDatum);
+            }
+
+            if (!string.IsNullOrEmpty(stanica_))
+            {
+                newModel.PrStanica = context.ZsStanices.Where(x => x.Naziv == stanica_).Select(x => x.SifraStanice).FirstOrDefault();
+            }
+
+            if (datum != null)
+            {
+                newModel.Datum = DateTime.Parse(datum);
+            }
+
+            newModel.Primalac = model.Primalac;
+            newModel.PrimalacAdresa = model.PrimalacAdresa;
+            newModel.PrimalacZemlja = model.PrimalacZemlja;
+            newModel.Blagajnik = model.Blagajnik;
+            newModel.Stanica = model.Stanica;
+
+            try
+            {
+                context.SrK121as.Add(newModel);
+                context.SaveChanges();
+                notyf.Success("Uspešan unos podataka", 3);
+            }
+            catch (Exception)
+            {
+                notyf.Error("Greška prilikom upisa u bazu.", 3);
+            }
+
+            return RedirectToAction("K121a");
+        }
 
 
     }
