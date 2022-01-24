@@ -1,0 +1,296 @@
+﻿@model SrK161f
+
+<div class="container">
+
+    <form>
+
+        <div class="row mt-3">
+
+            <div class="alert alert-primary" role="alert">
+                <strong>K161f Račun troškova</strong>
+            </div>
+
+            <div class="col-xxl-7 col-xl-7 col-lg-8">
+
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <label for="inputEmail4" class="form-label">Stanica</label>
+                        <input type="text" class="form-control" asp-for="Stanica" value="@ViewBag.Stanica" readonly>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="inputPassword4" class="form-label">Blagajna</label>
+                        <select class="form-select" asp-for="Blagajna" aria-label="Default select example" name="blagajna">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <label asp-for="FakturaBroj" class="form-label"><strong> Račun broj</strong></label>
+                        <input type="text" asp-for="FakturaBroj"  class="form-control" id="racunBr">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <label class="form-label">Datum nastanka obaveze</label>
+                        <input asp-for="FakturaDatum" type="text" class="form-control" id="DatumDo" name="datumOd" autocomplete="off">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label">Datum plaćanja</label>
+                        <input asp-for="FakturaDatumP" type="text" class="form-control" id="DatumOd" name="datumDo" autocomplete="off">
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <label class="form-label">Vrste usluge</label>
+                        <input asp-for="VrstaUslugaSifra" type="text" class="form-control" id="vrstaUslugaSifra">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 ">
+                        <label asp-for="VrstaUslugaOpis" class="form-label">Vrsta usluga opis</label>
+                        <textarea asp-for="VrstaUslugaOpis" style="height: 109px" type="text" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-5 ">
+                        <label  class="form-label">Kurs dinara</label>
+                        <input asp-for="Kurs" type="text" class="form-control" id="kursDinara">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <label  class="form-label">Faktura osnovica</label>
+                        <input asp-for="FakturaOsnovica" type="text" class="form-control" id="fakturaOsnovica">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <label for="inputPassword4" class="form-label">Faktura PDV</label>
+                        <input asp-for="FakturaPdv" type="text" class="form-control" id="fakturaPDV">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 ">
+                        <label class="form-label">Ukupna vrednost</label>
+                        <input type="text" class="form-control" id="ukupnaVrednost" readonly>
+                    </div>
+                    <div class="form-check col-md-5 ml-3 d-flex align-items-end">
+                        <input class="form-check-input mb-1" value="D" type="checkbox" name="naplacenoCheckBox">
+                        <label class="form-check-label" asp-for="NaplacenoNB">
+                            Naplaćeno na blagajni
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="my-2 d-none d-md-block">
+                    <button type="submit" class="btn btn-primary" id="upisBtn" asp-controller="UnosPodataka" asp-action="K161F_save">Upiši u bazu</button>
+                </div>
+
+            </div>
+
+            @*PODACI O PRICMAOCU*@
+
+            <div class="col-xxl col-xl col-lg mt-5 mt-md-0">
+                <div class="row-cols-md">
+                    <label  class="form-label">Primalac računa</label>
+                    <input asp-for="Primalac" type="text" class="form-control" id="primalac">
+                </div>
+                <div class="row-cols-md">
+                    <label  class="form-label">Adresa primaoca</label>
+                    <input asp-for="PrimalacAdresa" type="text" class="form-control">
+                </div>
+                <div class="row-cols-md">
+                    <label  class="form-label">Zemlja</label>
+                    <input asp-for="PrimalacZemlja" type="text" class="form-control">
+                </div>
+                <div class="row-cols-md">
+                    <label class="form-label">Tekuci račun</label>
+                    <input asp-for="PrimalacTr" type="text" class="form-control" id="primalacTR">
+                </div>
+                <div class="row-cols-md">
+                    <label  class="form-label">Matični broj</label>
+                    <input asp-for="PrimalacMb" type="text" class="form-control" id="primalacMB">
+                </div>
+                <div class="row-cols-md">
+                    <label  class="form-label">PIB</label>
+                    <input asp-for="PrimalacPib" type="text" class="form-control" id="primalacPIB">
+                </div>
+
+                <div class="row-cols-md my-2 d-md-none d-block">
+                    <button type="button" class="btn btn-primary" id="upisBtn" asp-controller="UnosPodataka" asp-action="K161F_save">Upiši u bazu</button>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </form>
+
+
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $.fn.datepicker.dates['rs'] = {
+            days: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"],
+            daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
+            daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
+            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
+            today: "Danas",
+            clear: "Clear",
+            // format: "mm/dd/yyyy",
+            //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+            weekStart: 1
+        };
+
+        $('#DatumOd, #DatumDo').datepicker({
+            todayBtn: true,
+            todayBtn: 'linked',
+            todayHighlight: true,
+            format: 'dd.mm.yyyy',
+            autoclose: true,
+            language: 'rs'
+        })
+
+
+        $(window).on('load', function () {
+
+            $('#DatumOd', '#DatumDo').datepicker()
+
+            var fakturaOsnovica = $('#fakturaOsnovica').val()
+            var racunBr = $('#racunBr').val()
+            var primalac = $('#primalac').val()
+
+            console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
+            if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
+                console.log('if')
+                $('#upisBtn').attr("disabled", false);
+            } else {
+                console.log('else')
+                $('#upisBtn').attr('disabled', true)
+
+            }
+
+        })
+
+
+        $(document).ready(function () {
+
+            $('#fakturaOsnovica ,#fakturaPDV, #kursDinara').on('input', function () {
+                numbersAndDotOnly(this.getAttribute('Id'), this.value)
+
+                var fakturaOsnovica = $('#fakturaOsnovica').val()
+                var fakturaPDV = $('#fakturaPDV').val()
+
+                if (fakturaOsnovica != 0 && fakturaPDV != 0) {
+                    $('#ukupnaVrednost').val((parseFloat(fakturaOsnovica) + parseFloat(fakturaPDV)).toFixed(2))
+                } else {
+                    $('#ukupnaVrednost').val('')
+                }
+            })
+
+            function numbersAndDotOnly(selector, input) {                       //Da prilikom unosa zareza prebaci da bude tačka
+                input = input.replace(",", ".");
+                var res = "";
+                //da ne moze prvi karakter da bude tacka
+                if (input.charAt(0) == '.') {
+                    input = input.replace(/\.+$/, "");
+                }
+                //da ne moze dve tacke da ubaci
+                if (input.split('.').length > 2) {
+                    input = input.replace(/\..+$/, ".");
+                }
+                //regex za brojeve i tacke
+                function validate(s) {
+                    var rgx = /^[0-9]*\.?[0-9]*$/;
+                    return s.match(rgx);
+                }
+                for (var i = 0; i < input.length; i++) {
+                    if (validate(input[i]) != null) {
+                        res += input[i]
+                    }
+                }
+                $('#' + selector).val(res)
+            }
+
+            $('#fakturaOsnovica, #fakturaPDV').on('input', function () {                                   // format decimale XXX.XX
+                var val = this.value
+                var selector = this.getAttribute('Id')
+
+                var separate = val.split('.')
+
+                if (separate.length == 1) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 3)
+                    })
+                } else if (separate.length == 2 && separate[0].length == 1) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 4)
+                    })
+                } else if (separate.length == 2 && separate[0].length == 2) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 5)
+                    })
+                } else if (separate.length == 2 && separate[0].length == 3) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 6)
+                    })
+                }
+            })
+
+
+            $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').keypress(function () {                             //Da ogranici unos karaktera
+                if (this.value.length == 10) {
+                    return false;
+                }
+            })
+
+
+
+            $('#fakturaOsnovica, #racunBr, #primalac').on('input', function () {                //Uslovi na formi
+
+                var fakturaOsnovica = $('#fakturaOsnovica').val()
+                var racunBr = $('#racunBr').val()
+                var primalac = $('#primalac').val()
+
+                console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
+
+                if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
+                    console.log('if')
+                    $('#upisBtn').attr('disabled', false)
+                } else {
+                    console.log('else')
+                    $('#upisBtn').attr("disabled", true);
+                }
+            })
+
+
+
+
+        })
+
+    </script>
+}
+
+
+
+
+
+
+
+@*https://stackoverflow.com/questions/15622076/making-html5-datalist-visible-when-focus-event-fires-on-input*@

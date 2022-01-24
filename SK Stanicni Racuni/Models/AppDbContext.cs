@@ -769,7 +769,7 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<SrK161f>(entity =>
             {
-                entity.HasNoKey();
+               // entity.HasNoKey();
 
                 entity.ToTable("SR_K161f");
 

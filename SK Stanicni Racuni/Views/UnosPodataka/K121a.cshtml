@@ -1,0 +1,211 @@
+﻿
+
+<div class="container">
+
+    <form>
+
+        <div class="row mt-3">
+
+            <div class="alert alert-primary" role="alert">
+                <strong>K121a  Priznanica za položen frankaturni depozit</strong>
+            </div>
+
+            <div class="col-xxl-7 ">
+
+                <div class="row my-1 align-items-end">
+                    <div class="col-auto">
+                        <label class="col-form-label ">Pošiljalac         </label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control ml-1">
+                    </div>
+                </div>
+
+                <div class="row my-3 align-items-end">
+                    <div class="col-auto">
+                        <label class="col-form-label ">je položio</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <label class="col-form-label ">dinara</label>
+                    </div>
+                </div>
+
+                <div class="row my-3 align-items-end">
+                    <div class="col-auto">
+                        <label class="col-form-label ">na ime depozita za pošiljku po tovarnom listu</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <label class="col-form-label ">od</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $.fn.datepicker.dates['rs'] = {
+            days: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"],
+            daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
+            daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
+            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
+            today: "Danas",
+            clear: "Clear",
+            // format: "mm/dd/yyyy",
+            //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+            weekStart: 1
+        };
+
+        $('#DatumOd, #DatumDo').datepicker({
+            todayBtn: true,
+            todayBtn: 'linked',
+            todayHighlight: true,
+            format: 'dd.mm.yyyy',
+            autoclose: true,
+            language: 'rs'
+        })
+
+
+        $(window).on('load', function () {
+
+            $('#DatumOd', '#DatumDo').datepicker()
+
+            var fakturaOsnovica = $('#fakturaOsnovica').val()
+            var racunBr = $('#racunBr').val()
+            var primalac = $('#primalac').val()
+
+            console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
+            if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
+                console.log('if')
+                $('#upisBtn').attr("disabled", false);
+            } else {
+                console.log('else')
+                $('#upisBtn').attr('disabled', true)
+
+            }
+
+        })
+
+
+        $(document).ready(function () {
+
+            $('#fakturaOsnovica ,#fakturaPDV, #kursDinara').on('input', function () {
+                numbersAndDotOnly(this.getAttribute('Id'), this.value)
+
+                var fakturaOsnovica = $('#fakturaOsnovica').val()
+                var fakturaPDV = $('#fakturaPDV').val()
+
+                if (fakturaOsnovica != 0 && fakturaPDV != 0) {
+                    $('#ukupnaVrednost').val((parseFloat(fakturaOsnovica) + parseFloat(fakturaPDV)).toFixed(2))
+                } else {
+                    $('#ukupnaVrednost').val('')
+                }
+            })
+
+            function numbersAndDotOnly(selector, input) {                       //Da prilikom unosa zareza prebaci da bude tačka
+                input = input.replace(",", ".");
+                var res = "";
+                //da ne moze prvi karakter da bude tacka
+                if (input.charAt(0) == '.') {
+                    input = input.replace(/\.+$/, "");
+                }
+                //da ne moze dve tacke da ubaci
+                if (input.split('.').length > 2) {
+                    input = input.replace(/\..+$/, ".");
+                }
+                //regex za brojeve i tacke
+                function validate(s) {
+                    var rgx = /^[0-9]*\.?[0-9]*$/;
+                    return s.match(rgx);
+                }
+                for (var i = 0; i < input.length; i++) {
+                    if (validate(input[i]) != null) {
+                        res += input[i]
+                    }
+                }
+                $('#' + selector).val(res)
+            }
+
+            $('#fakturaOsnovica, #fakturaPDV').on('input', function () {                                   // format decimale XXX.XX
+                var val = this.value
+                var selector = this.getAttribute('Id')
+
+                var separate = val.split('.')
+
+                if (separate.length == 1) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 3)
+                    })
+                } else if (separate.length == 2 && separate[0].length == 1) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 4)
+                    })
+                } else if (separate.length == 2 && separate[0].length == 2) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 5)
+                    })
+                } else if (separate.length == 2 && separate[0].length == 3) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 6)
+                    })
+                }
+            })
+
+
+            $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').keypress(function () {                             //Da ogranici unos karaktera
+                if (this.value.length == 10) {
+                    return false;
+                }
+            })
+
+
+
+            $('#fakturaOsnovica, #racunBr, #primalac').on('input', function () {                //Uslovi na formi
+
+                var fakturaOsnovica = $('#fakturaOsnovica').val()
+                var racunBr = $('#racunBr').val()
+                var primalac = $('#primalac').val()
+
+                console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
+
+                if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
+                    console.log('if')
+                    $('#upisBtn').attr('disabled', false)
+                } else {
+                    console.log('else')
+                    $('#upisBtn').attr("disabled", true);
+                }
+            })
+
+
+
+
+        })
+
+    </script>
+}
+
+
+
+
+
+
+
+@*https://stackoverflow.com/questions/15622076/making-html5-datalist-visible-when-focus-event-fires-on-input*@

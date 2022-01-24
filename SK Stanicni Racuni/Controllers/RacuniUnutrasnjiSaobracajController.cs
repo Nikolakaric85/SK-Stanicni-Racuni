@@ -146,11 +146,12 @@ namespace SK_Stanicni_Racuni.Controllers
                         intPartFranko += Double.Parse(array[0]);
                         fractionalPartFranko += Int32.Parse(array[1]); ;
                         sveFranko += (decimal)item.tlSumaFrDin;
-                    } else
+                    }
+                    else
                     {
                         row["tlSumaFrDin"] = string.Empty;
                         row["tlSumaFrDin_pare"] = string.Empty;
-                    } 
+                    }
 
                     if (item.PDV1 != null)
                     {
@@ -248,12 +249,9 @@ namespace SK_Stanicni_Racuni.Controllers
                             into skp
                             from SlogKalk_PDV in skp.DefaultIfEmpty()
                             where SlogKalk.Saobracaj == "1" &&
-                            SlogKalk.PrStanica == "7221001"
-                            && SlogKalk.OtpDatum >= DateTime.Parse("2022-01-01 00:00:00")
-
-                            //SlogKalk.OtpDatum >= DateTime.Parse("2022-01-01 00:00:00") &&
-                            //SlogKalk.OtpDatum <= DateTime.Parse("2022-01-20 00:00:00")
-                            //
+                            SlogKalk.PrStanica == sifraStanice &&
+                            SlogKalk.OtpDatum >= DatumOd &&
+                            SlogKalk.OtpDatum <= DatumDo
 
                             select new
                             {
@@ -286,7 +284,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 dt.Columns.Add("PDV2");
                 dt.Columns.Add("PDV2_pare");
                 dt.Columns.Add("VrstaObracuna");
-                
+
 
                 DataRow row;
 
@@ -323,7 +321,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         row["PoreskaOsnovica"] = arrayPoreskaO[0];
                         row["PoreskaOsnovica_pare"] = arrayPoreskaO[1];
 
-                        poreskaOsnovica += (decimal)item.PoreskaOsnovica; 
+                        poreskaOsnovica += (decimal)item.PoreskaOsnovica;
                     }
                     else
                     {
