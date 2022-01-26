@@ -112,7 +112,6 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult K165a_save(UnosK165aViewModel viewModel, string k165aDatum)
         {
             var model = context.SlogKalks.Where(x => x.PrBroj == viewModel.PrBroj && x.PrStanica == viewModel.PrStanica).FirstOrDefault();
-
             var newModel = new SlogKalk();
 
             newModel = model;
@@ -123,7 +122,7 @@ namespace SK_Stanicni_Racuni.Controllers
             try
             {
                 var update = context.SlogKalks.Attach(newModel);
-                update.State = Microsoft.EntityFrameworkCore.EntityState.Modified;                                      //*********************PRIMERY KEY *********************///
+                update.State = Microsoft.EntityFrameworkCore.EntityState.Modified;                                      //*********************  PRIMERY KEY koji   *********************///
                 context.SaveChanges();
                 notyf.Success("Uspeša izmena podataka.",3);
             }
