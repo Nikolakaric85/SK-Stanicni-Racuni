@@ -1,13 +1,12 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using SK_Stanicni_Racuni.CustomModelBinding.RacuniUnutrasnjiSaobracaj;
+using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.Mime;
 
 namespace SK_Stanicni_Racuni.Controllers
 {
@@ -33,7 +32,7 @@ namespace SK_Stanicni_Racuni.Controllers
         {
             ViewBag.Id = id;
 
-          
+
             var UserId = HttpContext.User.Identity.Name; // daje UserId
 
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
@@ -49,23 +48,24 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.Admin = false;
                     ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
                 }
-            } else
+            }
+            else
             {
-                return RedirectToAction("Login","Account");
+                return RedirectToAction("Login", "Account");
             }
 
             return View();
         }
 
- 
+
 
         /***************** PRINT PDF DOKUMENT ******************/
 
-        public IActionResult Print(string id, string stanica, DateTime DatumOd, DateTime DatumDo)
+        public IActionResult Print(string id, string stanica, [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
-            
+
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
-            
+
             if (id == "K117")
             {
                 var query = from kalk in context.SlogKalks
@@ -115,10 +115,10 @@ namespace SK_Stanicni_Racuni.Controllers
                 int extension = 1;
 
                 Dictionary<string, string> paramtars = new Dictionary<string, string>();
-                
-               // paramtars.Add("Stanica", sifraStanice);
-              //  paramtars.Add("DatumOd", DatumOd.ToString());
-               // paramtars.Add("DatumDo", DatumDo.ToString());
+
+                paramtars.Add("Stanica", sifraStanice);
+                paramtars.Add("DatumOd", DatumOd.ToString());
+                paramtars.Add("DatumDo", DatumDo.ToString());
 
                 var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K117.rdlc";
                 LocalReport localReport = new LocalReport(path);
@@ -128,7 +128,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 localReport.AddDataSource("DatumDo", DatumDo.ToString());
                 Random random = new Random();
                 extension = random.Next();
-               ReportResult result = localReport.Execute(RenderType.Pdf, 1, paramtars, mimtype);
+                ReportResult result = localReport.Execute(RenderType.Pdf, 1, paramtars, mimtype);
                 return File(result.MainStream, "application/pdf");
 
 
@@ -182,10 +182,10 @@ namespace SK_Stanicni_Racuni.Controllers
                 int extension = 1;
 
                 Dictionary<string, string> paramtars = new Dictionary<string, string>();
-                
-                //paramtars.Add("Stanica", sifraStanice);
-                //paramtars.Add("DatumDo", DatumDo.ToString());
-                //paramtars.Add("DatumOd", DatumOd.ToString());
+
+                paramtars.Add("Stanica", sifraStanice);
+                paramtars.Add("DatumDo", DatumDo.ToString());
+                paramtars.Add("DatumOd", DatumOd.ToString());
 
                 var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K254.rdlc";
                 LocalReport localReport = new LocalReport(path);
@@ -195,7 +195,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 localReport.AddDataSource("DatumDo", DatumDo.ToString());
                 Random random = new Random();
                 extension = random.Next();
-                ReportResult  result = localReport.Execute(RenderType.Pdf, 2, paramtars, mimtype);
+                ReportResult result = localReport.Execute(RenderType.Pdf, 2, paramtars, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
 

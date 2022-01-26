@@ -1,23 +1,13 @@
 ﻿
-
 <div class="container">
     @*method="post" asp-controller="MagacinskaKnjiga" asp-action="Print"*@
     @*asp-page-handler="Print"*@
-    <form method="post" asp-controller="MagacinskaKnjiga" asp-action="Print" target="_blank" >
+    <form method="post" asp-controller="Rekapitulacija" asp-action="Print_K111f" target="_blank">
 
         <div class="row mt-3">
 
             <div class="alert alert-primary" role="alert">
-                @if (ViewBag.Id == "K254")
-                {
-                    <strong>Magacinska knjiga - K254 Prispeća</strong>
-                }
-                else
-                {
-                    <strong>Magacinska knjiga - K117 Otpravljanja</strong>
-                }
-
-
+                <strong>Rekapitulacija - K111f Račun frankaturnih potraživanja</strong>
             </div>
 
 
@@ -39,6 +29,15 @@
             }
 
 
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                <label>Blagajna</label>
+                <select class="form-select" aria-label="Default select example" name="blagajna">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
             <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
 
                 <label for="formGroupExampleInput" class="form-label">Datum od</label>
@@ -52,16 +51,16 @@
             </div>
 
             <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
-                <button type="submit" class="btn btn-primary align-bottom" asp-controller="MagacinskaKnjiga" asp-route-id="@ViewBag.Id" asp-action="Print">PDF</button>
+                <button type="submit" class="btn btn-primary align-bottom" asp-controller="Rekapitulacija" asp-action="Print_K111f" asp-route-id="@ViewBag.Id" target="_blank">PDF</button>
             </div>
 
         </div>
 
-
     </form>
 
-
 </div>
+
+
 
 @section Scripts {
     <script type="text/javascript">
@@ -107,34 +106,10 @@
 
         $(document).ready(function () {
 
-            $('#myDatalistInput').on('input', function () {
-
-                $.ajax({
-                    type: "GET",
-                    url: "/RacuniUnutrasnjiSaobracaj/ListaStanica",
-                    cache: false,
-                    success: function (data) {
-                        var options = '';
-
-                        for (var i = 0; i < data.length; i++) {
-                            options += '<option value="' + data[i] + '" />';
-                        }
-                        $('#myDatalist').html(options)
-
-                    }
-                });
-
-            })
+           
 
         })
 
+
     </script>
 }
-
-
-
-
-
-
-
-@*https://stackoverflow.com/questions/15622076/making-html5-datalist-visible-when-focus-event-fires-on-input*@

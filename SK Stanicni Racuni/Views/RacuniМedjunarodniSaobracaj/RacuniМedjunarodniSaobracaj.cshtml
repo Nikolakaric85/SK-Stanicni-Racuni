@@ -7,6 +7,28 @@
         <div class="row mt-3">
 
 
+            <div class="alert alert-primary" role="alert">
+                @if (ViewBag.Id == "K140m")
+                {
+                    <strong>Računi medjunarodni saobraćaj - K140m Prispeća</strong>
+                }
+                else if (ViewBag.Id == "K165m")
+                {
+                    <strong>Računi medjunarodni saobraćaj - K165m Otpravljanja</strong>
+                }
+                else if (ViewBag.Id == "K140trz")
+                {
+                    <strong>Računi medjunarodni saobraćaj - K140trz Tranzitni ulaz</strong>
+                }
+                else if (ViewBag.Id == "K165trz")
+                {
+                    <strong>Računi medjunarodni saobraćaj - K165trz Tranzitni izlaz</strong>
+                }
+
+            </div>
+
+
+
             @if (ViewBag.Admin == true)
             {
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">

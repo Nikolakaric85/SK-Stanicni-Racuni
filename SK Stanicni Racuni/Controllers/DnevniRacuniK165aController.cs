@@ -1,6 +1,7 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
 
 
-        public IActionResult Print(string id, string stanica, string blagajna, DateTime DatumDo)
+        public IActionResult Print(string id, string stanica, string blagajna, [ModelBinder(typeof(DatumDoModelBinder))] DateTime Datum)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault(); //primer 7213670
             var nazivStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.Naziv).FirstOrDefault(); //primer 7213670
@@ -57,8 +58,8 @@ namespace SK_Stanicni_Racuni.Controllers
                         on ZsStanice.SifraStanice equals SlogKalk.PrStanica
                         where ((SlogKalk.Saobracaj == "1") || (SlogKalk.Saobracaj == "2"))
                         && SlogKalk.K165a == 'D'
-                        && SlogKalk.Stanica == sifraStanice
-                        && SlogKalk.K165a_datum == DatumDo
+                        && SlogKalk.PrStanica == sifraStanice
+                        && SlogKalk.K165a_datum == Datum
                         select new
                         {
                             PrStanica = SlogKalk.PrStanica,
@@ -103,7 +104,7 @@ namespace SK_Stanicni_Racuni.Controllers
             paramtars.Add("SifraStanice", sifraStanice);
             paramtars.Add("NazivStanice", nazivStanice);
             paramtars.Add("Blagajna", blagajna);
-            paramtars.Add("DatumDo", DatumDo.ToString());
+            paramtars.Add("DatumDo", Datum.ToString());
 
             var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165a.rdlc";
             LocalReport localReport = new LocalReport(path);

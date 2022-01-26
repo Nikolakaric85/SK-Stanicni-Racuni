@@ -67,9 +67,17 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-black" asp-controller="Home" asp-action="Index">Rezervisano</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-black" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Rekapitulacija
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" asp-controller="Rekapitulacija" asp-action="K111f">K111f Račun frankaturnih potraživanja</a></li>
+                        <li><a class="dropdown-item" asp-controller="Rekapitulacija" asp-action="K161f">K115</a></li>
+                    </ul>
                 </li>
+
+             
             </ul>
 
             <ul class="navbar-nav ml-auto mr-5">

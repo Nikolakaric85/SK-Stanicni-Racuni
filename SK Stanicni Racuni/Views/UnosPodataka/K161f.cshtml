@@ -2,13 +2,14 @@
 
 <div class="container">
 
-    <form>
+    <form asp-page-handler="K161f_save">
 
         <div class="row mt-3">
 
             <div class="alert alert-primary" role="alert">
-                <strong>K161f Račun troškova</strong>
+                <strong>Unos podataka - K161f Račun troškova</strong>
             </div>
+
 
             <div class="col-xxl-7 col-xl-7 col-lg-8">
 
@@ -37,11 +38,11 @@
                 <div class="row">
                     <div class="col-md-5 ">
                         <label class="form-label">Datum nastanka obaveze</label>
-                        <input asp-for="FakturaDatum" type="text" class="form-control" id="DatumDo" name="datumOd" autocomplete="off">
+                        <input asp-for="FakturaDatum" type="text" class="form-control" id="DatumDo" name="datumOd" autocomplete="off" asp-format="{0:dd\.MM\.yyyy}">
                     </div>
                     <div class="col-md-5">
                         <label class="form-label">Datum plaćanja</label>
-                        <input asp-for="FakturaDatumP" type="text" class="form-control" id="DatumOd" name="datumDo" autocomplete="off">
+                        <input asp-for="FakturaDatumP" type="text" class="form-control" id="DatumOd" name="datumDo" autocomplete="off" asp-format="{0:dd\.MM\.yyyy}">
                     </div>
                 </div>
 

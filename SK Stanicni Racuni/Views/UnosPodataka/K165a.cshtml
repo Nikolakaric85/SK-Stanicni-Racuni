@@ -2,12 +2,12 @@
 
 <div class="container">
 
-    <form>
+    <form asp-page-handler="K165a_save">
 
         <div class="row mt-3">
 
             <div class="alert alert-primary" role="alert">
-                <strong>K165a Iskupljeni tovarni listovi</strong>
+                <strong>Unos podataka - K165a Iskupljeni tovarni listovi</strong>
             </div>
 
             <input class="form-control" asp-for="PrStanica" hidden/>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
-                <button type="submit" class="btn btn-primary align-bottom" asp-controller="UnosPodataka" asp-action="Pretraga">Pretraži</button>
+                <button type="submit" class="btn btn-primary align-bottom" asp-controller="UnosPodataka" asp-action="Pretraga" id="pretraziBtn">Pretraži</button>
             </div>
         </div>
 
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                     <label>K165 Datum</label>
-                    <input type="text" class="form-control" asp-for="K165a_datum" id="k165aDatum" name="k165aDatum" asp-format="{0:dd\.MM\.yyyy}" autocomplete="off"/>
+                    <input type="text" class="form-control" asp-for="K165a_datum" id="k165aDatum" name="datumDo"  asp-format="{0:dd\.MM\.yyyy}" autocomplete="off"/>
                 </div>
                 <div class="col-xxl-2 col-xl-2 col-lg col-md align-self-end mt-3">
                     <button type="submit" class="btn btn-primary align-bottom" asp-controller="UnosPodataka" asp-action="K165a_save">Upiši u bazu</button>
@@ -108,10 +108,16 @@
 
         $(window).on('load', function () {
 
-            var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-            var firstDay = new Date(y, m, 1);
-
             $('#k165aDatum').datepicker()
+
+            if ($('#prBroj').val() != '') {
+                
+                $('#pretraziBtn').attr("disabled", false);
+            } else {
+                console.log('else')
+                $('#pretraziBtn').attr('disabled', true)
+
+            }
 
             
         })
@@ -119,7 +125,18 @@
 
         $(document).ready(function () {
 
-            $('#prBroj').keypress(function (e) {                                                                 //Samo unos brojeva i ništa više
+            $('#prBroj').on('input', function () {                                                          // da enable dugme pšretrazi kada se nesto unese Broj prispeca
+                if (this.value != '') {
+                    $('#pretraziBtn').attr("disabled", false);
+                } else {
+                    $('#pretraziBtn').attr('disabled', true)
+                }
+            })
+
+
+
+
+            $('#prBroj').keypress(function (e) {                                                              //Samo unos brojeva i ništa više
                 var charCode = (e.which) ? e.which : event.keyCode
                 if (String.fromCharCode(charCode).match(/[^0-9]/g))
                     return false;

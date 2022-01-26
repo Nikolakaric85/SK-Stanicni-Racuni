@@ -6,6 +6,18 @@
 
         <div class="row mt-3">
 
+            <div class="alert alert-primary" role="alert">
+                @if (ViewBag.Id == "K140")
+                {
+                    <strong>Računi unutrašnji saobraćaj - K140 Prispeća</strong>
+                }
+                else
+                {
+                    <strong>Računi unutrašnji saobraćaj - K165 Otpravljanja</strong>
+                }
+
+            </div>
+
             @if (ViewBag.Admin == true)
             {
 

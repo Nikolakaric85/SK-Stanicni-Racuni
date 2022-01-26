@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="K111f" targetNamespace="http://tempuri.org/K111f.xsd" xmlns:mstns="http://tempuri.org/K111f.xsd" xmlns="http://tempuri.org/K111f.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="K111f" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="K111f" msprop:Generator_UserDSName="K111f">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="K111f_Table" msprop:Generator_TableClassName="K111f_TableDataTable" msprop:Generator_TableVarName="tableK111f_Table" msprop:Generator_TablePropName="K111f_Table" msprop:Generator_RowDeletingName="K111f_TableRowDeleting" msprop:Generator_RowChangingName="K111f_TableRowChanging" msprop:Generator_RowEvHandlerName="K111f_TableRowChangeEventHandler" msprop:Generator_RowDeletedName="K111f_TableRowDeleted" msprop:Generator_UserTableName="K111f_Table" msprop:Generator_RowChangedName="K111f_TableRowChanged" msprop:Generator_RowEvArgName="K111f_TableRowChangeEvent" msprop:Generator_RowClassName="K111f_TableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FakturaBroj" msprop:Generator_ColumnVarNameInTable="columnFakturaBroj" msprop:Generator_ColumnPropNameInRow="FakturaBroj" msprop:Generator_ColumnPropNameInTable="FakturaBrojColumn" msprop:Generator_UserColumnName="FakturaBroj" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturaDatum" msprop:Generator_ColumnVarNameInTable="columnFakturaDatum" msprop:Generator_ColumnPropNameInRow="FakturaDatum" msprop:Generator_ColumnPropNameInTable="FakturaDatumColumn" msprop:Generator_UserColumnName="FakturaDatum" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturalniIznos" msprop:Generator_ColumnVarNameInTable="columnFakturalniIznos" msprop:Generator_ColumnPropNameInRow="FakturalniIznos" msprop:Generator_ColumnPropNameInTable="FakturalniIznosColumn" msprop:Generator_UserColumnName="FakturalniIznos" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturalniIznos_pare" msprop:Generator_ColumnVarNameInTable="columnFakturalniIznos_pare" msprop:Generator_ColumnPropNameInRow="FakturalniIznos_pare" msprop:Generator_ColumnPropNameInTable="FakturalniIznos_pareColumn" msprop:Generator_UserColumnName="FakturalniIznos_pare" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturaDatum5" msprop:Generator_ColumnVarNameInTable="columnFakturaDatum5" msprop:Generator_ColumnPropNameInRow="FakturaDatum5" msprop:Generator_ColumnPropNameInTable="FakturaDatum5Column" msprop:Generator_UserColumnName="FakturaDatum5" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturalniIznos6a" msprop:Generator_ColumnVarNameInTable="columnFakturalniIznos6a" msprop:Generator_ColumnPropNameInRow="FakturalniIznos6a" msprop:Generator_ColumnPropNameInTable="FakturalniIznos6aColumn" msprop:Generator_UserColumnName="FakturalniIznos6a" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturalniIznos6a_pare" msprop:Generator_ColumnVarNameInTable="columnFakturalniIznos6a_pare" msprop:Generator_ColumnPropNameInRow="FakturalniIznos6a_pare" msprop:Generator_ColumnPropNameInTable="FakturalniIznos6a_pareColumn" msprop:Generator_UserColumnName="FakturalniIznos6a_pare" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturaDatum7" msprop:Generator_ColumnVarNameInTable="columnFakturaDatum7" msprop:Generator_ColumnPropNameInRow="FakturaDatum7" msprop:Generator_ColumnPropNameInTable="FakturaDatum7Column" msprop:Generator_UserColumnName="FakturaDatum7" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturalniIznos8" msprop:Generator_ColumnVarNameInTable="columnFakturalniIznos8" msprop:Generator_ColumnPropNameInRow="FakturalniIznos8" msprop:Generator_ColumnPropNameInTable="FakturalniIznos8Column" msprop:Generator_UserColumnName="FakturalniIznos8" type="xs:string" minOccurs="0" />
+              <xs:element name="FakturalniIznos8_pare" msprop:Generator_ColumnVarNameInTable="columnFakturalniIznos8_pare" msprop:Generator_ColumnPropNameInRow="FakturalniIznos8_pare" msprop:Generator_ColumnPropNameInTable="FakturalniIznos8_pareColumn" msprop:Generator_UserColumnName="FakturalniIznos8_pare" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

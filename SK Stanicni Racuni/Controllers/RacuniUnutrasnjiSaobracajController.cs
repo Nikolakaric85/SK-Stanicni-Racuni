@@ -1,6 +1,7 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
@@ -62,7 +63,7 @@ namespace SK_Stanicni_Racuni.Controllers
         /***************** PRINT PDF DOKUMENT ******************/
 
         public IActionResult Print(string id, string stanica, string blagajna,
-             DateTime DatumOd, DateTime DatumDo)
+              [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
             if (id == "K140")

@@ -2,12 +2,12 @@
 
 <div class="container">
 
-    <form>
+    <form asp-page-handler="K121a_save">
 
         <div class="row mt-3">
 
             <div class="alert alert-primary" role="alert">
-                <strong>K121a  Priznanica za položen frankaturni depozit</strong>
+                <strong>Unos podataka - K121a  Priznanica za položen frankaturni depozit</strong>
             </div>
 
             <input type="text" asp-for="Stanica" class="form-control ml-1" value="@ViewBag.Stanica" hidden>
@@ -73,7 +73,7 @@
                         <label class="col-form-label ">od</label>
                     </div>
                     <div class="col-md-3 col-4 px-0">
-                        <input type="text" asp-for="OtpDatum" class="form-control" id="OtpDatum" name="otpDatum">
+                        <input type="text" asp-for="OtpDatum" class="form-control" id="OtpDatum" name="datumOd" autocomplete="off">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                         <label class="col-form-label ">Datum</label>
                     </div>
                     <div class="col-md-5 col-4">
-                        <input type="text" asp-for="Datum" class="form-control" style="margin-left:57px;" id="Datum" name="datum">
+                        <input type="text" asp-for="Datum" class="form-control" style="margin-left:57px;" id="Datum" name="datumDo" autocomplete="off">
                     </div>
                 </div>
 

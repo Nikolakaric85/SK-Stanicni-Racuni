@@ -55,6 +55,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DataSet\K111f.Designer.cs">
+      <DependentUpon>K111f.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="DataSet\K117.Designer.cs">
       <DependentUpon>K117.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -103,6 +108,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DataSet\K111f.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K111f.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
     <None Update="DataSet\K117.xsd">
       <SubType>Designer</SubType>
       <LastGenOutput>K117.Designer.cs</LastGenOutput>

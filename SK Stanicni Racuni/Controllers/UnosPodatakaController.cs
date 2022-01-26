@@ -3,6 +3,7 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using SK_Stanicni_Racuni.ViewModels;
 using System;
@@ -65,7 +66,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var viewModel = new UnosK165aViewModel();
 
-            List<string> k165aList = new List<string>() { " ", "N", "D" };
+            List<string> k165aList = new List<string>() { " ", "Ne iskupljen", "Iskupljen" };
 
             try
             {
@@ -96,6 +97,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 }
                 else
                 {
+                    notyf.Information("Uneti broj prispeća ne postoji u bazi.",3);
                     ViewBag.K165a = false;
                 }
 
@@ -109,15 +111,26 @@ namespace SK_Stanicni_Racuni.Controllers
             return View("K165a", viewModel);
         }
 
-        public IActionResult K165a_save(UnosK165aViewModel viewModel, string k165aDatum)
+        public IActionResult K165a_save(UnosK165aViewModel viewModel, [ModelBinder(typeof(DatumDoModelBinder))] DateTime datumDo, string k165a )
         {
             var model = context.SlogKalks.Where(x => x.PrBroj == viewModel.PrBroj && x.PrStanica == viewModel.PrStanica).FirstOrDefault();
             var newModel = new SlogKalk();
 
             newModel = model;
-            newModel.K165a = viewModel.K165a;
+
+            if (k165a == null)
+            {
+                newModel.K165a = ' ';
+            } else if (k165a == "Iskupljen")
+            {
+                newModel.K165a = 'D';
+            } else if(k165a == "Ne iskupljen")
+            {
+                newModel.K165a = 'N';
+            }
+
             newModel.K165a_iznos = viewModel.K165a_iznos;
-            _ = k165aDatum != null ? newModel.K165a_datum = DateTime.Parse(k165aDatum) : newModel.K165a_datum = model.K165a_datum;
+            _ = datumDo.ToString() != "1/1/0001 12:00:00 AM" ? newModel.K165a_datum = datumDo : newModel.K165a_datum = model.K165a_datum;
             
             try
             {
@@ -131,7 +144,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 notyf.Error("Greška prilikom izmene podataka.", 3);
             }
 
-            return View("K165a");
+            return RedirectToAction("K165a");
         }
 
     
@@ -159,20 +172,23 @@ namespace SK_Stanicni_Racuni.Controllers
         }
 
         //***********************  IMA JOS POSLA DA SE OGRANICI UNOS PODATAKA NA FORMI *******************************************************************************
-        public IActionResult K161F_save(SrK161f model, string datumOd, string datumDo, char naplacenoCheckBox = 'N')
+        public IActionResult K161F_save([ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, 
+            SrK161f model, char naplacenoCheckBox = 'N')
         {
             var newModel = new SrK161f();
-            newModel.Stanica = model.Stanica;
+
+            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == model.Stanica).FirstOrDefault();
+            _ = sifraStanice != null ? newModel.Stanica = sifraStanice.SifraStanice : model.Stanica = null;
             newModel.Blagajna = model.Blagajna;
             newModel.FakturaBroj = model.FakturaBroj;
 
-            if (datumOd != null)
+            if (DatumOd.ToString() != "1/1/0001 12:00:00 AM")
             {
-                newModel.FakturaDatum = DateTime.Parse(datumOd);
+                newModel.FakturaDatum = DatumOd;
             }
-            if (datumDo != null)
+            if (DatumDo.ToString() != "1/1/0001 12:00:00 AM")
             {
-                newModel.FakturaDatumP = DateTime.Parse(datumDo);
+                newModel.FakturaDatumP = DatumDo;
             }
 
             newModel.VrstaUslugaSifra = model.VrstaUslugaSifra;
@@ -199,7 +215,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 notyf.Error("Greška prilikom upisa u bazu.", 3);
             }
 
-            return View("K161f");
+            return RedirectToAction ("K161f");
         }
 
         public IActionResult K121a()
@@ -226,7 +242,8 @@ namespace SK_Stanicni_Racuni.Controllers
             return View();
         }
 
-        public IActionResult K121a_save(SrK121a model, string otpDatum, string datum, string stanica_)
+        public IActionResult K121a_save(SrK121a model, 
+            [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, string stanica_)      //otpDatum je DatumOd, datum je DatumDo
         {
             var newModel = new SrK121a();
 
@@ -235,9 +252,9 @@ namespace SK_Stanicni_Racuni.Controllers
             newModel.Iznos = model.Iznos;
             newModel.OtpBroj = model.OtpBroj;
 
-            if (otpDatum != null)
+            if (DatumOd.ToString() != "1/1/0001 12:00:00 AM")
             {
-                newModel.OtpDatum = DateTime.Parse(otpDatum);
+                newModel.OtpDatum = DatumOd;
             }
 
             if (!string.IsNullOrEmpty(stanica_))
@@ -245,9 +262,9 @@ namespace SK_Stanicni_Racuni.Controllers
                 newModel.PrStanica = context.ZsStanices.Where(x => x.Naziv == stanica_).Select(x => x.SifraStanice).FirstOrDefault();
             }
 
-            if (datum != null)
+            if (DatumDo.ToString() != "1/1/0001 12:00:00 AM")
             {
-                newModel.Datum = DateTime.Parse(datum);
+                newModel.Datum = DatumDo;
             }
 
             newModel.Primalac = model.Primalac;
