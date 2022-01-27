@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SK_Stanicni_Racuni.Models;
 
 namespace SK_Stanicni_Racuni.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220127080526_AddSaobracajColumnToSR_161f")]
+    partial class AddSaobracajColumnToSR_161f
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -932,26 +934,16 @@ namespace SK_Stanicni_Racuni.Migrations
                         .HasColumnType("char(4)")
                         .IsFixedLength(true);
 
-                    b.Property<string>("BlagajnikFR")
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
-
                     b.Property<int?>("Broj")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("date");
 
-                    b.Property<DateTime?>("DatumVracanjaFR")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal?>("Iznos")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
                         .HasDefaultValueSql("((0))");
-
-                    b.Property<decimal?>("ObracunFR")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("OtpBroj")
                         .HasColumnType("int");
@@ -980,12 +972,6 @@ namespace SK_Stanicni_Racuni.Migrations
                     b.Property<string>("PrimalacZemlja")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("RedniBroj")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Saobracaj")
-                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Stanica")
                         .HasMaxLength(7)

@@ -293,6 +293,10 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             private global::System.Data.DataColumn columnFakturalniIznos6a_pare;
             
+            private global::System.Data.DataColumn columnFakturalniIznos6b;
+            
+            private global::System.Data.DataColumn columnFakturalniIznos6b_pare;
+            
             private global::System.Data.DataColumn columnFakturaDatum7;
             
             private global::System.Data.DataColumn columnFakturalniIznos8;
@@ -390,6 +394,22 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FakturalniIznos6bColumn {
+                get {
+                    return this.columnFakturalniIznos6b;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FakturalniIznos6b_pareColumn {
+                get {
+                    return this.columnFakturalniIznos6b_pare;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn FakturaDatum7Column {
                 get {
                     return this.columnFakturaDatum7;
@@ -449,7 +469,7 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public K111f_TableRow AddK111f_TableRow(string FakturaBroj, string FakturaDatum, string FakturalniIznos, string FakturalniIznos_pare, string FakturaDatum5, string FakturalniIznos6a, string FakturalniIznos6a_pare, string FakturaDatum7, string FakturalniIznos8, string FakturalniIznos8_pare) {
+            public K111f_TableRow AddK111f_TableRow(string FakturaBroj, string FakturaDatum, string FakturalniIznos, string FakturalniIznos_pare, string FakturaDatum5, string FakturalniIznos6a, string FakturalniIznos6a_pare, string FakturalniIznos6b, string FakturalniIznos6b_pare, string FakturaDatum7, string FakturalniIznos8, string FakturalniIznos8_pare) {
                 K111f_TableRow rowK111f_TableRow = ((K111f_TableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         FakturaBroj,
@@ -459,6 +479,8 @@ namespace SK_Stanicni_Racuni.DataSet {
                         FakturaDatum5,
                         FakturalniIznos6a,
                         FakturalniIznos6a_pare,
+                        FakturalniIznos6b,
+                        FakturalniIznos6b_pare,
                         FakturaDatum7,
                         FakturalniIznos8,
                         FakturalniIznos8_pare};
@@ -491,6 +513,8 @@ namespace SK_Stanicni_Racuni.DataSet {
                 this.columnFakturaDatum5 = base.Columns["FakturaDatum5"];
                 this.columnFakturalniIznos6a = base.Columns["FakturalniIznos6a"];
                 this.columnFakturalniIznos6a_pare = base.Columns["FakturalniIznos6a_pare"];
+                this.columnFakturalniIznos6b = base.Columns["FakturalniIznos6b"];
+                this.columnFakturalniIznos6b_pare = base.Columns["FakturalniIznos6b_pare"];
                 this.columnFakturaDatum7 = base.Columns["FakturaDatum7"];
                 this.columnFakturalniIznos8 = base.Columns["FakturalniIznos8"];
                 this.columnFakturalniIznos8_pare = base.Columns["FakturalniIznos8_pare"];
@@ -513,6 +537,10 @@ namespace SK_Stanicni_Racuni.DataSet {
                 base.Columns.Add(this.columnFakturalniIznos6a);
                 this.columnFakturalniIznos6a_pare = new global::System.Data.DataColumn("FakturalniIznos6a_pare", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFakturalniIznos6a_pare);
+                this.columnFakturalniIznos6b = new global::System.Data.DataColumn("FakturalniIznos6b", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFakturalniIznos6b);
+                this.columnFakturalniIznos6b_pare = new global::System.Data.DataColumn("FakturalniIznos6b_pare", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFakturalniIznos6b_pare);
                 this.columnFakturaDatum7 = new global::System.Data.DataColumn("FakturaDatum7", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFakturaDatum7);
                 this.columnFakturalniIznos8 = new global::System.Data.DataColumn("FakturalniIznos8", typeof(string), null, global::System.Data.MappingType.Element);
@@ -773,6 +801,38 @@ namespace SK_Stanicni_Racuni.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FakturalniIznos6b {
+                get {
+                    try {
+                        return ((string)(this[this.tableK111f_Table.FakturalniIznos6bColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FakturalniIznos6b\' in table \'K111f_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK111f_Table.FakturalniIznos6bColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FakturalniIznos6b_pare {
+                get {
+                    try {
+                        return ((string)(this[this.tableK111f_Table.FakturalniIznos6b_pareColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FakturalniIznos6b_pare\' in table \'K111f_Table\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableK111f_Table.FakturalniIznos6b_pareColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string FakturaDatum7 {
                 get {
                     try {
@@ -901,6 +961,30 @@ namespace SK_Stanicni_Racuni.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetFakturalniIznos6a_pareNull() {
                 this[this.tableK111f_Table.FakturalniIznos6a_pareColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFakturalniIznos6bNull() {
+                return this.IsNull(this.tableK111f_Table.FakturalniIznos6bColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFakturalniIznos6bNull() {
+                this[this.tableK111f_Table.FakturalniIznos6bColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFakturalniIznos6b_pareNull() {
+                return this.IsNull(this.tableK111f_Table.FakturalniIznos6b_pareColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFakturalniIznos6b_pareNull() {
+                this[this.tableK111f_Table.FakturalniIznos6b_pareColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

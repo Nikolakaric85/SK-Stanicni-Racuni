@@ -1,0 +1,204 @@
+﻿@model SrK121a
+
+<div class="container">
+
+    <form asp-page-handler="K121aPovratSave">
+
+        <div class="row mt-3">
+
+            <div class="alert alert-primary" role="alert">
+                <strong>Unos podataka - K121a Unos iznosa sa vraćenog frankaturnog depozita</strong>
+            </div>
+
+            <input type="text" asp-for="Stanica" class="form-control ml-1" value="@ViewBag.Stanica" hidden>
+            <input type="text" asp-for="Blagajnik" class="form-control ml-1" value="@ViewBag.UserId" name="userId" hidden>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="form-label">Račun broj/K-115</label>
+                    <input type="text" asp-for="Broj" class="form-control" id="pretrazi">
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <button class="btn btn-primary" asp-controller="UnosPodataka" asp-action="K121aPovratPretraga">Pretraži</button>
+                </div>
+            </div>
+
+            @if (ViewBag.K121a == true)
+            {
+
+                <div class="row mt-3">
+
+                    <input type="text" asp-for="Id" class="form-control"  hidden>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Račun broj/K-115</label>
+                        <input type="text" class="form-control" asp-for="RedniBroj" readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Datum</label>
+                        <input type="text" class="form-control" asp-for="DatumVracanjaFR" id="Datum" name="datumDo" autocomplete="off">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Položeni depozit din.</label>
+                        <input type="text" class="form-control" asp-for="Iznos" id="iznos" readonly>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Faktura iznosi din.</label>
+                        <input type="text" class="form-control" asp-for="ObracunFR" id="obracunFr" autocomplete="off">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Razlika doplaćena/vraćena</label>
+                        <input type="text" class="form-control" id="razlika" readonly>
+                    </div>
+                    <div class="col-md-2 align-self-end">
+                        <button class="btn btn-primary" asp-controller="UnosPodataka" asp-action="K121aPovratSave" id="upisiUBazu">Upiši u bazu</button>
+                    </div>
+                </div>
+            }
+
+
+
+        </div>
+
+    </form>
+
+
+
+
+
+
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $.fn.datepicker.dates['rs'] = {
+            days: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"],
+            daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
+            daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
+            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
+            today: "Danas",
+            clear: "Clear",
+            // format: "mm/dd/yyyy",
+            //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+            weekStart: 1
+        };
+
+        $('#Datum').datepicker({
+            todayBtn: true,
+            todayBtn: 'linked',
+            todayHighlight: true,
+            format: 'dd.mm.yyyy',
+            autoclose: true,
+            language: 'rs'
+        })
+
+
+        $(window).on('load', function () {
+            $('#Datum').datepicker()
+
+            if ($('#Datum').val() != '' && $('#obracunFr').val() != '') {
+                $('#upisiUBazu').attr("disabled", false);
+            } else {
+                console.log('else')
+                $('#upisiUBazu').attr('disabled', true)
+            }
+        })
+
+
+        $(document).ready(function () {
+
+            $('#iznos ,#obracunFr').on('input', function () {
+                numbersAndDotOnly(this.getAttribute('Id'), this.value)
+
+                var iznos = $('#iznos').val()
+                var obracunFr = $('#obracunFr').val()
+
+                if (iznos != 0 && obracunFr != 0) {
+                    $('#razlika').val((parseFloat(iznos) - parseFloat(obracunFr)).toFixed(2))
+                } else {
+                    $('#razlika').val('')
+                }
+            })
+
+            function numbersAndDotOnly(selector, input) {                       //Da prilikom unosa zareza prebaci da bude tačka
+                input = input.replace(",", ".");
+                var res = "";
+                //da ne moze prvi karakter da bude tacka
+                if (input.charAt(0) == '.') {
+                    input = input.replace(/\.+$/, "");
+                }
+                //da ne moze dve tacke da ubaci
+                if (input.split('.').length > 2) {
+                    input = input.replace(/\..+$/, ".");
+                }
+                //regex za brojeve i tacke
+                function validate(s) {
+                    var rgx = /^[0-9]*\.?[0-9]*$/;
+                    return s.match(rgx);
+                }
+                for (var i = 0; i < input.length; i++) {
+                    if (validate(input[i]) != null) {
+                        res += input[i]
+                    }
+                }
+                $('#' + selector).val(res)
+            }
+
+            $('#iznos, #obracunFr').on('input', function () {                                                             //decimale 18,2
+                numbersAndDotOnly(this.getAttribute('Id'), this.value)
+
+                var val = this.value
+                var selector = this.getAttribute('Id')
+                var separate = val.split('.')
+
+                if (separate.length == 1) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 18)
+                    })
+                } else if (separate.length == 2) {
+                    var sum = parseInt(separate[0].length) + parseInt(3)
+                    $('#' + selector).val(function () {
+                        console.log('sum ' + sum)
+                        return val.substr(0, sum)
+                    })
+                }
+            })
+
+
+
+            $('#pretrazi').keypress(function (e) {                                                                 //Samo unos brojeva i ništa više
+                var charCode = (e.which) ? e.which : event.keyCode
+                if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                    return false;
+            });
+
+
+            $('#Datum, #obracunFr').on('input', function () {                                                      //Uslovi na formi (sta je obavezno)
+
+                var datum = $('#Datum').val()
+                var obracunFr = $('#obracunFr').val()
+
+                if (datum != '' && obracunFr != '') {
+                    $('#upisiUBazu').attr('disabled', false)
+                } else {
+                    $('#upisiUBazu').attr("disabled", true);
+                }
+            })
+
+        
+
+        })
+
+    </script>
+}
+
+
+
+
+
+
+
+@*https://stackoverflow.com/questions/15622076/making-html5-datalist-visible-when-focus-event-fires-on-input*@

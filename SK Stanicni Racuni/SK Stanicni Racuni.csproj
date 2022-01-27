@@ -7,11 +7,13 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\css\K140.rdlc" />
+    <Content Remove="wwwroot\Reports\K111f.rdlc" />
     <Content Remove="wwwroot\Reports\K117.rdlc" />
     <Content Remove="wwwroot\Reports\K254.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Reports\K111f.rdlc" />
     <None Include="wwwroot\Reports\K254.rdlc" />
     <None Include="wwwroot\Reports\K117.rdlc" />
   </ItemGroup>

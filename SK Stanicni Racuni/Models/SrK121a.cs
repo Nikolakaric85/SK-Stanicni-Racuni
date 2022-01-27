@@ -23,5 +23,13 @@ namespace SK_Stanicni_Racuni.Models
         public string PrimalacZemlja { get; set; }
         public DateTime? Datum { get; set; }
         public string Blagajnik { get; set; }
+        public int RedniBroj { get; set; }
+        public char? Saobracaj { get; set; }
+        public DateTime? DatumVracanjaFR { get; set; }
+        public decimal? ObracunFR { get; set; }
+        [ScaffoldColumn(true)]
+        [StringLength(4, ErrorMessage = "The {0} value cannot exceed {1} characters. ")]
+        public string BlagajnikFR { get; set; }
+
     }
 }

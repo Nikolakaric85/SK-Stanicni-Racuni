@@ -33,6 +33,14 @@
                         <label asp-for="FakturaBroj" class="form-label"><strong> Račun broj</strong></label>
                         <input type="text" asp-for="FakturaBroj" class="form-control" id="racunBr">
                     </div>
+                    <div class="col-md-5">
+                        <label for="inputPassword4" class="form-label">Vrsta saobraćaja</label>
+                        <select class="form-select" asp-for="Saobracaj" aria-label="Default select example" name="saobracaj">
+                            <option value=""></option>
+                            <option value="1">1 - Unutršanji</option>
+                            <option value="2">2 - Medjunarodni</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row">

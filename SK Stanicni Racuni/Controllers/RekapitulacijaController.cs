@@ -56,46 +56,94 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var dt = new DataTable();
 
-            dt.Columns.Add("BrojTovarnogLista");
-            dt.Columns.Add("PredatoDana");
-            dt.Columns.Add("UputnaStanica");
-            dt.Columns.Add("BrojKola");
-            dt.Columns.Add("NaznacenjeVrsteRobe");
-            dt.Columns.Add("NavedenoUtovarnomListu");
-            dt.Columns.Add("IBK");
+            dt.Columns.Add("FakturaBroj");
+            dt.Columns.Add("FakturaDatum");
+            dt.Columns.Add("FakturalniIznos");
+            dt.Columns.Add("FakturalniIznos_pare");
+            dt.Columns.Add("FakturaDatum5");
+            dt.Columns.Add("FakturalniIznos6a");
+            dt.Columns.Add("FakturalniIznos6a_pare");
+            dt.Columns.Add("FakturaDatum7");
+            dt.Columns.Add("FakturalniIznos8");
+            dt.Columns.Add("FakturalniIznos8_pare");
 
             DataRow row;
+
+            decimal fakUznosSum = 0;
+            decimal fakUznos6aSum = 0;
+            decimal fakUznos6bSum = 0;
+            decimal fakUznos8Sum = 0;
 
             foreach (var item in query)
             {
                 row = dt.NewRow();
-                row["FakturaBroj"] = item.Broj_tovarnog_lista;
-                row["FakturaDatum"] = item.Predato_dana.ToString("dd.MM.yyyy");
-                row["FakturalniIznos_pare"] = item.Uputna_stanica;
-                row["FakturaDatum5"] = item.Broj_Kola;
-                row["FakturalniIznos6a"] = item.Naznačenje_vrste_robe;
-                row["FakturalniIznos6a_pare"] = item.Navedena_u_tovarnom_listu;
-                row["FakturaDatum7"] = item.IBK;
-                row["FakturalniIznos8"] = item.IBK;
-                row["FakturalniIznos8_pare"] = item.IBK;
+
+                row["FakturaBroj"] = item.FakturaBroj;
+
+                if (item.NaplacenoNB == null )
+                {
+                    row["FakturaDatum"] = item.FakturaDatum;
+                    decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
+                    fakUznosSum += fakUznos;
+                    string[] array = fakUznos.ToString().Split('.');
+                    row["FakturalniIznos"] = array[0];
+                    row["FakturalniIznos_pare"] = array[1];
+                }
+
+                if (item.NaplacenoNB == 'D' && item.Saobracaj == '1')
+                {
+                    row["FakturaDatum5"] = item.FakturaDatum;
+                    decimal fakUznos6a = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
+                    fakUznos6aSum += fakUznos6a;
+                    string[] array = fakUznos6a.ToString().Split('.');
+                    row["FakturalniIznos6a"] = array[0];
+                    row["FakturalniIznos6a_pare"] = array[1];
+                }
+                if (item.NaplacenoNB == 'D' && item.Saobracaj == '2')
+                {
+                    row["FakturaDatum5"] = item.FakturaDatum;
+                    decimal fakUznos6b = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
+                    fakUznos6bSum += fakUznos6b;
+                    string[] array = fakUznos6b.ToString().Split('.');
+                    row["FakturalniIznos6b"] = array[0];
+                    row["FakturalniIznos6b_pare"] = array[1];
+                }
+
+                if (item.NaplacenoNB == 'N')
+                {
+                    row["FakturaDatum7"] = item.FakturaDatum.ToString();
+                    
+                    decimal fakUznos8 = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
+                    fakUznos8Sum += fakUznos8;
+                    string[] array = fakUznos8.ToString().Split('.');
+                    row["FakturalniIznos8"] = array[0];
+                    row["FakturalniIznos8_pare"] = array[1];
+                }
+
                 dt.Rows.Add(row);
             }
+
+            string[] arrayFakUznosSum = fakUznosSum.ToString().Split('.');
+            string[] arrayFakUznos6aSum = fakUznos6aSum.ToString().Split('.');
+            string[] arrayFakUznos6bSum = fakUznos6bSum.ToString().Split('.');
+            string[] arrayFakUznos8Sum = fakUznos8Sum.ToString().Split('.');
 
             string mimtype = "";
             int extension = 1;
 
             Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
-            paramtars.Add("Stanica", sifraStanice);
+            paramtars.Add("Stanica", sifraStanice.SifraStanice);
             paramtars.Add("DatumOd", DatumOd.ToString());
             paramtars.Add("DatumDo", DatumDo.ToString());
 
-            var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K117.rdlc";
+            paramtars.Add("FakturalniIznos8", arrayFakUznos8Sum[0]);
+            paramtars.Add("FakturalniIznos8_pare", arrayFakUznos8Sum[1]);
+
+            var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K111f.rdlc";
             LocalReport localReport = new LocalReport(path);
-            localReport.AddDataSource("K117", dt);
-            localReport.AddDataSource("Stanica", sifraStanice);
-            localReport.AddDataSource("DatumOd", DatumOd.ToString());
-            localReport.AddDataSource("DatumDo", DatumDo.ToString());
+            localReport.AddDataSource("K111f", dt);
+            
             Random random = new Random();
             extension = random.Next();
             ReportResult result = localReport.Execute(RenderType.Pdf, 1, paramtars, mimtype);

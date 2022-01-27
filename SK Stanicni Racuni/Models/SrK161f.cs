@@ -30,5 +30,6 @@ namespace SK_Stanicni_Racuni.Models
         public string VrstaUslugaSifra { get; set; }
         public string VrstaUslugaOpis { get; set; }
         public string Blagajnik { get; set; }
+        public char? Saobracaj { get; set; }
     }
 }

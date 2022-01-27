@@ -223,9 +223,10 @@
             var posiljalac = $('#posiljalac').val()
             var iznos = $('#iznos').val()
             var primalac = $('#primalac').val()
+            var datum = $('#Datum').val()
 
-            console.log('posiljalac ' + posiljalac + ' iznos ' + iznos + ' primalac ' + primalac + ' priznanica ' + priznanica)
-            if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '') {
+            console.log('posiljalac ' + posiljalac + ' iznos ' + iznos + ' primalac ' + primalac + ' priznanica ' + priznanica + ' datum ' + datum)
+            if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
                 console.log('if')
                 $('#upisBtn').attr("disabled", false);
             } else {
@@ -315,16 +316,17 @@
             });
 
 
-            $('#posiljalac, #iznos, #primalac, #priznanica').on('input', function () {                                             //Uslovi na formi
+            $('#posiljalac, #iznos, #primalac, #priznanica, #Datum').on('change', function () {                                             //Uslovi na formi
 
                 var posiljalac = $('#posiljalac').val()
                 var iznos = $('#iznos').val()
                 var primalac = $('#primalac').val()
                 var priznanica = $('#priznanica').val()
+                var datum = $('#Datum').val()
 
-                console.log('posiljalac ' + posiljalac + ' iznos ' + iznos + ' primalac ' + primalac + ' priznanica ' + priznanica)
+                console.log('posiljalac ' + posiljalac + ' iznos ' + iznos + ' primalac ' + primalac + ' priznanica ' + priznanica + ' datum ' + datum)
 
-                if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '') {
+                if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
                     console.log('if')
                     $('#upisBtn').attr('disabled', false)
                 } else {
@@ -332,6 +334,8 @@
                     $('#upisBtn').attr("disabled", true);
                 }
             })
+
+
 
             $('#myDatalistInput').on('input', function () {
 

@@ -203,6 +203,7 @@ namespace SK_Stanicni_Racuni.Controllers
             newModel.PrimalacTr = model.PrimalacTr;
             newModel.PrimalacMb = model.PrimalacMb;
             newModel.PrimalacPib = model.PrimalacPib;
+            newModel.Saobracaj = model.Saobracaj;
 
             try
             {
@@ -285,6 +286,81 @@ namespace SK_Stanicni_Racuni.Controllers
             }
 
             return RedirectToAction("K121a");
+        }
+
+
+        public IActionResult K121aPovrat()
+        {
+            var UserId = HttpContext.User.Identity.Name; // daje UserId
+            var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+            if (user != null)
+            {
+                ViewBag.UserId = UserId;
+                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+        }
+
+        public IActionResult K121aPovratPretraga(SrK121a model, string userId)
+        {
+            var query = context.SrK121as.Where(x => x.Broj == model.Broj && x.Stanica == model.Stanica).FirstOrDefault();
+            if (query != null)
+            {
+                ViewBag.K121a = true;
+                ViewBag.Stanica = model.Stanica;
+                ViewBag.UserId = userId;
+
+                DateTime date = DateTime.Now;
+                var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+                var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                if (query.RedniBroj == 0)
+                {
+                    var redniBrojevi = context.SrK121as.Where(x => x.Datum >= firstDayOfMonth && x.Datum <= lastDayOfMonth).Select(x => x.RedniBroj);
+                    var redniBrojMax = redniBrojevi.Max();
+                    query.RedniBroj = redniBrojMax + 1;
+                } else
+
+                return View("K121aPovrat", query);
+            } else
+            {
+                ViewBag.K121a = false;
+                ViewBag.Stanica = model.Stanica;
+                notyf.Information("Ne postoji depozit pod tim brojem.",3);
+            }
+            ViewBag.UserId = userId;
+            return View("K121aPovrat");
+        }
+
+        public IActionResult K121aPovratSave(SrK121a model, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo) // DatumDo je DatumVracanjaFR
+        {
+            var query = context.SrK121as.Where(x => x.Id == model.Id).FirstOrDefault();
+            var UserId = HttpContext.User.Identity.Name; // daje UserId
+            var newModel = new SrK121a();
+            newModel = query;
+            newModel.RedniBroj = model.RedniBroj;
+            newModel.DatumVracanjaFR = DatumDo;
+            newModel.ObracunFR = model.ObracunFR;
+            newModel.BlagajnikFR = UserId;
+
+            try
+            {
+                var update = context.SrK121as.Attach(newModel);
+                update.State = Microsoft.EntityFrameworkCore.EntityState.Modified;                                      
+                context.SaveChanges();
+                notyf.Success("Uspeša izmena podataka.", 3);
+            }
+            catch (Exception)
+            {
+                notyf.Error("Greška prilikom izmene podataka.", 3);
+            }
+
+
+            return RedirectToAction ("K121aPovrat");
         }
 
 
