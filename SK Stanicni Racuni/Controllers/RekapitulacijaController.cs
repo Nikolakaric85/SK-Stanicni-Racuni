@@ -1,14 +1,14 @@
-﻿using AspNetCore.Reporting;
+﻿
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Reporting.NETCore;
 using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace SK_Stanicni_Racuni.Controllers
 {
@@ -80,15 +80,14 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 row["FakturaBroj"] = item.FakturaBroj;
 
-                if (item.NaplacenoNB == null )
-                {
-                    row["FakturaDatum"] = item.FakturaDatum;
-                    decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
-                    fakUznosSum += fakUznos;
-                    string[] array = fakUznos.ToString().Split('.');
-                    row["FakturalniIznos"] = array[0];
-                    row["FakturalniIznos_pare"] = array[1];
-                }
+
+                row["FakturaDatum"] = item.FakturaDatum;
+                decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
+                fakUznosSum += fakUznos;
+                string[] arrayFaktura = fakUznos.ToString().Split('.');
+                row["FakturalniIznos"] = arrayFaktura[0];
+                row["FakturalniIznos_pare"] = arrayFaktura[1];
+
 
                 if (item.NaplacenoNB == 'D' && item.Saobracaj == '1')
                 {
@@ -112,7 +111,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 if (item.NaplacenoNB == 'N')
                 {
                     row["FakturaDatum7"] = item.FakturaDatum.ToString();
-                    
+
                     decimal fakUznos8 = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakUznos8Sum += fakUznos8;
                     string[] array = fakUznos8.ToString().Split('.');
@@ -128,28 +127,26 @@ namespace SK_Stanicni_Racuni.Controllers
             string[] arrayFakUznos6bSum = fakUznos6bSum.ToString().Split('.');
             string[] arrayFakUznos8Sum = fakUznos8Sum.ToString().Split('.');
 
-            string mimtype = "";
-            int extension = 1;
 
-            Dictionary<string, string> paramtars = new Dictionary<string, string>();
+            string renderFormat = "PDF";
+            string mimtype = "application/pdf";
 
-            paramtars.Add("Stanica", sifraStanice.SifraStanice);
-            paramtars.Add("DatumOd", DatumOd.ToString());
-            paramtars.Add("DatumDo", DatumDo.ToString());
+            var localReport = new LocalReport();
+            localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K111f.rdlc";
+            localReport.DataSources.Add(new ReportDataSource("K111f", dt));
+            var parametars = new[]
+            {
+                    new ReportParameter("Stanica", sifraStanice.SifraStanice),
+                    new ReportParameter("DatumOd", DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
+                    new ReportParameter("FakturalniIznos8", arrayFakUznos8Sum[0]),
+                    new ReportParameter("FakturalniIznos8_pare", arrayFakUznos8Sum[1])
+            };
 
-            paramtars.Add("FakturalniIznos8", arrayFakUznos8Sum[0]);
-            paramtars.Add("FakturalniIznos8_pare", arrayFakUznos8Sum[1]);
+            localReport.SetParameters(parametars);
+            var pdf = localReport.Render(renderFormat);
+            return File(pdf, mimtype);
 
-            var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K111f.rdlc";
-            LocalReport localReport = new LocalReport(path);
-            localReport.AddDataSource("K111f", dt);
-            
-            Random random = new Random();
-            extension = random.Next();
-            ReportResult result = localReport.Execute(RenderType.Pdf, 1, paramtars, mimtype);
-            return File(result.MainStream, "application/pdf");
-
-            
         }
     }
 }

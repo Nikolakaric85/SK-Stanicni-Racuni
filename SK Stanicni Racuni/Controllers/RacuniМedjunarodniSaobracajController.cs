@@ -1,7 +1,6 @@
-﻿using AspNetCore.Reporting;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Reporting.NETCore;
 using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
@@ -14,7 +13,7 @@ namespace SK_Stanicni_Racuni.Controllers
     public class RacuniМedjunarodniSaobracajController : Controller
     {
 
-        private ReportResult result; // za pdf izvestaj
+        //  private ReportResult result; // za pdf izvestaj
         private readonly AppDbContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
 
@@ -48,7 +47,6 @@ namespace SK_Stanicni_Racuni.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-
             return View();
         }
 
@@ -57,8 +55,6 @@ namespace SK_Stanicni_Racuni.Controllers
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
             var _sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
-            string mimtype = "";
-            int extension = 1;
 
             if (id == "K140m")
             {
@@ -98,63 +94,66 @@ namespace SK_Stanicni_Racuni.Controllers
                                 IBK = SlogKola.Ibk
                             };
 
-                if (query.Any())
+
+                var dt = new DataTable();
+
+                dt.Columns.Add("OtpBroj");
+                dt.Columns.Add("OtpDatum");
+                dt.Columns.Add("PrStanica");
+                dt.Columns.Add("PrUprava");
+                dt.Columns.Add("TlSumaFrDin");
+                dt.Columns.Add("TlSumaFrDin_pare");
+                dt.Columns.Add("IBK");
+
+                DataRow row;
+                double intPart = 0.00;
+                int fractionalPart = 0;
+                Decimal sve = 0;
+                foreach (var item in query)
                 {
-                    var dt = new DataTable();
 
-                    dt.Columns.Add("OtpBroj");
-                    dt.Columns.Add("OtpDatum");
-                    dt.Columns.Add("PrStanica");
-                    dt.Columns.Add("PrUprava");
-                    dt.Columns.Add("TlSumaFrDin");
-                    dt.Columns.Add("TlSumaFrDin_pare");
-                    dt.Columns.Add("IBK");
+                    row = dt.NewRow();
+                    row["OtpBroj"] = item.OtpBroj;
+                    row["OtpDatum"] = item.OtpDatum.ToString();
+                    row["PrStanica"] = item.PrStanica;
+                    row["PrUprava"] = item.PrStanica.Substring(0, 2);
 
-                    DataRow row;
-                    double intPart = 0.00;
-                    int fractionalPart = 0;
-                    Decimal sve = 0;
-                    foreach (var item in query)
-                    {
-                        
-                        row = dt.NewRow();
-                        row["OtpBroj"] = item.OtpBroj;
-                        row["OtpDatum"] = item.OtpDatum.ToString();
-                        row["PrStanica"] = item.PrStanica;
-                        row["PrUprava"] = item.PrStanica.Substring(0,2);
+                    var TlSuma = item.TlSumaFrDin.ToString();
+                    string[] array = TlSuma.Split('.');
 
-                        var TlSuma = item.TlSumaFrDin.ToString();
-                        string[] array = TlSuma.Split('.');
+                    row["TlSumaFrDin"] = array[0];
+                    row["TlSumaFrDin_pare"] = array[1];
+                    row["IBK"] = item.IBK;
 
-                        row["TlSumaFrDin"] = array[0];
-                        row["TlSumaFrDin_pare"] = array[1];
-                        row["IBK"] = item.IBK;
-
-                        intPart += Double.Parse(array[0]);
-                        fractionalPart += Int32.Parse(array[1]); ;
-                        sve += (decimal)item.TlSumaFrDin;
-                        dt.Rows.Add(row);
-                    }
-
-                   // int resInt =  fractionalPart / 100;
-                    
-                    long intPartSum = (long)sve;
-                    double fractionalPartSum = (double)(sve - intPartSum);
-                    string[] decimalPart = (fractionalPartSum * 100) .ToString().Split('.');
-
-
-                    Dictionary<string, string> paramtars = new Dictionary<string, string>();
-
-                    paramtars.Add("SumInt", intPartSum.ToString());
-                    paramtars.Add("SumDec", decimalPart[0]);
-                    paramtars.Add("SifraStanice", _sifraStanice);
-
-                    var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140m.rdlc";
-                    LocalReport localReport = new LocalReport(path);
-                    localReport.AddDataSource("K140m", dt);
-                    extension = (int)(DateTime.Now.Ticks >> 10);
-                    result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+                    intPart += Double.Parse(array[0]);
+                    fractionalPart += Int32.Parse(array[1]); ;
+                    sve += (decimal)item.TlSumaFrDin;
+                    dt.Rows.Add(row);
                 }
+
+
+                long intPartSum = (long)sve;
+                double fractionalPartSum = (double)(sve - intPartSum);
+                string[] decimalPart = (fractionalPartSum * 100).ToString().Split('.');
+
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
+
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140m.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K140m", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("SumInt", intPartSum.ToString()),
+                    new ReportParameter("SumDec", decimalPart[0]),
+                    new ReportParameter("SifraStanice", _sifraStanice)
+                };
+
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
+
+
             }
             else if (id == "K165m")
             {
@@ -242,7 +241,7 @@ namespace SK_Stanicni_Racuni.Controllers
                                          PrDatum = foj.PrDatum,
                                          PrBroj = foj.PrBroj,
                                          TlSumaUpDin = foj.TlSumaUpDin,
-                                         
+
 
                                      };
 
@@ -255,8 +254,6 @@ namespace SK_Stanicni_Racuni.Controllers
                             select fij;
 
 
-                if (final.Any())
-                {
                     var dt = new DataTable();
 
                     dt.Columns.Add("PrBroj");
@@ -274,7 +271,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     {
                         row = dt.NewRow();
                         row["PrBroj"] = item.PrBroj;
-                        row["OtpStanica"] = item.OtpStanica.Substring(0,2);
+                        row["OtpStanica"] = item.OtpStanica.Substring(0, 2);
 
                         var nazivStanice = context.ZsStanices.Where(x => x.SifraStanice == item.OtpStanica).FirstOrDefault();
                         _ = nazivStanice != null ? row["NazivStanice"] = nazivStanice.Naziv : row["NazivStanice"] = string.Empty;
@@ -292,20 +289,24 @@ namespace SK_Stanicni_Racuni.Controllers
                         dt.Rows.Add(row);
                     }
 
-                    Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
-                    paramtars.Add("Stanica", stanica);
-                    //   paramtars.Add("SifraStanice", _sifraStanice);
-                
-                    paramtars.Add("DatumDo", DatumDo.ToString());
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
 
-                    var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165m.rdlc";
-                    LocalReport localReport = new LocalReport(path);
-                    localReport.AddDataSource("K165m", dt);
-                    extension = (int)(DateTime.Now.Ticks >> 10);
-                    result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165m.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K165m", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("Stanica", stanica.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
+                   
+                };
 
-                }
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
+
 
             }
             else if (id == "K140trz")
@@ -334,8 +335,7 @@ namespace SK_Stanicni_Racuni.Controllers
                                 ZsIzPrelaz = kalk.ZsIzPrelaz
                             };
 
-                if (query.Any())
-                {
+                
                     var dt = new DataTable();
 
                     dt.Columns.Add("UlaznaEtiketa");
@@ -373,18 +373,37 @@ namespace SK_Stanicni_Racuni.Controllers
                         dt.Rows.Add(row);
                     }
 
-                    Dictionary<string, string> paramtars = new Dictionary<string, string>();
+                //Dictionary<string, string> paramtars = new Dictionary<string, string>();
 
-                    paramtars.Add("Stanica", stanica);
-                    paramtars.Add("SifraStanice", _sifraStanice);
-                    paramtars.Add("DatumDo", DatumDo.ToString());
+                //paramtars.Add("Stanica", stanica);
+                //paramtars.Add("SifraStanice", _sifraStanice);
+                //paramtars.Add("DatumDo", DatumDo.ToString());
 
-                    var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140trz.rdlc";
-                    LocalReport localReport = new LocalReport(path);
-                    localReport.AddDataSource("K140trz", dt);
-                    extension = (int)(DateTime.Now.Ticks >> 10);
-                    result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
-                }
+                //var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140trz.rdlc";
+                //LocalReport localReport = new LocalReport(path);
+                //localReport.AddDataSource("K140trz", dt);
+                //extension = (int)(DateTime.Now.Ticks >> 10);
+                //result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
+
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140trz.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K140trz", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("Stanica", stanica.ToString()),
+                    new ReportParameter("SifraStanice", _sifraStanice),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
+
+                };
+
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
+
+
             }
             else if (id == "K165trz")
             {
@@ -413,8 +432,8 @@ namespace SK_Stanicni_Racuni.Controllers
                                 UlEtiketa = kalk.UlEtiketa
                             };
 
-                if (query.Any())
-                {
+               
+                
                     var dt = new DataTable();
 
                     dt.Columns.Add("IzEtiketa");
@@ -454,33 +473,27 @@ namespace SK_Stanicni_Racuni.Controllers
                         dt.Rows.Add(row);
                     }
 
-                    Dictionary<string, string> paramtars = new Dictionary<string, string>();
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
 
-                    paramtars.Add("Stanica", stanica);
-                    paramtars.Add("sifraStanice", _sifraStanice);
-                    paramtars.Add("DatumDo", DatumDo.ToString());
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165trz.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K165trz", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("Stanica", stanica.ToString()),
+                    new ReportParameter("sifraStanice", _sifraStanice),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
 
-                    var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165trz.rdlc";
-                    LocalReport localReport = new LocalReport(path);
-                    localReport.AddDataSource("K165trz", dt);
-                    extension = (int)(DateTime.Now.Ticks >> 10);
-                    result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
-                }
+                };
 
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
             }
 
-            // return File(result.MainStream, "application/pdf");
-
-            if (result != null)
-            {
-                return File(result.MainStream, "application/pdf");
-
-            }
-            else
-            {
-                return RedirectToAction("RacuniМedjunarodniSaobracaj", new { id = id });
-            }
-
+        
+            return View();
 
         }
     }

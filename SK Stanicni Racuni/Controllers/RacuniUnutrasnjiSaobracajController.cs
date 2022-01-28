@@ -1,6 +1,6 @@
-﻿using AspNetCore.Reporting;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Reporting.NETCore;
 using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
@@ -14,7 +14,7 @@ namespace SK_Stanicni_Racuni.Controllers
     {
         private readonly AppDbContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        private ReportResult result; // za pdf izvestaj
+      //  private ReportResult result; // za pdf izvestaj
 
         public RacuniUnutrasnjiSaobracajController(AppDbContext context,
             IWebHostEnvironment webHostEnvironment)
@@ -208,30 +208,30 @@ namespace SK_Stanicni_Racuni.Controllers
                 double fractionalPartSumFranko = (double)(sveFranko - intPartSumFranko);
                 string[] decimalPartFranko = (fractionalPartSumFranko * 100).ToString().Split('.');
 
-                string mimtype = "";
-                int extension = 1;
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
 
-                Dictionary<string, string> paramtars = new Dictionary<string, string>();
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K140", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("SumIntPoreskaOsnovica", intPartSum.ToString()),
+                    new ReportParameter("SumDecPoreskaOsnovica", decimalPart[0]),
+                    new ReportParameter("SumIntPDV", intPartSumPDV.ToString()),
+                    new ReportParameter("SumDecPDV", decimalPartPDV[0]),
+                    new ReportParameter("SumIntFranko", intPartSumFranko.ToString()),
+                    new ReportParameter("SumDecFranko", decimalPartFranko[0]),
+                    new ReportParameter("Stanica",stanica),
+                    new ReportParameter("Blagajna",blagajna),
+                    new ReportParameter("DatumOd",DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString())
+                };
 
-                paramtars.Add("SumIntPoreskaOsnovica", intPartSum.ToString());
-                paramtars.Add("SumDecPoreskaOsnovica", decimalPart[0]);
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
 
-                paramtars.Add("SumIntPDV", intPartSumPDV.ToString());
-                paramtars.Add("SumDecPDV", decimalPartPDV[0]);
-
-                paramtars.Add("SumIntFranko", intPartSumFranko.ToString());
-                paramtars.Add("SumDecFranko", decimalPartFranko[0]);
-
-                paramtars.Add("Stanica", stanica);
-                paramtars.Add("Blagajna", blagajna);
-                paramtars.Add("DatumOd", DatumOd.ToString());
-                paramtars.Add("DatumDo", DatumDo.ToString());
-
-                var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140.rdlc";
-                LocalReport localReport = new LocalReport(path);
-                localReport.AddDataSource("K140", dt);
-                extension = (int)(DateTime.Now.Ticks >> 10);
-                result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
 
             }
             else if (id == "K165")
@@ -351,34 +351,32 @@ namespace SK_Stanicni_Racuni.Controllers
                 string[] arrayPoreskaOsnovica = poreskaOsnovica.ToString().Split('.');
                 string[] arrayPDV2 = pdv2.ToString().Split('.');
 
-                string mimtype = "";
-                int extension = 1;
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
 
-                Dictionary<string, string> paramtars = new Dictionary<string, string>();
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K165", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("SumIntUP", arrayTlSumaUpDin[0]),
+                    new ReportParameter("SumDecUP", arrayTlSumaUpDin[1]),
+                    new ReportParameter("SumIntPoreskaOsnovica", arrayPoreskaOsnovica[0]),
+                    new ReportParameter("SumDecPoreskaOsnovica", arrayPoreskaOsnovica[1]),
+                    new ReportParameter("SumIntPDV", arrayPDV2[0]),
+                    new ReportParameter("SumDecPDV", arrayPDV2[1]),
+                    new ReportParameter("Stanica",stanica),
+                    new ReportParameter("Blagajna",blagajna),
+                    new ReportParameter("DatumOd",DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString())
+                };
 
-                paramtars.Add("SumIntUP", arrayTlSumaUpDin[0]);
-                paramtars.Add("SumDecUP", arrayTlSumaUpDin[1]);
-
-                paramtars.Add("SumIntPoreskaOsnovica", arrayPoreskaOsnovica[0]);
-                paramtars.Add("SumDecPoreskaOsnovica", arrayPoreskaOsnovica[1]);
-
-                paramtars.Add("SumIntPDV", arrayPDV2[0]);
-                paramtars.Add("SumDecPDV", arrayPDV2[1]);
-
-                paramtars.Add("Stanica", stanica);
-                paramtars.Add("Blagajna", blagajna);
-                paramtars.Add("DatumOd", DatumOd.ToString());
-                paramtars.Add("DatumDo", DatumDo.ToString());
-
-                var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165.rdlc";
-                LocalReport localReport = new LocalReport(path);
-                localReport.AddDataSource("K165", dt);
-                extension = (int)(DateTime.Now.Ticks >> 10);
-                result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
 
             }
-
-            return File(result.MainStream, "application/pdf");
+            return View();
         }
 
     }

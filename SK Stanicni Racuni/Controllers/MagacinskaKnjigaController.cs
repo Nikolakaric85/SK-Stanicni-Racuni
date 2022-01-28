@@ -1,6 +1,6 @@
-﻿using AspNetCore.Reporting;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Reporting.NETCore;
 using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
@@ -111,25 +111,22 @@ namespace SK_Stanicni_Racuni.Controllers
                     dt.Rows.Add(row);
                 }
 
-                string mimtype = "";
-                int extension = 1;
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
 
-                Dictionary<string, string> paramtars = new Dictionary<string, string>();
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K117.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K117", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("Stanica",sifraStanice),
+                    new ReportParameter("DatumOd",DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString())
+                };
 
-                paramtars.Add("Stanica", sifraStanice);
-                paramtars.Add("DatumOd", DatumOd.ToString());
-                paramtars.Add("DatumDo", DatumDo.ToString());
-
-                var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K117.rdlc";
-                LocalReport localReport = new LocalReport(path);
-                localReport.AddDataSource("K117", dt);
-                localReport.AddDataSource("Stanica", sifraStanice);
-                localReport.AddDataSource("DatumOd", DatumOd.ToString());
-                localReport.AddDataSource("DatumDo", DatumDo.ToString());
-                Random random = new Random();
-                extension = random.Next();
-                ReportResult result = localReport.Execute(RenderType.Pdf, 1, paramtars, mimtype);
-                return File(result.MainStream, "application/pdf");
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
 
 
             }
@@ -178,25 +175,22 @@ namespace SK_Stanicni_Racuni.Controllers
                     dt.Rows.Add(row);
                 }
 
-                string mimtype = "";
-                int extension = 1;
+                string renderFormat = "PDF";
+                string mimtype = "application/pdf";
 
-                Dictionary<string, string> paramtars = new Dictionary<string, string>();
+                var localReport = new LocalReport();
+                localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K254.rdlc";
+                localReport.DataSources.Add(new ReportDataSource("K254", dt));
+                var parametars = new[]
+                {
+                    new ReportParameter("Stanica",sifraStanice),
+                    new ReportParameter("DatumOd",DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString())
+                };
 
-                paramtars.Add("Stanica", sifraStanice);
-                paramtars.Add("DatumDo", DatumDo.ToString());
-                paramtars.Add("DatumOd", DatumOd.ToString());
-
-                var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K254.rdlc";
-                LocalReport localReport = new LocalReport(path);
-                localReport.AddDataSource("K254", dt);
-                localReport.AddDataSource("Stanica", sifraStanice);
-                localReport.AddDataSource("DatumOd", DatumOd.ToString());
-                localReport.AddDataSource("DatumDo", DatumDo.ToString());
-                Random random = new Random();
-                extension = random.Next();
-                ReportResult result = localReport.Execute(RenderType.Pdf, 2, paramtars, mimtype);
-                return File(result.MainStream, "application/pdf");
+                localReport.SetParameters(parametars);
+                var pdf = localReport.Render(renderFormat);
+                return File(pdf, mimtype);
             }
 
 
