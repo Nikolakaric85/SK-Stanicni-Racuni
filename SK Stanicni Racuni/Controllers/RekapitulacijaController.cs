@@ -79,8 +79,6 @@ namespace SK_Stanicni_Racuni.Controllers
                 row = dt.NewRow();
 
                 row["FakturaBroj"] = item.FakturaBroj;
-
-
                 row["FakturaDatum"] = item.FakturaDatum;
                 decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                 fakUznosSum += fakUznos;
@@ -141,6 +139,94 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("DatumDo", DatumDo.ToString()),
                     new ReportParameter("FakturalniIznos8", arrayFakUznos8Sum[0]),
                     new ReportParameter("FakturalniIznos8_pare", arrayFakUznos8Sum[1])
+            };
+
+            localReport.SetParameters(parametars);
+            var pdf = localReport.Render(renderFormat);
+            return File(pdf, mimtype);
+        }
+
+        public IActionResult K115()
+        {
+            var UserId = HttpContext.User.Identity.Name; // daje UserId
+            var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+            if (user != null)
+            {
+                ViewBag.UserId = UserId;
+                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View();
+        }
+
+        public IActionResult Print_K115([ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo,
+            string blagajna, string stanica)
+        {
+
+            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault();
+
+            var query = from s in context.SrK121as
+                        where (s.Datum >= DatumOd || s.Datum <= DatumDo)
+                        && s.Blagajna == Int32.Parse(blagajna)
+                        && s.Stanica == sifraStanice.SifraStanice
+                        select s;
+
+            var dt = new DataTable();
+
+            dt.Columns.Add("Datum");
+            dt.Columns.Add("Broj");
+            dt.Columns.Add("Iznos");
+            dt.Columns.Add("ObracunFR");
+            dt.Columns.Add("ObracunFR13");
+            dt.Columns.Add("ObracunFR14");
+            dt.Columns.Add("Razlika");
+
+            DataRow row;
+
+            foreach (var item in query)
+            {
+                row = dt.NewRow();
+
+                row["Datum"] = item.Datum;
+                row["Broj"] = item.Broj;
+                row["Iznos"] = item.Iznos;
+
+                if (item.Saobracaj == 1)
+                {
+                    row["ObracunFR13"] = item.ObracunFR;
+                }
+                if (item.Saobracaj == 2)
+                {
+                    row["ObracunFR14"] = item.ObracunFR;
+                }
+                row["ObracunFR"] = item.ObracunFR;
+
+                if (item.Iznos != 0 && item.ObracunFR != 0)
+                {
+                    row["Razlika"] = item.Iznos - item.ObracunFR;
+                }
+
+
+
+                dt.Rows.Add(row);
+            }
+
+            string renderFormat = "PDF";
+            string mimtype = "application/pdf";
+
+            var localReport = new LocalReport();
+            localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K115.rdlc";
+            localReport.DataSources.Add(new ReportDataSource("K115", dt));
+            var parametars = new[]
+            {
+                    new ReportParameter("Stanica", sifraStanice.SifraStanice),
+                    new ReportParameter("Blagajna", blagajna),
+                    new ReportParameter("DatumOd", DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
             };
 
             localReport.SetParameters(parametars);

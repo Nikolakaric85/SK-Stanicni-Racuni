@@ -1,1 +1,115 @@
-﻿<h1>K115</h1>
+﻿
+<div class="container">
+    @*method="post" asp-controller="MagacinskaKnjiga" asp-action="Print"*@
+    @*asp-page-handler="Print"*@
+    <form method="post" asp-controller="Rekapitulacija" asp-action="Print_K111f" target="_blank">
+
+        <div class="row mt-3">
+
+            <div class="alert alert-primary" role="alert">
+                <strong>Rekapitulacija - K115 Rekapitulacija frankaturnih depozita</strong>
+            </div>
+
+
+            @if (ViewBag.Admin == true)
+            {
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                    <label>Stanica</label>
+                    <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanica" />
+                    <datalist id="myDatalist" open="open">
+                    </datalist>
+                </div>
+            }
+            else
+            {
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                    <label>Stanica</label>
+                    <input class="form-control" name="stanica" value="@ViewBag.Stanica" readonly />
+                </div>
+            }
+
+
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                <label>Blagajna</label>
+                <select class="form-select" aria-label="Default select example" name="blagajna">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+            <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+
+                <label for="formGroupExampleInput" class="form-label">Datum od</label>
+                <input type="text" class="form-control" id="DatumOd" name="datumOd" autocomplete="off">
+
+            </div>
+
+            <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-6 col-6">
+                <label for="formGroupExampleInput" class="form-label">Datum do</label>
+                <input type="text" class="form-control" id="DatumDo" name="datumDo" autocomplete="off">
+            </div>
+
+            <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
+                <button type="submit" class="btn btn-primary align-bottom" asp-controller="Rekapitulacija" asp-action="Print_K115"  target="_blank">PDF</button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+        $.fn.datepicker.dates['rs'] = {
+            days: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"],
+            daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
+            daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
+            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
+            today: "Danas",
+            clear: "Clear",
+            // format: "mm/dd/yyyy",
+            //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+            weekStart: 1
+        };
+
+        $('#DatumOd, #DatumDo').datepicker({
+            todayBtn: true,
+            todayBtn: 'linked',
+            todayHighlight: true,
+            format: 'dd.mm.yyyy',
+            autoclose: true,
+            language: 'rs'
+        })
+
+
+        $(window).on('load', function () {
+
+            var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+            var firstDay = new Date(y, m, 1);
+
+            $('#DatumOd').datepicker(       //setuje prvi dan u mesecu
+                "update", firstDay
+            )
+
+            $('#DatumDo').datepicker(       // setuje danasnji datum
+                "update", new Date()
+            )
+        })
+
+
+        $(document).ready(function () {
+
+
+
+        })
+
+
+    </script>
+}

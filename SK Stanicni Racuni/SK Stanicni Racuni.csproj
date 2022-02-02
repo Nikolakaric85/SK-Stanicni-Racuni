@@ -8,19 +8,20 @@
   <ItemGroup>
     <Content Remove="wwwroot\css\K140.rdlc" />
     <Content Remove="wwwroot\Reports\K111f.rdlc" />
+    <Content Remove="wwwroot\Reports\K115.rdlc" />
     <Content Remove="wwwroot\Reports\K117.rdlc" />
     <Content Remove="wwwroot\Reports\K254.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\Reports\K111f.rdlc" />
+    <None Include="wwwroot\Reports\K115.rdlc" />
     <None Include="wwwroot\Reports\K254.rdlc" />
     <None Include="wwwroot\Reports\K117.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13">
@@ -61,7 +62,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="DataSet\K117.Designer.cs">
+    <Compile Update="DataSet\K115.Designer.cs">
+      <DependentUpon>K115.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DataSet\K117 - Copy.Designer.cs">
       <DependentUpon>K117.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -114,9 +120,14 @@
       <LastGenOutput>K111f.Designer.cs</LastGenOutput>
       <Generator>MSDataSetGenerator</Generator>
     </None>
+    <None Update="DataSet\K115.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K115.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
     <None Update="DataSet\K117.xsd">
       <SubType>Designer</SubType>
-      <LastGenOutput>K117.Designer.cs</LastGenOutput>
+      <LastGenOutput>K115.Designer.cs</LastGenOutput>
       <Generator>MSDataSetGenerator</Generator>
     </None>
     <None Update="DataSet\K140.xsd">
