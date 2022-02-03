@@ -79,17 +79,24 @@ namespace SK_Stanicni_Racuni.Controllers
                 row = dt.NewRow();
 
                 row["FakturaBroj"] = item.FakturaBroj;
-                row["FakturaDatum"] = item.FakturaDatum;
+                if (item.FakturaDatum.HasValue)
+                {
+                    row["FakturaDatum"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
+                }
+                
                 decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                 fakUznosSum += fakUznos;
                 string[] arrayFaktura = fakUznos.ToString().Split('.');
                 row["FakturalniIznos"] = arrayFaktura[0];
                 row["FakturalniIznos_pare"] = arrayFaktura[1];
 
-
                 if (item.NaplacenoNB == 'D' && item.Saobracaj == '1')
                 {
-                    row["FakturaDatum5"] = item.FakturaDatum;
+                    if (item.FakturaDatum.HasValue)
+                    {
+                        row["FakturaDatum5"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
+                    }
+                    
                     decimal fakUznos6a = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakUznos6aSum += fakUznos6a;
                     string[] array = fakUznos6a.ToString().Split('.');
@@ -98,7 +105,11 @@ namespace SK_Stanicni_Racuni.Controllers
                 }
                 if (item.NaplacenoNB == 'D' && item.Saobracaj == '2')
                 {
-                    row["FakturaDatum5"] = item.FakturaDatum;
+                    if (item.FakturaDatum.HasValue)
+                    {
+                        row["FakturaDatum5"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
+                    }
+                    
                     decimal fakUznos6b = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakUznos6bSum += fakUznos6b;
                     string[] array = fakUznos6b.ToString().Split('.');
@@ -108,8 +119,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (item.NaplacenoNB == 'N')
                 {
-                    row["FakturaDatum7"] = item.FakturaDatum.ToString();
-
+                    if (item.FakturaDatum.HasValue)
+                    {
+                        row["FakturaDatum7"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
+                    }
+                    
                     decimal fakUznos8 = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakUznos8Sum += fakUznos8;
                     string[] array = fakUznos8.ToString().Split('.');
@@ -124,7 +138,6 @@ namespace SK_Stanicni_Racuni.Controllers
             string[] arrayFakUznos6aSum = fakUznos6aSum.ToString().Split('.');
             string[] arrayFakUznos6bSum = fakUznos6bSum.ToString().Split('.');
             string[] arrayFakUznos8Sum = fakUznos8Sum.ToString().Split('.');
-
 
             string renderFormat = "PDF";
             string mimtype = "application/pdf";
@@ -187,27 +200,59 @@ namespace SK_Stanicni_Racuni.Controllers
 
             DataRow row;
 
+            decimal SumaIznos = 0;
+            decimal SumaObracunFR = 0;
+            decimal SumaObracunFR13 = 0;
+            decimal SumaObracunFR14 = 0;
+            decimal Razlika = 0;
+
             foreach (var item in query)
             {
                 row = dt.NewRow();
 
-                row["Datum"] = item.Datum;
+                if (item.Datum.HasValue)
+                {
+                    row["Datum"] = item.Datum.Value.ToString("dd.MM.yyyy");
+                }
+
                 row["Broj"] = item.Broj;
                 row["Iznos"] = item.Iznos;
+                SumaIznos += (decimal)item.Iznos;
 
-                if (item.Saobracaj == 1)
+                if (item.Saobracaj == '1')
                 {
                     row["ObracunFR13"] = item.ObracunFR;
+                    if (item.ObracunFR.HasValue)
+                    {
+                        SumaObracunFR13 += (decimal)item.ObracunFR;
+                    }
+
                 }
-                if (item.Saobracaj == 2)
+                else if (item.Saobracaj == '2')
                 {
                     row["ObracunFR14"] = item.ObracunFR;
+                    if (item.ObracunFR.HasValue)
+                    {
+                        SumaObracunFR14 += (decimal)item.ObracunFR;
+                    }
                 }
-                row["ObracunFR"] = item.ObracunFR;
+                else
+                {
+                    row["ObracunFR"] = item.ObracunFR;
+                    if (item.ObracunFR.HasValue)
+                    {
+                        SumaObracunFR += (decimal)item.ObracunFR;
+                    }
+                }
 
                 if (item.Iznos != 0 && item.ObracunFR != 0)
                 {
                     row["Razlika"] = item.Iznos - item.ObracunFR;
+                    if (item.Iznos.HasValue && item.ObracunFR.HasValue)
+                    {
+                        Razlika += (decimal)(item.Iznos - item.ObracunFR);
+                    }
+                    
                 }
 
 
@@ -227,6 +272,13 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),
+                    new ReportParameter("SumaIznos", SumaIznos.ToString()),
+                    new ReportParameter("SumaObracunFR", SumaObracunFR.ToString()),
+                    new ReportParameter("SumaObracunFR13", SumaObracunFR13.ToString()),
+                    new ReportParameter("SumaObracunFR14", SumaObracunFR14.ToString()),
+                    new ReportParameter("Razlika", Razlika.ToString()),
+
+
             };
 
             localReport.SetParameters(parametars);

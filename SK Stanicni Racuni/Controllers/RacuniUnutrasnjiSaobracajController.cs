@@ -14,7 +14,7 @@ namespace SK_Stanicni_Racuni.Controllers
     {
         private readonly AppDbContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
-      //  private ReportResult result; // za pdf izvestaj
+        //  private ReportResult result; // za pdf izvestaj
 
         public RacuniUnutrasnjiSaobracajController(AppDbContext context,
             IWebHostEnvironment webHostEnvironment)
@@ -289,9 +289,10 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 DataRow row;
 
-                decimal tlSumaUpDin = 0;
-                decimal poreskaOsnovica = 0;
-                decimal pdv2 = 0;
+                double tlSumaUpDin = 0.00d;
+                double poreskaOsnovica = 0.00d;
+                double pdv2 = 0.00d;
+
 
 
                 foreach (var item in query)
@@ -299,7 +300,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     row = dt.NewRow();
                     row["PrBroj"] = item.PrBroj;
                     row["OtpBroj"] = item.OtpBroj;
-                    row["OtpDatum"] = item.OtpDatum;
+                    row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
                     row["OtpStNaziv"] = item.OtpStNaziv;
 
                     if (item.tlSumaUpDin != null)
@@ -307,8 +308,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         string[] array = item.tlSumaUpDin.ToString().Split('.');
                         row["tlSumaUpDin"] = array[0];
                         row["tlSumaUpDin_pare"] = array[1];
-
-                        tlSumaUpDin += (decimal)item.tlSumaUpDin;
+                        tlSumaUpDin += (double)item.tlSumaUpDin;
                     }
                     else
                     {
@@ -321,8 +321,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         string[] arrayPoreskaO = item.PoreskaOsnovica.ToString().Split('.');
                         row["PoreskaOsnovica"] = arrayPoreskaO[0];
                         row["PoreskaOsnovica_pare"] = arrayPoreskaO[1];
-
-                        poreskaOsnovica += (decimal)item.PoreskaOsnovica;
+                        poreskaOsnovica += (double)item.PoreskaOsnovica;
                     }
                     else
                     {
@@ -335,8 +334,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         string[] arrayPDV = item.PDV2.ToString().Split('.');
                         row["PDV2"] = arrayPDV[0];
                         row["PDV2_pare"] = arrayPDV[1];
-
-                        pdv2 += (decimal)item.PDV2;
+                        pdv2 += (double)item.PDV2;
                     }
                     else
                     {
@@ -347,9 +345,41 @@ namespace SK_Stanicni_Racuni.Controllers
                     dt.Rows.Add(row);
                 }
 
-                string[] arrayTlSumaUpDin = tlSumaUpDin.ToString().Split('.');
-                string[] arrayPoreskaOsnovica = poreskaOsnovica.ToString().Split('.');
-                string[] arrayPDV2 = pdv2.ToString().Split('.');
+
+                string[] arrayTlSumaUpDin = new string[2] {"",""};
+                string[] arrayPoreskaOsnovica = new string[2] { "", "" };
+                string[] arrayPDV2 = new string[2] { "", "" };
+
+                if (tlSumaUpDin == 0)
+                {
+                    arrayTlSumaUpDin[0] = string.Empty;
+                    arrayTlSumaUpDin[1] = string.Empty;
+                } else
+                {
+                    arrayTlSumaUpDin = tlSumaUpDin.ToString($"F{2}").Split('.');
+                } 
+
+                if (poreskaOsnovica == 0)
+                {
+                    arrayPoreskaOsnovica[0] = string.Empty;
+                    arrayPoreskaOsnovica[1] = string.Empty;
+                }
+                else
+                {
+                    var a = poreskaOsnovica.ToString("f");
+                    arrayPoreskaOsnovica = poreskaOsnovica.ToString($"F{2}").Split('.');
+                }
+
+                if (pdv2 == 0)
+                {
+                    arrayPDV2[0] = string.Empty;
+                    arrayPDV2[1] = string.Empty;
+                }
+                else
+                {
+                    arrayPDV2 = pdv2.ToString($"F{2}").Split('.');
+                }
+
 
                 string renderFormat = "PDF";
                 string mimtype = "application/pdf";
@@ -357,6 +387,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 var localReport = new LocalReport();
                 localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K165.rdlc";
                 localReport.DataSources.Add(new ReportDataSource("K165", dt));
+
                 var parametars = new[]
                 {
                     new ReportParameter("SumIntUP", arrayTlSumaUpDin[0]),
@@ -370,6 +401,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("DatumOd",DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString())
                 };
+
 
                 localReport.SetParameters(parametars);
                 var pdf = localReport.Render(renderFormat);

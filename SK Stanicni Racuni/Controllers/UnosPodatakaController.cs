@@ -148,7 +148,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
     
 
-        public IActionResult K161f()
+        public IActionResult K161f(SrK161f model)
         {
             var UserId = HttpContext.User.Identity.Name; // daje UserId
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
@@ -167,13 +167,20 @@ namespace SK_Stanicni_Racuni.Controllers
 
             ViewBag.k161f = context.SrK161fs.Where(x => x.FakturaDatum >= firstDayOfMonth && x.FakturaDatum <= lastDayOfMonth).AsEnumerable();
 
-            return View();
+            return View(model);
         }
 
         //***********************  IMA JOS POSLA DA SE OGRANICI UNOS PODATAKA NA FORMI *******************************************************************************
         public IActionResult K161F_save([ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, 
             SrK161f model, char naplacenoCheckBox = 'N')
         {
+            var fakturaBrojCheck = context.SrK161fs.Where(x => x.FakturaBroj == model.FakturaBroj);
+            if (fakturaBrojCheck != null)
+            {
+                notyf.Error("Već postoji račun pod tim brojem", 3);
+                return RedirectToAction("K161f", model);
+            }
+
             var newModel = new SrK161f();
 
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == model.Stanica).FirstOrDefault();
@@ -218,7 +225,7 @@ namespace SK_Stanicni_Racuni.Controllers
             return RedirectToAction ("K161f");
         }
 
-        public IActionResult K121a()
+        public IActionResult K121a(SrK121a model)
         {
             var UserId = HttpContext.User.Identity.Name; // daje UserId
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
@@ -239,12 +246,21 @@ namespace SK_Stanicni_Racuni.Controllers
             ViewBag.k121a = context.SrK121as.Where(x => x.Datum >= firstDayOfMonth && x.Datum <= lastDayOfMonth).AsEnumerable();
 
 
-            return View();
+            return View(model);
         }
 
         public IActionResult K121a_save(SrK121a model, 
             [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, string stanica_)      //otpDatum je DatumOd, datum je DatumDo
         {
+
+            var priznanicaCheck = context.SrK121as.Where(x => x.Broj == model.Broj);
+
+            if (priznanicaCheck != null)
+            {
+                notyf.Error("Postoji priznanica pod tim brojem",3);
+                return RedirectToActionPermanent("K121a",model);
+            }
+
             var newModel = new SrK121a();
 
             newModel.Broj = model.Broj;

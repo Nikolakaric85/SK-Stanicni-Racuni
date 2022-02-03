@@ -114,7 +114,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
                     row = dt.NewRow();
                     row["OtpBroj"] = item.OtpBroj;
-                    row["OtpDatum"] = item.OtpDatum.ToString();
+                    row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
                     row["PrStanica"] = item.PrStanica;
                     row["PrUprava"] = item.PrStanica.Substring(0, 2);
 
@@ -146,6 +146,9 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     new ReportParameter("SumInt", intPartSum.ToString()),
                     new ReportParameter("SumDec", decimalPart[0]),
+                    new ReportParameter("DatumOd", DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
+                    new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("SifraStanice", _sifraStanice)
                 };
 
@@ -278,7 +281,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
                         row["ŠifraStanice"] = item.OtpStanica.Substring(2, 5);
                         row["OtpBroj"] = item.OtpBroj;
-                        row["OtpDatum"] = item.OtpDatum.ToString();
+                    if (item.OtpDatum.HasValue)
+                    {
+                        row["OtpDatum"] = item.OtpDatum.Value.ToString("dd.MM.yyyy");
+                    }
+                        
 
                         string res = item.TlSumaUpDin.ToString();
                         string[] array = res.Split('.');
@@ -299,8 +306,10 @@ namespace SK_Stanicni_Racuni.Controllers
                 var parametars = new[]
                 {
                     new ReportParameter("Stanica", stanica.ToString()),
-                    new ReportParameter("DatumDo", DatumDo.ToString()),
-                   
+                    new ReportParameter("Blagajna", blagajna),
+                    new ReportParameter("DatumDo", DatumDo.ToString("dd.MM.yyyy")),
+                    new ReportParameter("DatumOd", DatumOd.ToString("dd.MM.yyyy")),
+
                 };
 
                 localReport.SetParameters(parametars);
