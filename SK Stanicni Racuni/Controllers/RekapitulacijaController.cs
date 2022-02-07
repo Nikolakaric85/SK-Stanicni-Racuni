@@ -31,8 +31,15 @@ namespace SK_Stanicni_Racuni.Controllers
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
             if (user != null)
             {
-                ViewBag.UserId = UserId;
-                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                if (user.Stanica.StartsWith("000"))
+                {
+                    ViewBag.Admin = true;
+                }
+                else
+                {
+                    ViewBag.Admin = false;
+                    ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                }
             }
             else
             {
@@ -83,7 +90,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     row["FakturaDatum"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
                 }
-                
+
                 decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                 fakUznosSum += fakUznos;
                 string[] arrayFaktura = fakUznos.ToString().Split('.');
@@ -96,7 +103,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     {
                         row["FakturaDatum5"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
                     }
-                    
+
                     decimal fakUznos6a = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakUznos6aSum += fakUznos6a;
                     string[] array = fakUznos6a.ToString().Split('.');
@@ -109,7 +116,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     {
                         row["FakturaDatum5"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
                     }
-                    
+
                     decimal fakUznos6b = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakUznos6bSum += fakUznos6b;
                     string[] array = fakUznos6b.ToString().Split('.');
@@ -123,7 +130,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     {
                         row["FakturaDatum7"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
                     }
-                    
+
                     decimal fakUznos8 = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakUznos8Sum += fakUznos8;
                     string[] array = fakUznos8.ToString().Split('.');
@@ -165,8 +172,15 @@ namespace SK_Stanicni_Racuni.Controllers
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
             if (user != null)
             {
-                ViewBag.UserId = UserId;
-                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                if (user.Stanica.StartsWith("000"))
+                {
+                    ViewBag.Admin = true;
+                }
+                else
+                {
+                    ViewBag.Admin = false;
+                    ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                }
             }
             else
             {
@@ -252,7 +266,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     {
                         Razlika += (decimal)(item.Iznos - item.ObracunFR);
                     }
-                    
+
                 }
 
 

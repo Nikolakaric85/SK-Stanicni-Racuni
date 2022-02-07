@@ -154,7 +154,15 @@ namespace SK_Stanicni_Racuni.Controllers
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
             if (user != null)
             {
-                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                if (user.Stanica.StartsWith("000"))
+                {
+                    ViewBag.Admin = true;
+                }
+                else
+                {
+                    ViewBag.Admin = false;
+                    ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                }
             }
             else
             {
@@ -231,8 +239,17 @@ namespace SK_Stanicni_Racuni.Controllers
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
             if (user != null)
             {
-                ViewBag.UserId = UserId;
-                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+                if (user.Stanica.StartsWith("000"))
+                {
+                    ViewBag.UserId = UserId;
+                    ViewBag.Admin = true;
+                }
+                else
+                {
+                    ViewBag.UserId = UserId;
+                    ViewBag.Admin = false;
+                    ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                }
             }
             else
             {
@@ -310,8 +327,17 @@ namespace SK_Stanicni_Racuni.Controllers
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
             if (user != null)
             {
-                ViewBag.UserId = UserId;
-                ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+                if (user.Stanica.StartsWith("000"))
+                {
+                    ViewBag.UserId = UserId;
+                    ViewBag.Admin = true;
+                }
+                else
+                {
+                    ViewBag.UserId = UserId;
+                    ViewBag.Admin = false;
+                  //  ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                }
             }
             else
             {
@@ -322,7 +348,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
         public IActionResult K121aPovratPretraga(SrK121a model, string userId)
         {
-            var query = context.SrK121as.Where(x => x.Broj == model.Broj && x.Stanica == model.Stanica).FirstOrDefault();
+            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == model.Stanica).FirstOrDefault();
+            var query = context.SrK121as.Where(x => x.Broj == model.Broj && x.Stanica == sifraStanice.SifraStanice).FirstOrDefault();
             if (query != null)
             {
                 ViewBag.K121a = true;

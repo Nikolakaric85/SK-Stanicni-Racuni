@@ -10,7 +10,7 @@
                 <strong>Unos podataka - K121a Unos iznosa sa vraćenog frankaturnog depozita</strong>
             </div>
 
-            <input type="text" asp-for="Stanica" class="form-control ml-1" value="@ViewBag.Stanica" hidden>
+            <input type="text" asp-for="Stanica" class="form-control ml-1" value="@ViewBag.Stanica" name="stanica" hidden>
             <input type="text" asp-for="Blagajnik" class="form-control ml-1" value="@ViewBag.UserId" name="userId" hidden>
 
             <div class="row">
@@ -73,28 +73,7 @@
     <script type="text/javascript">
 
 
-        $.fn.datepicker.dates['rs'] = {
-            days: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"],
-            daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
-            daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
-            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
-            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
-            today: "Danas",
-            clear: "Clear",
-            // format: "mm/dd/yyyy",
-            //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-            weekStart: 1
-        };
-
-        $('#Datum').datepicker({
-            todayBtn: true,
-            todayBtn: 'linked',
-            todayHighlight: true,
-            format: 'dd.mm.yyyy',
-            autoclose: true,
-            language: 'rs'
-        })
-
+       
 
         $(window).on('load', function () {
             $('#Datum').datepicker()

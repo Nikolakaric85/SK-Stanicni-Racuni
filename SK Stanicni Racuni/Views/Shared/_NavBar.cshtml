@@ -1,7 +1,7 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor IHttpContextAccessor
+﻿
 
 @{ 
-
+    var identity = (System.Security.Claims.ClaimsIdentity)User.Identity;
 }
 
 <nav class="navbar navbar-expand-lg navbar-light bg-bg-transparent border-bottom">
@@ -88,8 +88,8 @@
                             <form method="post" asp-controller="Account" asp-action="Logout">
                                 <button type="submit" style="width:auto"
                                         class="nav-link btn btn-link py-0 text-dark">
-                                    Logout @User.Identity.Name <br />
-
+                                    Logout:  @identity.Claims.Where(x => x.Type == "Naziv").Select(x => x.Value).FirstOrDefault() <br />
+                                    
                                 </button>
 
                             </form>

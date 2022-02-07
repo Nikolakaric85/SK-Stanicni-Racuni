@@ -193,28 +193,7 @@
     <script type="text/javascript">
 
 
-        $.fn.datepicker.dates['rs'] = {
-            days: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"],
-            daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
-            daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
-            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
-            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
-            today: "Danas",
-            clear: "Clear",
-            // format: "mm/dd/yyyy",
-            //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-            weekStart: 1
-        };
-
-        $('#OtpDatum, #Datum').datepicker({
-            todayBtn: true,
-            todayBtn: 'linked',
-            todayHighlight: true,
-            format: 'dd.mm.yyyy',
-            autoclose: true,
-            language: 'rs'
-        })
-
+     
 
         $(window).on('load', function () {
 
@@ -336,23 +315,6 @@
             })
 
 
-
-            $('#myDatalistInput').on('input', function () {
-
-                $.ajax({
-                    type: "GET",
-                    url: "/RacuniUnutrasnjiSaobracaj/ListaStanica",
-                    cache: false,
-                    success: function (data) {
-                        var options = '';
-
-                        for (var i = 0; i < data.length; i++) {
-                            options += '<option value="' + data[i] + '" />';
-                        }
-                        $('#myDatalist').html(options)
-                    }
-                });
-            })
 
 
 

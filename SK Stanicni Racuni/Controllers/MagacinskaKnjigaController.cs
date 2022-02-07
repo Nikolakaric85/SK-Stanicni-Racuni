@@ -31,10 +31,7 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult MagacinskaKnjiga(string id)
         {
             ViewBag.Id = id;
-
-
             var UserId = HttpContext.User.Identity.Name; // daje UserId
-
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
 
             if (user != null)

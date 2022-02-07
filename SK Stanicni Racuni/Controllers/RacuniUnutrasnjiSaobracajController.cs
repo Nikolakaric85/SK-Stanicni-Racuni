@@ -26,9 +26,11 @@ namespace SK_Stanicni_Racuni.Controllers
         }
 
 
-        public ActionResult ListaStanica()
+        public ActionResult ListaStanica(string data)
         {
-            var stanice = context.ZsStanices.Select(x => x.Naziv);
+            var stanice = (from s in context.ZsStanices
+                           where s.Naziv.Contains(data)
+                           select s.Naziv); ;
             return Json(stanice);
         }
 

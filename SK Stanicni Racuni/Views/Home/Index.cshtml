@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var identity = (System.Security.Claims.ClaimsIdentity)User.Identity;
 }
 
 <div class="row">
@@ -13,4 +14,14 @@
 
 <div>
     
+    <table class="table table-striped mt-5">
+        @foreach (var item in identity.Claims)
+        {
+        <tr>
+            <td>@item.Type </td>
+            <td>@item.Value </td>
+        </tr>
+        }
+    </table>
+
 </div>
