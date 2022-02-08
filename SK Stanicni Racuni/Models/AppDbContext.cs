@@ -106,7 +106,7 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<SlogKalk>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.ToTable("SlogKalk");
 

@@ -21,7 +21,7 @@
                             <label class="col-form-label ">Priznanica</label>
                         </div>
                         <div class="col-auto">
-                            <input type="text" asp-for="Broj" class="form-control ml-1" id="priznanica">
+                            <input type="text" asp-for="Broj" class="form-control ml-1" id="priznanica" autocomplete="off">
                         </div>
                     </div>
                     <div class="row justify-content-center">
@@ -40,7 +40,7 @@
                         <label class="col-form-label ">Pošiljalac</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" asp-for="Pošiljalac" class="form-control ml-2" id="posiljalac" style="width:205px">
+                        <input type="text" asp-for="Pošiljalac" class="form-control ml-2" id="posiljalac" style="width:205px" autocomplete="off">
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
                         <label class="col-form-label ">je položio</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" asp-for="Iznos" class="form-control" id="iznos">
+                        <input type="text" asp-for="Iznos" class="form-control" id="iznos" autocomplete="off">
                     </div>
                     <div class="col-auto">
                         <label class="col-form-label ">dinara</label>
@@ -67,7 +67,7 @@
                         <label class="col-form-label ">br.</label>
                     </div>
                     <div class="col-md-3 col-4 px-0">
-                        <input type="text" asp-for="OtpBroj" class="form-control" id="broj">
+                        <input type="text" asp-for="OtpBroj" class="form-control" id="broj" autocomplete="off">
                     </div>
                     <div class="col-auto px-1">
                         <label class="col-form-label ">od</label>
@@ -82,7 +82,7 @@
                         <label class="col-form-label ">Uputna stanica</label>
                     </div>
                     <div class="col-auto">
-                        <input class="form-control pl-1" list="myDatalist" id="myDatalistInput" name="stanica_" />
+                        <input class="form-control pl-1" list="myDatalist" id="myDatalistInput" name="stanica_" autocomplete="off"/>
                         <datalist id="myDatalist" open="open">
                         </datalist>
                     </div>
@@ -108,15 +108,15 @@
 
                 <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7">
                     <label class="form-label">Primalac priznanice</label>
-                    <input type="text" asp-for="Primalac" class="form-control" id="primalac">
+                    <input type="text" asp-for="Primalac" class="form-control" id="primalac" autocomplete="off">
                 </div>
                 <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7">
                     <label class="form-label">Adresa primaoca</label>
-                    <input type="text" asp-for="PrimalacAdresa" class="form-control">
+                    <input type="text" asp-for="PrimalacAdresa" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7">
                     <label class="form-label">Zemlja</label>
-                    <input type="text" asp-for="PrimalacZemlja" class="form-control">
+                    <input type="text" asp-for="PrimalacZemlja" class="form-control" autocomplete="off">
                 </div>
 
                 <div class="row-cols-md my-2 d-md-none d-block">
@@ -204,12 +204,9 @@
             var primalac = $('#primalac').val()
             var datum = $('#Datum').val()
 
-            console.log('posiljalac ' + posiljalac + ' iznos ' + iznos + ' primalac ' + primalac + ' priznanica ' + priznanica + ' datum ' + datum)
             if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
-                console.log('if')
                 $('#upisBtn').attr("disabled", false);
             } else {
-                console.log('else')
                 $('#upisBtn').attr('disabled', true)
 
             }
@@ -315,6 +312,29 @@
             })
 
 
+            $('#iznos').on('input', function () {                                                             //decimale 12,2
+                numbersAndDotOnly(this.getAttribute('Id'), this.value)
+
+                var val = this.value
+                var selector = this.getAttribute('Id')
+
+                var separate = val.split('.')
+
+                console.log('Separate ' + separate)
+                console.log('Separate lenght ' + separate.length)
+
+                if (separate.length == 1) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, 12)   //12 je max karaktera pre tacke (decimale)
+                    })
+                } else if (separate.length == 2) {
+                    var sum = parseInt(separate[0].length) + parseInt(3)
+                    $('#' + selector).val(function () {
+                        console.log('sum ' + sum)
+                        return val.substr(0, sum)
+                    })
+                }
+            })
 
 
 

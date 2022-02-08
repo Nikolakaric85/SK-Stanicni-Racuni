@@ -282,7 +282,7 @@
             </Style>
           </Textbox>
           <Line Name="Line1">
-            <Top>2.80211cm</Top>
+            <Top>3.11961cm</Top>
             <Left>15.8cm</Left>
             <Height>0cm</Height>
             <Width>0.19526cm</Width>
@@ -1173,7 +1173,7 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>21cm</Height>
+        <Height>11.39562cm</Height>
         <Style />
       </Body>
       <Width>29.7cm</Width>
@@ -1203,7 +1203,7 @@
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
               <Top>0.58636cm</Top>
-              <Left>0.66479cm</Left>
+              <Left>0.85cm</Left>
               <Height>0.6cm</Height>
               <Width>2.5cm</Width>
               <Style>
@@ -1234,7 +1234,7 @@
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
               <Top>0.58636cm</Top>
-              <Left>26.16479cm</Left>
+              <Left>26.35cm</Left>
               <Height>0.6cm</Height>
               <Width>2.5cm</Width>
               <ZIndex>1</ZIndex>

@@ -134,7 +134,7 @@ namespace SK_Stanicni_Racuni.Controllers
             try
             {
                 var update = context.SlogKalks.Attach(newModel);
-                update.State = Microsoft.EntityFrameworkCore.EntityState.Modified;                                      //*********************  PRIMERY KEY koji   *********************///
+                update.State = Microsoft.EntityFrameworkCore.EntityState.Modified;                                     
                 context.SaveChanges();
                 notyf.Success("Uspeša izmena podataka.",3);
             }
@@ -182,12 +182,14 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult K161F_save([ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, 
             SrK161f model, char naplacenoCheckBox = 'N')
         {
-            var fakturaBrojCheck = context.SrK161fs.Where(x => x.FakturaBroj == model.FakturaBroj);
+            var fakturaBrojCheck = context.SrK161fs.Where(x => x.FakturaBroj == model.FakturaBroj).FirstOrDefault();
             if (fakturaBrojCheck != null)
             {
                 notyf.Error("Već postoji račun pod tim brojem", 3);
                 return RedirectToAction("K161f", model);
             }
+
+            var UserId = HttpContext.User.Identity.Name; // daje UserId
 
             var newModel = new SrK161f();
 
@@ -218,6 +220,7 @@ namespace SK_Stanicni_Racuni.Controllers
             newModel.PrimalacMb = model.PrimalacMb;
             newModel.PrimalacPib = model.PrimalacPib;
             newModel.Saobracaj = model.Saobracaj;
+            newModel.Blagajnik = UserId;
 
             try
             {
@@ -262,21 +265,21 @@ namespace SK_Stanicni_Racuni.Controllers
 
             ViewBag.k121a = context.SrK121as.Where(x => x.Datum >= firstDayOfMonth && x.Datum <= lastDayOfMonth).AsEnumerable();
 
-
             return View(model);
         }
 
         public IActionResult K121a_save(SrK121a model, 
             [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, string stanica_)      //otpDatum je DatumOd, datum je DatumDo
         {
-
-            var priznanicaCheck = context.SrK121as.Where(x => x.Broj == model.Broj);
+            var priznanicaCheck = context.SrK121as.Where(x => x.Broj == model.Broj).FirstOrDefault();
 
             if (priznanicaCheck != null)
             {
                 notyf.Error("Postoji priznanica pod tim brojem",3);
                 return RedirectToActionPermanent("K121a",model);
             }
+
+            var sifraStanice = context.ZsStanices.Where(x=>x.Naziv == stanica_).FirstOrDefault();
 
             var newModel = new SrK121a();
 
@@ -304,7 +307,7 @@ namespace SK_Stanicni_Racuni.Controllers
             newModel.PrimalacAdresa = model.PrimalacAdresa;
             newModel.PrimalacZemlja = model.PrimalacZemlja;
             newModel.Blagajnik = model.Blagajnik;
-            newModel.Stanica = model.Stanica;
+            newModel.Stanica = sifraStanice.SifraStanice;
 
             try
             {
@@ -336,7 +339,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     ViewBag.UserId = UserId;
                     ViewBag.Admin = false;
-                  //  ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                    ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
                 }
             }
             else
@@ -355,6 +358,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 ViewBag.K121a = true;
                 ViewBag.Stanica = model.Stanica;
                 ViewBag.UserId = userId;
+                ViewBag.Id = query.Id;
 
                 DateTime date = DateTime.Now;
                 var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
@@ -375,7 +379,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 notyf.Information("Ne postoji depozit pod tim brojem.",3);
             }
             ViewBag.UserId = userId;
-            return View("K121aPovrat");
+            return View("K121aPovrat", query);
         }
 
         public IActionResult K121aPovratSave(SrK121a model, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo) // DatumDo je DatumVracanjaFR

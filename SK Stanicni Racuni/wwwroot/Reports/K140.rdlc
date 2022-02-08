@@ -2401,7 +2401,7 @@
             <Top>4.29162cm</Top>
             <Left>0.5cm</Left>
             <Height>3.47625cm</Height>
-            <Width>20cm</Width>
+            <Width>19.99996cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -2621,7 +2621,9 @@
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>

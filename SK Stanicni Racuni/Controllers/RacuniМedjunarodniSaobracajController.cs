@@ -307,8 +307,8 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     new ReportParameter("Stanica", stanica.ToString()),
                     new ReportParameter("Blagajna", blagajna),
-                    new ReportParameter("DatumDo", DatumDo.ToString("dd.MM.yyyy")),
-                    new ReportParameter("DatumOd", DatumOd.ToString("dd.MM.yyyy")),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
+                    new ReportParameter("DatumOd", DatumOd.ToString()),
 
                 };
 

@@ -44,7 +44,7 @@
                 weekStart: 1
             };
 
-            $('#DatumOd, #DatumDo').datepicker({
+            $('#DatumOd, #DatumDo, #OtpDatum, #Datum, #k165aDatum').datepicker({
                 todayBtn: true,
                 todayBtn: 'linked',
                 todayHighlight: true,

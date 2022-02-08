@@ -12,6 +12,7 @@
 
             <input type="text" asp-for="Stanica" class="form-control ml-1" value="@ViewBag.Stanica" name="stanica" hidden>
             <input type="text" asp-for="Blagajnik" class="form-control ml-1" value="@ViewBag.UserId" name="userId" hidden>
+            <input type="text" asp-for="Id" class="form-control ml-1" value="@ViewBag.Id" name="id" hidden >
 
             <div class="row">
                 <div class="col-md-2">
@@ -25,10 +26,9 @@
 
             @if (ViewBag.K121a == true)
             {
-
                 <div class="row mt-3">
 
-                    <input type="text" asp-for="Id" class="form-control"  hidden>
+                    <input type="text" asp-for="Id" class="form-control" hidden>
 
                     <div class="col-md-2">
                         <label class="form-label">Račun broj/K-115</label>
@@ -56,8 +56,6 @@
                 </div>
             }
 
-
-
         </div>
 
     </form>
@@ -73,8 +71,6 @@
     <script type="text/javascript">
 
 
-       
-
         $(window).on('load', function () {
             $('#Datum').datepicker()
 
@@ -83,6 +79,16 @@
             } else {
                 console.log('else')
                 $('#upisiUBazu').attr('disabled', true)
+            }
+
+
+            var iznos = $('#iznos').val()
+            var obracunFr = $('#obracunFr').val()
+
+            if (iznos != 0 && obracunFr != 0) {
+                $('#razlika').val((parseFloat(iznos) - parseFloat(obracunFr)).toFixed(2))
+            } else {
+                $('#razlika').val('')
             }
         })
 

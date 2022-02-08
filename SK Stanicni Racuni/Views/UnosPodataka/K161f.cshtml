@@ -59,7 +59,7 @@
                 <div class="row">
                     <div class="col-md-5 ">
                         <label class="form-label">Vrste usluge</label>
-                        <input asp-for="VrstaUslugaSifra" type="text" class="form-control" id="vrstaUslugaSifra">
+                        <input asp-for="VrstaUslugaSifra" type="text" class="form-control" id="vrstaUslugaSifra" autocomplete="off">
                     </div>
                 </div>
                 <div class="row">
@@ -125,15 +125,15 @@
                 </div>
                 <div class="row-cols-md">
                     <label class="form-label">Tekuci račun</label>
-                    <input asp-for="PrimalacTr" type="text" class="form-control" id="primalacTR">
+                    <input asp-for="PrimalacTr" type="text" class="form-control" id="primalacTR" autocomplete="off">
                 </div>
                 <div class="row-cols-md">
                     <label class="form-label">Matični broj</label>
-                    <input asp-for="PrimalacMb" type="text" class="form-control" id="primalacMB">
+                    <input asp-for="PrimalacMb" type="text" class="form-control" id="primalacMB" autocomplete="off">
                 </div>
                 <div class="row-cols-md">
                     <label class="form-label">PIB</label>
-                    <input asp-for="PrimalacPib" type="text" class="form-control" id="primalacPIB">
+                    <input asp-for="PrimalacPib" type="text" class="form-control" id="primalacPIB" autocomplete="off">
                 </div>
 
                 <div class="row-cols-md my-2 d-md-none d-block">
@@ -217,29 +217,6 @@
     <script type="text/javascript">
 
 
-        $.fn.datepicker.dates['rs'] = {
-            days: ["Nedelja", "Ponedeljak", "Utorak", "Sreda", "Četvrtak", "Petak", "Subota"],
-            daysShort: ["Ned", "Pon", "Uto", "Sre", "Čet", "Pet", "Sub"],
-            daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su"],
-            months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
-            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
-            today: "Danas",
-            clear: "Clear",
-            // format: "mm/dd/yyyy",
-            //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
-            weekStart: 1
-        };
-
-        $('#DatumOd, #DatumDo').datepicker({
-            todayBtn: true,
-            todayBtn: 'linked',
-            todayHighlight: true,
-            format: 'dd.mm.yyyy',
-            autoclose: true,
-            language: 'rs'
-        })
-
-
         $(window).on('load', function () {
 
             $('#DatumOd', '#DatumDo').datepicker()
@@ -250,10 +227,10 @@
 
             console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
             if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
-                console.log('if')
+              //  console.log('if')
                 $('#upisBtn').attr("disabled", false);
             } else {
-                console.log('else')
+                //console.log('else')
                 $('#upisBtn').attr('disabled', true)
 
             }
@@ -334,7 +311,7 @@
 
 
 
-            $('#fakturaOsnovica, #racunBr, #primalac').on('input', function () {                //Uslovi na formi
+            $('#fakturaOsnovica, #racunBr, #primalac').on('input', function () {                                             //Uslovi na formi
 
                 var fakturaOsnovica = $('#fakturaOsnovica').val()
                 var racunBr = $('#racunBr').val()
@@ -351,6 +328,9 @@
                 }
             })
 
+            $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').on("cut copy paste", function (e) {
+                e.preventDefault();
+            });
 
 
 

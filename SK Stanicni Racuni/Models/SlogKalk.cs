@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -7,6 +8,7 @@ namespace SK_Stanicni_Racuni.Models
 {
     public partial class SlogKalk
     {
+        [Key]
         public int RecId { get; set; }
         public string Stanica { get; set; }
         public string OtpUprava { get; set; }
