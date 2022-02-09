@@ -1538,7 +1538,7 @@
             <Top>3.01308cm</Top>
             <Left>0.5213cm</Left>
             <Height>1.8cm</Height>
-            <Width>19.9574cm</Width>
+            <Width>19.95739cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -1547,7 +1547,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>29.7cm</Height>
+        <Height>11.20562cm</Height>
         <Style />
       </Body>
       <Width>21cm</Width>
@@ -1688,7 +1688,7 @@
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
               <Top>0.32177cm</Top>
-              <Left>0.45707cm</Left>
+              <Left>0.5213cm</Left>
               <Height>0.6cm</Height>
               <Width>2.5cm</Width>
               <Style>

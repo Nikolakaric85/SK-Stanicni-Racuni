@@ -52,11 +52,16 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult Print_K111f([ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo,
             string blagajna, string stanica)
         {
-            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault();
+            var sifraStanice = string.Empty;
+            if (!string.IsNullOrEmpty(stanica))
+            {
+                sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault().SifraStanice;
+            }
+
             var query = from s in context.SrK161fs
                         where (s.FakturaDatum >= DatumOd || s.FakturaDatum <= DatumDo)
                         && s.Blagajna == Int32.Parse(blagajna)
-                        && s.Stanica == sifraStanice.SifraStanice
+                        && s.Stanica == sifraStanice
                         select s;
 
             var dt = new DataTable();
@@ -116,7 +121,8 @@ namespace SK_Stanicni_Racuni.Controllers
                     string[] array = fakUznos6b.ToString().Split('.');
                     row["FakturalniIznos6b"] = array[0];
                     row["FakturalniIznos6b_pare"] = array[1];
-                } else
+                }
+                else
                 {
                     decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakIznosSum += fakUznos;
@@ -188,14 +194,14 @@ namespace SK_Stanicni_Racuni.Controllers
             }
 
             string renderFormat = "PDF";
-            string mimtype = "application/pdf";
+            //  string mimtype = "application/pdf";
 
             var localReport = new LocalReport();
             localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K111f.rdlc";
             localReport.DataSources.Add(new ReportDataSource("K111f", dt));
             var parametars = new[]
             {
-                    new ReportParameter("Stanica", sifraStanice.SifraStanice),
+                    new ReportParameter("Stanica", sifraStanice),
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),
@@ -211,7 +217,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
             localReport.SetParameters(parametars);
             var pdf = localReport.Render(renderFormat);
-            return File(pdf, mimtype);
+            return File(pdf, "application/pdf");
         }
 
         public IActionResult K115()
@@ -241,13 +247,17 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult Print_K115([ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo,
             string blagajna, string stanica)
         {
+            var sifraStanice = string.Empty;
 
-            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault();
+            if (!string.IsNullOrEmpty(stanica))
+            {
+                sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault().SifraStanice;
+            }
 
             var query = from s in context.SrK121as
                         where (s.Datum >= DatumOd || s.Datum <= DatumDo)
                         && s.Blagajna == Int32.Parse(blagajna)
-                        && s.Stanica == sifraStanice.SifraStanice
+                        && s.Stanica == sifraStanice
                         select s;
 
             var dt = new DataTable();
@@ -326,7 +336,7 @@ namespace SK_Stanicni_Racuni.Controllers
             localReport.DataSources.Add(new ReportDataSource("K115", dt));
             var parametars = new[]
             {
-                    new ReportParameter("Stanica", sifraStanice.SifraStanice),
+                    new ReportParameter("Stanica", sifraStanice),
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),

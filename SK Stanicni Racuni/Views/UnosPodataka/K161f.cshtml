@@ -184,11 +184,20 @@
                     {
                         <td>@item.FakturaDatum.Value.ToString("dd.MM.yyyy")</td>
                     }
+                    else
+                    {
+                        <td></td>
+                    }
 
                     @if (item.FakturaDatumP != null)
                     {
                         <td>@item.FakturaDatumP.Value.ToString("dd.MM.yyyy")</td>
+                    } else
+                    {
+                        <td></td>
                     }
+
+                    
 
                     <td>@item.FakturaOsnovica</td>
                     <td>@item.FakturaPdv</td>

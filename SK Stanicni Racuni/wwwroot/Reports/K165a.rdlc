@@ -68,7 +68,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.97578cm</Top>
-            <Left>13.47705cm</Left>
+            <Left>13.15955cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <Style>
@@ -97,7 +97,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>1.71689cm</Top>
-            <Left>13.47705cm</Left>
+            <Left>13.15955cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <ZIndex>1</ZIndex>
@@ -131,7 +131,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>2.47508cm</Top>
+            <Top>2.79258cm</Top>
             <Left>7.79479cm</Left>
             <Height>0.6cm</Height>
             <Width>5.41042cm</Width>
@@ -163,7 +163,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>3.21619cm</Top>
+            <Top>3.53369cm</Top>
             <Left>0.54591cm</Left>
             <Height>0.6cm</Height>
             <Width>13.25021cm</Width>
@@ -226,9 +226,9 @@
             </Paragraphs>
             <rd:DefaultName>Blagajna</rd:DefaultName>
             <Top>1.71689cm</Top>
-            <Left>15.23622cm</Left>
+            <Left>14.91872cm</Left>
             <Height>0.6cm</Height>
-            <Width>4.92683cm</Width>
+            <Width>5.24433cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -261,7 +261,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DatumDo</rd:DefaultName>
-            <Top>3.21619cm</Top>
+            <Top>3.53369cm</Top>
             <Left>13.66382cm</Left>
             <Height>0.6cm</Height>
             <Width>2.03101cm</Width>
@@ -1079,7 +1079,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>K165a</DataSetName>
-            <Top>4.13287cm</Top>
+            <Top>4.45037cm</Top>
             <Left>0.54591cm</Left>
             <Height>3cm</Height>
             <Width>19.90819cm</Width>
@@ -1540,7 +1540,7 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>4.13287cm</Top>
+            <Top>4.45037cm</Top>
             <Left>4.35409cm</Left>
             <Height>1.8cm</Height>
             <Width>11.1cm</Width>
@@ -1569,7 +1569,7 @@
             </Paragraphs>
             <rd:DefaultName>SifraStanice</rd:DefaultName>
             <Top>0.97578cm</Top>
-            <Left>15.23622cm</Left>
+            <Left>14.91872cm</Left>
             <Height>0.6cm</Height>
             <Width>1.91792cm</Width>
             <ZIndex>9</ZIndex>
@@ -1607,9 +1607,9 @@
             </Paragraphs>
             <rd:DefaultName>NazivStanice</rd:DefaultName>
             <Top>0.97578cm</Top>
-            <Left>17.15414cm</Left>
+            <Left>16.83664cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.00891cm</Width>
+            <Width>3.32641cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
               <Border>
@@ -1625,14 +1625,11 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>19.61141cm</Height>
+        <Height>10.2187cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <BottomBorder>
-            <Style>Solid</Style>
-          </BottomBorder>
         </Style>
       </Body>
       <Width>21cm</Width>
@@ -1647,6 +1644,81 @@
             </Border>
           </Style>
         </PageHeader>
+        <PageFooter>
+          <Height>1.17312cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="PageNumber">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!PageNumber</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>PageNumber</rd:DefaultName>
+              <Top>0.25562cm</Top>
+              <Left>17.9541cm</Left>
+              <Height>0.6cm</Height>
+              <Width>2.5cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="ExecutionTime">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!ExecutionTime</Value>
+                      <Style>
+                        <Format>dd.MM.yyyy</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>ExecutionTime</rd:DefaultName>
+              <Top>0.25562cm</Top>
+              <Left>0.54591cm</Left>
+              <Height>0.6cm</Height>
+              <Width>2.5cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>0cm</LeftMargin>

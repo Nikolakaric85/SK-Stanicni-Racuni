@@ -53,7 +53,13 @@ namespace SK_Stanicni_Racuni.Controllers
         {
             var UserId = HttpContext.User.Identity.Name; // daje UserId
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
-            var prStanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+            var prStanica = string.Empty;
+            if (!user.Stanica.StartsWith("000"))
+            {
+                prStanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+            }
+
+            
             ViewBag.Stanica = stanica;
 
             var query = from sk in context.SlogKalks
@@ -96,6 +102,10 @@ namespace SK_Stanicni_Racuni.Controllers
                 }
                 else
                 {
+                    if (user.Stanica.StartsWith("000"))
+                    {
+                        ViewBag.Admin = true;
+                    }
                     notyf.Information("Uneti broj prispeća ne postoji u bazi.",3);
                     ViewBag.K165a = false;
                 }
@@ -351,8 +361,14 @@ namespace SK_Stanicni_Racuni.Controllers
 
         public IActionResult K121aPovratPretraga(SrK121a model, string userId)
         {
+            
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == model.Stanica).FirstOrDefault();
-            var query = context.SrK121as.Where(x => x.Broj == model.Broj && x.Stanica == sifraStanice.SifraStanice).FirstOrDefault();
+            var query = (dynamic)null;
+            if (sifraStanice != null)
+            {
+                 query = context.SrK121as.Where(x => x.Broj == model.Broj && x.Stanica == sifraStanice.SifraStanice).FirstOrDefault();
+            }
+            
             if (query != null)
             {
                 ViewBag.K121a = true;

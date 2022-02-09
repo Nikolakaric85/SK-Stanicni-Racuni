@@ -1,9 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using AspNetCoreHero.ToastNotification.Notyf;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SK_Stanicni_Racuni.Models;
 using System.Collections.Generic;
@@ -45,20 +43,35 @@ namespace SK_Stanicni_Racuni.Controllers
                     return RedirectToAction("Login");
                 }
 
-                var claims = new List<Claim>
+                var claims = (dynamic)null;
+
+                if (!user.Stanica.StartsWith("000"))
                 {
-                    new Claim("UserID", user.UserId),
-                    new Claim("Lozinka", user.Lozinka),
-                    new Claim(ClaimTypes.Name, user.UserId),
-                    new Claim("Naziv", user.Naziv)
-                };
+                    claims = new List<Claim>
+                        {
+                            new Claim("UserID", user.UserId),
+                            new Claim("Lozinka", user.Lozinka),
+                            new Claim(ClaimTypes.Name, user.UserId),
+                            new Claim("Naziv",  user.Naziv + user.Grupa)
+                        };
+
+                } else
+                {
+                    claims = new List<Claim>
+                        {
+                            new Claim("UserID", user.UserId),
+                            new Claim("Lozinka", user.Lozinka),
+                            new Claim(ClaimTypes.Name, user.UserId),
+                            new Claim("Naziv",  user.Naziv)
+                        };
+                }
 
                 var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties
                 {
-                    
+
                 };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
