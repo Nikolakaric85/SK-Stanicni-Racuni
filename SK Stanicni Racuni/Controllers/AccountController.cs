@@ -52,7 +52,7 @@ namespace SK_Stanicni_Racuni.Controllers
                             new Claim("UserID", user.UserId),
                             new Claim("Lozinka", user.Lozinka),
                             new Claim(ClaimTypes.Name, user.UserId),
-                            new Claim("Naziv",  user.Naziv + user.Grupa)
+                            new Claim("Naziv",  user.Naziv.Trim() + " "+ user.Grupa.Trim())
                         };
 
                 } else

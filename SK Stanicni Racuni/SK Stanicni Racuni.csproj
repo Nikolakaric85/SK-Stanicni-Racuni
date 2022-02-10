@@ -10,12 +10,16 @@
     <Content Remove="wwwroot\Reports\K111f.rdlc" />
     <Content Remove="wwwroot\Reports\K115.rdlc" />
     <Content Remove="wwwroot\Reports\K117.rdlc" />
+    <Content Remove="wwwroot\Reports\K157.rdlc" />
+    <Content Remove="wwwroot\Reports\K167.rdlc" />
     <Content Remove="wwwroot\Reports\K254.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\Reports\K111f.rdlc" />
     <None Include="wwwroot\Reports\K115.rdlc" />
+    <None Include="wwwroot\Reports\K157.rdlc" />
+    <None Include="wwwroot\Reports\K167.rdlc" />
     <None Include="wwwroot\Reports\K254.rdlc" />
     <None Include="wwwroot\Reports\K117.rdlc" />
   </ItemGroup>
@@ -102,6 +106,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="DataSet\K167.Designer.cs">
+      <DependentUpon>K167.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="DataSet\K254.Designer.cs">
       <DependentUpon>K254.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -158,6 +167,11 @@
     <None Update="DataSet\K165trz.xsd">
       <SubType>Designer</SubType>
       <LastGenOutput>K165trz.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="DataSet\K167.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>K167.Designer.cs</LastGenOutput>
       <Generator>MSDataSetGenerator</Generator>
     </None>
     <None Update="DataSet\K254.xsd">

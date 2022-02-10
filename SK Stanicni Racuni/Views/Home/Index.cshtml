@@ -3,25 +3,3 @@
     var identity = (System.Security.Claims.ClaimsIdentity)User.Identity;
 }
 
-<div class="row">
-    <div class="col-xxl-6 bg-gradient bg-info">
-        col1
-    </div>
-    <div class="col-xxl-6 bg-gradient bg-secondary">
-        col2
-     </div>
-</div>
-
-<div>
-    
-    <table class="table table-striped mt-5">
-        @foreach (var item in identity.Claims)
-        {
-        <tr>
-            <td>@item.Type </td>
-            <td>@item.Value </td>
-        </tr>
-        }
-    </table>
-
-</div>
