@@ -10,7 +10,7 @@
 
         <div class="row mt-3">
 
-            <input class="form-control" name="user" value=" @identity.Claims.Where(x => x.Type == "Naziv").Select(x => x.Value).FirstOrDefault()" readonly />
+            <input class="form-control" name="user" value=" @identity.Claims.Where(x => x.Type == "Naziv").Select(x => x.Value).FirstOrDefault()" hidden />
 
             <div class="alert alert-primary" role="alert">
                 @if (ViewBag.Id == "K167")

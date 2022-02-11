@@ -92,7 +92,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 var localReport = new LocalReport();
                 localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K157.rdlc";
-                localReport.DataSources.Add(new ReportDataSource("K167", dt));
+                localReport.DataSources.Add(new ReportDataSource("K157", dt));
                 var parametars = new[]
                 {
 
