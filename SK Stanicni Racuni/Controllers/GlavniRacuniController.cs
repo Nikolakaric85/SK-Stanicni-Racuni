@@ -154,7 +154,35 @@ namespace SK_Stanicni_Racuni.Controllers
                     arrayFakturaUnut = fakturaUnutSum.ToString($"F{2}").Split('.');
                 }
 
-        
+
+                //***************** unutrasnji saobracaj  PDV K167 *************/                                    /* NIJE DOBRO KAKO RACUNA OSNOVICU I PDV   */
+
+                var pdv = from sk in context.SlogKalks
+                          join skPdv in context.SlogKalkPdvs on sk.RecId equals skPdv.RecId
+                          into sks
+                          from s in sks.DefaultIfEmpty()
+                          where sk.Saobracaj == "1"
+                          select new { sk.RecId, sk.TlSumaUpDin, s.Pdv2 };
+
+                decimal pdvOsnovicaSum = 0;
+                decimal pdvSum = 0;
+
+                foreach (var item in pdv)
+                {
+                    if (item.TlSumaUpDin != null)
+                    {
+                        pdvOsnovicaSum += (decimal)(item.TlSumaUpDin);
+                    }
+
+                    if (item.Pdv2 != null)
+                    {
+                        pdvSum += (decimal)(item.Pdv2);
+                    }
+                }
+
+
+
+
                 var dt = new DataTable();
 
                 string renderFormat = "PDF";
@@ -331,7 +359,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 var sr161f = from sr161 in context.SrK161fs
                              where (sr161.FakturaDatum >= DatumOd && sr161.FakturaDatum <= DatumDo)
                              && sr161.Stanica == sifraStanice
-
+                             && sr161.NaplacenoNB == 'D'
                              select new
                              {
                                  FakturaOsnovica = sr161.FakturaOsnovica,
@@ -369,7 +397,7 @@ namespace SK_Stanicni_Racuni.Controllers
                           into sks
                           from s in sks.DefaultIfEmpty()
                           where sk.Saobracaj == "1"
-                          select new { sk.RecId, sk.TlPrevFrDin, sk.TlNakFrDin, s.Pdv1, s.Pdv2 };
+                          select new { sk.RecId, sk.TlSumaFrDin , s.Pdv1 };
 
 
                 decimal pdvOsnovicaSum = 0;
@@ -377,14 +405,14 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 foreach (var item in pdv)
                 {
-                    if (item.TlNakFrDin != null && item.TlPrevFrDin != null)
+                    if (item.TlSumaFrDin != null)
                     {
-                        pdvOsnovicaSum += (decimal)(item.TlPrevFrDin + item.TlNakFrDin);
+                        pdvOsnovicaSum += (decimal)(item.TlSumaFrDin);
                     }
 
-                    if (item.Pdv1 != null && item.Pdv2 != null)
+                    if (item.Pdv1 != null )
                     {
-                        pdvSum += (decimal)(item.Pdv1 + item.Pdv2);
+                        pdvSum += (decimal)(item.Pdv1);
                     }
                 }
 
