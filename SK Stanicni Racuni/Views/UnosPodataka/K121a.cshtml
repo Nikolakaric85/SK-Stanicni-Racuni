@@ -2,7 +2,7 @@
 
 <div class="container">
 
-    <form asp-page-handler="K121a_save">
+    <form asp-page-handler="K121a_save" class="needs-validation" novalidate>
 
         <div class="row mt-3">
 
@@ -21,7 +21,10 @@
                             <label class="col-form-label ">Priznanica</label>
                         </div>
                         <div class="col-auto">
-                            <input type="text" asp-for="Broj" class="form-control ml-1" id="priznanica" autocomplete="off">
+                            <input type="text" asp-for="Broj" class="form-control ml-1" id="priznanica" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                Unesite broj priznanice.
+                            </div>
                         </div>
                     </div>
                     <div class="row justify-content-center">
@@ -40,7 +43,10 @@
                         <label class="col-form-label ">Pošiljalac</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" asp-for="Pošiljalac" class="form-control ml-2" id="posiljalac" style="width:205px" autocomplete="off">
+                        <input type="text" asp-for="Pošiljalac" class="form-control ml-2" id="posiljalac" style="width:205px" autocomplete="off" required>
+                        <div class="invalid-feedback pl-2">
+                            Unesite pošiljaoca.
+                        </div>
                     </div>
                 </div>
 
@@ -49,7 +55,10 @@
                         <label class="col-form-label ">je položio</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" asp-for="Iznos" class="form-control" id="iznos" autocomplete="off">
+                        <input type="text" asp-for="Iznos" class="form-control" id="iznos" autocomplete="off" required>
+                        <div class="invalid-feedback">
+                            Unesite iznos depozita.
+                        </div>
                     </div>
                     <div class="col-auto">
                         <label class="col-form-label ">dinara</label>
@@ -73,18 +82,40 @@
                         <label class="col-form-label ">od</label>
                     </div>
                     <div class="col-md-3 col-4 px-0">
-                        <input type="text" asp-for="OtpDatum" class="form-control" id="OtpDatum" name="datumOd" autocomplete="off">
+                        <input type="text" asp-for="OtpDatum" class="form-control" id="OtpDatum" name="datumOd" autocomplete="off" required>
+                        <div class="invalid-feedback">
+                            Unesite datum.
+                        </div>
                     </div>
                 </div>
 
-                <div class="row my-1 align-items-end">
+                <div class="row my-1 align-items-end" style="visibility:visible" id="unutrasnji">
+                                                                                                                                                   @*//*********************@
                     <div class="col-auto">
-                        <label class="col-form-label ">Uputna stanica</label>
+                        <label class="col-form-label pb-0" id="uputnaStanicaLabel">Uputna stanica <br /> (unutr. saobr.)</label>
                     </div>
                     <div class="col-auto">
-                        <input class="form-control pl-1" list="myDatalist" id="myDatalistInput" name="stanica_" autocomplete="off"/>
+                        <input class="form-control pl-1" list="myDatalist" id="myDatalistInput" name="stanica_" autocomplete="off" />
                         <datalist id="myDatalist" open="open">
                         </datalist>
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Koristite naziv stanice za pretragu stanica u unutrašnjem saobraćaju, dok za medjunarodne koristite šifru stanice."></i>
+                    </div>
+                </div>
+
+                <div class="row my-1 align-items-end" style="visibility:hidden" id="medjunarodni">
+                                                                                                                                                                                                                                                   @*//*********************@
+                    <div class="col-auto">
+                        <label class="col-form-label pb-0" id="uputnaStanicaLabel">Uputna stanica <br /> (medju. saobr.)</label>
+                    </div>
+                    <div class="col-auto">
+                        <input class="form-control pl-1"  name="medjuStanica" id="medjuStanica" autocomplete="off" />
+                        @*<datalist id="myDatalist" open="open">
+                        </datalist>*@
+                    </div>
+                    <div class="col-auto">
+                        <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Koristite naziv stanice za pretragu stanica u unutrašnjem saobraćaju, dok za medjunarodne koristite šifru stanice."></i>
                     </div>
                 </div>
 
@@ -93,7 +124,10 @@
                         <label class="col-form-label ">Datum</label>
                     </div>
                     <div class="col-md-5 col-4">
-                        <input type="text" asp-for="Datum" class="form-control" style="margin-left:57px;" id="Datum" name="datumDo" autocomplete="off">
+                        <input type="text" asp-for="Datum" class="form-control" style="margin-left:57px;" id="Datum" name="datumDo" autocomplete="off" required>
+                        <div class="invalid-feedback ml-5 pl-2">
+                            Unesite datum.
+                        </div>
                     </div>
                 </div>
 
@@ -107,16 +141,36 @@
             <div class="col-xxl col-xl col-lg mt-3 mt-lg-0 px-0">
 
                 <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7">
+                    <label for="inputPassword4" class="form-label">Blagajna</label>
+                    <select class="form-select" asp-for="Blagajna" aria-label="Default select example" name="blagajna">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7">
+                    <label for="inputPassword4" class="form-label">Vrsta saobraćaja</label>
+                    <select class="form-select" asp-for="Saobracaj" aria-label="Default select example" id="saobracaj"  name="saobracaj">
+                        <option value="1">1 - Unutrašanji</option>
+                        <option value="2">2 - Medjunarodni</option>
+                    </select>
+                </div>
+
+                <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7 mt-3">
                     <label class="form-label">Primalac priznanice</label>
-                    <input type="text" asp-for="Primalac" class="form-control" id="primalac" autocomplete="off">
+                    <input type="text" asp-for="Primalac" class="form-control" id="primalac" autocomplete="off" required>
+                    <div class="invalid-feedback">
+                        Unesite primaoca.
+                    </div>
                 </div>
                 <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7">
                     <label class="form-label">Adresa primaoca</label>
                     <input type="text" asp-for="PrimalacAdresa" class="form-control" autocomplete="off">
+               
                 </div>
                 <div class="col-xxl-7 col-xl-9 col-lg-12 col-md-7">
                     <label class="form-label">Zemlja</label>
-                    <input type="text" asp-for="PrimalacZemlja" class="form-control" autocomplete="off">
+                    <input type="text" asp-for="PrimalacZemlja" class="form-control" autocomplete="off" >
                 </div>
 
                 <div class="row-cols-md my-2 d-md-none d-block">
@@ -206,17 +260,43 @@
 
             $('#Datum', '#OtpDatum').datepicker()
 
-            var posiljalac = $('#posiljalac').val()
-            var iznos = $('#iznos').val()
-            var primalac = $('#primalac').val()
-            var datum = $('#Datum').val()
+            //var posiljalac = $('#posiljalac').val()
+            //var iznos = $('#iznos').val()
+            //var primalac = $('#primalac').val()
+            //var datum = $('#Datum').val()
 
-            if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
-                $('#upisBtn').attr("disabled", false);
-            } else {
-                $('#upisBtn').attr('disabled', true)
+            //if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
+            //    $('#upisBtn').attr("disabled", false);
+            //} else {
+            //    $('#upisBtn').attr('disabled', true)
 
-            }
+            //}
+
+
+           
+
+            var value = $('#saobracaj').val()
+
+                if (value == 1) {
+                    $('#unutrasnji').attr('style', 'visibility:visible')
+                    $('#unutrasnji').removeClass();
+                    $('#unutrasnji').addClass("row my-1 align-items-end")
+                    $('#medjunarodni').attr('style', 'visibility:hidden')
+                    $('#medjunarodni').removeClass();
+                    $('#medjunarodni').addClass("row my-1 align-items-end d-none")
+
+                } else {
+
+                    $('#unutrasnji').attr('style', 'visibility:hidden')
+                    $('#medjunarodni').attr('style', 'visibility:visible')
+                    $('#unutrasnji').removeClass();
+                    $('#unutrasnji').addClass("row my-1 align-items-end d-none")
+                    $('#medjunarodni').removeClass();
+                    $('#medjunarodni').addClass("row my-1 align-items-end")
+                }
+
+
+
 
         })
 
@@ -292,31 +372,37 @@
                 }
             })
 
-            $('#priznanica, #broj').keypress(function (e) {                                                                 //Samo unos brojeva i ništa više
+            $('#medjuStanica').keypress(function () {                                                                       //Da ogranici unos karaktera
+                if (this.value.length == 7) {
+                    return false;
+                }
+            })
+
+            $('#priznanica, #broj, #medjuStanica').keypress(function (e) {                                                                 //Samo unos brojeva i ništa više
                 var charCode = (e.which) ? e.which : event.keyCode
                 if (String.fromCharCode(charCode).match(/[^0-9]/g))
                     return false;
             });
 
 
-            $('#posiljalac, #iznos, #primalac, #priznanica, #Datum').on('change', function () {                                             //Uslovi na formi
+            //$('#posiljalac, #iznos, #primalac, #priznanica, #Datum').on('change', function () {                                             //Uslovi na formi
 
-                var posiljalac = $('#posiljalac').val()
-                var iznos = $('#iznos').val()
-                var primalac = $('#primalac').val()
-                var priznanica = $('#priznanica').val()
-                var datum = $('#Datum').val()
+            //    var posiljalac = $('#posiljalac').val()
+            //    var iznos = $('#iznos').val()
+            //    var primalac = $('#primalac').val()
+            //    var priznanica = $('#priznanica').val()
+            //    var datum = $('#Datum').val()
 
-                console.log('posiljalac ' + posiljalac + ' iznos ' + iznos + ' primalac ' + primalac + ' priznanica ' + priznanica + ' datum ' + datum)
+            //    console.log('posiljalac ' + posiljalac + ' iznos ' + iznos + ' primalac ' + primalac + ' priznanica ' + priznanica + ' datum ' + datum)
 
-                if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
-                    console.log('if')
-                    $('#upisBtn').attr('disabled', false)
-                } else {
-                    console.log('else')
-                    $('#upisBtn').attr("disabled", true);
-                }
-            })
+            //    if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
+            //        console.log('if')
+            //        $('#upisBtn').attr('disabled', false)
+            //    } else {
+            //        console.log('else')
+            //        $('#upisBtn').attr("disabled", true);
+            //    }
+            //})
 
 
             $('#iznos').on('input', function () {                                                             //decimale 12,2
@@ -327,9 +413,6 @@
 
                 var separate = val.split('.')
 
-                console.log('Separate ' + separate)
-                console.log('Separate lenght ' + separate.length)
-
                 if (separate.length == 1) {
                     $('#' + selector).val(function () {
                         return val.substr(0, 12)   //12 je max karaktera pre tacke (decimale)
@@ -337,12 +420,57 @@
                 } else if (separate.length == 2) {
                     var sum = parseInt(separate[0].length) + parseInt(3)
                     $('#' + selector).val(function () {
-                        console.log('sum ' + sum)
                         return val.substr(0, sum)
                     })
                 }
             })
 
+
+                //// Example starter JavaScript for disabling form submissions if there are invalid fields
+                //(function () {
+                //    'use strict'
+
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.querySelectorAll('.needs-validation')                                                      // za validaciju polja na formi
+
+                    // Loop over them and prevent submission
+                    Array.prototype.slice.call(forms)
+                        .forEach(function (form) {
+                            form.addEventListener('submit', function (event) {
+                                if (!form.checkValidity()) {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                }
+
+                                form.classList.add('was-validated')
+                            }, false)
+                        })
+            /*  })()*/
+
+
+
+            $('#saobracaj').on("input", function () {
+               
+                var value = $('#saobracaj').val()
+                
+                if (value == 1) {
+                    $('#unutrasnji').attr('style', 'visibility:visible')
+                    $('#unutrasnji').removeClass();
+                    $('#unutrasnji').addClass("row my-1 align-items-end")
+                    $('#medjunarodni').attr('style', 'visibility:hidden')
+                    $('#medjunarodni').removeClass();
+                    $('#medjunarodni').addClass("row my-1 align-items-end d-none")
+                    
+                } else {
+                    
+                    $('#unutrasnji').attr('style', 'visibility:hidden')
+                    $('#medjunarodni').attr('style','visibility:visible')
+                    $('#unutrasnji').removeClass();
+                    $('#unutrasnji').addClass("row my-1 align-items-end d-none")
+                    $('#medjunarodni').removeClass();
+                    $('#medjunarodni').addClass("row my-1 align-items-end")
+                }
+            })
 
 
 

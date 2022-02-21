@@ -264,10 +264,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
                 }
             }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            //else
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
 
             DateTime date = DateTime.Now;
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
@@ -279,7 +279,7 @@ namespace SK_Stanicni_Racuni.Controllers
         }
 
         public IActionResult K121a_save(SrK121a model, 
-            [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, string stanica_)      //otpDatum je DatumOd, datum je DatumDo
+            [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, string stanica_, string medjuStanica ,string saobracaj, string blagajna)      //otpDatum je DatumOd, datum je DatumDo
         {
             var priznanicaCheck = context.SrK121as.Where(x => x.Broj == model.Broj).FirstOrDefault();
 
@@ -287,6 +287,12 @@ namespace SK_Stanicni_Racuni.Controllers
             {
                 notyf.Error("Postoji priznanica pod tim brojem",3);
                 return RedirectToActionPermanent("K121a",model);
+            }
+
+            if (medjuStanica.Length < 7)
+            {
+                notyf.Error("Medjunarodne stanice imaju 7 karaktera", 3);
+                return RedirectToActionPermanent("K121a", model);
             }
 
             var sifraStanice = context.ZsStanices.Where(x=>x.Naziv == stanica_).FirstOrDefault();
@@ -308,6 +314,11 @@ namespace SK_Stanicni_Racuni.Controllers
                 newModel.PrStanica = context.ZsStanices.Where(x => x.Naziv == stanica_).Select(x => x.SifraStanice).FirstOrDefault();
             }
 
+            if (!string.IsNullOrEmpty(medjuStanica))
+            {
+                newModel.PrStanica = medjuStanica;
+            }
+
             if (DatumDo.ToString() != "1/1/0001 12:00:00 AM")
             {
                 newModel.Datum = DatumDo;
@@ -317,7 +328,12 @@ namespace SK_Stanicni_Racuni.Controllers
             newModel.PrimalacAdresa = model.PrimalacAdresa;
             newModel.PrimalacZemlja = model.PrimalacZemlja;
             newModel.Blagajnik = model.Blagajnik;
-            newModel.Stanica = sifraStanice.SifraStanice;
+            if (sifraStanice != null)
+            {
+                newModel.Stanica = sifraStanice.SifraStanice;
+            }
+            newModel.Blagajna = Int32.Parse(blagajna);
+            newModel.Saobracaj = Char.Parse(saobracaj);
 
             try
             {
@@ -424,6 +440,9 @@ namespace SK_Stanicni_Racuni.Controllers
 
             return RedirectToAction ("K121aPovrat");
         }
+
+
+    
 
 
     }

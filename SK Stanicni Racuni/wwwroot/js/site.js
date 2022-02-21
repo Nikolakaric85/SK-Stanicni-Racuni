@@ -6,12 +6,42 @@
 
         $(document).ready(function () {
 
+
+
+
+
+            //$('#myDatalistInput').on('input', function () {
+            //    var data = $('#myDatalistInput').val()
+
+            //    console.log("unutrasnja lista " + data)
+            //})
+
+
+
+            //$('#myDatalistInputMedju').on('input', function () {
+            //    var data = $('#myDatalistInputMedju').val()
+
+            //    $.ajax({
+            //        type: "GET",
+            //        url: "/ListaStanica/ListaMedjunarodnihStanica",
+            //        cache: false,
+            //        data: { data: data },
+            //        success: function (data) {
+            //            console.log(data)
+
+                        
+
+            //        }
+            //    });
+            //})
+
+
             $('#myDatalistInput').on('input', function () {
                 var data = $('#myDatalistInput').val()
 
                 $.ajax({
                     type: "GET",
-                    url: "/RacuniUnutrasnjiSaobracaj/ListaStanica",
+                    url: "/ListaStanica/ListaUnutrasnjihStanica",
                     cache: false,
                     data: { data: data },
                     success: function (data) {
@@ -25,6 +55,11 @@
                     }
                 });
             })
+
+
+
+
+
 
         })
 
@@ -52,6 +87,54 @@
                 autoclose: true,
                 language: 'rs'
             })
+
+
+           // var arr = [];
+
+            //function Lista() {
+
+            //    $.ajax({
+            //        type: "GET",
+            //        url: "/ListaStanica/ListaMedjunarodnihStanica",
+            //        cache: false,
+            //        success: function (data) {
+
+            //            for (var i = 0; i < data.length; i++) {
+            //                arr.push(data[i])
+            //            }
+                        
+                        
+            //        }
+            //    });
+            //}
+
+            //Lista()
+
+            //$('#myDatalistInputMedju').on('input', function () {
+
+            //    var data = $('#myDatalistInputMedju').val()
+
+            //    console.log(data)
+
+            //    var filtered = arr.filter(function (value) {
+            //        return value.indexOf(data) > -1
+            //    })
+
+            //    var options = '';
+
+            //    for (var i = 0; i < filtered.length; i++) {
+            //        options += '<option value="' + filtered[i] + '" />';
+            //    }
+            //    $('#myDatalist').html(options)
+
+            //    console.log(filtered)
+                
+
+            //})
+
+            
+
+
         })
 
 

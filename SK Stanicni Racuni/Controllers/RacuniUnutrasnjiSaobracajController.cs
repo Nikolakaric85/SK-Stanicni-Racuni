@@ -26,15 +26,6 @@ namespace SK_Stanicni_Racuni.Controllers
         }
 
 
-        public ActionResult ListaStanica(string data)
-        {
-            var stanice = (from s in context.ZsStanices
-                           where s.Naziv.Contains(data)
-                           select s.Naziv); ;
-            return Json(stanice);
-        }
-
-
         public IActionResult RacuniUnutrasnjiSaobracaj(string id)
         {
             ViewBag.Id = id;
