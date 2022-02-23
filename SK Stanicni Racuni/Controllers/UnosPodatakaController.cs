@@ -264,10 +264,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
                 }
             }
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
             DateTime date = DateTime.Now;
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
@@ -375,10 +375,19 @@ namespace SK_Stanicni_Racuni.Controllers
             return View();
         }
 
-        public IActionResult K121aPovratPretraga(SrK121a model, string userId)
+        public IActionResult K121aPovratPretraga(SrK121a model, string userId, string stanicaIzabrana)
         {
+            var sifraStanice = (ZsStanice)null;
+
+            if (!string.IsNullOrEmpty(stanicaIzabrana))
+            {
+                 sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanicaIzabrana).FirstOrDefault();
+            } else
+            {
+                sifraStanice = context.ZsStanices.Where(x => x.Naziv == model.Stanica).FirstOrDefault();
+            }
             
-            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == model.Stanica).FirstOrDefault();
+            
             var query = (dynamic)null;
             if (sifraStanice != null)
             {
@@ -391,6 +400,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 ViewBag.Stanica = model.Stanica;
                 ViewBag.UserId = userId;
                 ViewBag.Id = query.Id;
+                ViewBag.Admin = true;
 
                 DateTime date = DateTime.Now;
                 var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
@@ -411,7 +421,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 notyf.Information("Ne postoji depozit pod tim brojem.",3);
             }
             ViewBag.UserId = userId;
-            return View("K121aPovrat", query);
+            return   RedirectToAction("K121aPovrat", query);
         }
 
         public IActionResult K121aPovratSave(SrK121a model, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo) // DatumDo je DatumVracanjaFR

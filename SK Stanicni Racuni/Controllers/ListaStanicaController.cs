@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,8 @@ namespace SK_Stanicni_Racuni.Controllers
         {
             var stanice = (from s in context.ZsStanices
                            where s.Naziv.Contains(data)
-                           select s.Naziv); ;
+                           select s.Naziv);
+
             return Json(stanice);
         }
     }

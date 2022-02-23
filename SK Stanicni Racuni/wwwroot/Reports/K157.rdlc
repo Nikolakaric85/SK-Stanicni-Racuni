@@ -1317,7 +1317,6 @@
                                           <PaddingBottom>2pt</PaddingBottom>
                                         </Style>
                                       </Textbox>
-                                      <rd:Selected>true</rd:Selected>
                                     </CellContents>
                                   </TablixCell>
                                   <TablixCell>
@@ -1391,11 +1390,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=Parameters!pdvOsnovicaSum.Value</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Right</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox331</rd:DefaultName>
@@ -1422,7 +1423,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=Parameters!pdvOsnovicaSum_pare.Value</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -1453,11 +1454,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=Parameters!pdvSum.Value</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Right</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox339</rd:DefaultName>
@@ -1484,7 +1487,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=Parameters!pdvSum_pare.Value</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -6476,11 +6479,35 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="pdvOsnovicaSum">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pdvOsnovicaSum_pare">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pdvSum">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pdvSum_pare">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>7</NumberOfRows>
+      <NumberOfRows>8</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -6616,6 +6643,26 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>6</RowIndex>
           <ParameterName>razlikaOtpBrojMedj</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>pdvOsnovicaSum</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>pdvOsnovicaSum_pare</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>pdvSum</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>pdvSum_pare</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

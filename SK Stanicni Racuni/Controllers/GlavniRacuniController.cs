@@ -6,6 +6,7 @@ using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 
 namespace SK_Stanicni_Racuni.Controllers
@@ -14,7 +15,7 @@ namespace SK_Stanicni_Racuni.Controllers
     {
         private readonly AppDbContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
-
+        CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
         public GlavniRacuniController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             this.context = context;
@@ -92,8 +93,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (naplacenoK165aUnutrSum == 0)
                 {
-                    arrayNaplacenoK165aUnutrSum[0] = string.Empty;
-                    arrayNaplacenoK165aUnutrSum[1] = string.Empty;
+                    arrayNaplacenoK165aUnutrSum[0] = "0";
+                    arrayNaplacenoK165aUnutrSum[1] = "0";
                 } else
                 {
                     arrayNaplacenoK165aUnutrSum = naplacenoK165aUnutrSum.ToString($"F{2}").Split('.');
@@ -147,8 +148,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (fakturaUnutSum == 0)
                 {
-                    arrayFakturaUnut[0] = string.Empty;
-                    arrayFakturaUnut[1] = string.Empty;
+                    arrayFakturaUnut[0] = "0";
+                    arrayFakturaUnut[1] = "0";
                 } else
                 {
                     arrayFakturaUnut = fakturaUnutSum.ToString($"F{2}").Split('.');
@@ -162,6 +163,7 @@ namespace SK_Stanicni_Racuni.Controllers
                           into sks
                           from s in sks.DefaultIfEmpty()
                           where sk.Saobracaj == "1"
+                          && (sk.PrDatum >= DatumOd && sk.PrDatum <= DatumDo)
                           select new { sk.RecId, sk.TlSumaUpDin, s.Pdv2 };
 
                 decimal pdvOsnovicaSum = 0;
@@ -180,8 +182,28 @@ namespace SK_Stanicni_Racuni.Controllers
                     }
                 }
 
+                string[] arrayPdvOsnovica = new string[2];
+                string[] arrayPdv = new string[2];
 
+                if (pdvOsnovicaSum == 0)
+                {
+                    arrayPdvOsnovica[0] = "0";
+                    arrayPdvOsnovica[1] = "0";
+                }
+                else
+                {
+                    arrayPdvOsnovica = pdvOsnovicaSum.ToString($"F{2}").Split('.');
+                }
 
+                if (pdvSum == 0)
+                {
+                    arrayPdv[0] = "0";
+                    arrayPdv[1] = "0";
+                }
+                else
+                {
+                    arrayPdv = pdvSum.ToString($"F{2}").Split('.');
+                }
 
                 var dt = new DataTable();
 
@@ -209,7 +231,12 @@ namespace SK_Stanicni_Racuni.Controllers
                         new ReportParameter("razlikaUnutr", razlikaUnutr.ToString()),
                         new ReportParameter("prBrojMedjMAX", prBrojMedjMAX.ToString()),
                         new ReportParameter("prBrojMedjMIN", prBrojMedjMIN.ToString()),
-                        new ReportParameter("razlikaMedj", razlikaMedj.ToString())
+                        new ReportParameter("razlikaMedj", razlikaMedj.ToString()),
+                        new ReportParameter("pdvOsnovicaSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayPdvOsnovica[0]))),
+                        //new ReportParameter("pdvOsnovicaSum", arrayPdvOsnovica[0]),
+                        new ReportParameter("pdvOsnovicaSum_pare",arrayPdvOsnovica[1]),
+                        new ReportParameter("pdvSum",arrayPdv[0]),
+                        new ReportParameter("pdvSum_pare",arrayPdv[1]),
                     };
 
                 localReport.SetParameters(parametars);
@@ -262,8 +289,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (naplacenoK119UnutSum == 0)
                 {
-                    arrayNaplacenoK119Unut[0] = string.Empty;
-                    arrayNaplacenoK119Unut[1] = string.Empty;
+                    arrayNaplacenoK119Unut[0] = "0";
+                    arrayNaplacenoK119Unut[1] = "0";
                 }
                 else
                 {
@@ -291,6 +318,11 @@ namespace SK_Stanicni_Racuni.Controllers
                     otpBrojUnutMAX = otpBrojUnutList.Max();
                     otpBrojUnutMIN = otpBrojUnutList.Min();
                     razlikaOtpBrojUnut = otpBrojUnutMAX - otpBrojUnutMIN;
+                } else
+                {
+                    otpBrojUnutMAX = string.Empty;
+                    otpBrojUnutMIN = string.Empty;
+                    razlikaOtpBrojUnut = string.Empty;
                 }
 
                 var otpBrojMedjuMAX = (dynamic)null;
@@ -302,6 +334,11 @@ namespace SK_Stanicni_Racuni.Controllers
                      otpBrojMedjuMAX = otpBrojMedjList.Max();
                      otpBrojMedjuMIN = otpBrojMedjList.Min();
                      razlikaOtpBrojMedj = otpBrojMedjuMAX - otpBrojMedjuMIN;
+                } else
+                {
+                    otpBrojMedjuMAX = string.Empty;
+                    otpBrojMedjuMIN = string.Empty;
+                    razlikaOtpBrojMedj = string.Empty;
                 }
 
 
@@ -390,13 +427,14 @@ namespace SK_Stanicni_Racuni.Controllers
                     arrayNaknade111fUnutrSum = naknade111fUnutrSum.ToString($"F{2}").Split('.');
                 }
 
-                //***************** unutrasnji saobracaj  PDV *************/                                    /* NIJE DOBRO KAKO RACUNA OSNOVICU I PDV   */
+                //***************** unutrasnji saobracaj  PDV 157 *************/                                    /* NIJE DOBRO KAKO RACUNA OSNOVICU I PDV  KOJI DATUME DA UZME U OBZIR  */
 
                 var pdv = from sk in context.SlogKalks
                           join skPdv in context.SlogKalkPdvs on sk.RecId equals skPdv.RecId
                           into sks
                           from s in sks.DefaultIfEmpty()
                           where sk.Saobracaj == "1"
+                          && (sk.OtpDatum >= DatumOd && sk.OtpDatum <= DatumDo)
                           select new { sk.RecId, sk.TlSumaFrDin , s.Pdv1 };
 
 
@@ -497,34 +535,34 @@ namespace SK_Stanicni_Racuni.Controllers
                         new ReportParameter("SifraStanice", sifraStanice),
                         new ReportParameter("Racunopolagac", user),
 
-                        new ReportParameter("naplacenoK119UnutSum", arrayNaplacenoK119Unut[0]),
+                        new ReportParameter("naplacenoK119UnutSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayNaplacenoK119Unut[0]))),
                         new ReportParameter("naplacenoK119UnutSum_pare", arrayNaplacenoK119Unut[1]),
                         new ReportParameter("naplacenoK119MedjSum", arrayNaplacenoK119Medj[0]),
                         new ReportParameter("naplacenoK119MedjSum_pare", arrayNaplacenoK119Medj[1]),
-                        new ReportParameter("naplacenoK115UnutrSum", arrayNaplacenoK115UnutrSum[0]),
+                        new ReportParameter("naplacenoK115UnutrSum",  arrayNaplacenoK115UnutrSum[0]),
                         new ReportParameter("naplacenoK115UnutrSum_pare", arrayNaplacenoK115UnutrSum[1]),
                         new ReportParameter("naplacenoK115MedjSum", arrayNaplacenoK115MedjSum[0]),
                         new ReportParameter("naplacenoK115MedjSum_pare", arrayNaplacenoK115MedjSum[1]),
                         new ReportParameter("naknade111fUnutrSum", arrayNaknade111fUnutrSum[0]),
                         new ReportParameter("naknade111fUnutrSum_pare", arrayNaknade111fUnutrSum[1]),
-                        //new ReportParameter("pdvOsnovicaSum",arrayPdvOsnovica[0]),
-                        //new ReportParameter("pdvOsnovicaSum_pare",arrayPdvOsnovica[1]),
-                        //new ReportParameter("pdvSum",arrayPdv[0]),
-                        //new ReportParameter("pdvSum_pare",arrayPdv[1]),
+                        new ReportParameter("pdvOsnovicaSum",arrayPdvOsnovica[0]),
+                        new ReportParameter("pdvOsnovicaSum_pare",arrayPdvOsnovica[1]),
+                        new ReportParameter("pdvSum",arrayPdv[0]),
+                        new ReportParameter("pdvSum_pare",arrayPdv[1]),
                         new ReportParameter("Suma1", arraySuma1[0]),
                         new ReportParameter("Suma1_pare", arraySuma1[1]),
                         new ReportParameter("Suma2", arraySuma2[0]),
                         new ReportParameter("Suma2_pare", arraySuma2[1]),
                         new ReportParameter("Suma", arraySuma[0]),
                         new ReportParameter("Suma_pare", arraySuma[1]),
-                        new ReportParameter("otpBrojUnutMAX",otpBrojUnutMAX.ToString()),
-                        new ReportParameter("otpBrojUnutMIN",otpBrojUnutMIN.ToString()),
-                        new ReportParameter("razlikaOtpBrojUnut",razlikaOtpBrojUnut.ToString()),
-                        new ReportParameter("otpBrojMedjuMAX",otpBrojMedjuMAX.ToString()),
-                        new ReportParameter("otpBrojMedjuMIN",otpBrojMedjuMIN.ToString()),
-                        new ReportParameter("razlikaOtpBrojMedj",razlikaOtpBrojMedj.ToString()),
+                        new ReportParameter("otpBrojUnutMAX", Convert.ToString(otpBrojUnutMAX)),
+                        new ReportParameter("otpBrojUnutMIN", Convert.ToString(otpBrojUnutMIN)),
+                        new ReportParameter("razlikaOtpBrojUnut", Convert.ToString(razlikaOtpBrojUnut)),
+                        new ReportParameter("otpBrojMedjuMAX", Convert.ToString(otpBrojMedjuMAX)),
+                        new ReportParameter("otpBrojMedjuMIN", Convert.ToString(otpBrojMedjuMIN)),
+                        new ReportParameter("razlikaOtpBrojMedj", Convert.ToString(razlikaOtpBrojMedj))
 
-
+                        //string.Format(elGR,"{0:0,0}", Double.Parse(arrayPdvOsnovica[0]))),
                     };
 
                 localReport.SetParameters(parametars);

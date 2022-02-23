@@ -812,7 +812,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!prBrojUnutrMIN.Value</Value>
+                                  <Value>=IIf((Parameters!prBrojUnutrMIN.Value) = 0, " ", (Parameters!prBrojUnutrMIN.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -842,7 +842,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!prBrojUnutrMAX.Value</Value>
+                                  <Value>=IIf((Parameters!prBrojUnutrMAX.Value) = 0, " ", (Parameters!prBrojUnutrMAX.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -872,7 +872,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!razlikaUnutr.Value</Value>
+                                  <Value>=IIf((Parameters!razlikaUnutr.Value) = 0, " ", (Parameters!razlikaUnutr.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -969,7 +969,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!prBrojMedjMIN.Value</Value>
+                                  <Value>=IIf((Parameters!prBrojMedjMIN.Value) = 0, " ", (Parameters!prBrojMedjMIN.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -999,7 +999,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!prBrojMedjMAX.Value</Value>
+                                  <Value>=IIf((Parameters!prBrojMedjMAX.Value) = 0, " ", (Parameters!prBrojMedjMAX.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1029,7 +1029,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!razlikaMedj.Value</Value>
+                                  <Value>=IIf((Parameters!razlikaMedj.Value) = 0, " ", (Parameters!razlikaMedj.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3098,7 +3098,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Parameters!naplacenoK165aUnutrSum.Value</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aUnutrSum.Value) = 0, " ", (Parameters!naplacenoK165aUnutrSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3129,7 +3129,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Parameters!naplacenoK165aUnutrSum_pare.Value</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aUnutrSum_pare.Value) = 0, " ", (Parameters!naplacenoK165aUnutrSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3191,11 +3191,15 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
-                                                <Style />
+                                                <Value>=IIf((Parameters!pdvOsnovicaSum.Value) = 0, " ", (Parameters!pdvOsnovicaSum.Value))</Value>
+                                                <Style>
+                                                  <Format>#,##0;-#,##0</Format>
+                                                </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Right</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox331</rd:DefaultName>
@@ -3222,7 +3226,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=IIf((Parameters!pdvOsnovicaSum_pare.Value) = 0, " ", (Parameters!pdvOsnovicaSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3253,11 +3257,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=IIf((Parameters!pdvSum.Value) = 0, " ", (Parameters!pdvSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Right</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox339</rd:DefaultName>
@@ -3284,7 +3290,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=IIf((Parameters!pdvSum_pare.Value) = 0, " ", (Parameters!pdvSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3455,7 +3461,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Parameters!fakturaUnutSum.Value</Value>
+                                                <Value>=IIf((Parameters!fakturaUnutSum.Value) = 0, " ", (Parameters!fakturaUnutSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3486,7 +3492,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Parameters!fakturaUnutSum_pare.Value</Value>
+                                                <Value>=IIf((Parameters!fakturaUnutSum_pare.Value) = 0, " ", (Parameters!fakturaUnutSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -4937,7 +4943,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Parameters!naplacenoK165aMedjSum.Value</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aMedjSum.Value) = 0, " ", (Parameters!naplacenoK165aMedjSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -4967,7 +4973,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Parameters!naplacenoK165aMedjSum_pare.Value</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aMedjSum_pare.Value) = 0, " ", (Parameters!naplacenoK165aMedjSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -6229,11 +6235,35 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="pdvOsnovicaSum">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pdvOsnovicaSum_pare">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pdvSum">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pdvSum_pare">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>5</NumberOfRows>
+      <NumberOfRows>6</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -6319,6 +6349,26 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>4</RowIndex>
           <ParameterName>razlikaMedj</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>pdvOsnovicaSum</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>pdvOsnovicaSum_pare</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>pdvSum</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>pdvSum_pare</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
