@@ -79,8 +79,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>0.97578cm</Top>
-            <Left>15.532cm</Left>
+            <Top>1.29328cm</Top>
+            <Left>14.95513cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <Style>
@@ -108,8 +108,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>1.71689cm</Top>
-            <Left>15.532cm</Left>
+            <Top>2.03439cm</Top>
+            <Left>14.95513cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <ZIndex>1</ZIndex>
@@ -142,7 +142,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>2.47508cm</Top>
+            <Top>2.79258cm</Top>
             <Left>7.63604cm</Left>
             <Height>0.6cm</Height>
             <Width>5.72792cm</Width>
@@ -174,7 +174,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>3.25147cm</Top>
+            <Top>3.56897cm</Top>
             <Left>5.1562cm</Left>
             <Height>0.6cm</Height>
             <Width>5.41923cm</Width>
@@ -208,8 +208,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
-            <Top>0.19939cm</Top>
-            <Left>18.27014cm</Left>
+            <Top>0.51689cm</Top>
+            <Left>18.32827cm</Left>
             <Height>0.6cm</Height>
             <Width>2.22104cm</Width>
             <ZIndex>4</ZIndex>
@@ -238,10 +238,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Stanica</rd:DefaultName>
-            <Top>0.97578cm</Top>
-            <Left>17.29117cm</Left>
+            <Top>1.29328cm</Top>
+            <Left>16.7143cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.2cm</Width>
+            <Width>3.83501cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -271,10 +271,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Blagajna</rd:DefaultName>
-            <Top>1.71689cm</Top>
-            <Left>17.29117cm</Left>
+            <Top>2.03439cm</Top>
+            <Left>16.7143cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.2cm</Width>
+            <Width>3.835cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -307,7 +307,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DatumDo</rd:DefaultName>
-            <Top>3.25147cm</Top>
+            <Top>3.56897cm</Top>
             <Left>13.19418cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
@@ -338,8 +338,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>3.25147cm</Top>
-            <Left>12.6521cm</Left>
+            <Top>3.56897cm</Top>
+            <Left>12.9696cm</Left>
             <Height>0.6cm</Height>
             <Width>0.54208cm</Width>
             <ZIndex>8</ZIndex>
@@ -357,10 +357,10 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.88021cm</Width>
+                  <Width>1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.20354cm</Width>
+                  <Width>1.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.49859cm</Width>
@@ -384,7 +384,7 @@
                   <Width>0.7cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.2cm</Width>
+                  <Width>2.8cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1227,7 +1227,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=RowNumber(Nothing)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1449,7 +1449,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1562,9 +1562,9 @@
             <KeepTogether>true</KeepTogether>
             <DataSetName>K165m</DataSetName>
             <Top>4.5212cm</Top>
-            <Left>0.50883cm</Left>
+            <Left>0.45071cm</Left>
             <Height>2.54979cm</Height>
-            <Width>19.98234cm</Width>
+            <Width>20.09859cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
               <Border>
@@ -1576,8 +1576,8 @@
             <Source>Embedded</Source>
             <Value>croppedlogo2</Value>
             <Sizing>FitProportional</Sizing>
-            <Top>0.35278cm</Top>
-            <Left>0.60882cm</Left>
+            <Top>0.49389cm</Top>
+            <Left>0.45071cm</Left>
             <Height>2.89869cm</Height>
             <Width>4.09292cm</Width>
             <ZIndex>10</ZIndex>
@@ -1604,7 +1604,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DatumOd</rd:DefaultName>
-            <Top>3.25147cm</Top>
+            <Top>3.56897cm</Top>
             <Left>10.57543cm</Left>
             <Height>0.6cm</Height>
             <Width>2.07667cm</Width>

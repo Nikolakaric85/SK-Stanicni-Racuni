@@ -302,54 +302,54 @@ namespace SK_Stanicni_Racuni.Controllers
                     if (item.tlSumaUpDin != null)
                     {
                         string[] array = item.tlSumaUpDin.ToString().Split('.');
-                        row["tlSumaUpDin"] = array[0];
+                        row["tlSumaUpDin"] = string.Format(elGR, "{0:0,0}", Double.Parse(array[0]));
                         row["tlSumaUpDin_pare"] = array[1];
                         tlSumaUpDin += (double)item.tlSumaUpDin;
                     }
                     else
                     {
-                        row["tlSumaUpDin"] = string.Empty;
-                        row["tlSumaUpDin_pare"] = string.Empty;
+                        row["tlSumaUpDin"] = "0";
+                        row["tlSumaUpDin_pare"] = "0";
                     }
 
                     if (item.PoreskaOsnovica != null)
                     {
                         string[] arrayPoreskaO = item.PoreskaOsnovica.ToString().Split('.');
-                        row["PoreskaOsnovica"] = arrayPoreskaO[0];
+                        row["PoreskaOsnovica"] = string.Format(elGR, "{0:0,0}", Double.Parse(arrayPoreskaO[0]));
                         row["PoreskaOsnovica_pare"] = arrayPoreskaO[1];
                         poreskaOsnovica += (double)item.PoreskaOsnovica;
                     }
                     else
                     {
-                        row["PoreskaOsnovica"] = string.Empty;
-                        row["PoreskaOsnovica_pare"] = string.Empty;
+                        row["PoreskaOsnovica"] = "0";
+                        row["PoreskaOsnovica_pare"] = "0";
                     }
 
                     if (item.PDV2 != null)
                     {
                         string[] arrayPDV = item.PDV2.ToString().Split('.');
-                        row["PDV2"] = arrayPDV[0];
+                        row["PDV2"] = string.Format(elGR, "{0:0,0}", Double.Parse(arrayPDV[0]));
                         row["PDV2_pare"] = arrayPDV[1];
                         pdv2 += (double)item.PDV2;
                     }
                     else
                     {
-                        row["PDV2"] = string.Empty;
-                        row["PDV2_pare"] = string.Empty;
+                        row["PDV2"] = "0";
+                        row["PDV2_pare"] = "0";
                     }
                     row["VrstaObracuna"] = item.VrstaObracuna;
                     dt.Rows.Add(row);
                 }
 
 
-                string[] arrayTlSumaUpDin = new string[2] {"",""};
-                string[] arrayPoreskaOsnovica = new string[2] { "", "" };
-                string[] arrayPDV2 = new string[2] { "", "" };
+                string[] arrayTlSumaUpDin = new string[2];
+                string[] arrayPoreskaOsnovica = new string[2];
+                string[] arrayPDV2 = new string[2];
 
                 if (tlSumaUpDin == 0)
                 {
-                    arrayTlSumaUpDin[0] = string.Empty;
-                    arrayTlSumaUpDin[1] = string.Empty;
+                    arrayTlSumaUpDin[0] = "0";
+                    arrayTlSumaUpDin[1] = "0";
                 } else
                 {
                     arrayTlSumaUpDin = tlSumaUpDin.ToString($"F{2}").Split('.');
@@ -357,8 +357,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (poreskaOsnovica == 0)
                 {
-                    arrayPoreskaOsnovica[0] = string.Empty;
-                    arrayPoreskaOsnovica[1] = string.Empty;
+                    arrayPoreskaOsnovica[0] = "0";
+                    arrayPoreskaOsnovica[1] = "0";
                 }
                 else
                 {
@@ -368,8 +368,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (pdv2 == 0)
                 {
-                    arrayPDV2[0] = string.Empty;
-                    arrayPDV2[1] = string.Empty;
+                    arrayPDV2[0] = "0";
+                    arrayPDV2[1] = "0";
                 }
                 else
                 {
@@ -386,11 +386,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 var parametars = new[]
                 {
-                    new ReportParameter("SumIntUP", arrayTlSumaUpDin[0]),
+                    new ReportParameter("SumIntUP", string.Format(elGR, "{0:0,0}", Double.Parse(arrayTlSumaUpDin[0]))),
                     new ReportParameter("SumDecUP", arrayTlSumaUpDin[1]),
-                    new ReportParameter("SumIntPoreskaOsnovica", arrayPoreskaOsnovica[0]),
+                    new ReportParameter("SumIntPoreskaOsnovica", string.Format(elGR, "{0:0,0}", Double.Parse(arrayPoreskaOsnovica[0]))),
                     new ReportParameter("SumDecPoreskaOsnovica", arrayPoreskaOsnovica[1]),
-                    new ReportParameter("SumIntPDV", arrayPDV2[0]),
+                    new ReportParameter("SumIntPDV", string.Format(elGR, "{0:0,0}", Double.Parse(arrayPDV2[0]))),
                     new ReportParameter("SumDecPDV", arrayPDV2[1]),
                     new ReportParameter("Stanica",stanica),
                     new ReportParameter("Blagajna",blagajna),

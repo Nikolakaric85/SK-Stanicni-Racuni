@@ -2,7 +2,7 @@
 
 <div class="container">
 
-    <form asp-page-handler="K161f_save">
+    <form asp-page-handler="K161f_save" class="needs-validation" novalidate>
 
         <div class="row mt-3">
 
@@ -23,12 +23,16 @@
 
                     @if (ViewBag.Admin == true)
                     {
-                        <div class="col-md-5">
-                            <label>Stanica</label>
-                            <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanica" />
-                            <datalist id="myDatalist" open="open">
-                            </datalist>
+                    <div class="col-md-5">
+                        <label>Stanica</label>
+                        <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanica" required autocomplete="off" />
+                        <datalist id="myDatalist" open="open">
+                        </datalist>
+                        <div class="invalid-feedback">
+                            Unesite stanicu.
                         </div>
+                    </div>
+                       
                     }
                     else
                     {
@@ -51,7 +55,10 @@
                 <div class="row">
                     <div class="col-md-5 ">
                         <label asp-for="FakturaBroj" class="form-label"><strong> Račun broj</strong></label>
-                        <input type="text" asp-for="FakturaBroj" class="form-control" id="racunBr">
+                        <input type="text" asp-for="FakturaBroj" class="form-control" id="racunBr" required autocomplete="off">
+                        <div class="invalid-feedback">
+                            Unesite broj računa.
+                        </div>
                     </div>
                     <div class="col-md-5">
                         <label for="inputPassword4" class="form-label">Vrsta saobraćaja</label>
@@ -91,20 +98,23 @@
                 <div class="row mt-5">
                     <div class="col-md-5 ">
                         <label class="form-label">Kurs dinara</label>
-                        <input asp-for="Kurs" type="text" class="form-control" id="kursDinara">
+                        <input asp-for="Kurs" type="text" class="form-control" id="kursDinara" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-5 ">
                         <label class="form-label">Faktura osnovica</label>
-                        <input asp-for="FakturaOsnovica" type="text" class="form-control" id="fakturaOsnovica">
+                        <input asp-for="FakturaOsnovica" type="text" class="form-control" id="fakturaOsnovica" required autocomplete="off">
+                        <div class="invalid-feedback">
+                            Unesite osnovicu.
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5 ">
                         <label for="inputPassword4" class="form-label">Faktura PDV</label>
-                        <input asp-for="FakturaPdv" type="text" class="form-control" id="fakturaPDV">
+                        <input asp-for="FakturaPdv" type="text" class="form-control" id="fakturaPDV" autocomplete="off">
                     </div>
                 </div>
                 <div class="row">
@@ -132,15 +142,18 @@
             <div class="col-xxl col-xl col-lg mt-5 mt-md-0">
                 <div class="row-cols-md">
                     <label class="form-label">Primalac računa</label>
-                    <input asp-for="Primalac" type="text" class="form-control" id="primalac">
+                    <input asp-for="Primalac" type="text" class="form-control" id="primalac" required autocomplete="off">
+                    <div class="invalid-feedback">
+                        Unesite primaoca računa.
+                    </div>
                 </div>
                 <div class="row-cols-md">
                     <label class="form-label">Adresa primaoca</label>
-                    <input asp-for="PrimalacAdresa" type="text" class="form-control">
+                    <input asp-for="PrimalacAdresa" type="text" class="form-control" autocomplete="off">
                 </div>
                 <div class="row-cols-md">
                     <label class="form-label">Zemlja</label>
-                    <input asp-for="PrimalacZemlja" type="text" class="form-control">
+                    <input asp-for="PrimalacZemlja" type="text" class="form-control" autocomplete="off">
                 </div>
                 <div class="row-cols-md">
                     <label class="form-label">Tekuci račun</label>
@@ -249,19 +262,18 @@
 
             $('#DatumOd', '#DatumDo').datepicker()
 
-            var fakturaOsnovica = $('#fakturaOsnovica').val()
-            var racunBr = $('#racunBr').val()
-            var primalac = $('#primalac').val()
+            //var fakturaOsnovica = $('#fakturaOsnovica').val()
+            //var racunBr = $('#racunBr').val()
+            //var primalac = $('#primalac').val()
 
-            console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
-            if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
-              //  console.log('if')
-                $('#upisBtn').attr("disabled", false);
-            } else {
-                //console.log('else')
-                $('#upisBtn').attr('disabled', true)
-
-            }
+            //console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
+            //if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
+            //  //  console.log('if')
+            //    $('#upisBtn').attr("disabled", false);
+            //} else {
+            //    //console.log('else')
+            //    $('#upisBtn').attr('disabled', true)
+            //}
 
         })
 
@@ -339,22 +351,22 @@
 
 
 
-            $('#fakturaOsnovica, #racunBr, #primalac').on('input', function () {                                             //Uslovi na formi
+            //$('#fakturaOsnovica, #racunBr, #primalac').on('input', function () {                                             //Uslovi na formi
 
-                var fakturaOsnovica = $('#fakturaOsnovica').val()
-                var racunBr = $('#racunBr').val()
-                var primalac = $('#primalac').val()
+            //    var fakturaOsnovica = $('#fakturaOsnovica').val()
+            //    var racunBr = $('#racunBr').val()
+            //    var primalac = $('#primalac').val()
 
-                console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
+            //    console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
 
-                if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
-                    console.log('if')
-                    $('#upisBtn').attr('disabled', false)
-                } else {
-                    console.log('else')
-                    $('#upisBtn').attr("disabled", true);
-                }
-            })
+            //    if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
+            //        console.log('if')
+            //        $('#upisBtn').attr('disabled', false)
+            //    } else {
+            //        console.log('else')
+            //        $('#upisBtn').attr("disabled", true);
+            //    }
+            //})
 
             $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').on("cut copy paste", function (e) {
                 e.preventDefault();

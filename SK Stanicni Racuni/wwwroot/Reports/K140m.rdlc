@@ -211,8 +211,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
-            <Top>0.51689cm</Top>
-            <Left>18.59643cm</Left>
+            <Top>0.55217cm</Top>
+            <Left>19.19063cm</Left>
             <Height>0.6cm</Height>
             <Width>1.30937cm</Width>
             <ZIndex>4</ZIndex>
@@ -241,10 +241,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Blagajna</rd:DefaultName>
-            <Top>2.06967cm</Top>
+            <Top>2.03439cm</Top>
             <Left>16.37394cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.53186cm</Width>
+            <Width>4.12606cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -406,7 +406,7 @@
             <Top>2.84606cm</Top>
             <Left>17.4058cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
+            <Width>3.0942cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
               <Border>
@@ -2364,7 +2364,7 @@
             <Top>1.29328cm</Top>
             <Left>16.37394cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.53186cm</Width>
+            <Width>4.12606cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>

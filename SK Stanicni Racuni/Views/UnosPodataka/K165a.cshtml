@@ -16,7 +16,7 @@
             {
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                     <label>Stanica</label>
-                    <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanica" />
+                    <input class="form-control" list="myDatalist" id="myDatalistInput"  value="@ViewBag.Stanica" name="stanica" autocomplete="off" />
                     <datalist id="myDatalist" open="open">
                     </datalist>
                 </div>
@@ -31,7 +31,7 @@
 
             <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                 <label>Broj prispeća</label>
-                <input class="form-control" asp-for="PrBroj" name="prBroj" id="prBroj" />
+                <input class="form-control" asp-for="PrBroj" name="prBroj" id="prBroj" autocomplete="off" />
             </div>
 
             <div class="col-xxl-1 col-xl-1 col-lg col-md align-self-end mt-3">
@@ -53,7 +53,7 @@
             </div>
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                     <label>K165a iznos</label>
-                    <input class="form-control" asp-for="K165a_iznos" id="K165a_iznos"  />
+                    <input class="form-control" asp-for="K165a_iznos" id="K165a_iznos" autocomplete="off" />
                 </div>
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                     <label>K165 Datum</label>

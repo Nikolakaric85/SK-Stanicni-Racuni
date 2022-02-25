@@ -53,6 +53,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
         public IActionResult Print(string id, string stanica, string blagajna, [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
+            if (string.IsNullOrEmpty(stanica))
+            {
+                stanica = string.Empty;
+            }
+
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
             var _sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
 

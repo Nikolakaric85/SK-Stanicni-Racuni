@@ -60,7 +60,7 @@ namespace SK_Stanicni_Racuni.Controllers
             }
 
             var query = from s in context.SrK161fs
-                        where (s.FakturaDatum >= DatumOd || s.FakturaDatum <= DatumDo)
+                        where (s.FakturaDatum >= DatumOd && s.FakturaDatum <= DatumDo)
                         && s.Blagajna == Int32.Parse(blagajna)
                         && s.Stanica == sifraStanice
                         select s;
@@ -107,7 +107,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     decimal fakUznos6a = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakIznos6aSum += fakUznos6a;
                     string[] array = fakUznos6a.ToString().Split('.');
-                    row["FakturalniIznos6a"] = array[0];
+                    row["FakturalniIznos6a"] = string.Format(elGR, "{0:0,0}", Double.Parse(array[0]));
                     row["FakturalniIznos6a_pare"] = array[1];
                 }
                 else if (item.NaplacenoNB == 'D' && item.Saobracaj == '2')
@@ -120,7 +120,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     decimal fakUznos6b = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakIznos6bSum += fakUznos6b;
                     string[] array = fakUznos6b.ToString().Split('.');
-                    row["FakturalniIznos6b"] = array[0];
+                    row["FakturalniIznos6b"] = string.Format(elGR, "{0:0,0}", Double.Parse(array[0]));
                     row["FakturalniIznos6b_pare"] = array[1];
                 }
                 else
@@ -128,7 +128,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     decimal fakUznos = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakIznosSum += fakUznos;
                     string[] arrayFaktura = fakUznos.ToString().Split('.');
-                    row["FakturalniIznos"] = arrayFaktura[0];
+                    row["FakturalniIznos"] = string.Format(elGR, "{0:0,0}", Double.Parse(arrayFaktura[0]));
                     row["FakturalniIznos_pare"] = arrayFaktura[1];
                 }
 
@@ -142,7 +142,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     decimal fakUznos8 = (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     fakIznos8Sum += fakUznos8;
                     string[] array = fakUznos8.ToString().Split('.');
-                    row["FakturalniIznos8"] = array[0];
+                    row["FakturalniIznos8"] = string.Format(elGR, "{0:0,0}", Double.Parse(array[0]));
                     row["FakturalniIznos8_pare"] = array[1];
                 }
 
@@ -156,8 +156,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (fakIznosSum == 0)
             {
-                arrayFakIznosSum[0] = string.Empty;
-                arrayFakIznosSum[1] = string.Empty;
+                arrayFakIznosSum[0] = "0";
+                arrayFakIznosSum[1] = "0";
             }
             else
             {
@@ -166,8 +166,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (fakIznos6aSum == 0)
             {
-                arrayFakIznos6aSum[0] = string.Empty;
-                arrayFakIznos6aSum[1] = string.Empty;
+                arrayFakIznos6aSum[0] = "0";
+                arrayFakIznos6aSum[1] = "0";
             }
             else
             {
@@ -176,8 +176,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (fakIznos6bSum == 0)
             {
-                arrayFakIznos6bSum[0] = string.Empty;
-                arrayFakIznos6bSum[1] = string.Empty;
+                arrayFakIznos6bSum[0] = "0";
+                arrayFakIznos6bSum[1] = "0";
             }
             else
             {
@@ -186,8 +186,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (fakIznos8Sum == 0)
             {
-                arrayFakIznos8Sum[0] = string.Empty;
-                arrayFakIznos8Sum[1] = string.Empty;
+                arrayFakIznos8Sum[0] = "0";
+                arrayFakIznos8Sum[1] = "0";
             }
             else
             {
@@ -206,13 +206,13 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),
-                    new ReportParameter("FakUznosSum",arrayFakIznosSum[0]),
+                    new ReportParameter("FakUznosSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayFakIznosSum[0]))),
                     new ReportParameter("FakUznosSum_pare",arrayFakIznosSum[1]),
-                    new ReportParameter("FakIznos6aSum",arrayFakIznos6aSum[0]),
+                    new ReportParameter("FakIznos6aSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayFakIznos6aSum[0]))),
                     new ReportParameter("FakIznos6aSum_pare",arrayFakIznos6aSum[1]),
-                    new ReportParameter("FakIznos6bSum",arrayFakIznos6bSum[0]),
+                    new ReportParameter("FakIznos6bSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayFakIznos6bSum[0]))),
                     new ReportParameter("FakIznos6bSum_pare",arrayFakIznos6bSum[1]),
-                    new ReportParameter("FakturalniIznos8", arrayFakIznos8Sum[0]),
+                    new ReportParameter("FakturalniIznos8", string.Format(elGR, "{0:0,0}", Double.Parse(arrayFakIznos8Sum[0]))),
                     new ReportParameter("FakturalniIznos8_pare", arrayFakIznos8Sum[1])
             };
 

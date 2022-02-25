@@ -258,22 +258,7 @@
 
         $(window).on('load', function () {
 
-            $('#Datum', '#OtpDatum').datepicker()
-
-            //var posiljalac = $('#posiljalac').val()
-            //var iznos = $('#iznos').val()
-            //var primalac = $('#primalac').val()
-            //var datum = $('#Datum').val()
-
-            //if (posiljalac != '' && iznos != '' && primalac != '' && priznanica != '' && datum != '') {
-            //    $('#upisBtn').attr("disabled", false);
-            //} else {
-            //    $('#upisBtn').attr('disabled', true)
-
-            //}
-
-
-           
+            $('#Datum', '#OtpDatum').datepicker()        
 
             var value = $('#saobracaj').val()
 
@@ -294,10 +279,6 @@
                     $('#medjunarodni').removeClass();
                     $('#medjunarodni').addClass("row my-1 align-items-end")
                 }
-
-
-
-
         })
 
 
@@ -426,26 +407,7 @@
             })
 
 
-                //// Example starter JavaScript for disabling form submissions if there are invalid fields
-                //(function () {
-                //    'use strict'
-
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.querySelectorAll('.needs-validation')                                                      // za validaciju polja na formi
-
-                    // Loop over them and prevent submission
-                    Array.prototype.slice.call(forms)
-                        .forEach(function (form) {
-                            form.addEventListener('submit', function (event) {
-                                if (!form.checkValidity()) {
-                                    event.preventDefault()
-                                    event.stopPropagation()
-                                }
-
-                                form.classList.add('was-validated')
-                            }, false)
-                        })
-            /*  })()*/
+           
 
 
 

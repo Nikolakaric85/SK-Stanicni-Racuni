@@ -54,9 +54,13 @@ namespace SK_Stanicni_Racuni.Controllers
             var UserId = HttpContext.User.Identity.Name; // daje UserId
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
             var prStanica = string.Empty;
+
             if (!user.Stanica.StartsWith("000"))
             {
                 prStanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+            } else
+            {
+                prStanica = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault().SifraStanice;
             }
 
             
@@ -78,6 +82,10 @@ namespace SK_Stanicni_Racuni.Controllers
                 if (query.Any())
                 {
                     ViewBag.K165a = true;
+                    if (user.Stanica.StartsWith("000"))
+                    {
+                        ViewBag.Admin = true;
+                    }
                     foreach (var item in query)
                     {
 

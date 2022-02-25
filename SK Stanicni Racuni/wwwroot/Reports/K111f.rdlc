@@ -159,7 +159,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox5</rd:DefaultName>
             <Top>3.22729cm</Top>
-            <Left>10.66247cm</Left>
+            <Left>10.66246cm</Left>
             <Height>0.6cm</Height>
             <Width>8.37507cm</Width>
             <ZIndex>2</ZIndex>
@@ -289,7 +289,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>4.00368cm</Top>
-            <Left>10.66247cm</Left>
+            <Left>10.34497cm</Left>
             <Height>0.6cm</Height>
             <Width>4.70486cm</Width>
             <ZIndex>6</ZIndex>
@@ -322,7 +322,7 @@
             </Paragraphs>
             <rd:DefaultName>DatumOd</rd:DefaultName>
             <Top>4.00368cm</Top>
-            <Left>15.29677cm</Left>
+            <Left>14.97927cm</Left>
             <Height>0.6cm</Height>
             <Width>2.05902cm</Width>
             <ZIndex>7</ZIndex>
@@ -355,7 +355,7 @@
             </Paragraphs>
             <rd:DefaultName>DatumDo</rd:DefaultName>
             <Top>4.00368cm</Top>
-            <Left>17.96843cm</Left>
+            <Left>17.65093cm</Left>
             <Height>0.6cm</Height>
             <Width>1.94438cm</Width>
             <ZIndex>8</ZIndex>
@@ -386,7 +386,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
             <Top>4.00368cm</Top>
-            <Left>17.42635cm</Left>
+            <Left>17.10885cm</Left>
             <Height>0.6cm</Height>
             <Width>0.54208cm</Width>
             <ZIndex>9</ZIndex>
@@ -903,7 +903,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>износ</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -1829,7 +1829,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakUznosSum.Value</Value>
+                                  <Value>=IIf((Parameters!FakUznosSum.Value) = "00", " " , (Parameters!FakUznosSum.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1863,7 +1863,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakUznosSum_pare.Value</Value>
+                                  <Value>=IIf((Parameters!FakUznosSum_pare.Value) = "0", " " ,(Parameters!FakUznosSum_pare.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1931,7 +1931,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakIznos6aSum.Value</Value>
+                                  <Value>=IIf((Parameters!FakIznos6aSum.Value) = "00", "" ,(Parameters!FakIznos6aSum.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1965,7 +1965,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakIznos6aSum_pare.Value</Value>
+                                  <Value>=IIf((Parameters!FakIznos6aSum_pare.Value) = "0", "",(Parameters!FakIznos6aSum_pare.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1999,7 +1999,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakIznos6bSum.Value</Value>
+                                  <Value>=IIf((Parameters!FakIznos6bSum.Value) = "00", " ",(Parameters!FakIznos6bSum.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2033,7 +2033,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakIznos6bSum_pare.Value</Value>
+                                  <Value>=IIf((Parameters!FakIznos6bSum_pare.Value) = "0", "",(Parameters!FakIznos6bSum_pare.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2101,7 +2101,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakturalniIznos8.Value</Value>
+                                  <Value>=IIf((Parameters!FakturalniIznos8.Value) = "00", "", (Parameters!FakturalniIznos8.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2135,7 +2135,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!FakturalniIznos8_pare.Value</Value>
+                                  <Value>=IIf((Parameters!FakturalniIznos8_pare.Value) = "0", "", (Parameters!FakturalniIznos8_pare.Value))</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
