@@ -360,12 +360,15 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     ViewBag.UserId = UserId;
                     ViewBag.Admin = true;
+                    ViewBag.k121a = context.SrK121as.AsEnumerable();
                 }
                 else
                 {
                     ViewBag.UserId = UserId;
                     ViewBag.Admin = false;
                     ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                    var stanicaSifra = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+                    ViewBag.k121a = context.SrK121as.Where(x => x.Stanica == stanicaSifra).AsEnumerable();
                 }
             }
             else
@@ -396,11 +399,12 @@ namespace SK_Stanicni_Racuni.Controllers
             
             if (query != null)
             {
-                ViewBag.K121a = true;
+                ViewBag.K121aPrikazFranko = true;
                 ViewBag.Stanica = model.Stanica;
                 ViewBag.UserId = userId;
                 ViewBag.Id = query.Id;
                 ViewBag.Admin = true;
+                ViewBag.k121a = context.SrK121as.Where(x => x.Stanica == sifraStanice.SifraStanice).AsEnumerable();
 
                 DateTime date = DateTime.Now;
                 var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
@@ -416,7 +420,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 return View("K121aPovrat", query);
             } else
             {
-                ViewBag.K121a = false;
+                ViewBag.K121aPrikazFranko = false;
                 ViewBag.Stanica = model.Stanica;
                 notyf.Information("Ne postoji depozit pod tim brojem.",3);
             }

@@ -1633,7 +1633,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!tlSumaFrDin.Value</Value>
+                                  <Value>=IIf((Fields!tlSumaFrDin.Value) = "00", " ", (Fields!tlSumaFrDin.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1665,7 +1665,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!tlSumaFrDin_pare.Value</Value>
+                                  <Value>=IIf((Fields!tlSumaFrDin_pare.Value) = "00", " ", (Fields!tlSumaFrDin_pare.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1753,7 +1753,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PoreskaOsnovica.Value</Value>
+                                  <Value>=IIf((Fields!PoreskaOsnovica.Value) = "00", " ", (Fields!PoreskaOsnovica.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1785,7 +1785,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PoreskaOsnovica_pare.Value</Value>
+                                  <Value>=IIf((Fields!PoreskaOsnovica_pare.Value) = "00", " ", (Fields!PoreskaOsnovica_pare.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1817,7 +1817,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PDV1.Value</Value>
+                                  <Value>=IIf((Fields!PDV1.Value) = "00", " ", (Fields!PDV1.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1838,6 +1838,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1849,7 +1850,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PDV1_pare.Value</Value>
+                                  <Value>=IIf((Fields!PDV1_pare.Value) = "00", " ", (Fields!PDV1_pare.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>

@@ -812,7 +812,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf((Parameters!prBrojUnutrMIN.Value) = 0, " ", (Parameters!prBrojUnutrMIN.Value))</Value>
+                                  <Value>=IIf((Parameters!prBrojUnutrMIN.Value) = "00", " ", (Parameters!prBrojUnutrMIN.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1102,8 +1102,8 @@
             </TablixRowHierarchy>
             <KeepTogether>true</KeepTogether>
             <DataSetName>K167</DataSetName>
-            <Top>23.78287cm</Top>
-            <Left>0.29545cm</Left>
+            <Top>23.97662cm</Top>
+            <Left>0.55cm</Left>
             <Height>3cm</Height>
             <Width>16cm</Width>
             <ZIndex>13</ZIndex>
@@ -1120,7 +1120,7 @@
                   <Width>0.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>8cm</Width>
+                  <Width>7.75cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.8cm</Width>
@@ -2230,10 +2230,10 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>18.1737cm</Top>
-            <Left>0.3cm</Left>
+            <Top>18.17829cm</Top>
+            <Left>0.55cm</Left>
             <Height>4.4cm</Height>
-            <Width>16.7cm</Width>
+            <Width>16.45cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
@@ -2248,13 +2248,13 @@
                   <Width>1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.8cm</Width>
+                  <Width>3.65cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.8cm</Width>
@@ -2263,19 +2263,19 @@
                   <Width>3cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.70909cm</Width>
+                  <Width>0.6cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2288,10 +2288,10 @@
                           <TablixBody>
                             <TablixColumns>
                               <TablixColumn>
-                                <Width>4.8cm</Width>
+                                <Width>4.65cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>4.5cm</Width>
+                                <Width>4.4cm</Width>
                               </TablixColumn>
                             </TablixColumns>
                             <TablixRows>
@@ -2989,37 +2989,37 @@
                           <TablixBody>
                             <TablixColumns>
                               <TablixColumn>
-                                <Width>0.60909cm</Width>
+                                <Width>0.55826cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>3.19091cm</Width>
+                                <Width>3.09174cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>3cm</Width>
+                                <Width>2.99752cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>0.7cm</Width>
+                                <Width>0.60248cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>0.8cm</Width>
+                                <Width>0.79587cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>3cm</Width>
+                                <Width>3.00413cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>0.7cm</Width>
+                                <Width>0.59422cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>3cm</Width>
+                                <Width>3.00578cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>0.7cm</Width>
+                                <Width>0.59256cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>3cm</Width>
+                                <Width>3.00744cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>0.70909cm</Width>
+                                <Width>0.6cm</Width>
                               </TablixColumn>
                             </TablixColumns>
                             <TablixRows>
@@ -3082,11 +3082,12 @@
                                             <Style>Solid</Style>
                                           </Border>
                                           <VerticalAlign>Middle</VerticalAlign>
-                                          <PaddingLeft>2pt</PaddingLeft>
+                                          <PaddingLeft>1pt</PaddingLeft>
                                           <PaddingTop>2pt</PaddingTop>
                                           <PaddingBottom>2pt</PaddingBottom>
                                         </Style>
                                       </Textbox>
+                                      <rd:Selected>true</rd:Selected>
                                     </CellContents>
                                   </TablixCell>
                                   <TablixCell>
@@ -3098,7 +3099,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!naplacenoK165aUnutrSum.Value) = 0, " ", (Parameters!naplacenoK165aUnutrSum.Value))</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aUnutrSum.Value) = "00", " ", (Parameters!naplacenoK165aUnutrSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3129,7 +3130,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!naplacenoK165aUnutrSum_pare.Value) = 0, " ", (Parameters!naplacenoK165aUnutrSum_pare.Value))</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aUnutrSum_pare.Value) = "0", " ", (Parameters!naplacenoK165aUnutrSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3191,7 +3192,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!pdvOsnovicaSum.Value) = 0, " ", (Parameters!pdvOsnovicaSum.Value))</Value>
+                                                <Value>=IIf((Parameters!pdvOsnovicaSum.Value) = "00", " ", (Parameters!pdvOsnovicaSum.Value))</Value>
                                                 <Style>
                                                   <Format>#,##0;-#,##0</Format>
                                                 </Style>
@@ -3226,7 +3227,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!pdvOsnovicaSum_pare.Value) = 0, " ", (Parameters!pdvOsnovicaSum_pare.Value))</Value>
+                                                <Value>=IIf((Parameters!pdvOsnovicaSum_pare.Value) = "0", " ", (Parameters!pdvOsnovicaSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3257,7 +3258,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!pdvSum.Value) = 0, " ", (Parameters!pdvSum.Value))</Value>
+                                                <Value>=IIf((Parameters!pdvSum.Value) = "00", " ", (Parameters!pdvSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3290,7 +3291,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!pdvSum_pare.Value) = 0, " ", (Parameters!pdvSum_pare.Value))</Value>
+                                                <Value>=IIf((Parameters!pdvSum_pare.Value) = "0", " ", (Parameters!pdvSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3461,7 +3462,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!fakturaUnutSum.Value) = 0, " ", (Parameters!fakturaUnutSum.Value))</Value>
+                                                <Value>=IIf((Parameters!fakturaUnutSum.Value) = "00", " ", (Parameters!fakturaUnutSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -3492,7 +3493,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!fakturaUnutSum_pare.Value) = 0, " ", (Parameters!fakturaUnutSum_pare.Value))</Value>
+                                                <Value>=IIf((Parameters!fakturaUnutSum_pare.Value) = "0", " ", (Parameters!fakturaUnutSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -4855,16 +4856,16 @@
                           <TablixBody>
                             <TablixColumns>
                               <TablixColumn>
-                                <Width>0.60909cm</Width>
+                                <Width>0.54659cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>3.19091cm</Width>
+                                <Width>3.10341cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>3cm</Width>
+                                <Width>3.00919cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>0.7cm</Width>
+                                <Width>0.59081cm</Width>
                               </TablixColumn>
                             </TablixColumns>
                             <TablixRows>
@@ -4943,7 +4944,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!naplacenoK165aMedjSum.Value) = 0, " ", (Parameters!naplacenoK165aMedjSum.Value))</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aMedjSum.Value) = "00", " ", (Parameters!naplacenoK165aMedjSum.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -4973,7 +4974,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIf((Parameters!naplacenoK165aMedjSum_pare.Value) = 0, " ", (Parameters!naplacenoK165aMedjSum_pare.Value))</Value>
+                                                <Value>=IIf((Parameters!naplacenoK165aMedjSum_pare.Value) = "0", " ", (Parameters!naplacenoK165aMedjSum_pare.Value))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -5793,9 +5794,9 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <Top>5.9235cm</Top>
-            <Left>0.29545cm</Left>
+            <Left>0.55cm</Left>
             <Height>11.87755cm</Height>
-            <Width>20.40909cm</Width>
+            <Width>19.85cm</Width>
             <ZIndex>15</ZIndex>
             <Style>
               <Border>
@@ -5820,8 +5821,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox61</rd:DefaultName>
-            <Top>23.11232cm</Top>
-            <Left>0.26748cm</Left>
+            <Top>22.98058cm</Top>
+            <Left>0.55cm</Left>
             <Height>0.6cm</Height>
             <Width>16.02797cm</Width>
             <ZIndex>16</ZIndex>
@@ -5907,8 +5908,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox64</rd:DefaultName>
-            <Top>22.38058cm</Top>
-            <Left>17.08073cm</Left>
+            <Top>23.82552cm</Top>
+            <Left>16.8cm</Left>
             <Height>2.87542cm</Height>
             <Width>3.67381cm</Width>
             <ZIndex>17</ZIndex>
@@ -5922,8 +5923,8 @@
             </Style>
           </Textbox>
           <Line Name="Line1">
-            <Top>25.97891cm</Top>
-            <Left>17.08073cm</Left>
+            <Top>27.42385cm</Top>
+            <Left>16.8cm</Left>
             <Height>0cm</Height>
             <Width>3.67381cm</Width>
             <ZIndex>18</ZIndex>
@@ -5952,8 +5953,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox96</rd:DefaultName>
-            <Top>25.92599cm</Top>
-            <Left>17.08073cm</Left>
+            <Top>27.37093cm</Top>
+            <Left>16.8cm</Left>
             <Height>0.6cm</Height>
             <Width>3.67381cm</Width>
             <ZIndex>19</ZIndex>
@@ -5986,8 +5987,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox96</rd:DefaultName>
-            <Top>27.15926cm</Top>
-            <Left>0.31498cm</Left>
+            <Top>27.37093cm</Top>
+            <Left>0.55cm</Left>
             <Height>0.4cm</Height>
             <Width>0.4cm</Width>
             <ZIndex>20</ZIndex>
@@ -5998,8 +5999,8 @@
             </Style>
           </Textbox>
           <Line Name="Line2">
-            <Top>27.52cm</Top>
-            <Left>0.79295cm</Left>
+            <Top>27.73167cm</Top>
+            <Left>1.02797cm</Left>
             <Height>0cm</Height>
             <Width>4.77542cm</Width>
             <ZIndex>21</ZIndex>
@@ -6026,8 +6027,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox98</rd:DefaultName>
-            <Top>27.15926cm</Top>
-            <Left>5.56837cm</Left>
+            <Top>27.37093cm</Top>
+            <Left>5.80339cm</Left>
             <Height>0.4cm</Height>
             <Width>0.80667cm</Width>
             <ZIndex>22</ZIndex>
@@ -6038,8 +6039,8 @@
             </Style>
           </Textbox>
           <Line Name="Line3">
-            <Top>27.52cm</Top>
-            <Left>6.53379cm</Left>
+            <Top>27.73167cm</Top>
+            <Left>6.76881cm</Left>
             <Height>0cm</Height>
             <Width>2.71167cm</Width>
             <ZIndex>23</ZIndex>
@@ -6066,8 +6067,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox99</rd:DefaultName>
-            <Top>27.15926cm</Top>
-            <Left>9.24546cm</Left>
+            <Top>27.37093cm</Top>
+            <Left>9.48048cm</Left>
             <Height>0.4cm</Height>
             <Width>0.4cm</Width>
             <ZIndex>24</ZIndex>
@@ -6078,8 +6079,8 @@
             </Style>
           </Textbox>
           <Line Name="Line4">
-            <Top>27.52cm</Top>
-            <Left>9.77261cm</Left>
+            <Top>27.73167cm</Top>
+            <Left>10.00763cm</Left>
             <Height>0cm</Height>
             <Width>1.02093cm</Width>
             <ZIndex>25</ZIndex>
@@ -6106,8 +6107,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox100</rd:DefaultName>
-            <Top>27.15926cm</Top>
-            <Left>10.79353cm</Left>
+            <Top>27.37093cm</Top>
+            <Left>11.02855cm</Left>
             <Height>0.4cm</Height>
             <Width>1.1662cm</Width>
             <ZIndex>26</ZIndex>
@@ -6118,7 +6119,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>28.32516cm</Height>
+        <Height>29.7cm</Height>
         <Style />
       </Body>
       <Width>21cm</Width>

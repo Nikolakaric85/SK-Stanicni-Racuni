@@ -6,6 +6,7 @@ using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 
 namespace SK_Stanicni_Racuni.Controllers
@@ -58,6 +59,8 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult Print(string id, string stanica, string blagajna,
               [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
+            CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
+
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
             if (id == "K140")
             {
@@ -134,7 +137,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     if (item.tlSumaFrDin != null)
                     {
                         string[] array = item.tlSumaFrDin.ToString().Split('.');
-                        row["tlSumaFrDin"] = array[0];
+                        row["tlSumaFrDin"] = string.Format(elGR, "{0:0,0}", Double.Parse(array[0]));
                         row["tlSumaFrDin_pare"] = array[1];
 
                         intPartFranko += Double.Parse(array[0]);
@@ -150,7 +153,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     if (item.PDV1 != null)
                     {
                         string[] arrayPDV = item.PDV1.ToString().Split('.');
-                        row["PDV1"] = arrayPDV[0];
+                        row["PDV1"] = string.Format(elGR, "{0:0,0}", Double.Parse(arrayPDV[0]));
                         row["PDV1_pare"] = arrayPDV[1];
 
                         intPartPDV += Double.Parse(arrayPDV[0]);
@@ -173,7 +176,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     if (item.PoreskaOsnovica != null)
                     {
                         arrayPoreskaOsnovica = item.PoreskaOsnovica.ToString().Split('.');
-                        row["PoreskaOsnovica"] = arrayPoreskaOsnovica[0];
+                        row["PoreskaOsnovica"] = string.Format(elGR, "{0:0,0}", Double.Parse(arrayPoreskaOsnovica[0]));
                         row["PoreskaOsnovica_pare"] = arrayPoreskaOsnovica[1];
 
                         intPartPoreskaO += Double.Parse(arrayPoreskaOsnovica[0]);
@@ -209,11 +212,11 @@ namespace SK_Stanicni_Racuni.Controllers
                 localReport.DataSources.Add(new ReportDataSource("K140", dt));
                 var parametars = new[]
                 {
-                    new ReportParameter("SumIntPoreskaOsnovica", intPartSum.ToString()),
+                    new ReportParameter("SumIntPoreskaOsnovica",  string.Format(elGR, "{0:0,0}", Double.Parse(intPartSum.ToString()))),
                     new ReportParameter("SumDecPoreskaOsnovica", decimalPart[0]),
-                    new ReportParameter("SumIntPDV", intPartSumPDV.ToString()),
+                    new ReportParameter("SumIntPDV", string.Format(elGR, "{0:0,0}", Double.Parse(intPartSumPDV.ToString()))),
                     new ReportParameter("SumDecPDV", decimalPartPDV[0]),
-                    new ReportParameter("SumIntFranko", intPartSumFranko.ToString()),
+                    new ReportParameter("SumIntFranko",  string.Format(elGR, "{0:0,0}", Double.Parse(intPartSumFranko.ToString()))),
                     new ReportParameter("SumDecFranko", decimalPartFranko[0]),
                     new ReportParameter("Stanica",stanica),
                     new ReportParameter("Blagajna",blagajna),

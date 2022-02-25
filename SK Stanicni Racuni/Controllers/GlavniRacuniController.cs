@@ -89,7 +89,6 @@ namespace SK_Stanicni_Racuni.Controllers
                 }
 
                 string[] arrayNaplacenoK165aUnutrSum = new string[2];
-                string[] arrayNaplacenoK165aMedjSum = new string[2];
 
                 if (naplacenoK165aUnutrSum == 0)
                 {
@@ -99,6 +98,15 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     arrayNaplacenoK165aUnutrSum = naplacenoK165aUnutrSum.ToString($"F{2}").Split('.');
                 }
+
+                string[] arrayNaplacenoK165aMedjSum = new string[2];
+
+                if (naplacenoK165aMedjSum == 0)
+                {
+                    arrayNaplacenoK165aMedjSum[0] = "0";
+                    arrayNaplacenoK165aMedjSum[1] = "0";
+                }
+
 
                 /************* NALEPNICE **********/
 
@@ -112,6 +120,12 @@ namespace SK_Stanicni_Racuni.Controllers
                     prBrojUnutrMIN = prBrojUnutList.Min();
                     razlikaUnutr = prBrojUnutrMAX - prBrojUnutrMIN;
                 }
+                else
+                {
+                    prBrojUnutrMAX = 0;
+                    prBrojUnutrMIN = 0;
+                    razlikaUnutr = 0;
+                }
 
                 var razlikaMedj = 0;
                 var prBrojMedjMAX = 0;
@@ -122,6 +136,11 @@ namespace SK_Stanicni_Racuni.Controllers
                     prBrojMedjMAX = prBrojMedjList.Max();
                     prBrojMedjMIN = prBrojMedjList.Min();
                     razlikaMedj = prBrojMedjMAX - prBrojMedjMIN;
+                } else
+                {
+                    prBrojMedjMAX = 0;
+                    prBrojMedjMIN = 0;
+                    razlikaMedj = 0;
                 }
 
                 /****************    K161f   ******************************/
@@ -213,6 +232,8 @@ namespace SK_Stanicni_Racuni.Controllers
                 var localReport = new LocalReport();
                 localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K167.rdlc";
                 localReport.DataSources.Add(new ReportDataSource("K167", dt));
+                var ftm = new NumberFormatInfo();
+                ftm.NegativeSign = "-";
                 var parametars = new[]
                 {
                         new ReportParameter("DatumOd", DatumOd.ToString()),
@@ -220,23 +241,22 @@ namespace SK_Stanicni_Racuni.Controllers
                         new ReportParameter("Blagajna", blagajna),
                         new ReportParameter("SifraStanice", sifraStanice),
                         new ReportParameter("Racunopolagac", user),
-                        new ReportParameter("naplacenoK165aUnutrSum", arrayNaplacenoK165aUnutrSum[0]),
+                        new ReportParameter("naplacenoK165aUnutrSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayNaplacenoK165aUnutrSum[0], ftm))),
                         new ReportParameter("naplacenoK165aUnutrSum_pare", arrayNaplacenoK165aUnutrSum[1]),
-                        new ReportParameter("naplacenoK165aMedjSum", arrayNaplacenoK165aMedjSum[0]),
+                        new ReportParameter("naplacenoK165aMedjSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayNaplacenoK165aMedjSum[0], ftm))),
                         new ReportParameter("naplacenoK165aMedjSum_pare", arrayNaplacenoK165aMedjSum[1]),
-                        new ReportParameter("fakturaUnutSum", arrayFakturaUnut[0]),
+                        new ReportParameter("fakturaUnutSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayFakturaUnut[0], ftm))),
                         new ReportParameter("fakturaUnutSum_pare", arrayFakturaUnut[1]),
-                        new ReportParameter("prBrojUnutrMAX", prBrojUnutrMAX.ToString()),
-                        new ReportParameter("prBrojUnutrMIN", prBrojUnutrMIN.ToString()),
-                        new ReportParameter("razlikaUnutr", razlikaUnutr.ToString()),
-                        new ReportParameter("prBrojMedjMAX", prBrojMedjMAX.ToString()),
-                        new ReportParameter("prBrojMedjMIN", prBrojMedjMIN.ToString()),
-                        new ReportParameter("razlikaMedj", razlikaMedj.ToString()),
+                        new ReportParameter("prBrojUnutrMAX", string.Format(elGR, "{0:0,0}", Double.Parse(prBrojUnutrMAX.ToString()))),
+                        new ReportParameter("prBrojUnutrMIN", string.Format(elGR, "{0:0,0}", Double.Parse(prBrojUnutrMIN.ToString()))),
+                        new ReportParameter("razlikaUnutr", string.Format(elGR, "{0:0,0}", Double.Parse(razlikaUnutr.ToString()))),
+                        new ReportParameter("prBrojMedjMAX", string.Format(elGR, "{0:0,0}", Double.Parse(prBrojMedjMAX.ToString()))),
+                        new ReportParameter("prBrojMedjMIN", string.Format(elGR,"{0:0,0}", Double.Parse(prBrojMedjMIN.ToString()))),
+                        new ReportParameter("razlikaMedj",  string.Format(elGR, "{0:0,0}", Double.Parse(razlikaMedj.ToString()))),
                         new ReportParameter("pdvOsnovicaSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayPdvOsnovica[0]))),
-                        //new ReportParameter("pdvOsnovicaSum", arrayPdvOsnovica[0]),
                         new ReportParameter("pdvOsnovicaSum_pare",arrayPdvOsnovica[1]),
-                        new ReportParameter("pdvSum",arrayPdv[0]),
-                        new ReportParameter("pdvSum_pare",arrayPdv[1]),
+                        new ReportParameter("pdvSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayPdv[0]))),
+                        new ReportParameter("pdvSum_pare", arrayPdv[1]),
                     };
 
                 localReport.SetParameters(parametars);
@@ -299,8 +319,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (naplacenoK119MedjSum == 0)
                 {
-                    arrayNaplacenoK119Medj[0] = string.Empty;
-                    arrayNaplacenoK119Medj[1] = string.Empty;
+                    arrayNaplacenoK119Medj[0] = "0";
+                    arrayNaplacenoK119Medj[1] = "0";
                 }
                 else
                 {
@@ -320,9 +340,9 @@ namespace SK_Stanicni_Racuni.Controllers
                     razlikaOtpBrojUnut = otpBrojUnutMAX - otpBrojUnutMIN;
                 } else
                 {
-                    otpBrojUnutMAX = string.Empty;
-                    otpBrojUnutMIN = string.Empty;
-                    razlikaOtpBrojUnut = string.Empty;
+                    otpBrojUnutMAX = "0";
+                    otpBrojUnutMIN = "0";
+                    razlikaOtpBrojUnut = "0";
                 }
 
                 var otpBrojMedjuMAX = (dynamic)null;
@@ -336,9 +356,9 @@ namespace SK_Stanicni_Racuni.Controllers
                      razlikaOtpBrojMedj = otpBrojMedjuMAX - otpBrojMedjuMIN;
                 } else
                 {
-                    otpBrojMedjuMAX = string.Empty;
-                    otpBrojMedjuMIN = string.Empty;
-                    razlikaOtpBrojMedj = string.Empty;
+                    otpBrojMedjuMAX = "0";
+                    otpBrojMedjuMIN = "0";
+                    razlikaOtpBrojMedj = "0";
                 }
 
 
@@ -373,8 +393,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (naplacenoK115UnutrSum == 0)
                 {
-                    arrayNaplacenoK115UnutrSum[0] = string.Empty;
-                    arrayNaplacenoK115UnutrSum[1] = string.Empty;
+                    arrayNaplacenoK115UnutrSum[0] = "0";
+                    arrayNaplacenoK115UnutrSum[1] = "0";
                 }
                 else
                 {
@@ -383,8 +403,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (naplacenoK115MedjSum == 0)
                 {
-                    arrayNaplacenoK115MedjSum[0] = string.Empty;
-                    arrayNaplacenoK115MedjSum[1] = string.Empty;
+                    arrayNaplacenoK115MedjSum[0] = "0";
+                    arrayNaplacenoK115MedjSum[1] = "0";
                 }
                 else
                 {
@@ -419,15 +439,15 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (naknade111fUnutrSum == 0)
                 {
-                    arrayNaknade111fUnutrSum[0] = string.Empty;
-                    arrayNaknade111fUnutrSum[1] = string.Empty;
+                    arrayNaknade111fUnutrSum[0] = "0";
+                    arrayNaknade111fUnutrSum[1] = "0";
                 }
                 else
                 {
                     arrayNaknade111fUnutrSum = naknade111fUnutrSum.ToString($"F{2}").Split('.');
                 }
 
-                //***************** unutrasnji saobracaj  PDV 157 *************/                                    /* NIJE DOBRO KAKO RACUNA OSNOVICU I PDV  KOJI DATUME DA UZME U OBZIR  */
+                //***************** unutrasnji saobracaj  PDV K157 *************/                                    
 
                 var pdv = from sk in context.SlogKalks
                           join skPdv in context.SlogKalkPdvs on sk.RecId equals skPdv.RecId
@@ -459,8 +479,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (pdvOsnovicaSum == 0)
                 {
-                    arrayPdvOsnovica[0] = string.Empty;
-                    arrayPdvOsnovica[1] = string.Empty;
+                    arrayPdvOsnovica[0] = "0";
+                    arrayPdvOsnovica[1] = "0";
                 }
                 else
                 {
@@ -469,8 +489,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (pdvSum == 0)
                 {
-                    arrayPdv[0] = string.Empty;
-                    arrayPdv[1] = string.Empty;
+                    arrayPdv[0] = "0";
+                    arrayPdv[1] = "0";
                 }
                 else
                 {
@@ -489,8 +509,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (suma1 == 0)
                 {
-                    arraySuma1[0] = string.Empty;
-                    arraySuma1[1] = string.Empty;
+                    arraySuma1[0] = "0";
+                    arraySuma1[1] = "0";
                 }
                 else
                 {
@@ -499,8 +519,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (suma2 == 0)
                 {
-                    arraySuma2[0] = string.Empty;
-                    arraySuma2[1] = string.Empty;
+                    arraySuma2[0] = "0";
+                    arraySuma2[1] = "0";
                 }
                 else
                 {
@@ -509,8 +529,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (suma == 0)
                 {
-                    arraySuma[0] = string.Empty;
-                    arraySuma[1] = string.Empty;
+                    arraySuma[0] = "0";
+                    arraySuma[1] = "0";
                 }
                 else
                 {
@@ -527,6 +547,8 @@ namespace SK_Stanicni_Racuni.Controllers
                 var localReport = new LocalReport();
                 localReport.ReportPath = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K157.rdlc";
                 localReport.DataSources.Add(new ReportDataSource("K157", dt));
+                var ftm = new NumberFormatInfo();
+                ftm.NegativeSign = "-";
                 var parametars = new[]
                 {
                         new ReportParameter("DatumOd", DatumOd.ToString()),
@@ -535,34 +557,34 @@ namespace SK_Stanicni_Racuni.Controllers
                         new ReportParameter("SifraStanice", sifraStanice),
                         new ReportParameter("Racunopolagac", user),
 
-                        new ReportParameter("naplacenoK119UnutSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayNaplacenoK119Unut[0]))),
+                        new ReportParameter("naplacenoK119UnutSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayNaplacenoK119Unut[0], ftm))),
                         new ReportParameter("naplacenoK119UnutSum_pare", arrayNaplacenoK119Unut[1]),
-                        new ReportParameter("naplacenoK119MedjSum", arrayNaplacenoK119Medj[0]),
+                        new ReportParameter("naplacenoK119MedjSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayNaplacenoK119Medj[0], ftm))),
                         new ReportParameter("naplacenoK119MedjSum_pare", arrayNaplacenoK119Medj[1]),
-                        new ReportParameter("naplacenoK115UnutrSum",  arrayNaplacenoK115UnutrSum[0]),
+                        new ReportParameter("naplacenoK115UnutrSum",  string.Format(elGR,"{0:0,0}", Double.Parse(arrayNaplacenoK115UnutrSum[0], ftm))),
                         new ReportParameter("naplacenoK115UnutrSum_pare", arrayNaplacenoK115UnutrSum[1]),
-                        new ReportParameter("naplacenoK115MedjSum", arrayNaplacenoK115MedjSum[0]),
+                        new ReportParameter("naplacenoK115MedjSum",  string.Format(elGR, "{0:0,0}", Double.Parse(arrayNaplacenoK115MedjSum[0], ftm))),
                         new ReportParameter("naplacenoK115MedjSum_pare", arrayNaplacenoK115MedjSum[1]),
-                        new ReportParameter("naknade111fUnutrSum", arrayNaknade111fUnutrSum[0]),
+                        new ReportParameter("naknade111fUnutrSum",  string.Format(elGR, "{0:0,0}", Double.Parse(arrayNaknade111fUnutrSum[0], ftm))),
                         new ReportParameter("naknade111fUnutrSum_pare", arrayNaknade111fUnutrSum[1]),
-                        new ReportParameter("pdvOsnovicaSum",arrayPdvOsnovica[0]),
+                        new ReportParameter("pdvOsnovicaSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayPdvOsnovica[0], ftm))),
                         new ReportParameter("pdvOsnovicaSum_pare",arrayPdvOsnovica[1]),
-                        new ReportParameter("pdvSum",arrayPdv[0]),
+                        new ReportParameter("pdvSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayPdv[0], ftm))),
                         new ReportParameter("pdvSum_pare",arrayPdv[1]),
-                        new ReportParameter("Suma1", arraySuma1[0]),
+                        new ReportParameter("Suma1",  string.Format(elGR, "{0:0,0}", Double.Parse(arraySuma1[0], ftm))),
                         new ReportParameter("Suma1_pare", arraySuma1[1]),
-                        new ReportParameter("Suma2", arraySuma2[0]),
+                        new ReportParameter("Suma2",  string.Format(elGR, "{0:0,0}", Double.Parse(arraySuma2[0], ftm))),
                         new ReportParameter("Suma2_pare", arraySuma2[1]),
-                        new ReportParameter("Suma", arraySuma[0]),
+                        new ReportParameter("Suma",  string.Format(elGR, "{0:0,0}", Double.Parse(arraySuma[0], ftm))),
                         new ReportParameter("Suma_pare", arraySuma[1]),
-                        new ReportParameter("otpBrojUnutMAX", Convert.ToString(otpBrojUnutMAX)),
-                        new ReportParameter("otpBrojUnutMIN", Convert.ToString(otpBrojUnutMIN)),
-                        new ReportParameter("razlikaOtpBrojUnut", Convert.ToString(razlikaOtpBrojUnut)),
-                        new ReportParameter("otpBrojMedjuMAX", Convert.ToString(otpBrojMedjuMAX)),
-                        new ReportParameter("otpBrojMedjuMIN", Convert.ToString(otpBrojMedjuMIN)),
-                        new ReportParameter("razlikaOtpBrojMedj", Convert.ToString(razlikaOtpBrojMedj))
+                        new ReportParameter("otpBrojUnutMAX", string.Format(elGR, "{0:0,0}", Double.Parse(Convert.ToString(otpBrojUnutMAX)))),
+                        new ReportParameter("otpBrojUnutMIN", string.Format(elGR, "{0:0,0}", Double.Parse(Convert.ToString(otpBrojUnutMIN)))),
+                        new ReportParameter("razlikaOtpBrojUnut",   string.Format(elGR, "{0:0,0}", Double.Parse(Convert.ToString(razlikaOtpBrojUnut)))),
+                        new ReportParameter("otpBrojMedjuMAX", string.Format(elGR, "{0:0,0}", Double.Parse(Convert.ToString(otpBrojMedjuMAX)))),
+                        new ReportParameter("otpBrojMedjuMIN",  string.Format(elGR, "{0:0,0}", Double.Parse(Convert.ToString(otpBrojMedjuMIN)))),
+                        new ReportParameter("razlikaOtpBrojMedj",  string.Format(elGR, "{0:0,0}", Double.Parse(Convert.ToString(razlikaOtpBrojMedj))))
 
-                        //string.Format(elGR,"{0:0,0}", Double.Parse(arrayPdvOsnovica[0]))),
+
                     };
 
                 localReport.SetParameters(parametars);

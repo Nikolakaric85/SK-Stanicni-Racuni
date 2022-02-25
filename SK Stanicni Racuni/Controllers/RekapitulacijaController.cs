@@ -7,6 +7,7 @@ using SK_Stanicni_Racuni.CustomModelBinding.Datumi;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 
 
@@ -17,7 +18,7 @@ namespace SK_Stanicni_Racuni.Controllers
         private readonly AppDbContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly INotyfService notyf;
-
+        CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
         public RekapitulacijaController(AppDbContext context, IWebHostEnvironment webHostEnvironment, INotyfService notyf)
         {
             this.context = context;
@@ -288,40 +289,41 @@ namespace SK_Stanicni_Racuni.Controllers
                 }
 
                 row["Broj"] = item.Broj;
-                row["Iznos"] = item.Iznos;
+
+                row["Iznos"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.Iznos.ToString()));
                 SumaIznos += (decimal)item.Iznos;
 
                 if (item.Saobracaj == '1')
                 {
-                    row["ObracunFR13"] = item.ObracunFR;
                     if (item.ObracunFR.HasValue)
                     {
+                        row["ObracunFR13"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFR.ToString()));
                         SumaObracunFR13 += (decimal)item.ObracunFR;
                     }
 
                 }
                 else if (item.Saobracaj == '2')
                 {
-                    row["ObracunFR14"] = item.ObracunFR;
                     if (item.ObracunFR.HasValue)
                     {
+                        row["ObracunFR14"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFR.ToString()));
                         SumaObracunFR14 += (decimal)item.ObracunFR;
                     }
                 }
                 else
                 {
-                    row["ObracunFR"] = item.ObracunFR;
                     if (item.ObracunFR.HasValue)
                     {
+                        row["ObracunFR"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFR.ToString()));
                         SumaObracunFR += (decimal)item.ObracunFR;
                     }
                 }
 
                 if (item.Iznos != 0 && item.ObracunFR != 0)
                 {
-                    row["Razlika"] = item.Iznos - item.ObracunFR;
                     if (item.Iznos.HasValue && item.ObracunFR.HasValue)
                     {
+                        row["Razlika"] = string.Format(elGR, "{0:0,0}", Double.Parse((item.Iznos - item.ObracunFR).ToString()));
                         Razlika += (decimal)(item.Iznos - item.ObracunFR);
                     }
                 }
@@ -340,11 +342,11 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),
-                    new ReportParameter("SumaIznos", SumaIznos.ToString()),
-                    new ReportParameter("SumaObracunFR", SumaObracunFR.ToString()),
-                    new ReportParameter("SumaObracunFR13", SumaObracunFR13.ToString()),
-                    new ReportParameter("SumaObracunFR14", SumaObracunFR14.ToString()),
-                    new ReportParameter("Razlika", Razlika.ToString()),
+                    new ReportParameter("SumaIznos", string.Format(elGR, "{0:0,0}", Double.Parse(SumaIznos.ToString()))),
+                    new ReportParameter("SumaObracunFR", string.Format(elGR, "{0:0,0}", Double.Parse(SumaObracunFR.ToString()))),
+                    new ReportParameter("SumaObracunFR13",  string.Format(elGR, "{0:0,0}", Double.Parse(SumaObracunFR13.ToString()))),
+                    new ReportParameter("SumaObracunFR14", string.Format(elGR, "{0:0,0}", Double.Parse(SumaObracunFR14.ToString()))),
+                    new ReportParameter("Razlika", string.Format(elGR, "{0:0,0}", Double.Parse(Razlika.ToString()))),
 
 
             };

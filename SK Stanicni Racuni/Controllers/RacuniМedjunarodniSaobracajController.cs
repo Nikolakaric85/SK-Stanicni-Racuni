@@ -370,7 +370,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         row["OtpUprava"] = item.OtpUprava;
                         row["OtpStanica"] = item.OtpStanica;
                         row["OtpBroj"] = item.OtpBroj;
-                        row["OtpDatum"] = item.OtpDatum.ToString();
+                        row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
                         row["PrUprava"] = item.PrUprava;
                         row["PrStanica"] = item.PrStanica;
                         row["RbKola"] = item.KolaStavka;
@@ -381,18 +381,6 @@ namespace SK_Stanicni_Racuni.Controllers
                         row["IzlazniPrelaz"] = item.ZsIzPrelaz;
                         dt.Rows.Add(row);
                     }
-
-                //Dictionary<string, string> paramtars = new Dictionary<string, string>();
-
-                //paramtars.Add("Stanica", stanica);
-                //paramtars.Add("SifraStanice", _sifraStanice);
-                //paramtars.Add("DatumDo", DatumDo.ToString());
-
-                //var path = $"{this.webHostEnvironment.WebRootPath}\\Reports\\K140trz.rdlc";
-                //LocalReport localReport = new LocalReport(path);
-                //localReport.AddDataSource("K140trz", dt);
-                //extension = (int)(DateTime.Now.Ticks >> 10);
-                //result = localReport.Execute(RenderType.Pdf, extension, paramtars, mimtype);
 
                 string renderFormat = "PDF";
                 string mimtype = "application/pdf";
@@ -469,7 +457,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         row["OtpUprava"] = item.OtpUprava;
                         row["OtpStanica"] = item.OtpStanica;
                         row["OtpBroj"] = item.OtpBroj;
-                        row["OtpDatum"] = item.OtpDatum.ToString();
+                        row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
                         row["PrUprava"] = item.PrUprava;
                         row["PrStanica"] = item.PrStanica;
                         row["KolaStavka"] = item.KolaStavka;

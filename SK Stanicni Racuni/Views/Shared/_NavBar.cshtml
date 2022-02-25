@@ -6,7 +6,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-bg-transparent border-bottom">
     <div class="container">
-
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand mr-5">
+            <!-- Logo Image -->
+            <img src="~/images/cropped-logo2.png" width="85" alt="" class="d-inline-block align-middle mr-2">
+            <!-- Logo Text -->
+            <span class="text-uppercase font-weight-bold">Stanični računi</span>
+        </a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,7 +38,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#"> Računi medjunarodni saobraćaj </a>
+                            <a class="dropdown-item" href="#"> Računi međunarodni saobraćaj </a>
                             <ul class="submenu dropdown-menu">
                                 <li><a class="dropdown-item" asp-controller="RacuniМedjunarodniSaobracaj" asp-action="RacuniМedjunarodniSaobracaj" asp-route-id="K140m">K140m Prispeća</a></li>
                                 <li><a class="dropdown-item" asp-controller="RacuniМedjunarodniSaobracaj" asp-action="RacuniМedjunarodniSaobracaj" asp-route-id="K165m">K165m Otpravljanja</a></li>
@@ -82,34 +88,34 @@
             </ul>
 
             <ul class="navbar-nav ml-auto mr-5">
-                    @if (User.Identity.IsAuthenticated == true)
-                    {
-                        <li class="nav-item">
-                            <form method="post" asp-controller="Account" asp-action="Logout">
-                                <button type="submit" style="width:auto"
-                                        class="nav-link btn btn-link py-0 text-dark">
-                                    Logout:  @identity.Claims.Where(x => x.Type == "Naziv").Select(x => x.Value).FirstOrDefault() <br />
-                                    
-                                </button>
+                @if (User.Identity.IsAuthenticated == true)
+                {
+                    <li class="nav-item">
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <button type="submit" style="width:auto"
+                                    class="nav-link btn btn-link py-0 text-dark">
+                                Logout:  @identity.Claims.Where(x => x.Type == "Naziv").Select(x => x.Value).FirstOrDefault() <br />
 
-                            </form>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                    }
-                </ul>
+                            </button>
+
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                }
+            </ul>
 
 
             <!-- Privremeno -->
             <!--<ul class="navbar-nav ml-auto mr-5">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                </li>
-            </ul>-->
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+        </ul>-->
 
 
         </div>

@@ -12,14 +12,14 @@
 
             <input type="text" asp-for="Stanica" class="form-control ml-1" value="@ViewBag.Stanica" name="stanica" hidden>
             <input type="text" asp-for="Blagajnik" class="form-control ml-1" value="@ViewBag.UserId" name="userId" hidden>
-            <input type="text" asp-for="Id" class="form-control ml-1" value="@ViewBag.Id" name="id" hidden >
+            <input type="text" asp-for="Id" class="form-control ml-1" value="@ViewBag.Id" name="id" hidden>
 
             <div class="row">
                 @if (ViewBag.Admin == true)
                 {
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                         <label>Stanica</label>
-                        <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanicaIzabrana"/>
+                        <input class="form-control" list="myDatalist" id="myDatalistInput" name="stanicaIzabrana" />
                         <datalist id="myDatalist" open="open">
                         </datalist>
                     </div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            @if (ViewBag.K121a == true)
+            @if (ViewBag.K121aPrikazFranko == true)
             {
                 <div class="row mt-3">
 
@@ -68,6 +68,73 @@
         </div>
 
     </form>
+
+
+    @if (((IEnumerable<SrK121a>)ViewBag.k121a).Any())
+    {
+        <div>
+            <table class="table table-hover mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Stanica</th>
+                        <th scope="col">Blagajna</th>
+                        <th scope="col">Priznanica</th>
+                        <th scope="col">Pošiljalac</th>
+                        <th scope="col">Iznos</th>
+                        <th scope="col">Br. Depozita</th>
+                        <th scope="col">Dana</th>
+                        <th scope="col">Uputna stanica</th>
+                        <th scope="col">Primalac</th>
+                        <th scope="col">Primalac Adresa</th>
+                        <th scope="col">Primalac Zemlja</th>
+                        <th scope="col">Datum</th>
+                        <th scope="col">Blagajnik</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ((IEnumerable<SrK121a>)ViewBag.k121a))
+                    {
+
+                        <tr>
+                            <td scope="row">@item.Stanica</td>
+                            <td>@item.Blagajna</td>
+                            <td>@item.Broj</td>
+                            <td>@item.Pošiljalac</td>
+                            <td>@item.Iznos</td>
+                            <td>@item.OtpBroj</td>
+                            @if (item.OtpDatum != null)
+                            {
+                                <td>@item.OtpDatum.Value.ToString("dd.MM.yyyy")</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                            <td>@item.PrStanica</td>
+                            <td>@item.Primalac</td>
+                            <td>@item.PrimalacAdresa</td>
+                            <td>@item.PrimalacZemlja</td>
+                            @if (item.Datum != null)
+                            {
+                                <td>@item.Datum.Value.ToString("dd.MM.yyyy")</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                            <td>@item.Blagajnik</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    } else
+            {
+                <p>tabela</p>
+            }
 
 
 

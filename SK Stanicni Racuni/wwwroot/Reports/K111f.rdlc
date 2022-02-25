@@ -96,7 +96,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>1.34688cm</Top>
-            <Left>23.19424cm</Left>
+            <Left>23.04425cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <Style>
@@ -125,7 +125,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>2.08799cm</Top>
-            <Left>23.19424cm</Left>
+            <Left>23.04425cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <ZIndex>1</ZIndex>
@@ -192,7 +192,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
             <Top>0.60577cm</Top>
-            <Left>27.5073cm</Left>
+            <Left>27.3573cm</Left>
             <Height>0.6cm</Height>
             <Width>1.58278cm</Width>
             <ZIndex>3</ZIndex>
@@ -222,7 +222,7 @@
             </Paragraphs>
             <rd:DefaultName>Stanica</rd:DefaultName>
             <Top>1.34688cm</Top>
-            <Left>24.95341cm</Left>
+            <Left>24.80342cm</Left>
             <Height>0.6cm</Height>
             <Width>4.13667cm</Width>
             <ZIndex>4</ZIndex>
@@ -255,7 +255,7 @@
             </Paragraphs>
             <rd:DefaultName>Blagajna</rd:DefaultName>
             <Top>2.08799cm</Top>
-            <Left>24.95341cm</Left>
+            <Left>24.80342cm</Left>
             <Height>0.6cm</Height>
             <Width>4.13667cm</Width>
             <ZIndex>5</ZIndex>
@@ -405,7 +405,7 @@
             <Value>croppedlogo2</Value>
             <Sizing>FitProportional</Sizing>
             <Top>0.64105cm</Top>
-            <Left>0.6302cm</Left>
+            <Left>0.75992cm</Left>
             <Height>2.89869cm</Height>
             <Width>4.09292cm</Width>
             <ZIndex>10</ZIndex>
@@ -419,7 +419,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.3cm</Width>
+                  <Width>1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2cm</Width>
@@ -2233,10 +2233,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>K111f</DataSetName>
-            <Top>7.87259cm</Top>
-            <Left>0.60992cm</Left>
+            <Top>5.01509cm</Top>
+            <Left>0.75992cm</Left>
             <Height>3.51153cm</Height>
-            <Width>28.48017cm</Width>
+            <Width>28.18017cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
@@ -2378,8 +2378,8 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>7.87259cm</Top>
-            <Left>1.90992cm</Left>
+            <Top>5.01509cm</Top>
+            <Left>1.75992cm</Left>
             <Height>1.71153cm</Height>
             <Width>4cm</Width>
             <ZIndex>12</ZIndex>
