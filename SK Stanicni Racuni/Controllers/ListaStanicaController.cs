@@ -22,7 +22,7 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult ListaMedjunarodnihStanica()
         {
             var stanice = (from s in context.UicStanices
-                           select s.SifraStanice).ToList();           
+                           select s.SifraStanice).ToList().Take(10);           
 
             return Json(stanice);
         }
@@ -34,7 +34,7 @@ namespace SK_Stanicni_Racuni.Controllers
         {
             var stanice = (from s in context.ZsStanices
                            where s.Naziv.Contains(data)
-                           select s.Naziv);
+                           select s.Naziv).ToList().Take(10);
 
             return Json(stanice);
         }
