@@ -1227,7 +1227,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=CDate(Fields!OtpDatum.Value).ToString("dd.MM.yyyy")</Value>
+                                  <Value>=Fields!OtpDatum.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <Format>dd.MM.yyyy</Format>

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using SK_Stanicni_Racuni.Models;
 
 namespace SK_Stanicni_Racuni
@@ -45,10 +46,7 @@ namespace SK_Stanicni_Racuni
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseRequestLocalization(new RequestLocalizationOptions()     // setovana lokalizacija na EN Englesku
-                   .AddSupportedCultures(new[] { "en-US" })
-                   .AddSupportedUICultures(new[] { "en-US" }));
-
+         
             app.UseDeveloperExceptionPage();
 
             //if (env.IsDevelopment())
@@ -61,13 +59,17 @@ namespace SK_Stanicni_Racuni
             //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             //    app.UseHsts();
             //}
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(new RequestLocalizationOptions().SetDefaultCulture("en")     // setovana lokalizacija na EN Englesku
+                 .AddSupportedCultures(new[] { "en" })
+                 .AddSupportedUICultures(new[] { "en" }));
 
             app.UseEndpoints(endpoints =>
             {

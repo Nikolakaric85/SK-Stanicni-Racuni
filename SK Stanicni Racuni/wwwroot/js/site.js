@@ -7,41 +7,18 @@
         $(document).ready(function () {
 
 
-
-
-
-            //$('#myDatalistInput').on('input', function () {
-            //    var data = $('#myDatalistInput').val()
-
-            //    console.log("unutrasnja lista " + data)
-            //})
-
-
-
-            //$('#myDatalistInputMedju').on('input', function () {
-            //    var data = $('#myDatalistInputMedju').val()
-
-            //    $.ajax({
-            //        type: "GET",
-            //        url: "/ListaStanica/ListaMedjunarodnihStanica",
-            //        cache: false,
-            //        data: { data: data },
-            //        success: function (data) {
-            //            console.log(data)
-
-                        
-
-            //        }
-            //    });
-            //})
-
-
             $('#myDatalistInput').on('input', function () {
                 var data = $('#myDatalistInput').val()
 
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+                //console.log("baseUrl " + baseUrl)
+                //ovo radi na hostingu, na mom racunaru ne radi. Da bi radilo mora da bude url: "/ListaStanica/ListaUnutrasnjihStanica"
+
                 $.ajax({
                     type: "GET",
-                    url: "/ListaStanica/ListaUnutrasnjihStanica",
+                    url: baseUrl + "/ListaStanica/ListaUnutrasnjihStanica",
                     cache: false,
                     data: { data: data },
                     success: function (data) {
@@ -51,7 +28,6 @@
                             options += '<option value="' + data[i] + '" />';
                         }
                         $('#myDatalist').html(options)
-
                     }
                 });
             })

@@ -1013,7 +1013,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=CDate(Fields!PredatoDana.Value).ToString("dd.MM.yyyy")</Value>
+                                  <Value>=Fields!PredatoDana.Value</Value>
                                   <Style>
                                     <Format>dd.MM.yyyy</Format>
                                   </Style>

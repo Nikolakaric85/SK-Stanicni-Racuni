@@ -21,8 +21,8 @@ namespace SK_Stanicni_Racuni
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
-                    webBuilder.UseWebRoot("wwwroot");
+                    //webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
+                    //webBuilder.UseWebRoot("wwwroot");
                     webBuilder.UseStartup<Startup>();
                 });
     }

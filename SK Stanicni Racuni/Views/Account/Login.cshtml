@@ -29,12 +29,12 @@
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="UserId">Vaš ID</label>
-                        <input asp-for="UserId" class="form-control" />
+                        <input asp-for="UserId" class="form-control" autocomplete="off"/>
                         <span asp-validation-for="UserId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Lozinka" id="nesto">Lozinka</label>
-                        <input asp-for="Lozinka" type="password" class="form-control" />
+                        <input asp-for="Lozinka" type="password" class="form-control" autocomplete="off"/>
                         <span asp-validation-for="Lozinka" class="text-danger"></span>
                     </div>
                     <div class="form-group">

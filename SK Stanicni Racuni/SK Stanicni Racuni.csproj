@@ -5,6 +5,10 @@
     <RootNamespace>SK_Stanicni_Racuni</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="wwwroot\css\K140.rdlc" />
     <Content Remove="wwwroot\Reports\K111f.rdlc" />
@@ -16,12 +20,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Reports\K111f.rdlc" />
-    <None Include="wwwroot\Reports\K115.rdlc" />
-    <None Include="wwwroot\Reports\K157.rdlc" />
-    <None Include="wwwroot\Reports\K167.rdlc" />
-    <None Include="wwwroot\Reports\K254.rdlc" />
-    <None Include="wwwroot\Reports\K117.rdlc" />
+    <None Include="wwwroot\Reports\K111f.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Reports\K115.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Reports\K157.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Reports\K167.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Reports\K254.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Reports\K117.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
