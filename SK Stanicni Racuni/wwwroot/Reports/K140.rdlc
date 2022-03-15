@@ -609,7 +609,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Предујем</Value>
+                                                <Value>Предујам</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -1838,7 +1838,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
