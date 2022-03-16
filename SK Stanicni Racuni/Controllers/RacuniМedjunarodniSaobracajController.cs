@@ -259,47 +259,63 @@ namespace SK_Stanicni_Racuni.Controllers
                             where fij.Saobracaj == "2" &&
                             fij.PrStanica == sifraStanice &&
                             fij.PrDatum >= DatumOd && fij.PrDatum <= DatumDo
-                            select fij;
+                            group fij by new
+                            {
+                                fij.OtpStanica,
+                                fij.OtpBroj,
+                                fij.OtpDatum,
+                                fij.PrBroj,
+                                fij.TlSumaUpDin
+                            }
+                            into fijGroup
+                            select new
+                            {
+                                PrBroj = fijGroup.Key.PrBroj,
+                                OtpBroj = fijGroup.Key.OtpBroj,
+                                OtpStanica = fijGroup.Key.OtpStanica,
+                                OtpDatum = fijGroup.Key.OtpDatum,
+                                TlSumaUpDin = fijGroup.Key.TlSumaUpDin
+                            };
 
 
-                    var dt = new DataTable();
+                var dt = new DataTable();
 
-                    dt.Columns.Add("PrBroj");
-                    dt.Columns.Add("OtpStanica");
-                    dt.Columns.Add("NazivStanice");
-                    dt.Columns.Add("ŠifraStanice");
-                    dt.Columns.Add("OtpBroj");
-                    dt.Columns.Add("OtpDatum");
-                    dt.Columns.Add("TlSumaUpDin");
-                    dt.Columns.Add("TlSumaUpDin_pare");
+                dt.Columns.Add("PrBroj");
+                dt.Columns.Add("OtpStanica");
+                dt.Columns.Add("NazivStanice");
+                dt.Columns.Add("ŠifraStanice");
+                dt.Columns.Add("OtpBroj");
+                dt.Columns.Add("OtpDatum");
+                dt.Columns.Add("TlSumaUpDin");
+                dt.Columns.Add("TlSumaUpDin_pare");
 
-                    DataRow row;
+                DataRow row;
 
-                    foreach (var item in final)
-                    {
-                        row = dt.NewRow();
-                        row["PrBroj"] = item.PrBroj;
-                        row["OtpStanica"] = item.OtpStanica.Substring(0, 2);
+                foreach (var item in final)
+                {
+                    row = dt.NewRow();
+                    row["PrBroj"] = item.PrBroj;
+                    row["OtpStanica"] = item.OtpStanica.Substring(0, 2);
 
-                        var nazivStanice = context.ZsStanices.Where(x => x.SifraStanice == item.OtpStanica).FirstOrDefault();
-                        _ = nazivStanice != null ? row["NazivStanice"] = nazivStanice.Naziv : row["NazivStanice"] = string.Empty;
+                    var nazivStanice = context.ZsStanices.Where(x => x.SifraStanice == item.OtpStanica).FirstOrDefault();
+                    _ = nazivStanice != null ? row["NazivStanice"] = nazivStanice.Naziv : row["NazivStanice"] = string.Empty;
 
-                        row["ŠifraStanice"] = item.OtpStanica.Substring(2, 5);
-                        row["OtpBroj"] = item.OtpBroj;
+                    row["ŠifraStanice"] = item.OtpStanica.Substring(2, 5);
+                    row["OtpBroj"] = item.OtpBroj;
                     if (item.OtpDatum.HasValue)
                     {
                         row["OtpDatum"] = item.OtpDatum.Value.ToString("dd.MM.yyyy");
                     }
-                        
 
-                        string res = item.TlSumaUpDin.ToString();
-                        string[] array = res.Split('.');
 
-                        row["TlSumaUpDin"] = array[0];
-                        row["TlSumaUpDin_pare"] = array[1];
+                    string res = item.TlSumaUpDin.ToString();
+                    string[] array = res.Split('.');
 
-                        dt.Rows.Add(row);
-                    }
+                    row["TlSumaUpDin"] = array[0];
+                    row["TlSumaUpDin_pare"] = array[1];
+
+                    dt.Rows.Add(row);
+                }
 
 
                 string renderFormat = "PDF";
@@ -349,43 +365,43 @@ namespace SK_Stanicni_Racuni.Controllers
                                 ZsIzPrelaz = kalk.ZsIzPrelaz
                             };
 
-                
-                    var dt = new DataTable();
 
-                    dt.Columns.Add("UlaznaEtiketa");
-                    dt.Columns.Add("OtpUprava");
-                    dt.Columns.Add("OtpStanica");
-                    dt.Columns.Add("OtpBroj");
-                    dt.Columns.Add("OtpDatum");
-                    dt.Columns.Add("PrUprava");
-                    dt.Columns.Add("PrStanica");
-                    dt.Columns.Add("RbKola");
-                    dt.Columns.Add("IBK");
-                    dt.Columns.Add("TrasaVoza");
-                    dt.Columns.Add("SatVoza");
-                    dt.Columns.Add("TarifaUgovor");
-                    dt.Columns.Add("IzlazniPrelaz");
+                var dt = new DataTable();
 
-                    DataRow row;
+                dt.Columns.Add("UlaznaEtiketa");
+                dt.Columns.Add("OtpUprava");
+                dt.Columns.Add("OtpStanica");
+                dt.Columns.Add("OtpBroj");
+                dt.Columns.Add("OtpDatum");
+                dt.Columns.Add("PrUprava");
+                dt.Columns.Add("PrStanica");
+                dt.Columns.Add("RbKola");
+                dt.Columns.Add("IBK");
+                dt.Columns.Add("TrasaVoza");
+                dt.Columns.Add("SatVoza");
+                dt.Columns.Add("TarifaUgovor");
+                dt.Columns.Add("IzlazniPrelaz");
 
-                    foreach (var item in query)
-                    {
-                        row = dt.NewRow();
-                        row["UlaznaEtiketa"] = item.UlEtiketa;
-                        row["OtpUprava"] = item.OtpUprava;
-                        row["OtpStanica"] = item.OtpStanica;
-                        row["OtpBroj"] = item.OtpBroj;
-                        row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
-                        row["PrUprava"] = item.PrUprava;
-                        row["PrStanica"] = item.PrStanica;
-                        row["RbKola"] = item.KolaStavka;
-                        row["IBK"] = item.IBK;
-                        row["TrasaVoza"] = item.BrojVoza;
-                        row["SatVoza"] = item.SatVoza.Trim();
-                        row["TarifaUgovor"] = item.Ugovor;
-                        row["IzlazniPrelaz"] = item.ZsIzPrelaz;
-                        dt.Rows.Add(row);
-                    }
+                DataRow row;
+
+                foreach (var item in query)
+                {
+                    row = dt.NewRow();
+                    row["UlaznaEtiketa"] = item.UlEtiketa;
+                    row["OtpUprava"] = item.OtpUprava;
+                    row["OtpStanica"] = item.OtpStanica;
+                    row["OtpBroj"] = item.OtpBroj;
+                    row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
+                    row["PrUprava"] = item.PrUprava;
+                    row["PrStanica"] = item.PrStanica;
+                    row["RbKola"] = item.KolaStavka;
+                    row["IBK"] = item.IBK;
+                    row["TrasaVoza"] = item.BrojVoza;
+                    row["SatVoza"] = item.SatVoza.Trim();
+                    row["TarifaUgovor"] = item.Ugovor;
+                    row["IzlazniPrelaz"] = item.ZsIzPrelaz;
+                    dt.Rows.Add(row);
+                }
 
                 string renderFormat = "PDF";
                 string mimtype = "application/pdf";
@@ -434,46 +450,46 @@ namespace SK_Stanicni_Racuni.Controllers
                                 UlEtiketa = kalk.UlEtiketa
                             };
 
-               
-                
-                    var dt = new DataTable();
 
-                    dt.Columns.Add("IzEtiketa");
-                    dt.Columns.Add("OtpUprava");
-                    dt.Columns.Add("OtpStanica");
-                    dt.Columns.Add("OtpBroj");
-                    dt.Columns.Add("OtpDatum");
-                    dt.Columns.Add("PrUprava");
-                    dt.Columns.Add("PrStanica");
-                    dt.Columns.Add("KolaStavka");
-                    dt.Columns.Add("IBK");
-                    dt.Columns.Add("BrojVoza2");
-                    dt.Columns.Add("SatVoza2");
-                    dt.Columns.Add("Ugovor");
-                    dt.Columns.Add("ZsUlPrelaz");
-                    dt.Columns.Add("UlEtiketa");
 
-                    DataRow row;
+                var dt = new DataTable();
 
-                    foreach (var item in query)
-                    {
-                        row = dt.NewRow();
-                        row["IzEtiketa"] = item.IzEtiketa;
-                        row["OtpUprava"] = item.OtpUprava;
-                        row["OtpStanica"] = item.OtpStanica;
-                        row["OtpBroj"] = item.OtpBroj;
-                        row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
-                        row["PrUprava"] = item.PrUprava;
-                        row["PrStanica"] = item.PrStanica;
-                        row["KolaStavka"] = item.KolaStavka;
-                        row["IBK"] = item.IBK;
-                        row["BrojVoza2"] = item.BrojVoza2;
-                        row["SatVoza2"] = item.SatVoza2.Trim();
-                        row["Ugovor"] = item.Ugovor;
-                        row["ZsUlPrelaz"] = item.ZsUlPrelaz;
-                        row["UlEtiketa"] = item.UlEtiketa;
-                        dt.Rows.Add(row);
-                    }
+                dt.Columns.Add("IzEtiketa");
+                dt.Columns.Add("OtpUprava");
+                dt.Columns.Add("OtpStanica");
+                dt.Columns.Add("OtpBroj");
+                dt.Columns.Add("OtpDatum");
+                dt.Columns.Add("PrUprava");
+                dt.Columns.Add("PrStanica");
+                dt.Columns.Add("KolaStavka");
+                dt.Columns.Add("IBK");
+                dt.Columns.Add("BrojVoza2");
+                dt.Columns.Add("SatVoza2");
+                dt.Columns.Add("Ugovor");
+                dt.Columns.Add("ZsUlPrelaz");
+                dt.Columns.Add("UlEtiketa");
+
+                DataRow row;
+
+                foreach (var item in query)
+                {
+                    row = dt.NewRow();
+                    row["IzEtiketa"] = item.IzEtiketa;
+                    row["OtpUprava"] = item.OtpUprava;
+                    row["OtpStanica"] = item.OtpStanica;
+                    row["OtpBroj"] = item.OtpBroj;
+                    row["OtpDatum"] = item.OtpDatum.ToString("dd.MM.yyyy");
+                    row["PrUprava"] = item.PrUprava;
+                    row["PrStanica"] = item.PrStanica;
+                    row["KolaStavka"] = item.KolaStavka;
+                    row["IBK"] = item.IBK;
+                    row["BrojVoza2"] = item.BrojVoza2;
+                    row["SatVoza2"] = item.SatVoza2.Trim();
+                    row["Ugovor"] = item.Ugovor;
+                    row["ZsUlPrelaz"] = item.ZsUlPrelaz;
+                    row["UlEtiketa"] = item.UlEtiketa;
+                    dt.Rows.Add(row);
+                }
 
                 string renderFormat = "PDF";
                 string mimtype = "application/pdf";
@@ -494,7 +510,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 return File(pdf, mimtype);
             }
 
-        
+
             return View();
 
         }
