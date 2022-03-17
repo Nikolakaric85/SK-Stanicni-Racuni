@@ -63,6 +63,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
 
+            if (sifraStanice == null)
+            {
+                stanica = string.Empty;
+            }
+
             if (id == "K117")
             {
                 var query = from kalk in context.SlogKalks
@@ -116,7 +121,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 localReport.DataSources.Add(new ReportDataSource("K117", dt));
                 var parametars = new[]
                 {
-                    new ReportParameter("Stanica",sifraStanice),
+                    new ReportParameter("Stanica",stanica),
                     new ReportParameter("DatumOd",DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString())
                 };
@@ -180,7 +185,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 localReport.DataSources.Add(new ReportDataSource("K254", dt));
                 var parametars = new[]
                 {
-                    new ReportParameter("Stanica",sifraStanice),
+                    new ReportParameter("Stanica",stanica),
                     new ReportParameter("DatumOd",DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString())
                 };

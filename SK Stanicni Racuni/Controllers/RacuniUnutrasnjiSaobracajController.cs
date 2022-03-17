@@ -62,6 +62,12 @@ namespace SK_Stanicni_Racuni.Controllers
             CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");
 
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
+
+            if (sifraStanice == null)
+            {
+                stanica = string.Empty;
+            }
+
             if (id == "K140")
             {
                 var query = from SlogKalk in context.SlogKalks

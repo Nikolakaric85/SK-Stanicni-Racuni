@@ -23,6 +23,8 @@ namespace SK_Stanicni_Racuni.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        
+
         public IActionResult RacuniМedjunarodniSaobracaj(string id)
         {
             ViewBag.Id = id;
@@ -53,6 +55,10 @@ namespace SK_Stanicni_Racuni.Controllers
 
         public IActionResult Print(string id, string stanica, string blagajna, [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
+
+            var UserId = HttpContext.User.Identity.Name;
+            var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+
             if (string.IsNullOrEmpty(stanica))
             {
                 stanica = string.Empty;
@@ -60,6 +66,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
             var _sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
+
+            if (sifraStanice == null)
+            {
+                stanica = string.Empty;
+            }
 
             if (id == "K140m")
             {
@@ -154,7 +165,8 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),
                     new ReportParameter("Blagajna", blagajna),
-                    new ReportParameter("SifraStanice", _sifraStanice)
+                    new ReportParameter("SifraStanice", stanica),
+                    new ReportParameter("Racunopolagac", user.Naziv.Trim())
                 };
 
                 localReport.SetParameters(parametars);

@@ -56,7 +56,12 @@ namespace SK_Stanicni_Racuni.Controllers
             var sifraStanice = string.Empty;
             if (!string.IsNullOrEmpty(stanica))
             {
-                sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault().SifraStanice;
+                sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
+            }
+
+            if (sifraStanice == null)
+            {
+                stanica = string.Empty; // ako unese neispravan naziv stanice da to ne prikaze na PDF izvestaju
             }
 
             var query = from s in context.SrK161fs
@@ -202,7 +207,7 @@ namespace SK_Stanicni_Racuni.Controllers
             localReport.DataSources.Add(new ReportDataSource("K111f", dt));
             var parametars = new[]
             {
-                    new ReportParameter("Stanica", sifraStanice),
+                    new ReportParameter("Stanica", stanica),
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),
@@ -252,7 +257,12 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (!string.IsNullOrEmpty(stanica))
             {
-                sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault().SifraStanice;
+                sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
+            }
+
+            if (sifraStanice == null)
+            {
+                stanica = string.Empty; // ako unese neispravan naziv stanice da to ne prikaze na PDF izvestaju
             }
 
             var query = from s in context.SrK121as
@@ -338,7 +348,7 @@ namespace SK_Stanicni_Racuni.Controllers
             localReport.DataSources.Add(new ReportDataSource("K115", dt));
             var parametars = new[]
             {
-                    new ReportParameter("Stanica", sifraStanice),
+                    new ReportParameter("Stanica", stanica),
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumOd", DatumOd.ToString()),
                     new ReportParameter("DatumDo", DatumDo.ToString()),

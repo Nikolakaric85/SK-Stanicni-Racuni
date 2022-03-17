@@ -76,7 +76,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>1.29328cm</Top>
-            <Left>14.43838cm</Left>
+            <Left>13.48588cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <Style>
@@ -106,7 +106,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>2.06967cm</Top>
-            <Left>14.43838cm</Left>
+            <Left>13.48588cm</Left>
             <Height>0.6cm</Height>
             <Width>1.75917cm</Width>
             <ZIndex>1</ZIndex>
@@ -242,9 +242,9 @@
             </Paragraphs>
             <rd:DefaultName>Blagajna</rd:DefaultName>
             <Top>2.03439cm</Top>
-            <Left>16.37394cm</Left>
+            <Left>15.42144cm</Left>
             <Height>0.6cm</Height>
-            <Width>4.12606cm</Width>
+            <Width>5.07856cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -373,7 +373,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>2.84606cm</Top>
-            <Left>14.43838cm</Left>
+            <Left>13.48588cm</Left>
             <Height>0.6cm</Height>
             <Width>2.79103cm</Width>
             <ZIndex>9</ZIndex>
@@ -381,40 +381,6 @@
               <Border>
                 <Style>None</Style>
               </Border>
-              <VerticalAlign>Bottom</VerticalAlign>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Blagajna2">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value />
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Blagajna</rd:DefaultName>
-            <Top>2.84606cm</Top>
-            <Left>17.4058cm</Left>
-            <Height>0.6cm</Height>
-            <Width>3.0942cm</Width>
-            <ZIndex>10</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BottomBorder>
-                <Style>Solid</Style>
-              </BottomBorder>
               <VerticalAlign>Bottom</VerticalAlign>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -2339,7 +2305,7 @@
             <Left>0.5cm</Left>
             <Height>3.71438cm</Height>
             <Width>20cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>10</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2362,10 +2328,10 @@
             </Paragraphs>
             <rd:DefaultName>SifraStanice</rd:DefaultName>
             <Top>1.29328cm</Top>
-            <Left>16.37394cm</Left>
+            <Left>15.42144cm</Left>
             <Height>0.6cm</Height>
-            <Width>4.12606cm</Width>
-            <ZIndex>12</ZIndex>
+            <Width>5.07856cm</Width>
+            <ZIndex>11</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2388,13 +2354,43 @@
             <Left>0.5cm</Left>
             <Height>2.89869cm</Height>
             <Width>4.09292cm</Width>
-            <ZIndex>13</ZIndex>
+            <ZIndex>12</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Image>
+          <Textbox Name="Textbox2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!Racunopolagac.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>2.84606cm</Top>
+            <Left>16.4533cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.0467cm</Width>
+            <ZIndex>13</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BottomBorder>
+                <Style>Solid</Style>
+              </BottomBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+            </Style>
+          </Textbox>
         </ReportItems>
         <Height>13.45458cm</Height>
         <Style />
@@ -2530,11 +2526,17 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Racunopolagac">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
+      <NumberOfRows>3</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
@@ -2570,6 +2572,11 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>SifraStanice</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>Racunopolagac</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

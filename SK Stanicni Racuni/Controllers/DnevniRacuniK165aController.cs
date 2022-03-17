@@ -50,7 +50,11 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult Print(string id, string stanica, string blagajna, [ModelBinder(typeof(DatumDoModelBinder))] DateTime Datum)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault(); //primer 7213670
-            var nazivStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.Naziv).FirstOrDefault(); //primer 7213670
+
+            if (sifraStanice == null)
+            {
+                stanica = string.Empty;
+            }
 
             var query = from ZsStanice in context.ZsStanices
                         join SlogKalk in context.SlogKalks
@@ -103,8 +107,8 @@ namespace SK_Stanicni_Racuni.Controllers
             localReport.DataSources.Add(new ReportDataSource("K165a", dt));
             var parametars = new[]
             {
-                    new ReportParameter("SifraStanice", sifraStanice),
-                    new ReportParameter("NazivStanice", nazivStanice),
+                    
+                    new ReportParameter("NazivStanice", stanica),
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumDo", Datum.ToString())
             };

@@ -1551,44 +1551,6 @@
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="SifraStanice">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!SifraStanice.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>SifraStanice</rd:DefaultName>
-            <Top>0.97578cm</Top>
-            <Left>14.91872cm</Left>
-            <Height>0.6cm</Height>
-            <Width>1.91792cm</Width>
-            <ZIndex>9</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <TopBorder>
-                <Style>None</Style>
-              </TopBorder>
-              <BottomBorder>
-                <Style>Solid</Style>
-              </BottomBorder>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="NazivStanice">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1607,10 +1569,10 @@
             </Paragraphs>
             <rd:DefaultName>NazivStanice</rd:DefaultName>
             <Top>0.97578cm</Top>
-            <Left>16.83664cm</Left>
+            <Left>14.93164cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.32641cm</Width>
-            <ZIndex>10</ZIndex>
+            <Width>5.23141cm</Width>
+            <ZIndex>9</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1632,7 +1594,7 @@
             <Left>0.54591cm</Left>
             <Height>2.89869cm</Height>
             <Width>4.09292cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>10</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1746,12 +1708,6 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="SifraStanice">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
     <ReportParameter Name="Blagajna">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
@@ -1775,11 +1731,6 @@
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
       <CellDefinitions>
-        <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>SifraStanice</ParameterName>
-        </CellDefinition>
         <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>0</RowIndex>

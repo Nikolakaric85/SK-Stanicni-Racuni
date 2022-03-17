@@ -52,7 +52,13 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult Print(string id, string stanica, string blagajna, string user, [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
+            
 
+            if (sifraStanice == null)
+            {
+                sifraStanice = string.Empty;
+                stanica = string.Empty;
+            }
 
             if (id == "K167")
             {
@@ -182,6 +188,7 @@ namespace SK_Stanicni_Racuni.Controllers
                           into sks
                           from s in sks.DefaultIfEmpty()
                           where sk.Saobracaj == "1"
+                          && sk.PrStanica == sifraStanice
                           && (sk.PrDatum >= DatumOd && sk.PrDatum <= DatumDo)
                           select new { sk.RecId, sk.TlSumaUpDin, s.Pdv2 };
 
@@ -239,7 +246,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         new ReportParameter("DatumOd", DatumOd.ToString()),
                         new ReportParameter("DatumDo", DatumDo.ToString()),
                         new ReportParameter("Blagajna", blagajna),
-                        new ReportParameter("SifraStanice", sifraStanice),
+                        new ReportParameter("SifraStanice", stanica),
                         new ReportParameter("Racunopolagac", user),
                         new ReportParameter("naplacenoK165aUnutrSum", string.Format(elGR, "{0:0,0}", Double.Parse(arrayNaplacenoK165aUnutrSum[0], ftm))),
                         new ReportParameter("naplacenoK165aUnutrSum_pare", arrayNaplacenoK165aUnutrSum[1]),
@@ -453,7 +460,8 @@ namespace SK_Stanicni_Racuni.Controllers
                           join skPdv in context.SlogKalkPdvs on sk.RecId equals skPdv.RecId
                           into sks
                           from s in sks.DefaultIfEmpty()
-                          where sk.Saobracaj == "1"
+                          where sk.OtpStanica == sifraStanice &&
+                          sk.Saobracaj == "1"
                           && (sk.OtpDatum >= DatumOd && sk.OtpDatum <= DatumDo)
                           select new { sk.RecId, sk.TlSumaFrDin , s.Pdv1 };
 
@@ -554,7 +562,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         new ReportParameter("DatumOd", DatumOd.ToString()),
                         new ReportParameter("DatumDo", DatumDo.ToString()),
                         new ReportParameter("Blagajna", blagajna),
-                        new ReportParameter("SifraStanice", sifraStanice),
+                        new ReportParameter("SifraStanice", stanica),
                         new ReportParameter("Racunopolagac", user),
 
                         new ReportParameter("naplacenoK119UnutSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayNaplacenoK119Unut[0], ftm))),

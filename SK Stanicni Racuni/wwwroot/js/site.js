@@ -32,6 +32,23 @@
                 });
             })
 
+            $('#myDatalistInput').on('input', function () {
+   
+                var letters = /^[\p{L} ]+$/u;                       //Da dozvoli samo unos slova i ŠĐĆČŽ
+                var res = "";
+
+                var value = $(this).val();
+                if (value === "") {
+                    res = value;
+                }
+                else if (value.match(letters) === null) {
+                    $(this).val(res);
+                }
+                else {
+                    res = value;
+                }
+            })
+
         })
 
 

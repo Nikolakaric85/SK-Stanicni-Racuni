@@ -57,10 +57,10 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (!user.Stanica.StartsWith("000"))
             {
-                prStanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().SifraStanice;
+                prStanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).Select(x => x.SifraStanice).FirstOrDefault();
             } else
             {
-                prStanica = context.ZsStanices.Where(x => x.Naziv == stanica).FirstOrDefault().SifraStanice;
+                prStanica = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
             }
 
             
