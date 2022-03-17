@@ -52,7 +52,7 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult Print(string id, string stanica, string blagajna, string user, [ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();           // sve sa 72 na primer 7223499
-            
+
 
             if (sifraStanice == null)
             {
@@ -68,7 +68,8 @@ namespace SK_Stanicni_Racuni.Controllers
                                where sk.PrRbb == Int32.Parse(blagajna)
                                && (sk.PrDatum >= DatumOd && sk.PrDatum <= DatumDo)
                                && sk.PrStanica == sifraStanice
-                               select new {
+                               select new
+                               {
                                    K165a_iznos = sk.K165a_iznos,
                                    Saobracaj = sk.Saobracaj,
                                    PrBroj = sk.PrBroj
@@ -84,13 +85,21 @@ namespace SK_Stanicni_Racuni.Controllers
                     if (item.Saobracaj == "1")
                     {
                         naplacenoK165aUnutrSum += item.K165a_iznos;
-                        prBrojUnutList.Add((int)item.PrBroj);
+                        if (item.PrBroj > 0)
+                        {
+                            prBrojUnutList.Add((int)item.PrBroj);
+                        }
+
 
                     }
                     else if (item.Saobracaj != "1")
                     {
                         naplacenoK165aMedjSum += item.K165a_iznos;
-                        prBrojMedjList.Add((int)item.PrBroj);
+                        if (item.PrBroj > 0)
+                        {
+                            prBrojMedjList.Add((int)item.PrBroj);
+                        }
+
                     }
                 }
 
@@ -100,7 +109,8 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     arrayNaplacenoK165aUnutrSum[0] = "0";
                     arrayNaplacenoK165aUnutrSum[1] = "0";
-                } else
+                }
+                else
                 {
                     arrayNaplacenoK165aUnutrSum = naplacenoK165aUnutrSum.ToString($"F{2}").Split('.');
                 }
@@ -111,6 +121,10 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     arrayNaplacenoK165aMedjSum[0] = "0";
                     arrayNaplacenoK165aMedjSum[1] = "0";
+                }
+                else
+                {
+                    arrayNaplacenoK165aMedjSum = naplacenoK165aMedjSum.ToString($"F{2}").Split('.');
                 }
 
 
@@ -124,7 +138,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     prBrojUnutrMAX = prBrojUnutList.Max();
                     prBrojUnutrMIN = prBrojUnutList.Min();
-                    razlikaUnutr = prBrojUnutrMAX - prBrojUnutrMIN;
+                    razlikaUnutr = prBrojUnutrMAX - prBrojUnutrMIN + 1;
                 }
                 else
                 {
@@ -141,8 +155,9 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     prBrojMedjMAX = prBrojMedjList.Max();
                     prBrojMedjMIN = prBrojMedjList.Min();
-                    razlikaMedj = prBrojMedjMAX - prBrojMedjMIN;
-                } else
+                    razlikaMedj = prBrojMedjMAX - prBrojMedjMIN + 1;
+                }
+                else
                 {
                     prBrojMedjMAX = 0;
                     prBrojMedjMIN = 0;
@@ -154,16 +169,18 @@ namespace SK_Stanicni_Racuni.Controllers
                 var K161f = from s in context.SrK161fs
                             where (s.FakturaDatum >= DatumOd && s.FakturaDatum <= DatumDo)
                             && s.Stanica == sifraStanice
-                            select new { 
-                                        s.FakturaOsnovica,
-                                        s.FakturaPdv, 
-                                        s.Saobracaj};
+                            select new
+                            {
+                                s.FakturaOsnovica,
+                                s.FakturaPdv,
+                                s.Saobracaj
+                            };
 
                 decimal fakturaUnutSum = 0;
 
                 foreach (var item in K161f)
                 {
-                    if (item.Saobracaj == 1)
+                    if (item.Saobracaj == '1')
                     {
                         fakturaUnutSum += (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     }
@@ -175,7 +192,8 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     arrayFakturaUnut[0] = "0";
                     arrayFakturaUnut[1] = "0";
-                } else
+                }
+                else
                 {
                     arrayFakturaUnut = fakturaUnutSum.ToString($"F{2}").Split('.');
                 }
@@ -231,6 +249,44 @@ namespace SK_Stanicni_Racuni.Controllers
                     arrayPdv = pdvSum.ToString($"F{2}").Split('.');
                 }
 
+                var suma1 = naplacenoK165aUnutrSum + fakturaUnutSum;
+                var suma2 = naplacenoK165aMedjSum;
+                var suma = suma1 + suma2;
+
+                string[] arraySuma1 = new string[2];
+                string[] arraySuma2 = new string[2];
+                string[] arraySuma = new string[2];
+
+                if (suma1 == 0)
+                {
+                    arraySuma1[0] = "0";
+                    arraySuma1[1] = "0";
+                }
+                else
+                {
+                    arraySuma1 = suma1.ToString($"F{2}").Split('.');
+                }
+
+                if (suma2 == 0)
+                {
+                    arraySuma2[0] = "0";
+                    arraySuma2[1] = "0";
+                }
+                else
+                {
+                    arraySuma2 = suma2.ToString($"F{2}").Split('.');
+                }
+
+                if (suma == 0)
+                {
+                    arraySuma[0] = "0";
+                    arraySuma[1] = "0";
+                }
+                else
+                {
+                    arraySuma = suma.ToString($"F{2}").Split('.');
+                }
+
                 var dt = new DataTable();
 
                 string renderFormat = "PDF";
@@ -264,6 +320,12 @@ namespace SK_Stanicni_Racuni.Controllers
                         new ReportParameter("pdvOsnovicaSum_pare",arrayPdvOsnovica[1]),
                         new ReportParameter("pdvSum", string.Format(elGR,"{0:0,0}", Double.Parse(arrayPdv[0]))),
                         new ReportParameter("pdvSum_pare", arrayPdv[1]),
+                        new ReportParameter("Suma1",  string.Format(elGR, "{0:0,0}", Double.Parse(arraySuma1[0], ftm))),
+                        new ReportParameter("Suma1_pare", arraySuma1[1]),
+                        new ReportParameter("Suma2",  string.Format(elGR, "{0:0,0}", Double.Parse(arraySuma2[0], ftm))),
+                        new ReportParameter("Suma2_pare", arraySuma2[1]),
+                        new ReportParameter("Suma",  string.Format(elGR, "{0:0,0}", Double.Parse(arraySuma[0], ftm))),
+                        new ReportParameter("Suma_pare", arraySuma[1]),
                     };
 
                 localReport.SetParameters(parametars);
@@ -299,7 +361,11 @@ namespace SK_Stanicni_Racuni.Controllers
                             naplacenoK119UnutSum += (decimal)(item.TlNakFrDin + item.TlPrevFrDin);
                         }
 
-                        otpBrojUnutList.Add(item.OtpBroj);
+                        if (item.OtpBroj > 0)
+                        {
+                            otpBrojUnutList.Add(item.OtpBroj);
+                        }
+
                     }
                     else if (item.Saobracaj != "1")
                     {
@@ -307,7 +373,11 @@ namespace SK_Stanicni_Racuni.Controllers
                         {
                             naplacenoK119MedjSum += (decimal)(item.TlNakFrDin + item.TlPrevFrDin);
                         }
-                        otpBrojMedjList.Add(item.OtpBroj);
+                        if (item.OtpBroj > 0)
+                        {
+                            otpBrojMedjList.Add(item.OtpBroj);
+                        }
+
                     }
                 }
 
@@ -344,8 +414,9 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     otpBrojUnutMAX = otpBrojUnutList.Max();
                     otpBrojUnutMIN = otpBrojUnutList.Min();
-                    razlikaOtpBrojUnut = otpBrojUnutMAX - otpBrojUnutMIN;
-                } else
+                    razlikaOtpBrojUnut = otpBrojUnutMAX - otpBrojUnutMIN + 1;
+                }
+                else
                 {
                     otpBrojUnutMAX = "0";
                     otpBrojUnutMIN = "0";
@@ -358,10 +429,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (otpBrojMedjList.Count != 0)
                 {
-                     otpBrojMedjuMAX = otpBrojMedjList.Max();
-                     otpBrojMedjuMIN = otpBrojMedjList.Min();
-                     razlikaOtpBrojMedj = otpBrojMedjuMAX - otpBrojMedjuMIN;
-                } else
+                    otpBrojMedjuMAX = otpBrojMedjList.Max();
+                    otpBrojMedjuMIN = otpBrojMedjList.Min();
+                    razlikaOtpBrojMedj = otpBrojMedjuMAX - otpBrojMedjuMIN + 1;
+                }
+                else
                 {
                     otpBrojMedjuMAX = "0";
                     otpBrojMedjuMIN = "0";
@@ -463,7 +535,7 @@ namespace SK_Stanicni_Racuni.Controllers
                           where sk.OtpStanica == sifraStanice &&
                           sk.Saobracaj == "1"
                           && (sk.OtpDatum >= DatumOd && sk.OtpDatum <= DatumDo)
-                          select new { sk.RecId, sk.TlSumaFrDin , s.Pdv1 };
+                          select new { sk.RecId, sk.TlSumaFrDin, s.Pdv1 };
 
 
                 decimal pdvOsnovicaSum = 0;
@@ -476,7 +548,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         pdvOsnovicaSum += (decimal)(item.TlSumaFrDin);
                     }
 
-                    if (item.Pdv1 != null )
+                    if (item.Pdv1 != null)
                     {
                         pdvSum += (decimal)(item.Pdv1);
                     }
@@ -544,6 +616,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     arraySuma = suma.ToString($"F{2}").Split('.');
                 }
+
 
                 var dt = new DataTable();
 
