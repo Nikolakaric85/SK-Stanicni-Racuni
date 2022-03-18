@@ -293,55 +293,17 @@
                 }
             })
 
-            function numbersAndDotOnly(selector, input) {                       //Da prilikom unosa zareza prebaci da bude tačka
-                input = input.replace(",", ".");
-                var res = "";
-                //da ne moze prvi karakter da bude tacka
-                if (input.charAt(0) == '.') {
-                    input = input.replace(/\.+$/, "");
-                }
-                //da ne moze dve tacke da ubaci
-                if (input.split('.').length > 2) {
-                    input = input.replace(/\..+$/, ".");
-                }
-                //regex za brojeve i tacke
-                function validate(s) {
-                    var rgx = /^[0-9]*\.?[0-9]*$/;
-                    return s.match(rgx);
-                }
-                for (var i = 0; i < input.length; i++) {
-                    if (validate(input[i]) != null) {
-                        res += input[i]
-                    }
-                }
-                $('#' + selector).val(res)
-            }
+           
 
             $('#fakturaOsnovica, #fakturaPDV').on('input', function () {                                   // format decimale XXX.XX
-                var val = this.value
-                var selector = this.getAttribute('Id')
-
-                var separate = val.split('.')
-
-                if (separate.length == 1) {
-                    $('#' + selector).val(function () {
-                        return val.substr(0, 3)
-                    })
-                } else if (separate.length == 2 && separate[0].length == 1) {
-                    $('#' + selector).val(function () {
-                        return val.substr(0, 4)
-                    })
-                } else if (separate.length == 2 && separate[0].length == 2) {
-                    $('#' + selector).val(function () {
-                        return val.substr(0, 5)
-                    })
-                } else if (separate.length == 2 && separate[0].length == 3) {
-                    $('#' + selector).val(function () {
-                        return val.substr(0, 6)
-                    })
-                }
+                decimals(this.getAttribute('Id'), this.value, 18,2)
             })
 
+
+
+            $('#kursDinara').on('input', function () {                                   
+                decimals(this.getAttribute('Id'), this.value, 12, 2)
+            })
 
             $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').keypress(function () {                             //Da ogranici unos karaktera
                 if (this.value.length == 10) {
@@ -371,6 +333,46 @@
             $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').on("cut copy paste", function (e) {
                 e.preventDefault();
             });
+
+            /********************       FUNKCIJE        ******************************/
+
+            function decimals(selector, val, celiBrojevi, decimale) {                 //FUNKCIJA ZA DECIMALE, prosledjuje se selektor, vrednost, celobrijna vrednos i decimalna
+                var separate = val.split('.')
+                if (separate.length == 1) {
+                    $('#' + selector).val(function () {
+                        return val.substr(0, celiBrojevi)
+                    })
+                } else if (separate.length == 2) {
+                    var sum = parseInt(separate[0].length) + parseInt(decimale) + 1
+                    $('#' + selector).val(function () {
+                        return val.substr(0, sum)
+                    })
+                }
+            }
+
+            function numbersAndDotOnly(selector, input) {                       //Da prilikom unosa zareza prebaci da bude tačka
+                input = input.replace(",", ".");
+                var res = "";
+                //da ne moze prvi karakter da bude tacka
+                if (input.charAt(0) == '.') {
+                    input = input.replace(/\.+$/, "");
+                }
+                //da ne moze dve tacke da ubaci
+                if (input.split('.').length > 2) {
+                    input = input.replace(/\..+$/, ".");
+                }
+                //regex za brojeve i tacke
+                function validate(s) {
+                    var rgx = /^[0-9]*\.?[0-9]*$/;
+                    return s.match(rgx);
+                }
+                for (var i = 0; i < input.length; i++) {
+                    if (validate(input[i]) != null) {
+                        res += input[i]
+                    }
+                }
+                $('#' + selector).val(res)
+            }
 
 
 
