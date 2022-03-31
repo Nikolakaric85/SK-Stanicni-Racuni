@@ -253,8 +253,7 @@ namespace SK_Stanicni_Racuni.Controllers
                             from SlogKalk_PDV in skp.DefaultIfEmpty()
                             where SlogKalk.Saobracaj == "1" &&
                             SlogKalk.PrStanica == sifraStanice &&
-                            SlogKalk.OtpDatum >= DatumOd &&
-                            SlogKalk.OtpDatum <= DatumDo
+                            SlogKalk.OtpDatum == DatumDo
 
                             select new
                             {
@@ -400,8 +399,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("SumDecPDV", arrayPDV2[1]),
                     new ReportParameter("Stanica",stanica),
                     new ReportParameter("Blagajna",blagajna),
-                    new ReportParameter("DatumOd",DatumOd.ToString()),
-                    new ReportParameter("DatumDo", DatumDo.ToString())
+                   // new ReportParameter("DatumOd",DatumOd.ToString()),
+                    new ReportParameter("DatumDo", DatumDo.ToString()),
+                    new ReportParameter("Број", DatumDo.Day.ToString())
+
                 };
 
 

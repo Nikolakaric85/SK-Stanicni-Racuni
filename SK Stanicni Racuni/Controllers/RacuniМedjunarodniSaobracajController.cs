@@ -270,7 +270,7 @@ namespace SK_Stanicni_Racuni.Controllers
                             on fij.SifraTarife equals ZsTarifa.SifraTarife
                             where fij.Saobracaj == "2" &&
                             fij.PrStanica == sifraStanice &&
-                            fij.PrDatum >= DatumOd && fij.PrDatum <= DatumDo
+                            fij.PrDatum == DatumDo
                             group fij by new
                             {
                                 fij.OtpStanica,
@@ -341,7 +341,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("Stanica", stanica.ToString()),
                     new ReportParameter("Blagajna", blagajna),
                     new ReportParameter("DatumDo", DatumDo.ToString()),
-                    new ReportParameter("DatumOd", DatumOd.ToString()),
+                    new ReportParameter("Broj", DatumDo.Day.ToString()),
 
                 };
 

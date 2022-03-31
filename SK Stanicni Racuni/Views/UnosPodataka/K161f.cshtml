@@ -262,19 +262,6 @@
 
             $('#DatumOd', '#DatumDo').datepicker()
 
-            //var fakturaOsnovica = $('#fakturaOsnovica').val()
-            //var racunBr = $('#racunBr').val()
-            //var primalac = $('#primalac').val()
-
-            //console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
-            //if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
-            //  //  console.log('if')
-            //    $('#upisBtn').attr("disabled", false);
-            //} else {
-            //    //console.log('else')
-            //    $('#upisBtn').attr('disabled', true)
-            //}
-
         })
 
 
@@ -285,6 +272,10 @@
 
                 var fakturaOsnovica = $('#fakturaOsnovica').val()
                 var fakturaPDV = $('#fakturaPDV').val()
+
+                console.log("fakturaOsnovica" + fakturaOsnovica)
+                console.log("fakturaPDV" + fakturaPDV)
+
 
                 if (fakturaOsnovica != 0 && fakturaPDV != 0) {
                     $('#ukupnaVrednost').val((parseFloat(fakturaOsnovica) + parseFloat(fakturaPDV)).toFixed(2))
@@ -302,7 +293,7 @@
 
 
             $('#kursDinara').on('input', function () {                                   
-                decimals(this.getAttribute('Id'), this.value, 12, 2)
+                decimals(this.getAttribute('Id'), this.value, 3, 4)
             })
 
             $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').keypress(function () {                             //Da ogranici unos karaktera
@@ -311,24 +302,6 @@
                 }
             })
 
-
-
-            //$('#fakturaOsnovica, #racunBr, #primalac').on('input', function () {                                             //Uslovi na formi
-
-            //    var fakturaOsnovica = $('#fakturaOsnovica').val()
-            //    var racunBr = $('#racunBr').val()
-            //    var primalac = $('#primalac').val()
-
-            //    console.log('Osnovica ' + fakturaOsnovica + ' racun ' + racunBr + ' primalac ' + primalac)
-
-            //    if (fakturaOsnovica != '' && racunBr != '' && primalac != '') {
-            //        console.log('if')
-            //        $('#upisBtn').attr('disabled', false)
-            //    } else {
-            //        console.log('else')
-            //        $('#upisBtn').attr("disabled", true);
-            //    }
-            //})
 
             $('#vrstaUslugaSifra, #primalacTR, #primalacMB, #primalacPIB').on("cut copy paste", function (e) {
                 e.preventDefault();
