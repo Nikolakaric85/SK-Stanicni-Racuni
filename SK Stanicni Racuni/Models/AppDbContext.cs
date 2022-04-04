@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SK_Stanicni_Racuni.ViewModels;
 
 #nullable disable
 
@@ -20,13 +19,14 @@ namespace SK_Stanicni_Racuni.Models
 
         public virtual DbSet<Komitent> Komitents { get; set; }
         public virtual DbSet<SlogKalk> SlogKalks { get; set; }
-        public virtual DbSet<SlogKalkP> SlogKalkPs { get; set; }
         public virtual DbSet<SlogKalkPdv> SlogKalkPdvs { get; set; }
         public virtual DbSet<SlogKola> SlogKolas { get; set; }
         public virtual DbSet<SlogRoba> SlogRobas { get; set; }
+        public virtual DbSet<SrFaktura> SrFakturas { get; set; }
         public virtual DbSet<SrK121a> SrK121as { get; set; }
         public virtual DbSet<SrK161f> SrK161fs { get; set; }
         public virtual DbSet<Ugovori> Ugovoris { get; set; }
+        public virtual DbSet<Ugovori1> Ugovoris1 { get; set; }
         public virtual DbSet<UicOperateri> UicOperateris { get; set; }
         public virtual DbSet<UicStanice> UicStanices { get; set; }
         public virtual DbSet<UserTab> UserTabs { get; set; }
@@ -35,14 +35,13 @@ namespace SK_Stanicni_Racuni.Models
         public virtual DbSet<ZsTarifa> ZsTarifas { get; set; }
         public virtual DbSet<ZsVrsteSaobracaja> ZsVrsteSaobracajas { get; set; }
         public virtual DbSet<ZsVsStavke> ZsVsStavkes { get; set; }
-        public virtual DbSet<SlogKalkSlogKolaZsTarifaZsPrelaziViewModel> SlogKalkSlogKolaZsTarifaZsPrelaziViewModel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=192.168.2.200\\SQLEXPRESS01;Database=WinRoba;user id=elsUser;password=els5577;");
+//                optionsBuilder.UseSqlServer("Data Source=10.3.4.37;Initial Catalog=WinRoba; User ID=radnik; password=roba2006;");
             }
         }
 
@@ -50,17 +49,16 @@ namespace SK_Stanicni_Racuni.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<SlogKalkSlogKolaZsTarifaZsPrelaziViewModel>(entity =>
-            {
-                entity.HasNoKey();
-                
-            });
-
             modelBuilder.Entity<Komitent>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Sifra);
 
                 entity.ToTable("Komitent");
+
+                entity.HasIndex(e => e.Sifra, "IX_Komitent")
+                    .IsUnique();
+
+                entity.Property(e => e.Sifra).ValueGeneratedNever();
 
                 entity.Property(e => e.Adresa)
                     .HasMaxLength(30)
@@ -106,9 +104,21 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<SlogKalk>(entity =>
             {
-                //entity.HasNoKey();
+                entity.HasKey(e => new { e.RecId, e.Stanica });
 
                 entity.ToTable("SlogKalk");
+
+                entity.HasIndex(e => new { e.OtpUprava, e.OtpStanica, e.OtpBroj, e.OtpDatum }, "IX_SlogKalk")
+                    .IsUnique();
+
+                entity.Property(e => e.RecId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("RecID");
+
+                entity.Property(e => e.Stanica)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.CarAgent)
                     .HasMaxLength(30)
@@ -119,7 +129,7 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CarDatum).HasColumnType("smalldatetime");
+                entity.Property(e => e.CarDatum).HasColumnType("datetime");
 
                 entity.Property(e => e.CarDokumenti)
                     .HasMaxLength(50)
@@ -164,7 +174,7 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.CarRokCarinjenja).HasColumnType("smalldatetime");
+                entity.Property(e => e.CarRokCarinjenja).HasColumnType("datetime");
 
                 entity.Property(e => e.CarStanica)
                     .HasMaxLength(5)
@@ -186,11 +196,11 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.DatumIzlaza).HasColumnType("smalldatetime");
+                entity.Property(e => e.DatumIzlaza).HasColumnType("datetime");
 
-                entity.Property(e => e.DatumObrade).HasColumnType("smalldatetime");
+                entity.Property(e => e.DatumObrade).HasColumnType("datetime");
 
-                entity.Property(e => e.DatumUlaza).HasColumnType("smalldatetime");
+                entity.Property(e => e.DatumUlaza).HasColumnType("datetime");
 
                 entity.Property(e => e.DodPrev).HasColumnType("decimal(12, 2)");
 
@@ -227,6 +237,17 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.K165a)
+                    .HasMaxLength(1)
+                    .HasDefaultValueSql("('')");
+
+                entity.Property(e => e.K165aDatum).HasColumnName("K165a_datum");
+
+                entity.Property(e => e.K165aIznos)
+                    .HasColumnType("decimal(12, 2)")
+                    .HasColumnName("K165a_iznos")
+                    .HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.Najava)
                     .HasMaxLength(10)
                     .IsUnicode(false)
@@ -259,7 +280,9 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.OstatakDin).HasColumnType("decimal(12, 2)");
 
-                entity.Property(e => e.OtpDatum).HasColumnType("smalldatetime");
+                entity.Property(e => e.OtpDatum).HasColumnType("datetime");
+
+                entity.Property(e => e.OtpRbb).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.OtpStanica)
                     .IsRequired()
@@ -284,7 +307,9 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.PrDatum).HasColumnType("smalldatetime");
+                entity.Property(e => e.PrDatum).HasColumnType("datetime");
+
+                entity.Property(e => e.PrRbb).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.PrStanica)
                     .HasMaxLength(7)
@@ -349,8 +374,6 @@ namespace SK_Stanicni_Racuni.Models
                     .HasColumnType("decimal(12, 2)")
                     .HasColumnName("rSumaUpDin");
 
-                entity.Property(e => e.RecId).HasColumnName("RecID");
-
                 entity.Property(e => e.Referent1)
                     .HasMaxLength(4)
                     .IsUnicode(false)
@@ -391,12 +414,6 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.SkmZs).HasColumnName("SkmZS");
-
-                entity.Property(e => e.Stanica)
-                    .IsRequired()
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
 
                 entity.Property(e => e.StanicaRee)
                     .HasMaxLength(5)
@@ -506,36 +523,18 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
             });
 
-            modelBuilder.Entity<SlogKalkP>(entity =>
+            modelBuilder.Entity<SlogKalkPdv>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.RecId, e.Stanica });
 
-                entity.ToTable("SlogKalkPS");
-
-                entity.Property(e => e.PodStanica1)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.PodStanica2)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
+                entity.ToTable("SlogKalkPDV");
 
                 entity.Property(e => e.RecId).HasColumnName("RecID");
 
                 entity.Property(e => e.Stanica)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false)
                     .IsFixedLength(true);
-            });
-
-            modelBuilder.Entity<SlogKalkPdv>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("SlogKalkPDV");
 
                 entity.Property(e => e.Pdv1)
                     .HasColumnType("decimal(12, 2)")
@@ -544,21 +543,24 @@ namespace SK_Stanicni_Racuni.Models
                 entity.Property(e => e.Pdv2)
                     .HasColumnType("decimal(12, 2)")
                     .HasColumnName("PDV2");
-
-                entity.Property(e => e.RecId).HasColumnName("RecID");
-
-                entity.Property(e => e.Stanica)
-                    .IsRequired()
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<SlogKola>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.RecId, e.Stanica, e.KolaStavka })
+                    .IsClustered(false);
 
                 entity.ToTable("SlogKola");
+
+                entity.HasIndex(e => new { e.OtpUprava, e.OtpStanica, e.OtpBroj, e.OtpDatum, e.KolaStavka }, "IX_SlogKola")
+                    .IsUnique();
+
+                entity.Property(e => e.RecId).HasColumnName("RecID");
+
+                entity.Property(e => e.Stanica)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Ibk)
                     .HasMaxLength(12)
@@ -579,7 +581,7 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.Naknada).HasColumnType("decimal(12, 2)");
 
-                entity.Property(e => e.OtpDatum).HasColumnType("smalldatetime");
+                entity.Property(e => e.OtpDatum).HasColumnType("datetime");
 
                 entity.Property(e => e.OtpStanica)
                     .IsRequired()
@@ -595,16 +597,8 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.Prevoznina).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.RecId).HasColumnName("RecID");
-
                 entity.Property(e => e.Serija)
                     .HasMaxLength(11)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.Stanica)
-                    .IsRequired()
-                    .HasMaxLength(5)
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
@@ -627,13 +621,30 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.HasOne(d => d.SlogKalk)
+                    .WithMany(p => p.SlogKolas)
+                    .HasForeignKey(d => new { d.RecId, d.Stanica })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SlogKola_SlogKalk");
             });
 
             modelBuilder.Entity<SlogRoba>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.RecId, e.Stanica, e.KolaStavka, e.RobaStavka })
+                    .IsClustered(false);
 
                 entity.ToTable("SlogRoba");
+
+                entity.HasIndex(e => new { e.OtpUprava, e.OtpStanica, e.OtpBroj, e.OtpDatum, e.KolaStavka, e.RobaStavka }, "IX_SlogRoba")
+                    .IsUnique();
+
+                entity.Property(e => e.RecId).HasColumnName("RecID");
+
+                entity.Property(e => e.Stanica)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Nhm)
                     .HasMaxLength(6)
@@ -647,7 +658,7 @@ namespace SK_Stanicni_Racuni.Models
                     .HasColumnName("NHMRazred")
                     .IsFixedLength(true);
 
-                entity.Property(e => e.OtpDatum).HasColumnType("smalldatetime");
+                entity.Property(e => e.OtpDatum).HasColumnType("datetime");
 
                 entity.Property(e => e.OtpStanica)
                     .IsRequired()
@@ -660,8 +671,6 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(4)
                     .IsUnicode(false)
                     .IsFixedLength(true);
-
-                entity.Property(e => e.RecId).HasColumnName("RecID");
 
                 entity.Property(e => e.Rid)
                     .HasMaxLength(1)
@@ -688,12 +697,6 @@ namespace SK_Stanicni_Racuni.Models
                 entity.Property(e => e.SmasaDec)
                     .HasColumnType("decimal(9, 2)")
                     .HasColumnName("SMasaDec");
-
-                entity.Property(e => e.Stanica)
-                    .IsRequired()
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
 
                 entity.Property(e => e.UtiBrPlombe)
                     .HasMaxLength(12)
@@ -727,12 +730,152 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.HasOne(d => d.SlogKola)
+                    .WithMany(p => p.SlogRobas)
+                    .HasForeignKey(d => new { d.RecId, d.Stanica, d.KolaStavka })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SlogRoba_SlogKola");
+            });
+
+            modelBuilder.Entity<SrFaktura>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("SR_Faktura");
+
+                entity.Property(e => e.Blagajna).HasComment("Šifra blagajne ");
+
+                entity.Property(e => e.BlagajnaTip)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength(true)
+                    .HasComment("P=prispeća; O=Otpravljanja");
+
+                entity.Property(e => e.Blagajnik)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.FakturaBroj).HasMaxLength(20);
+
+                entity.Property(e => e.FakturaDatum)
+                    .HasColumnType("date")
+                    .HasComment("Datum nastanka obaveze");
+
+                entity.Property(e => e.FakturaDatumP)
+                    .HasColumnType("date")
+                    .HasComment("Datum plaćanja");
+
+                entity.Property(e => e.FakturaDatumPromet)
+                    .HasColumnType("date")
+                    .HasComment("Datum prometa usluge");
+
+                entity.Property(e => e.FakturaOsnovica)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.FakturaPdv)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasColumnName("FakturaPDV")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.FakturaTekst).HasMaxLength(200);
+
+                entity.Property(e => e.FakturaTotal).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.Fjcena)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasColumnName("FJCena")
+                    .HasComment("Jedinična cena");
+
+                entity.Property(e => e.Fjedinica)
+                    .HasMaxLength(50)
+                    .HasColumnName("FJedinica")
+                    .HasComment("Jedinična mera");
+
+                entity.Property(e => e.Fkolicina)
+                    .HasMaxLength(50)
+                    .HasColumnName("FKolicina")
+                    .HasComment("Količina");
+
+                entity.Property(e => e.Fopdv)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .HasColumnName("FOPdv")
+                    .HasDefaultValueSql("('N')")
+                    .IsFixedLength(true)
+                    .HasComment("Oslobođeno PDV-a");
+
+                entity.Property(e => e.Fopdvcst)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("FOPDVCST")
+                    .IsFixedLength(true)
+                    .HasComment("Član, Stav, Tačka zakona za oslobađanje od PDV-a");
+
+                entity.Property(e => e.Fpath)
+                    .HasMaxLength(200)
+                    .HasColumnName("FPATH")
+                    .HasComment("Putanja za skenirani dokument");
+
+                entity.Property(e => e.FpozivNaBroj)
+                    .HasMaxLength(50)
+                    .HasColumnName("FPozivNaBroj");
+
+                entity.Property(e => e.Kurs).HasColumnType("decimal(12, 4)");
+
+                entity.Property(e => e.OtpDatum).HasColumnType("datetime");
+
+                entity.Property(e => e.PrDatum).HasColumnType("datetime");
+
+                entity.Property(e => e.Primalac).HasMaxLength(150);
+
+                entity.Property(e => e.PrimalacAdresa).HasMaxLength(150);
+
+                entity.Property(e => e.PrimalacMb)
+                    .HasMaxLength(10)
+                    .HasColumnName("PrimalacMB")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacPib)
+                    .HasMaxLength(10)
+                    .HasColumnName("PrimalacPIB")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacTelefon)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacTr)
+                    .HasMaxLength(10)
+                    .HasColumnName("PrimalacTR")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacUg)
+                    .HasMaxLength(6)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PrimalacZemlja).HasMaxLength(50);
+
+                entity.Property(e => e.Stanica)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.TekuciRacun).HasMaxLength(80);
+
+                entity.Property(e => e.VrstaUslugaOpis).HasMaxLength(2000);
+
+                entity.Property(e => e.VrstaUslugaSifra)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<SrK121a>(entity =>
             {
-               // entity.HasNoKey();
-
                 entity.ToTable("SR_K121a");
 
                 entity.Property(e => e.Blagajnik)
@@ -740,11 +883,25 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.BlagajnikFr)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .HasColumnName("BlagajnikFR")
+                    .IsFixedLength(true);
+
                 entity.Property(e => e.Datum).HasColumnType("date");
+
+                entity.Property(e => e.DatumVracanjaFr)
+                    .HasColumnType("date")
+                    .HasColumnName("DatumVracanjaFR");
 
                 entity.Property(e => e.Iznos)
                     .HasColumnType("decimal(18, 2)")
                     .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.ObracunFr)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasColumnName("ObracunFR");
 
                 entity.Property(e => e.OtpDatum).HasColumnType("date");
 
@@ -761,6 +918,11 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.PrimalacZemlja).HasMaxLength(50);
 
+                entity.Property(e => e.Saobracaj)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
                 entity.Property(e => e.Stanica)
                     .HasMaxLength(7)
                     .IsUnicode(false)
@@ -769,11 +931,13 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<SrK161f>(entity =>
             {
-               // entity.HasNoKey();
-
                 entity.ToTable("SR_K161f");
 
-                entity.Property(e => e.BlagajnaTip).HasMaxLength(15);
+                entity.Property(e => e.BlagajnaTip)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength(true)
+                    .HasComment("P=prispeća; O=Otpravljanja");
 
                 entity.Property(e => e.Blagajnik)
                     .HasMaxLength(4)
@@ -782,7 +946,11 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.FakturaBroj).HasMaxLength(20);
 
-                entity.Property(e => e.FakturaDatum).HasColumnType("date");
+                entity.Property(e => e.FakturaDatum)
+                    .HasColumnType("date")
+                    .HasComment("Datum nastanka obaveze");
+
+                entity.Property(e => e.FakturaDatumP).HasColumnType("date");
 
                 entity.Property(e => e.FakturaOsnovica)
                     .HasColumnType("decimal(18, 2)")
@@ -792,6 +960,14 @@ namespace SK_Stanicni_Racuni.Models
                     .HasColumnType("decimal(18, 2)")
                     .HasColumnName("FakturaPDV")
                     .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.Kurs).HasColumnType("decimal(12, 2)");
+
+                entity.Property(e => e.NaplacenoNb)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .HasColumnName("NaplacenoNB")
+                    .HasDefaultValueSql("(N'')");
 
                 entity.Property(e => e.Primalac).HasMaxLength(150);
 
@@ -818,6 +994,8 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.PrimalacZemlja).HasMaxLength(50);
 
+                entity.Property(e => e.Saobracaj).HasMaxLength(1);
+
                 entity.Property(e => e.Stanica)
                     .HasMaxLength(7)
                     .IsUnicode(false)
@@ -833,15 +1011,22 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<Ugovori>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.BrojUgovora, e.VrstaObracuna })
+                    .HasName("XPKUgovori");
 
                 entity.ToTable("Ugovori");
 
                 entity.Property(e => e.BrojUgovora)
-                    .IsRequired()
                     .HasMaxLength(6)
                     .IsUnicode(false)
-                    .IsFixedLength(true);
+                    .IsFixedLength(true)
+                    .HasComment("Centralni obracun ili Redovni");
+
+                entity.Property(e => e.VrstaObracuna)
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .IsFixedLength(true)
+                    .HasComment("CO=centralni obracun KP=komercijalna povlastica");
 
                 entity.Property(e => e.BrojUgovoraStari)
                     .HasMaxLength(6)
@@ -853,14 +1038,15 @@ namespace SK_Stanicni_Racuni.Models
                 entity.Property(e => e.Saobracaj)
                     .HasMaxLength(1)
                     .IsUnicode(false)
-                    .IsFixedLength(true);
+                    .IsFixedLength(true)
+                    .HasComment("E=uvoz, I=izvoz, U=unutrasnji");
 
                 entity.Property(e => e.TipUgovora)
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.UgPath).HasColumnType("date");
+                entity.Property(e => e.UgPath).HasMaxLength(500);
 
                 entity.Property(e => e.UserId)
                     .HasMaxLength(4)
@@ -882,6 +1068,26 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.VrstaKursaT)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("((3))")
+                    .IsFixedLength(true)
+                    .HasComment("1=SKG; 3=NBS");
+            });
+
+            modelBuilder.Entity<Ugovori1>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Ugovori", "roba214kp");
+
+                entity.Property(e => e.BrojUgovora)
+                    .IsRequired()
+                    .HasMaxLength(6)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Saobracaj)
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength(true);
@@ -943,9 +1149,14 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<UicStanice>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.SifraStanice);
 
                 entity.ToTable("UicStanice");
+
+                entity.Property(e => e.SifraStanice)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Kb)
                     .HasMaxLength(1)
@@ -955,12 +1166,6 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.Naziv)
                     .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.SifraStanice)
-                    .IsRequired()
-                    .HasMaxLength(7)
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
@@ -981,9 +1186,15 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<UserTab>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.UserId);
 
                 entity.ToTable("UserTab");
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(4)
+                    .IsUnicode(false)
+                    .HasColumnName("UserID")
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.Grupa)
                     .HasMaxLength(20)
@@ -1004,20 +1215,18 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(5)
                     .IsUnicode(false)
                     .IsFixedLength(true);
-
-                entity.Property(e => e.UserId)
-                    .IsRequired()
-                    .HasMaxLength(4)
-                    .IsUnicode(false)
-                    .HasColumnName("UserID")
-                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<ZsPrelazi>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.SifraPrelaza);
 
                 entity.ToTable("ZsPrelazi");
+
+                entity.Property(e => e.SifraPrelaza)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
 
                 entity.Property(e => e.GranicnaUprava)
                     .HasMaxLength(2)
@@ -1034,12 +1243,6 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.SifraPrelaza)
-                    .IsRequired()
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
-
                 entity.Property(e => e.SifraPrelaza4)
                     .HasMaxLength(4)
                     .IsUnicode(false)
@@ -1048,9 +1251,16 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<ZsStanice>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.SifraStanice);
 
                 entity.ToTable("ZsStanice");
+
+                entity.Property(e => e.SifraStanice)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Blagajna).HasDefaultValueSql("(1)");
 
                 entity.Property(e => e.Carina)
                     .HasMaxLength(1)
@@ -1126,12 +1336,6 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.SifraStanice)
-                    .IsRequired()
-                    .HasMaxLength(7)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
-
                 entity.Property(e => e.SifraStanice1)
                     .IsRequired()
                     .HasMaxLength(5)
@@ -1159,7 +1363,8 @@ namespace SK_Stanicni_Racuni.Models
                 entity.Property(e => e.Vrsta)
                     .HasMaxLength(1)
                     .IsUnicode(false)
-                    .IsFixedLength(true);
+                    .IsFixedLength(true)
+                    .HasComment("C=cvor; P=na pruzi");
 
                 entity.Property(e => e.X).HasColumnName("_X");
 
@@ -1169,66 +1374,76 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.HasOne(d => d.SifraStaniceNavigation)
+                    .WithOne(p => p.ZsStanice)
+                    .HasForeignKey<ZsStanice>(d => d.SifraStanice)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ZsStanice_UicStanice");
             });
 
             modelBuilder.Entity<ZsTarifa>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.SifraTarife, e.TarifaStavka, e.SifraVs })
+                    .HasName("XPKZsTarifa");
 
                 entity.ToTable("ZsTarifa");
 
-                entity.Property(e => e.Naziv)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Opis)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.SifraTarife)
-                    .IsRequired()
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.TarifaStavka)
                     .HasMaxLength(2)
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.SifraVs).HasColumnName("SifraVS");
 
-                entity.Property(e => e.TarifaStavka)
-                    .IsRequired()
-                    .HasMaxLength(2)
+                entity.Property(e => e.Naziv)
+                    .HasMaxLength(10)
                     .IsUnicode(false)
-                    .IsFixedLength(true);
+                    .HasComment("Naziv tarife");
 
-                entity.Property(e => e.VaziDo).HasColumnType("smalldatetime");
+                entity.Property(e => e.Opis)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasComment("Pun opis tarife");
 
-                entity.Property(e => e.VaziOd).HasColumnType("smalldatetime");
+                entity.Property(e => e.VaziDo).HasColumnType("datetime");
+
+                entity.Property(e => e.VaziOd).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<ZsVrsteSaobracaja>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.SifraVs);
 
                 entity.ToTable("ZsVrsteSaobracaja");
+
+                entity.Property(e => e.SifraVs)
+                    .ValueGeneratedNever()
+                    .HasColumnName("SifraVS");
 
                 entity.Property(e => e.Saobracaj)
                     .HasMaxLength(10)
                     .IsUnicode(false);
-
-                entity.Property(e => e.SifraVs).HasColumnName("SifraVS");
             });
 
             modelBuilder.Entity<ZsVsStavke>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.SifraVs, e.SifraVsStavka })
+                    .HasName("PK_Table1");
 
                 entity.ToTable("ZsVsStavke");
+
+                entity.Property(e => e.SifraVs).HasColumnName("SifraVS");
 
                 entity.Property(e => e.Naziv)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .IsFixedLength(true);
-
-                entity.Property(e => e.SifraVs).HasColumnName("SifraVS");
             });
 
             OnModelCreatingPartial(modelBuilder);

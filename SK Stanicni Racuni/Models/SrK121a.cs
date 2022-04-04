@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -8,11 +7,11 @@ namespace SK_Stanicni_Racuni.Models
 {
     public partial class SrK121a
     {
-        [Key]
-        public int Id { get; set; }
         public string Stanica { get; set; }
         public int? Blagajna { get; set; }
         public int? Broj { get; set; }
+        public int? RedniBroj { get; set; }
+        public string Saobracaj { get; set; }
         public string Pošiljalac { get; set; }
         public decimal? Iznos { get; set; }
         public int? OtpBroj { get; set; }
@@ -23,13 +22,9 @@ namespace SK_Stanicni_Racuni.Models
         public string PrimalacZemlja { get; set; }
         public DateTime? Datum { get; set; }
         public string Blagajnik { get; set; }
-        public int RedniBroj { get; set; }
-        public char? Saobracaj { get; set; }
-        public DateTime? DatumVracanjaFR { get; set; }
-        public decimal? ObracunFR { get; set; }
-        [ScaffoldColumn(true)]
-        [StringLength(4, ErrorMessage = "The {0} value cannot exceed {1} characters. ")]
-        public string BlagajnikFR { get; set; }
-
+        public DateTime? DatumVracanjaFr { get; set; }
+        public decimal? ObracunFr { get; set; }
+        public string BlagajnikFr { get; set; }
+        public int Id { get; set; }
     }
 }

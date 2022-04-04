@@ -71,7 +71,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         sk.PrBroj == Int32.Parse(prBroj) &&
                         sk.PrStanica == prStanica
 
-                        select new { sk.K165a, sk.K165a_iznos, sk.K165a_datum };
+                        select new { sk.K165a, sk.K165aIznos, sk.K165aDatum };
 
             var viewModel = new UnosK165aViewModel();
 
@@ -89,21 +89,21 @@ namespace SK_Stanicni_Racuni.Controllers
                     foreach (var item in query)
                     {
 
-                        if (item.K165a == '\0')
+                        if (item.K165a == "0")
                         {
                             ViewBag.k165aList = new SelectList(k165aList, k165aList[0]);
                         }
-                        else if (item.K165a == 'N')
+                        else if (item.K165a == "N")
                         {
                             ViewBag.k165aList = new SelectList(k165aList, k165aList[1]);
                         }
-                        else if (item.K165a == 'D')
+                        else if (item.K165a == "D")
                         {
                             ViewBag.k165aList = new SelectList(k165aList, k165aList[2]);
                         }
 
-                        viewModel.K165a_iznos = item.K165a_iznos;
-                        viewModel.K165a_datum = item.K165a_datum;
+                        viewModel.K165a_iznos = (decimal)item.K165aIznos;
+                        viewModel.K165a_datum = item.K165aDatum;
                         viewModel.PrBroj = Int32.Parse(prBroj);
                         viewModel.PrStanica = prStanica;
                     }
@@ -137,17 +137,17 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (k165a == null)
             {
-                newModel.K165a = ' ';
+                newModel.K165a = string.Empty;
             } else if (k165a == "Iskupljen")
             {
-                newModel.K165a = 'D';
+                newModel.K165a = "D";
             } else if(k165a == "Ne iskupljen")
             {
-                newModel.K165a = 'N';
+                newModel.K165a = "N";
             }
 
-            newModel.K165a_iznos = viewModel.K165a_iznos;
-            _ = datumDo.ToString() != "1/1/0001 12:00:00 AM" ? newModel.K165a_datum = datumDo : newModel.K165a_datum = model.K165a_datum;
+            newModel.K165aIznos = viewModel.K165a_iznos;
+            _ = datumDo.ToString() != "1/1/0001 12:00:00 AM" ? newModel.K165aDatum = datumDo : newModel.K165aDatum = model.K165aDatum;
             
             try
             {
@@ -198,7 +198,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
         //***********************  IMA JOS POSLA DA SE OGRANICI UNOS PODATAKA NA FORMI *******************************************************************************
         public IActionResult K161F_save([ModelBinder(typeof(DatumOdModelBinder))] DateTime DatumOd, [ModelBinder(typeof(DatumDoModelBinder))] DateTime DatumDo, 
-            SrK161f model, char naplacenoCheckBox = 'N')
+            SrK161f model, string naplacenoCheckBox = "N")
         {
             var fakturaBrojCheck = context.SrK161fs.Where(x => x.FakturaBroj == model.FakturaBroj).FirstOrDefault();
             if (fakturaBrojCheck != null)
@@ -230,7 +230,7 @@ namespace SK_Stanicni_Racuni.Controllers
             newModel.Kurs = model.Kurs;
             newModel.FakturaOsnovica = model.FakturaOsnovica;
             newModel.FakturaPdv = model.FakturaPdv;
-            newModel.NaplacenoNB = naplacenoCheckBox;
+            newModel.NaplacenoNb = naplacenoCheckBox;
             newModel.Primalac = model.Primalac;
             newModel.PrimalacAdresa = model.PrimalacAdresa;
             newModel.PrimalacZemlja = model.PrimalacZemlja;
@@ -341,7 +341,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 newModel.Stanica = sifraStanice.SifraStanice;
             }
             newModel.Blagajna = Int32.Parse(blagajna);
-            newModel.Saobracaj = Char.Parse(saobracaj);
+            newModel.Saobracaj = saobracaj;
 
             try
             {
@@ -443,9 +443,9 @@ namespace SK_Stanicni_Racuni.Controllers
             var newModel = new SrK121a();
             newModel = query;
             newModel.RedniBroj = model.RedniBroj;
-            newModel.DatumVracanjaFR = DatumDo;
-            newModel.ObracunFR = model.ObracunFR;
-            newModel.BlagajnikFR = UserId;
+            newModel.DatumVracanjaFr = DatumDo;
+            newModel.ObracunFr = model.ObracunFr;
+            newModel.BlagajnikFr = UserId;
 
             try
             {

@@ -12,5 +12,7 @@ namespace SK_Stanicni_Racuni.Models
         public string Kb { get; set; }
         public string SifraUprave { get; set; }
         public string SifraStanice1 { get; set; }
+
+        public virtual ZsStanice ZsStanice { get; set; }
     }
 }

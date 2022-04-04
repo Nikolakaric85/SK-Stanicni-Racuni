@@ -60,16 +60,16 @@ namespace SK_Stanicni_Racuni.Controllers
                         join SlogKalk in context.SlogKalks
                         on ZsStanice.SifraStanice equals SlogKalk.PrStanica
                         where ((SlogKalk.Saobracaj == "1") || (SlogKalk.Saobracaj == "2"))
-                        && SlogKalk.K165a == 'D'
+                        && SlogKalk.K165a == "D"
                         && SlogKalk.PrStanica == sifraStanice
-                        && SlogKalk.K165a_datum == Datum
+                        && SlogKalk.K165aDatum == Datum
                         select new
                         {
                             PrStanica = SlogKalk.PrStanica,
                             Saobracaj = SlogKalk.Saobracaj,
                             Naziv = ZsStanice.Naziv,
                             PrBroj = SlogKalk.PrBroj,
-                            K165a_iznos = SlogKalk.K165a_iznos,
+                            K165a_iznos = SlogKalk.K165aIznos,
                             PrRbb = SlogKalk.PrRbb,
                         };
 

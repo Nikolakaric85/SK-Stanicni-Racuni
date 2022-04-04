@@ -37,5 +37,7 @@ namespace SK_Stanicni_Racuni.Models
         public string SifraStanice1 { get; set; }
         public string Vrsta { get; set; }
         public string Prikaz { get; set; }
+
+        public virtual UicStanice SifraStaniceNavigation { get; set; }
     }
 }

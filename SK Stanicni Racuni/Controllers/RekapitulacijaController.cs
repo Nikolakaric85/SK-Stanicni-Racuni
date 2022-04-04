@@ -102,7 +102,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     row["FakturaDatum"] = item.FakturaDatum.Value.ToString("dd.MM.yyyy");
                 }
 
-                if (item.NaplacenoNB == 'D' && item.Saobracaj == '1')
+                if (item.NaplacenoNb == "D" && item.Saobracaj == "D")
                 {
                     if (item.FakturaDatum.HasValue)
                     {
@@ -115,7 +115,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     row["FakturalniIznos6a"] = string.Format(elGR, "{0:0,0}", Double.Parse(array[0]));
                     row["FakturalniIznos6a_pare"] = array[1];
                 }
-                else if (item.NaplacenoNB == 'D' && item.Saobracaj == '2')
+                else if (item.NaplacenoNb == "D" && item.Saobracaj == "2" )
                 {
                     if (item.FakturaDatum.HasValue)
                     {
@@ -137,7 +137,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     row["FakturalniIznos_pare"] = arrayFaktura[1];
                 }
 
-                if (item.NaplacenoNB == 'N')
+                if (item.NaplacenoNb == "N")
                 {
                     if (item.FakturaDatum.HasValue)
                     {
@@ -303,38 +303,38 @@ namespace SK_Stanicni_Racuni.Controllers
                 row["Iznos"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.Iznos.ToString()));
                 SumaIznos += (decimal)item.Iznos;
 
-                if (item.Saobracaj == '1')
+                if (item.Saobracaj == "1" )
                 {
-                    if (item.ObracunFR.HasValue)
+                    if (item.ObracunFr.HasValue)
                     {
-                        row["ObracunFR13"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFR.ToString()));
-                        SumaObracunFR13 += (decimal)item.ObracunFR;
+                        row["ObracunFR13"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFr.ToString()));
+                        SumaObracunFR13 += (decimal)item.ObracunFr;
                     }
 
                 }
-                else if (item.Saobracaj == '2')
+                else if (item.Saobracaj == "2")
                 {
-                    if (item.ObracunFR.HasValue)
+                    if (item.ObracunFr.HasValue)
                     {
-                        row["ObracunFR14"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFR.ToString()));
-                        SumaObracunFR14 += (decimal)item.ObracunFR;
+                        row["ObracunFR14"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFr.ToString()));
+                        SumaObracunFR14 += (decimal)item.ObracunFr;
                     }
                 }
                 else
                 {
-                    if (item.ObracunFR.HasValue)
+                    if (item.ObracunFr.HasValue)
                     {
-                        row["ObracunFR"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFR.ToString()));
-                        SumaObracunFR += (decimal)item.ObracunFR;
+                        row["ObracunFR"] = string.Format(elGR, "{0:0,0}", Double.Parse(item.ObracunFr.ToString()));
+                        SumaObracunFR += (decimal)item.ObracunFr;
                     }
                 }
 
-                if (item.Iznos != 0 && item.ObracunFR != 0)
+                if (item.Iznos != 0 && item.ObracunFr != 0)
                 {
-                    if (item.Iznos.HasValue && item.ObracunFR.HasValue)
+                    if (item.Iznos.HasValue && item.ObracunFr.HasValue)
                     {
-                        row["Razlika"] = string.Format(elGR, "{0:0,0}", Double.Parse((item.Iznos - item.ObracunFR).ToString()));
-                        Razlika += (decimal)(item.Iznos - item.ObracunFR);
+                        row["Razlika"] = string.Format(elGR, "{0:0,0}", Double.Parse((item.Iznos - item.ObracunFr).ToString()));
+                        Razlika += (decimal)(item.Iznos - item.ObracunFr);
                     }
                 }
                 dt.Rows.Add(row);

@@ -1,0 +1,349 @@
+﻿
+<div class="container">
+    <form>
+        @if (ViewBag.Admin == true)
+        {
+
+            <div class="row mt-3">
+
+                <div class="alert alert-primary" role="alert">
+                    <strong>Stanični račun K-1P</strong>
+                </div>
+
+
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                    <label>Stanica</label>
+                    <input class="form-control form-control-sm" list="myDatalist" id="myDatalistInput" value="@ViewBag.Stanica" name="stanica" autocomplete="off" required />
+                    <datalist id="myDatalist" open="open">
+                    </datalist>
+                    <div class="invalid-feedback">
+                        Unesite naziv stanice.
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                    <label>Broj računa</label>
+                    <input class="form-control form-control-sm" name="racunBr" id="racunBr" autocomplete="off" />
+                    <div class="invalid-feedback">
+                        Unesite broj računa.
+                    </div>
+                </div>
+
+                <div class="col-xxl-1 col-xl-1 col-lg col-md mt-4">
+                    <button type="submit" class="btn btn-sm btn-primary" style="margin-top:7px" asp-controller="StanicniRacun" asp-action="Prikazi" id="pretraziBtn">Pretraži</button>
+                </div>
+            </div>
+
+
+        }
+        else
+        {
+            /***************************** PRVI SEKTOR **************************************************************/
+            /***************************** PRVI RED *****************************************************************/
+
+            <div class="row mt-5">
+                <div class="col-md-3">
+                    <label class="mb-0">Naziv stanice</label>
+                    <input class="form-control form-control-sm" list="myDatalist" id="myDatalistInput" value="@ViewBag.Stanica" name="stanica" autocomplete="off" required />
+                    <datalist id="myDatalist" open="open">
+                    </datalist>
+                    <div class="invalid-feedback">
+                        Unesite naziv stanice.
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="mb-0">Šifra</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">Mesto izdavanja računa</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+
+            /***************************** DRUGI RED *****************************************************************/
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="mb-0">Blagajna</label>
+                    <select class="form-select form-select-sm" aria-label="Default select example" name="blagajna">
+                        <option value="1">Prispeća</option>
+                        <option value="2">Otpravljanja</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="mb-0">Šifra</label>
+                    <select class="form-select form-select-sm" aria-label="Default select example" name="blagajna">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">Tekući račun</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">Matični broj</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">PIB</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+            <div class="my-2">
+                <hr />
+            </div>
+            /***************************** DRUGI SEKTOR **************************************************************/
+            /***************************** TREĆI RED *****************************************************************/
+
+
+            <div class="row mt-3">
+
+                <div class="col-md-3">
+
+                </div>
+
+                <div class="col-md-3">
+                    <label class="mb-0">Naziv pirmaoca računa</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">Broj ugovora</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+            /***************************** ČETVRTI RED *****************************************************************/
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <label class="mb-0">Račun broj</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="mb-0">Mesto</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">Ulica i broj</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+            /***************************** PETI RED *****************************************************************/
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                </div>
+
+                <div class="col-md-5">
+                    <label class="mb-0">Telefon</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+            /***************************** ŠESTI RED *****************************************************************/
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                </div>
+
+                <div class="col-md-5">
+                    <label class="mb-0">Tekući račun</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+
+            /***************************** SEDMI RED *****************************************************************/
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                </div>
+
+                <div class="col-md-5">
+                    <label class="mb-0">Matični broj</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+
+                </div>
+
+            </div>
+
+
+            /***************************** OSMI RED *****************************************************************/
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                </div>
+
+                <div class="col-md-5">
+                    <label class="mb-0">PIB</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+            <div class="my-2">
+                <hr />
+            </div>
+
+            /***************************** TREĆI SEKTOR **************************************************************/
+
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <label class="mb-0">Datum nastanka obaveze</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">Datum plaćanja</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label class="mb-0">Vrsta dobara ili usluga</label>
+                    <textarea class="form-control form-control-sm" id="exampleFormControlTextarea1"></textarea>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="mb-0">Datum prometa usluga</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+                <div class="col-md-1">
+                    <label class="mb-0">Jed. mera</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+                <div class="col-md-1">
+                    <label class="mb-0">Količina</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+                <div class="col-md-2">
+                    <label class="mb-0">Jedinična cena dinara</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+                <div class="col-md-2">
+                    <label class="mb-0">Ukupno dinara</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="mb-0">Fakturisao</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+                <div class="col-md-2">
+                    <label class="mb-0">Datum izdavanja</label>
+                    <input class="form-control form-control-sm" autocomplete="off" />
+                </div>
+            </div>
+
+
+
+
+        }
+
+
+    </form>
+
+
+
+
+
+
+
+
+
+
+    @if (((IEnumerable<SrFaktura>)ViewBag.stanicniRacuni).Any())
+    {
+        <div>
+            <table class="table table-hover mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Stanica</th>
+                        <th scope="col">FakturaBroj</th>
+                        @*<th scope="col">FakturaDatum</th>*@
+                        <th scope="col">PDF</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ((IEnumerable<SrFaktura>)ViewBag.stanicniRacuni))
+                    {
+
+                        <tr>
+                            <td scope="row">@item.Stanica</td>
+                            <td>@item.FakturaBroj</td>
+                            @*<td>@item.FakturaDatum</td>*@
+                            <td><a class="btn btn-primary" href="#" role="button">Link</a></td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+
+    $(window).on('load', function () {
+
+       
+    })
+
+
+
+    </script>
+}

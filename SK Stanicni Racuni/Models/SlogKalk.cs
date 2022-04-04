@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -8,7 +7,11 @@ namespace SK_Stanicni_Racuni.Models
 {
     public partial class SlogKalk
     {
-        [Key]
+        public SlogKalk()
+        {
+            SlogKolas = new HashSet<SlogKola>();
+        }
+
         public int RecId { get; set; }
         public string Stanica { get; set; }
         public string OtpUprava { get; set; }
@@ -98,6 +101,9 @@ namespace SK_Stanicni_Racuni.Models
         public decimal? RPrevUpDin { get; set; }
         public decimal? RNakFrDin { get; set; }
         public decimal? RNakUpDin { get; set; }
+        public decimal? K165aIznos { get; set; }
+        public DateTime? K165aDatum { get; set; }
+        public string K165a { get; set; }
         public string TlRealizovan { get; set; }
         public string SifraK211 { get; set; }
         public string Obrada { get; set; }
@@ -122,9 +128,7 @@ namespace SK_Stanicni_Racuni.Models
         public string CarAgent { get; set; }
         public string CarXml { get; set; }
         public string Server { get; set; }
-        public DateTime? K165a_datum { get; set; }
-        public char K165a { get; set; }
 
-        public decimal K165a_iznos { get; set; }
+        public virtual ICollection<SlogKola> SlogKolas { get; set; }
     }
 }

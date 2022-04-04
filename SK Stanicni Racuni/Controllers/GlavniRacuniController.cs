@@ -70,7 +70,7 @@ namespace SK_Stanicni_Racuni.Controllers
                                && sk.PrStanica == sifraStanice
                                select new
                                {
-                                   K165a_iznos = sk.K165a_iznos,
+                                   K165a_iznos = sk.K165aIznos,
                                    Saobracaj = sk.Saobracaj,
                                    PrBroj = sk.PrBroj
                                };
@@ -84,7 +84,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     if (item.Saobracaj == "1")
                     {
-                        naplacenoK165aUnutrSum += item.K165a_iznos;
+                        naplacenoK165aUnutrSum += (decimal)item.K165a_iznos;
                         if (item.PrBroj > 0)
                         {
                             prBrojUnutList.Add((int)item.PrBroj);
@@ -94,7 +94,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     }
                     else if (item.Saobracaj != "1")
                     {
-                        naplacenoK165aMedjSum += item.K165a_iznos;
+                        naplacenoK165aMedjSum += (decimal)item.K165a_iznos;
                         if (item.PrBroj > 0)
                         {
                             prBrojMedjList.Add((int)item.PrBroj);
@@ -180,7 +180,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 foreach (var item in K161f)
                 {
-                    if (item.Saobracaj == '1')
+                    if (item.Saobracaj == "1")
                     {
                         fakturaUnutSum += (decimal)(item.FakturaOsnovica + item.FakturaPdv);
                     }
@@ -448,7 +448,7 @@ namespace SK_Stanicni_Racuni.Controllers
                               && sr121a.Stanica == sifraStanice
                               select new
                               {
-                                  ObracunFR = sr121a.ObracunFR,
+                                  ObracunFR = sr121a.ObracunFr,
                                   Saobracaj = sr121a.Saobracaj
                               };
 
@@ -457,11 +457,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 foreach (var item in SR_121a)
                 {
-                    if (item.Saobracaj == '1' && item.ObracunFR != null)
+                    if (item.Saobracaj == "1"  && item.ObracunFR != null)
                     {
                         naplacenoK115UnutrSum += (decimal)item.ObracunFR;
                     }
-                    else if (item.Saobracaj != '1' && item.ObracunFR != null)
+                    else if (item.Saobracaj != "1" && item.ObracunFR != null)
                     {
                         naplacenoK115MedjSum += (decimal)item.ObracunFR;
                     }
@@ -495,7 +495,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 var sr161f = from sr161 in context.SrK161fs
                              where (sr161.FakturaDatum >= DatumOd && sr161.FakturaDatum <= DatumDo)
                              && sr161.Stanica == sifraStanice
-                             && sr161.NaplacenoNB == 'D'
+                             && sr161.NaplacenoNb == "D" 
                              select new
                              {
                                  FakturaOsnovica = sr161.FakturaOsnovica,
@@ -507,7 +507,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 foreach (var item in sr161f)
                 {
-                    if (item.Saobracaj == '1' && item.FakturaOsnovica != null && item.FakturaPDV != null)
+                    if (item.Saobracaj == "1" && item.FakturaOsnovica != null && item.FakturaPDV != null)
                     {
                         naknade111fUnutrSum += (decimal)(item.FakturaOsnovica + item.FakturaPDV);
                     }

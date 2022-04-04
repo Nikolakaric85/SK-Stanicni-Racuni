@@ -16,7 +16,7 @@ namespace SK_Stanicni_Racuni.Models
         public DateTime? VaziOd { get; set; }
         public DateTime? VaziDo { get; set; }
         public string Saobracaj { get; set; }
-        public DateTime? UgPath { get; set; }
+        public string UgPath { get; set; }
         public string UserId { get; set; }
         public DateTime? DatumUnosa { get; set; }
         public string BrojUgovoraStari { get; set; }

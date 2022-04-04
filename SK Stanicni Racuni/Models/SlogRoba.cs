@@ -35,5 +35,7 @@ namespace SK_Stanicni_Racuni.Models
         public string UtiNhm { get; set; }
         public string UtiPredajniList { get; set; }
         public string UtiBrPlombe { get; set; }
+
+        public virtual SlogKola SlogKola { get; set; }
     }
 }
