@@ -32,7 +32,7 @@
                 });
             })
 
-            $('#myDatalistInput').on('input', function () {
+            $('#myDatalistInput, #myDatalistInputNPR').on('input', function () {
    
                 var letters = /^[\p{L} ]+$/u;                       //Da dozvoli samo unos slova i ŠĐĆČŽ
                 var res = "";
@@ -67,7 +67,7 @@
                 weekStart: 1
             };
 
-            $('#DatumOd, #DatumDo, #OtpDatum, #Datum, #k165aDatum').datepicker({
+            $('#DatumOd, #DatumDo, #OtpDatum, #Datum, #k165aDatum,#DatumP, #DatumPU, #DatumI').datepicker({
                 todayBtn: true,
                 todayBtn: 'linked',
                 todayHighlight: true,
@@ -96,58 +96,18 @@
                         form.classList.add('was-validated')
                     }, false)
                 })
-            /*  })()*/
+           
+
+
+
+        
 
 
 
 
 
 
-
-
-
-           // var arr = [];
-
-            //function Lista() {
-
-            //    $.ajax({
-            //        type: "GET",
-            //        url: "/ListaStanica/ListaMedjunarodnihStanica",
-            //        cache: false,
-            //        success: function (data) {
-
-            //            for (var i = 0; i < data.length; i++) {
-            //                arr.push(data[i])
-            //            }
-                        
-                        
-            //        }
-            //    });
-            //}
-
-            //Lista()
-
-            //$('#myDatalistInputMedju').on('input', function () {
-
-            //    var data = $('#myDatalistInputMedju').val()
-
-            //    console.log(data)
-
-            //    var filtered = arr.filter(function (value) {
-            //        return value.indexOf(data) > -1
-            //    })
-
-            //    var options = '';
-
-            //    for (var i = 0; i < filtered.length; i++) {
-            //        options += '<option value="' + filtered[i] + '" />';
-            //    }
-            //    $('#myDatalist').html(options)
-
-            //    console.log(filtered)
-                
-
-            //})
+          
 
             
 

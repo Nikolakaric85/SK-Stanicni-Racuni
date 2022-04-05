@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SK_Stanicni_Racuni.Controllers
 {
@@ -17,12 +15,12 @@ namespace SK_Stanicni_Racuni.Controllers
             this.context = context;
         }
 
- 
+
 
         public IActionResult ListaMedjunarodnihStanica()
         {
             var stanice = (from s in context.UicStanices
-                           select s.SifraStanice).ToList().Take(10);           
+                           select s.SifraStanice).ToList().Take(10);
 
             return Json(stanice);
         }
@@ -37,6 +35,34 @@ namespace SK_Stanicni_Racuni.Controllers
                            select s.Naziv).ToList().Take(10);
 
             return Json(stanice);
+        }
+
+
+        public ActionResult KomintentIUgovor(string data)
+        {
+            var query = from k in context.Komitents
+                        join u in context.Ugovoris on k.Sifra equals u.SifraKorisnika
+                        where u.VaziDo >= DateTime.Now
+                        && k.Naziv.Contains(data)
+                        select new
+                        {
+                            Naziv = k.Naziv.Trim(),
+                            Mesto = k.Mesto.Trim(),
+                            Zemlja = k.Zemlja.Trim(),
+                            Adresa = k.Adresa.Trim(),
+                            Telefon = k.Telefon.Trim(),
+                            Pib = k.Pib.Trim(), 
+                            Mb = k.Mb.Trim(),
+                            Tr = k.Tr.Trim(),
+                            BrojUgovora = u.BrojUgovora.Trim()
+                        };
+
+            var res = from element in query.ToList()
+                      group element by element.Naziv
+                      into groups
+                      select groups.OrderBy(p => p.BrojUgovora).First();
+
+            return Json(res);
         }
     }
 }

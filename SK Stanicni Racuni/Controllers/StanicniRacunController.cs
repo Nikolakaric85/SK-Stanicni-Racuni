@@ -10,10 +10,12 @@ namespace SK_Stanicni_Racuni.Controllers
     public class StanicniRacunController : Controller
     {
         private readonly AppDbContext context;
+        private string blagajnik = string.Empty;
 
         public StanicniRacunController(AppDbContext context)
         {
             this.context = context;
+            
         }
 
         public IActionResult StanicniRacun()
@@ -21,9 +23,12 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var UserId = HttpContext.User.Identity.Name; // daje UserId
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+            
 
             if (user != null)
             {
+                ViewBag.blagajnik = user.Naziv;
+
                 if (user.Stanica.StartsWith("000"))
                 {
                     ViewBag.Admin = true;
@@ -32,6 +37,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     ViewBag.Admin = false;
                     ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
+                    ViewBag.SifraStanice = user.Stanica;
                 }
             }
             //else
@@ -39,7 +45,7 @@ namespace SK_Stanicni_Racuni.Controllers
             //    return RedirectToAction("Login", "Account");
             //}
 
-            ViewBag.Admin = false; // OVO OBRISATI, SETOVANO SAMO DA NE BI MORAO DA SE LOGUJEM SVAKI PUT
+         //   ViewBag.Admin = false; // OVO OBRISATI, SETOVANO SAMO DA NE BI MORAO DA SE LOGUJEM SVAKI PUT
 
             ViewBag.stanicniRacuni = Enumerable.Empty<SrFaktura>();
             return View();
@@ -48,6 +54,8 @@ namespace SK_Stanicni_Racuni.Controllers
         public IActionResult Prikazi(string stanica, int racunBr)
         {
             var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice).FirstOrDefault();
+
+            ViewBag.blagajnik = blagajnik;
 
             if (!string.IsNullOrEmpty(stanica) && racunBr != 0)
             {
@@ -65,5 +73,17 @@ namespace SK_Stanicni_Racuni.Controllers
 
             return RedirectToAction("StanicniRacun");
         }
+
+
+        public IActionResult Save(SrFaktura model)
+        {
+
+            context.SrFakturas.Add(model);
+            //context.SaveChanges();
+
+            return RedirectToAction("StanicniRacun");
+        }
+
+
     }
 }

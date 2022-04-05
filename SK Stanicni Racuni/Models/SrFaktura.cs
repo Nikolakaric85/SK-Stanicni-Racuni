@@ -17,6 +17,7 @@ namespace SK_Stanicni_Racuni.Models
         public int? PrBroj { get; set; }
         public DateTime? PrDatum { get; set; }
         public DateTime? FakturaDatum { get; set; }
+        public DateTime? DatumIzdavanja { get; set; }
         public string Primalac { get; set; }
         public string PrimalacUg { get; set; }
         public string PrimalacAdresa { get; set; }

@@ -73,6 +73,13 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.Mb)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("MB")
+                    .IsFixedLength(true)
+                    .HasComment("''");
+
                 entity.Property(e => e.Mesto)
                     .HasMaxLength(30)
                     .IsUnicode(false);
@@ -96,6 +103,13 @@ namespace SK_Stanicni_Racuni.Models
                 entity.Property(e => e.Telefon)
                     .HasMaxLength(30)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Tr)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("TR")
+                    .IsFixedLength(true)
+                    .HasComment("''");
 
                 entity.Property(e => e.Zemlja)
                     .HasMaxLength(30)
@@ -756,6 +770,8 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(4)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.DatumIzdavanja).HasColumnType("date");
 
                 entity.Property(e => e.FakturaBroj).HasMaxLength(20);
 
