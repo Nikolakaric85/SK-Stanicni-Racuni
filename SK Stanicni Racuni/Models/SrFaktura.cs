@@ -12,6 +12,7 @@ namespace SK_Stanicni_Racuni.Models
         public string BlagajnaTip { get; set; }
         public string TekuciRacun { get; set; }
         public string FakturaBroj { get; set; }
+        public int FakturaGodina { get; set; }
         public int? OtpBroj { get; set; }
         public DateTime? OtpDatum { get; set; }
         public int? PrBroj { get; set; }

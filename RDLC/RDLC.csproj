@@ -72,6 +72,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>K254.xsd</DependentUpon>
     </Compile>
+    <Compile Update="DataSet\StanicniRacun.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StanicniRacun.xsd</DependentUpon>
+    </Compile>
     <Compile Update="DataSet\К140m.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -127,6 +132,10 @@
     <None Update="DataSet\K254.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>K254.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="DataSet\StanicniRacun.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StanicniRacun.Designer.cs</LastGenOutput>
     </None>
     <None Update="DataSet\К140m.xsd">
       <Generator>MSDataSetGenerator</Generator>

@@ -49,6 +49,20 @@
                 }
             })
 
+
+
+
+            pdf = () => {
+
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                window.open(baseUrl + "/PDF", '_blank').focus()                                             // da otvori pdf stranicu u novom tab-u kod izvestaja po klasama i tipu dokumentacije
+            }
+
+
+
+
+
         })
 
 
@@ -67,7 +81,7 @@
                 weekStart: 1
             };
 
-            $('#DatumOd, #DatumDo, #OtpDatum, #Datum, #k165aDatum,#DatumP, #DatumPU, #DatumI').datepicker({
+            $('#DatumOd, #DatumDo, #OtpDatum, #Datum, #k165aDatum,#DatumP, #DatumPU, #DatumI, #DatumNO').datepicker({
                 todayBtn: true,
                 todayBtn: 'linked',
                 todayHighlight: true,

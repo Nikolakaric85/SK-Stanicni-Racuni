@@ -5,9 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SK_Stanicni_Racuni.CustomModelBinding.Datumi
+namespace SK_Stanicni_Racuni.CustomModelBinding.StanicniRacunDatumi
 {
-    public class DatumOdModelBinder:  IModelBinder
+    public class FakturaDatumPModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
@@ -16,8 +16,13 @@ namespace SK_Stanicni_Racuni.CustomModelBinding.Datumi
                 throw new ArgumentNullException(nameof(bindingContext));
             }
 
+            if (bindingContext == null)
+            {
+                throw new ArgumentNullException(nameof(bindingContext));
+            }
+
             var data = bindingContext.HttpContext.Request.Form;
-            var resultDatum = data.TryGetValue("DatumNO", out var VaziOd);
+            var resultDatum = data.TryGetValue("DatumP", out var VaziOd);
 
             if (resultDatum)
             {
@@ -28,6 +33,7 @@ namespace SK_Stanicni_Racuni.CustomModelBinding.Datumi
                 }
                 catch (Exception)
                 {
+
                 }
             }
 

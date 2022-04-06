@@ -918,11 +918,6 @@ namespace SK_Stanicni_Racuni.Migrations
 
             modelBuilder.Entity("SK_Stanicni_Racuni.Models.SrK121a", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int?>("Blagajna")
                         .HasColumnType("int");
 
@@ -932,26 +927,16 @@ namespace SK_Stanicni_Racuni.Migrations
                         .HasColumnType("char(4)")
                         .IsFixedLength(true);
 
-                    b.Property<string>("BlagajnikFR")
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
-
                     b.Property<int?>("Broj")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Datum")
                         .HasColumnType("date");
 
-                    b.Property<DateTime?>("DatumVracanjaFR")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal?>("Iznos")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("decimal(18,2)")
                         .HasDefaultValueSql("((0))");
-
-                    b.Property<decimal?>("ObracunFR")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("OtpBroj")
                         .HasColumnType("int");
@@ -981,19 +966,11 @@ namespace SK_Stanicni_Racuni.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("RedniBroj")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Saobracaj")
-                        .HasColumnType("nvarchar(1)");
-
                     b.Property<string>("Stanica")
                         .HasMaxLength(7)
                         .IsUnicode(false)
                         .HasColumnType("char(7)")
                         .IsFixedLength(true);
-
-                    b.HasKey("Id");
 
                     b.ToTable("SR_K121a");
                 });
@@ -1080,9 +1057,6 @@ namespace SK_Stanicni_Racuni.Migrations
                     b.Property<string>("PrimalacZemlja")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Saobracaj")
-                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Stanica")
                         .HasMaxLength(7)

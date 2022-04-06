@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace SK_Stanicni_Racuni.CustomModelBinding.Datumi
+namespace SK_Stanicni_Racuni.CustomModelBinding.StanicniRacunDatumi
 {
-    public class DatumOdModelBinder:  IModelBinder
+    public class FakturaDatumModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
+            if (bindingContext == null)
+            {
+                throw new ArgumentNullException(nameof(bindingContext));
+            }
+
             if (bindingContext == null)
             {
                 throw new ArgumentNullException(nameof(bindingContext));
@@ -28,6 +31,7 @@ namespace SK_Stanicni_Racuni.CustomModelBinding.Datumi
                 }
                 catch (Exception)
                 {
+
                 }
             }
 

@@ -17,6 +17,7 @@
     <Content Remove="wwwroot\Reports\K157.rdlc" />
     <Content Remove="wwwroot\Reports\K167.rdlc" />
     <Content Remove="wwwroot\Reports\K254.rdlc" />
+    <Content Remove="wwwroot\Reports\StanicniRacun.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Reports\K115.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Reports\StanicniRacun.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\Reports\K157.rdlc">
@@ -137,6 +141,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="DataSet\StanicniRacun.Designer.cs">
+      <DependentUpon>StanicniRacun.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="DataSet\К140m.Designer.cs">
       <DependentUpon>К140m.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -203,6 +212,11 @@
     <None Update="DataSet\K254.xsd">
       <SubType>Designer</SubType>
       <LastGenOutput>K254.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="DataSet\StanicniRacun.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>StanicniRacun.Designer.cs</LastGenOutput>
       <Generator>MSDataSetGenerator</Generator>
     </None>
     <None Update="DataSet\К140m.xsd">

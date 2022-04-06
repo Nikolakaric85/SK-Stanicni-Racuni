@@ -754,9 +754,17 @@ namespace SK_Stanicni_Racuni.Models
 
             modelBuilder.Entity<SrFaktura>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.Stanica, e.FakturaBroj, e.FakturaGodina })
+                    .HasName("PK_Stanica");
 
                 entity.ToTable("SR_Faktura");
+
+                entity.Property(e => e.Stanica)
+                    .HasMaxLength(7)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.FakturaBroj).HasMaxLength(20);
 
                 entity.Property(e => e.Blagajna).HasComment("Šifra blagajne ");
 
@@ -772,8 +780,6 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.DatumIzdavanja).HasColumnType("date");
-
-                entity.Property(e => e.FakturaBroj).HasMaxLength(20);
 
                 entity.Property(e => e.FakturaDatum)
                     .HasColumnType("date")
@@ -874,11 +880,6 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.PrimalacZemlja).HasMaxLength(50);
-
-                entity.Property(e => e.Stanica)
-                    .HasMaxLength(7)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
 
                 entity.Property(e => e.TekuciRacun).HasMaxLength(80);
 
