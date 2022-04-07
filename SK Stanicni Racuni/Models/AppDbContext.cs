@@ -17,6 +17,7 @@ namespace SK_Stanicni_Racuni.Models
         {
         }
 
+        public virtual DbSet<ElsSkStaniceRacuni> ElsSkStaniceRacunis { get; set; }
         public virtual DbSet<Komitent> Komitents { get; set; }
         public virtual DbSet<SlogKalk> SlogKalks { get; set; }
         public virtual DbSet<SlogKalkPdv> SlogKalkPdvs { get; set; }
@@ -48,6 +49,56 @@ namespace SK_Stanicni_Racuni.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<ElsSkStaniceRacuni>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("elsSkStaniceRacuni");
+
+                entity.Property(e => e.K121aDo).HasColumnName("K121a_do");
+
+                entity.Property(e => e.K121aOd).HasColumnName("K121a_od");
+
+                entity.Property(e => e.K140Do).HasColumnName("K140_do");
+
+                entity.Property(e => e.K140Od).HasColumnName("K140_od");
+
+                entity.Property(e => e.K140mDo).HasColumnName("K140m_do");
+
+                entity.Property(e => e.K140mOd).HasColumnName("K140m_od");
+
+                entity.Property(e => e.K161fDo).HasColumnName("K161f_do");
+
+                entity.Property(e => e.K161fOd).HasColumnName("K161f_od");
+
+                entity.Property(e => e.K165Do).HasColumnName("K165_do");
+
+                entity.Property(e => e.K165Od).HasColumnName("K165_od");
+
+                entity.Property(e => e.K165mDo).HasColumnName("K165m_do");
+
+                entity.Property(e => e.K165mOd).HasColumnName("K165m_od");
+
+                entity.Property(e => e.NadzornaStanicaNaziv).HasMaxLength(40);
+
+                entity.Property(e => e.NadzornaStanicaSifra)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Naziv).HasMaxLength(40);
+
+                entity.Property(e => e.Sifra)
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .IsFixedLength(true);
+            });
 
             modelBuilder.Entity<Komitent>(entity =>
             {
@@ -866,11 +917,11 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.PrimalacTelefon)
-                    .HasMaxLength(10)
+                    .HasMaxLength(20)
                     .IsFixedLength(true);
 
                 entity.Property(e => e.PrimalacTr)
-                    .HasMaxLength(10)
+                    .HasMaxLength(50)
                     .HasColumnName("PrimalacTR")
                     .IsFixedLength(true);
 

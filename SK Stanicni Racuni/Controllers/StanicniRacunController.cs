@@ -7,6 +7,7 @@ using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace SK_Stanicni_Racuni.Controllers
         private readonly INotyfService notyf;
         private readonly IWebHostEnvironment webHostEnvironment;
         private string blagajnik = string.Empty;
+        CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");  //koristim da na izvestaju thousand separator 100.000. i slicno
 
         public StanicniRacunController(AppDbContext context, INotyfService notyf, IWebHostEnvironment webHostEnvironment)
         {
@@ -31,7 +33,6 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var UserId = HttpContext.User.Identity.Name; // daje UserId
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
-            
 
             if (user != null)
             {
@@ -41,43 +42,54 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     ViewBag.blagajnik = user.Naziv.Trim();
                     ViewBag.Admin = true;
+                    TempData["blagajnik"] = user.Naziv.Trim();
                 }
                 else
                 {
                     ViewBag.Admin = false;
                     ViewBag.Stanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).FirstOrDefault().Naziv;
                     ViewBag.blagajnik = user.Naziv.Trim() + " " + user.Grupa.Trim();
+                    TempData["blagajnik"] = user.Naziv.Trim();
                     ViewBag.SifraStanice = user.Stanica;
                     ViewBag.UserID = user.UserId;
                 }
             }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            //else
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
 
-            //   ViewBag.Admin = false; // OVO OBRISATI, SETOVANO SAMO DA NE BI MORAO DA SE LOGUJEM SVAKI PUT
+               ViewBag.Admin = false; // OVO OBRISATI, SETOVANO SAMO DA NE BI MORAO DA SE LOGUJEM SVAKI PUT
 
             ViewBag.stanicniRacuni = Enumerable.Empty<SrFaktura>();
             return View();
         }
 
-        public IActionResult Prikazi(string stanica, string racunBr)
+        public IActionResult PDF(string stanica, string racunBr)
         {
-            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
 
-            ViewBag.blagajnik = blagajnik;
+            //kada iz tabele poziva PDF onda proverava da li je parametar stanica string ili int
+            var stanicaInt = int.TryParse(stanica,  out int result );
+
+            var sifraStanice = stanicaInt == true ? stanica : context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
 
             if (!string.IsNullOrEmpty(stanica) && !string.IsNullOrEmpty(racunBr))
             {
 
                 var query = context.SrFakturas.Where(x => x.Stanica == sifraStanice && x.FakturaBroj == racunBr);
 
+                if (!query.Any())
+                {
+                    notyf.Error("Nema podataka za izabrane kriterijume.", 3);
+                    return RedirectToAction("StanicniRacun");
+                }
+
                 string Stanica = string.Empty, SifraStanice = string.Empty, MestoIzdavanjaRacuna = string.Empty, BlagajnaTip = string.Empty, Blagajna = string.Empty, TekuciRacun = string.Empty,
                     Mb = string.Empty, Pib = string.Empty, NazivPrimaocaRacuna = string.Empty, BrojUgovora = string.Empty, FakuraBroj = string.Empty, FakturaGodina = string.Empty,
                     Adresa = string.Empty, Telefon = string.Empty, PrialacTr = string.Empty, PrimalacMb = string.Empty, PrimalacPib = string.Empty, DatumNastankaObaveze = string.Empty,
                     DatumPlacanja = string.Empty, VrstaDobaraiUslugaOpis = string.Empty, DatumPrometaUsluga = string.Empty, JedMera = string.Empty, Kolicina = string.Empty, 
-                    JedCenaDin = string.Empty, UkupnoDinara = string.Empty, PoreskaOsnovica = string.Empty, PDV = string.Empty, UkupnaVrednost = string.Empty, Fakturisao = string.Empty, DatumIzdavanja = string.Empty;
+                    JedCenaDin = string.Empty, UkupnoDinara = string.Empty, PoreskaOsnovica = string.Empty, PDV = string.Empty, UkupnaVrednost = string.Empty, Fakturisao = string.Empty, DatumIzdavanja = string.Empty,
+                    SifraBlagajne = string.Empty;
 
                 foreach (var item in query)
                 {
@@ -96,10 +108,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     PrialacTr = item.PrimalacTr;
                     PrimalacMb = item.PrimalacMb;
                     PrimalacPib = item.PrimalacPib;
-                    DatumNastankaObaveze = item.FakturaDatum.HasValue ? item.FakturaDatum.Value.ToString("dd.MM.yyyy") : null;
-                    DatumPlacanja = item.FakturaDatumP.HasValue ? item.FakturaDatumP.Value.ToString("dd.MM.yyyy") : null;
+                    DatumNastankaObaveze = item.FakturaDatum.HasValue ? item.FakturaDatum.Value.ToString("dd.MM.yyyy") : string.Empty;
+                    DatumPlacanja = item.FakturaDatumP.HasValue ? item.FakturaDatumP.Value.ToString("dd.MM.yyyy") : string.Empty;
                     VrstaDobaraiUslugaOpis = item.VrstaUslugaOpis;
-                    DatumPrometaUsluga = item.FakturaDatumPromet.HasValue ? item.FakturaDatumPromet.Value.ToString("dd.MM.yyyy") : null;
+                    DatumPrometaUsluga = item.FakturaDatumPromet.HasValue ? item.FakturaDatumPromet.Value.ToString("dd.MM.yyyy") : string.Empty;
                     JedMera = item.Fjedinica;
                     Kolicina = item.Fkolicina;
                     JedCenaDin = item.Fjcena.ToString();
@@ -108,10 +120,11 @@ namespace SK_Stanicni_Racuni.Controllers
                     PDV = item.FakturaPdv.ToString();
                     UkupnaVrednost = item.FakturaTotal.ToString();
                     //Fakturisao 
-                    DatumIzdavanja = item.DatumIzdavanja.HasValue ? item.DatumIzdavanja.Value.ToString("dd.MM.yyyy") : null;
-
-
+                    DatumIzdavanja = item.DatumIzdavanja.HasValue ? item.DatumIzdavanja.Value.ToString("dd.MM.yyyy") : string.Empty;
+                    blagajnik = context.UserTabs.Where(x => x.UserId == item.Blagajnik).Select(x => x.Naziv.Trim() +" " + x.Grupa.Trim() ).FirstOrDefault();
                 }
+
+                SifraBlagajne = context.ElsSkStaniceRacunis.Where(x => x.Sifra == sifraStanice).Select(x => x.SifraBlagajne.ToString()).FirstOrDefault();
 
                 var dt = new DataTable();
                 string renderFormat = "PDF";
@@ -141,32 +154,35 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("VrstaDobaraiUslugaOpis", VrstaDobaraiUslugaOpis),
                     new ReportParameter("DatumPrometaUsluga", DatumPrometaUsluga),
                     new ReportParameter("JedMera", JedMera),
+                    new ReportParameter("Kolicina", Kolicina),
                     new ReportParameter("JedCenaDin", JedCenaDin),
-                    new ReportParameter("UkupnoDinara", UkupnoDinara),
-                    new ReportParameter("PoreskaOsnovica", PoreskaOsnovica),
-                    new ReportParameter("PDV", PDV),
-                    new ReportParameter("UkupnaVrednost", UkupnaVrednost),
+                    new ReportParameter("UkupnoDinara", string.Format(elGR,"{0:0,0}", Double.Parse(UkupnoDinara))),
+                    new ReportParameter("PoreskaOsnovica", string.Format(elGR,"{0:0,0}", Double.Parse(PoreskaOsnovica))),
+                    new ReportParameter("PDV", string.Format(elGR,"{0:0,0}", Double.Parse(PDV))),
+                    new ReportParameter("UkupnaVrednost", string.Format(elGR,"{0:0,0}", Double.Parse(UkupnaVrednost))),
                     new ReportParameter("Fakturisao", Fakturisao),
                     new ReportParameter("DatumIzdavanja", DatumIzdavanja),
-              
+                    new ReportParameter("SifraBlagajne", SifraBlagajne),
+                    new ReportParameter("Blagajnik", blagajnik),
+
                 };
 
                 localReport.SetParameters(parametars);
                 var pdf = localReport.Render(renderFormat);
                 return File(pdf, mimtype);
 
-
-
-
             }
             else if (!string.IsNullOrEmpty(stanica) && string.IsNullOrEmpty(racunBr))
             {
+                // ovde ide popunjavanje GRID-a faktura broj je racun broj
 
-                var query = context.SrFakturas.Where(x => x.Stanica == sifraStanice).Select(x => new { x.Stanica, x.FakturaBroj}).AsEnumerable();
-              //  ViewBag.stanicniRacuni = query;
+                var query = context.SrFakturas.Where(x => x.Stanica == sifraStanice).AsEnumerable();
+                ViewBag.stanicniRacuni = query;
+                ViewBag.Admin = true;
+                ViewBag.Stanica = stanica;
+
                 return View("StanicniRacun");
 
-                // ovde ide popunjavanje GRID-a faktura broj je racun broj
             }
 
             return RedirectToAction("StanicniRacun");
@@ -198,11 +214,16 @@ namespace SK_Stanicni_Racuni.Controllers
 
             model.BlagajnaTip = tipBlagajna == "P" ? "P" : "O";
 
-
-
-
-            context.SrFakturas.Add(model);
-         //   context.SaveChanges();
+            try
+            {
+                notyf.Success("Uspešno uneti podaci.", 3);
+                context.SrFakturas.Add(model);
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                notyf.Error("Greška prilikom upisa podakatak.", 3);
+            }
 
             return RedirectToAction("StanicniRacun");
         }

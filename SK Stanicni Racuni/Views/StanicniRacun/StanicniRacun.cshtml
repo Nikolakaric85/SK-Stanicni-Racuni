@@ -2,19 +2,18 @@
 
 
 <div class="container">
-    <form asp-page-handler="Save" class="needs-validation" novalidate>
 
 
 
-        @if (ViewBag.Admin == true)
-        {
 
+    @if (ViewBag.Admin == true)
+    {
+        <form asp-page-handler="PDF" class="needs-validation" novalidate id="form1">
             <div class="row mt-3">
 
                 <div class="alert alert-primary" role="alert">
                     <strong>Stanični račun K-1P</strong>
                 </div>
-
 
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
                     <label>Stanica</label>
@@ -36,16 +35,20 @@
                 </div>
 
                 <div class="col-xxl-1 col-xl-1 col-lg col-md mt-4">
-                    <button  class="btn btn-sm btn-primary" style="margin-top:7px" asp-controller="StanicniRacun" asp-action="Prikazi" id="pretraziBtn" onclick="pdf()">Pretraži</button>
+                    <button class="btn btn-sm btn-primary" style="margin-top:7px" asp-controller="StanicniRacun" asp-action="PDF" id="pretraziBtn" >Pretraži</button>
                 </div>
+
             </div>
+        </form>
 
 
-        }
-        else
-        {
-            /***************************** PRVI SEKTOR KADA KORISNIK NIJE ADMIN *************************************/
-            /***************************** PRVI RED *****************************************************************/
+    }
+    else
+    {
+        /***************************** PRVI SEKTOR KADA KORISNIK NIJE ADMIN *************************************/
+        /***************************** PRVI RED *****************************************************************/
+
+        <form asp-page-handler="Save" class="needs-validation" novalidate>
 
             <div class="row mt-5">
 
@@ -70,9 +73,6 @@
                     </div>
                 }
 
-
-
-
                 <div class="col-md-3">
                     <label class="mb-0">Šifra.</label>
                     <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.SifraStanice" asp-for="Stanica" />
@@ -86,7 +86,7 @@
             </div>
 
 
-            /***************************** DRUGI RED *****************************************************************/
+            @*/***************************** DRUGI RED *****************************************************************/*@
 
             <div class="row">
                 <div class="col-md-3">
@@ -129,15 +129,15 @@
                     </div>
                 </div>
 
-               
+
 
             </div>
 
             <div class="my-2">
                 <hr />
             </div>
-            /***************************** DRUGI SEKTOR **************************************************************/
-            /***************************** TREĆI RED *****************************************************************/
+            @*/***************************** DRUGI SEKTOR **************************************************************/
+            /***************************** TREĆI RED *****************************************************************/*@
 
 
             <div class="row mt-3">
@@ -172,7 +172,7 @@
 
             </div>
 
-            /***************************** ČETVRTI RED *****************************************************************/
+            @*/***************************** ČETVRTI RED *****************************************************************/*@
 
             <div class="row">
 
@@ -198,25 +198,25 @@
                     <input class="form-control form-control-sm" autocomplete="off" id="adresa" asp-for="PrimalacAdresa" />
                 </div>
 
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <label class="mb-0">Matični br.</label>
                     <input class="form-control form-control-sm" autocomplete="off" id="mb" asp-for="PrimalacMb" />
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="mb-0">PIB</label>
                     <input class="form-control form-control-sm" autocomplete="off" id="pib" asp-for="PrimalacPib" />
                 </div>
 
             </div>
 
-        
+
 
             <div class="my-2">
                 <hr />
             </div>
 
-            /***************************** TREĆI SEKTOR **************************************************************/
+            @*/***************************** TREĆI SEKTOR **************************************************************/*@
 
 
             <div class="row">
@@ -233,107 +233,107 @@
 
             </div>
 
-            /***************************        VRSTA USLUGA I DOBARA    ********************************************/
+            @*/***************************        VRSTA USLUGA I DOBARA    ********************************************/*@
 
-                <div class="row d-flex align-items-end mt-1">
-                    <div class="col-md">
-                        <label class="mb-0">Vrsta dobara ili usluga</label>
-                        <textarea class="form-control form-control-sm" id="exampleFormControlTextarea1" rows="4" asp-for="VrstaUslugaOpis"></textarea>
-                    </div>
-
+            <div class="row d-flex align-items-end mt-1">
+                <div class="col-md">
+                    <label class="mb-0">Vrsta dobara ili usluga</label>
+                    <textarea class="form-control form-control-sm" id="exampleFormControlTextarea1" rows="4" asp-for="VrstaUslugaOpis"></textarea>
                 </div>
 
+            </div>
 
-                <div class="row d-flex align-items-end mt-1">
 
-                    <div class="col-md-4">
-                        @*<label class="mb-0">Vrsta dobara ili usluga</label>
+            <div class="row d-flex align-items-end mt-1">
+
+                <div class="col-md-4">
+                    @*<label class="mb-0">Vrsta dobara ili usluga</label>
                         <textarea class="form-control form-control-sm" id="exampleFormControlTextarea1" rows="4" asp-for="VrstaUslugaOpis"></textarea>*@
-                    </div>
-
-                    <div class="col-md-2">
-                        <label class="mb-0">Datum prometa usluga</label>
-                        <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumPU" name="DatumPU" asp-for="FakturaDatumPromet" />
-                    </div>
-                    <div class="col-md-1">
-                        <label class="mb-0">Jed. mera</label>
-                        <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjedinica" />
-                    </div>
-                    <div class="col-md-1">
-                        <label class="mb-0">Količina</label>
-                        <input class="form-control form-control-sm" autocomplete="off" asp-for="Fkolicina" />
-                    </div>
-                    <div class="col-md-2">
-                        <label class="mb-0">Jedinična cena dinara</label>
-                        <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjcena" />
-                    </div>
-                    <div class="col-md-2">
-                        <label class="mb-0">Ukupno dinara</label>
-                        <input class="form-control form-control-sm" autocomplete="off" id="ukupnoDinara" />
-                    </div>
                 </div>
 
-                /***************************        POREZI    ********************************************/
+                <div class="col-md-2">
+                    <label class="mb-0">Datum prometa usluga</label>
+                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumPU" name="DatumPU" asp-for="FakturaDatumPromet" />
+                </div>
+                <div class="col-md-1">
+                    <label class="mb-0">Jed. mera</label>
+                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjedinica" />
+                </div>
+                <div class="col-md-1">
+                    <label class="mb-0">Količina</label>
+                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fkolicina" />
+                </div>
+                <div class="col-md-2">
+                    <label class="mb-0">Jedinična cena dinara</label>
+                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjcena" />
+                </div>
+                <div class="col-md-2">
+                    <label class="mb-0">Ukupno dinara</label>
+                    <input class="form-control form-control-sm" autocomplete="off" id="ukupnoDinara" />
+                </div>
+            </div>
 
-                <div class="row border-bottom d-flex justify-content-between mt-3">
-                    <div class="col-md-3">
-                        <label class="mb-0">Poreska osnovica</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input class="form-control form-control-sm" autocomplete="off" id="poreskaOsnovica" asp-for="FakturaOsnovica" />
-                    </div>
+            @*/***************************        POREZI    ********************************************/*@
+
+            <div class="row border-bottom d-flex justify-content-between mt-3">
+                <div class="col-md-3">
+                    <label class="mb-0">Poreska osnovica</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" autocomplete="off" id="poreskaOsnovica" asp-for="FakturaOsnovica" />
+                </div>
+            </div>
+
+            <div class="row border-bottom d-flex justify-content-between mt-1">
+                <div class="col-md-3">
+                    <label class="mb-0">Poreska stopa  % i iznos PDV</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" autocomplete="off" id="pdv" asp-for="FakturaPdv" />
+                </div>
+            </div>
+
+            <div class="row border-bottom d-flex justify-content-between mt-1">
+                <div class="col-md-3">
+                    <label class="mb-0">Ukupna vrednost:</label>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control form-control-sm" autocomplete="off" id="ukupnaVrednost" asp-for="FakturaTotal" />
+                </div>
+            </div>
+
+            <div class="row border-bottom d-flex justify-content-start mt-1">
+                <div class="col-md-5">
+                    <label class="mb-0">Oslobođeno PDV: Čl.&nbsp;&nbsp;&nbsp;&nbsp;Stav.&nbsp;&nbsp;&nbsp;&nbsp;Tač.&nbsp;&nbsp;&nbsp;&nbsp;Zakona </label>
                 </div>
 
-                <div class="row border-bottom d-flex justify-content-between mt-1">
-                    <div class="col-md-3">
-                        <label class="mb-0">Poreska stopa  % i iznos PDV</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input class="form-control form-control-sm" autocomplete="off" id="pdv" asp-for="FakturaPdv" />
-                    </div>
+            </div>
+
+
+
+            <div class="row d-flex align-items-end mt-3">
+                <div class="col-md-2">
+                    <label class="mb-0">Fakturisao</label>
+                    <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.blagajnik" />
+                    <input hidden value="@ViewBag.UserID" asp-for="Blagajnik" />        @*koristi UserID da se upise u bazu*@
                 </div>
-
-                <div class="row border-bottom d-flex justify-content-between mt-1">
-                    <div class="col-md-3">
-                        <label class="mb-0">Ukupna vrednost:</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input class="form-control form-control-sm" autocomplete="off" id="ukupnaVrednost" asp-for="FakturaTotal" />
-                    </div>
+                <div class="col-md-2">
+                    <label class="mb-0">Datum izdavanja</label>
+                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumI" name="DatumI" asp-for="DatumIzdavanja" />
                 </div>
+                <div class="col-md-2">
 
-                <div class="row border-bottom d-flex justify-content-start mt-1">
-                    <div class="col-md-5">
-                        <label class="mb-0">Oslobođeno PDV: Čl.&nbsp;&nbsp;&nbsp;&nbsp;Stav.&nbsp;&nbsp;&nbsp;&nbsp;Tač.&nbsp;&nbsp;&nbsp;&nbsp;Zakona </label>
-                    </div>
-
+                    <button type="submit" class="btn btn-sm btn-primary" asp-controller="StanicniRacun" asp-action="Save">Upiši u bazu</button>
                 </div>
+            </div>
 
 
-
-                <div class="row d-flex align-items-end mt-3">
-                    <div class="col-md-2">
-                        <label class="mb-0">Fakturisao</label>
-                        <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.blagajnik" />
-                        <input hidden value="@ViewBag.UserID" asp-for="Blagajnik" />        @*koristi UserID da se upise u bazu*@
-                    </div>
-                    <div class="col-md-2">
-                        <label class="mb-0">Datum izdavanja</label>
-                        <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumI" name="DatumI" asp-for="DatumIzdavanja" />
-                    </div>
-                    <div class="col-md-2">
-
-                        <button type="submit" class="btn btn-sm btn-primary" asp-controller="StanicniRacun" asp-action="Save">Upiši u bazu</button>
-                    </div>
-                </div>
-
-
-
-
-                }
 
 
         </form>
+
+    }
+
 
 
 
@@ -352,20 +352,30 @@
                     <tr>
                         <th scope="col">Stanica</th>
                         <th scope="col">FakturaBroj</th>
-                        @*<th scope="col">FakturaDatum</th>*@
-                        <th scope="col">PDF</th>
-                      
+                        <th scope="col">FakturaDatum</th>
+                        <th scope="col">Primalac</th>
+                        <th scope="col">Prikaži</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in ((IEnumerable<SrFaktura>)ViewBag.stanicniRacuni))
                     {
-
                         <tr>
                             <td scope="row">@item.Stanica</td>
                             <td>@item.FakturaBroj</td>
-                            @*<td>@item.FakturaDatum</td>*@
-                            <td><a class="btn btn-primary" href="#" role="button">Link</a></td>
+
+                            @if (item.FakturaDatum.HasValue)
+                            {
+                                <td>@item.FakturaDatum.Value.ToString("dd.MM.yyyy")</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                            <td>@item.Primalac</td>
+                            <td><a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="PDF" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" target="_blank">PDF</a></td>
 
                         </tr>
                     }
@@ -443,6 +453,17 @@
                             $('#tr').val(object.tr);
                             $('#mb').val(object.mb);
                             $('#pib').val(object.pib);
+
+                            var sirinaTeksta = $('#tr').textWidth()
+                            var sirina = $('#tr').width()
+
+                            if (sirinaTeksta > sirina) {
+                                console.log("vece je sirina teksta od sirine input polja")
+                                $('#tr').css('font-size', 3);
+                            }
+
+                            console.log("sirina " + sirina)
+
                         } else {
                             $('#brUgovora').val('');
                             $('#mesto').val('');
@@ -457,6 +478,28 @@
                     }
                 });
             })
+
+            var sirina = $('#tr').width()
+            console.log("sirina " + sirina)
+
+            //$('#tr').on('input', function () {
+            //    $(this).textWidth()
+                
+            //})
+
+            // ODERDJUJE VELICINU TEKSTA
+            $.fn.textWidth = function (text, font) {
+                if (!$.fn.textWidth.fakeEl) $.fn.textWidth.fakeEl = $('<span>').hide().appendTo(document.body);
+                $.fn.textWidth.fakeEl.text(text || this.val() || this.text()).css('font', font || this.css('font'));
+                console.log($.fn.textWidth.fakeEl.width())
+                return $.fn.textWidth.fakeEl.width();
+            };
+
+            //$('#tr').on('input', function () {
+            //    $('#' + this.id + '-width').html($(this).textWidth() + 'px');
+            //}).trigger('input');
+
+
 
         }) // kraj  $(window).on('load', function () {
 
@@ -476,6 +519,19 @@
                 $('#pdv').val(numberFormat(pdv))
                 $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost))
 
+            })
+
+            $('#racunBr, #myDatalistInput').on('input', function () {                   //na osnovu popunjenih polja prikazuje dugme "Prikaži" ili "PDF" i setuje atribut target, "_blank" kada je PDF dugme
+                var value = $('#racunBr').val();
+                var stanica = $('#myDatalistInput').val();
+
+                if (value != "" && stanica != "") {
+                    $('#form1').attr('target', '_blank');
+                    $('#pretraziBtn').text("PDF");
+                } else {
+                    $('#form1').removeAttr('target', '_blank');
+                    $('#pretraziBtn').text("Pretraži");
+                }
             })
 
 
