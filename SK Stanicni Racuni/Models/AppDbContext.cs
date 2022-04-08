@@ -832,6 +832,10 @@ namespace SK_Stanicni_Racuni.Models
 
                 entity.Property(e => e.DatumIzdavanja).HasColumnType("date");
 
+                entity.Property(e => e.DatumR)
+                    .HasColumnType("date")
+                    .HasComment("Datum realizacije fakture preko SAP-a");
+
                 entity.Property(e => e.FakturaDatum)
                     .HasColumnType("date")
                     .HasComment("Datum nastanka obaveze");
@@ -931,6 +935,13 @@ namespace SK_Stanicni_Racuni.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.PrimalacZemlja).HasMaxLength(50);
+
+                entity.Property(e => e.Realizovano)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('N')")
+                    .IsFixedLength(true)
+                    .HasComment("N=Uneto na stanici; D=Fakturisano preko SAP-a");
 
                 entity.Property(e => e.TekuciRacun).HasMaxLength(80);
 
@@ -1369,6 +1380,10 @@ namespace SK_Stanicni_Racuni.Models
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.Mesto)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NadzornaStanicaNaziv)
                     .HasMaxLength(30)

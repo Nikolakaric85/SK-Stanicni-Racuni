@@ -25,13 +25,19 @@ namespace SK_Stanicni_Racuni.Controllers
             return Json(stanice);
         }
 
-
-
-
         public ActionResult ListaUnutrasnjihStanica(string data)
         {
             var stanice = (from s in context.ZsStanices
                            where s.Naziv.Contains(data)
+                           select s.Naziv).ToList().Take(10);
+
+            return Json(stanice);
+        }
+
+        public ActionResult ListaUnutrasnjihStanicaStanicniRacun(string data)
+        {
+            var stanice = (from s in context.ZsStanices
+                           where s.Naziv.Contains(data) && s.Prikaz == "D"
                            select s.Naziv).ToList().Take(10);
 
             return Json(stanice);
@@ -47,7 +53,7 @@ namespace SK_Stanicni_Racuni.Controllers
                         select new
                         {
                             Naziv = k.Naziv.Trim(),
-                            Mesto = k.Mesto.Trim(),
+                            Mesto = k.Mesto.Trim(), 
                             Zemlja = k.Zemlja.Trim(),
                             Adresa = k.Adresa.Trim(),
                             Telefon = k.Telefon.Trim(),

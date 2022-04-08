@@ -32,6 +32,35 @@
                 });
             })
 
+
+            $('#myDatalistInputSR').on('input', function () {
+                var data = $('#myDatalistInputSR').val()
+
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+                //console.log("baseUrl " + baseUrl)
+                //ovo radi na hostingu, na mom racunaru ne radi. Da bi radilo mora da bude url: "/ListaStanica/ListaUnutrasnjihStanicaStanicniRacun"
+
+                $.ajax({
+                    type: "GET",
+                    //url: baseUrl + "/ListaStanica/ListaUnutrasnjihStanicaStanicniRacun",
+                    url: "/ListaStanica/ListaUnutrasnjihStanicaStanicniRacun",
+                    cache: false,
+                    data: { data: data },
+                    success: function (data) {
+                        var options = '';
+
+                        for (var i = 0; i < data.length; i++) {
+                            options += '<option value="' + data[i] + '" />';
+                        }
+                        $('#myDatalistSR').html(options)
+                    }
+                });
+            })
+
+
+
             $('#myDatalistInput, #myDatalistInputNPR').on('input', function () {
    
                 var letters = /^[\p{L} ]+$/u;                       //Da dozvoli samo unos slova i ŠĐĆČŽ
@@ -111,20 +140,6 @@
                     }, false)
                 })
            
-
-
-
-        
-
-
-
-
-
-
-          
-
-            
-
 
         })
 

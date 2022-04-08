@@ -45,5 +45,7 @@ namespace SK_Stanicni_Racuni.Models
         public string Fpath { get; set; }
         public string Blagajnik { get; set; }
         public int Id { get; set; }
+        public string Realizovano { get; set; }
+        public DateTime? DatumR { get; set; }
     }
 }

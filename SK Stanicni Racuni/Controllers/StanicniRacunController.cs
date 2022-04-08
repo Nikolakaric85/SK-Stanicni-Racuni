@@ -54,12 +54,20 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.UserID = user.UserId;
                 }
             }
-            //else
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
-               ViewBag.Admin = false; // OVO OBRISATI, SETOVANO SAMO DA NE BI MORAO DA SE LOGUJEM SVAKI PUT
+            // ViewBag.Admin = false; // OVO OBRISATI, SETOVANO SAMO DA NE BI MORAO DA SE LOGUJEM SVAKI PUT
+
+            var stanicaKojeNisuGranicne = context.ZsStanices.Where(x => x.Prikaz == "N" && x.SifraStanice1 == user.Stanica);
+
+            if (stanicaKojeNisuGranicne.Any())
+            {
+                notyf.Information("Nemate prava pristupa.", 3);
+                return RedirectToAction("Index","Home");
+            }
 
             ViewBag.stanicniRacuni = Enumerable.Empty<SrFaktura>();
             return View();
@@ -88,9 +96,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     Mb = string.Empty, Pib = string.Empty, NazivPrimaocaRacuna = string.Empty, BrojUgovora = string.Empty, FakuraBroj = string.Empty, FakturaGodina = string.Empty,
                     Adresa = string.Empty, Telefon = string.Empty, PrialacTr = string.Empty, PrimalacMb = string.Empty, PrimalacPib = string.Empty, DatumNastankaObaveze = string.Empty,
                     DatumPlacanja = string.Empty, VrstaDobaraiUslugaOpis = string.Empty, DatumPrometaUsluga = string.Empty, JedMera = string.Empty, Kolicina = string.Empty, 
-                    JedCenaDin = string.Empty, UkupnoDinara = string.Empty, PoreskaOsnovica = string.Empty, PDV = string.Empty, UkupnaVrednost = string.Empty, Fakturisao = string.Empty, DatumIzdavanja = string.Empty,
+                    JedCenaDin = string.Empty, UkupnoDinara = string.Empty, /*PoreskaOsnovica = string.Empty, */PDV = string.Empty, UkupnaVrednost = string.Empty, Fakturisao = string.Empty, DatumIzdavanja = string.Empty,
                     SifraBlagajne = string.Empty;
 
+                decimal PoreskaOsnovica = 0;
                 foreach (var item in query)
                 {
                     Stanica = sifraStanice;
@@ -116,7 +125,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     Kolicina = item.Fkolicina;
                     JedCenaDin = item.Fjcena.ToString();
                     UkupnoDinara = item.FakturaOsnovica.ToString();
-                    PoreskaOsnovica = item.FakturaOsnovica.ToString();
+                    PoreskaOsnovica = (decimal)item.FakturaOsnovica;
                     PDV = item.FakturaPdv.ToString();
                     UkupnaVrednost = item.FakturaTotal.ToString();
                     //Fakturisao 
@@ -157,7 +166,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("Kolicina", Kolicina),
                     new ReportParameter("JedCenaDin", JedCenaDin),
                     new ReportParameter("UkupnoDinara", string.Format(elGR,"{0:0,0}", Double.Parse(UkupnoDinara))),
-                    new ReportParameter("PoreskaOsnovica", string.Format(elGR,"{0:0,0}", Double.Parse(PoreskaOsnovica))),
+                    new ReportParameter("PoreskaOsnovica", string.Format(elGR,"{0:0,0}", PoreskaOsnovica)),
                     new ReportParameter("PDV", string.Format(elGR,"{0:0,0}", Double.Parse(PDV))),
                     new ReportParameter("UkupnaVrednost", string.Format(elGR,"{0:0,0}", Double.Parse(UkupnaVrednost))),
                     new ReportParameter("Fakturisao", Fakturisao),
@@ -177,6 +186,13 @@ namespace SK_Stanicni_Racuni.Controllers
                 // ovde ide popunjavanje GRID-a faktura broj je racun broj
 
                 var query = context.SrFakturas.Where(x => x.Stanica == sifraStanice).AsEnumerable();
+
+                if (!query.Any())
+                {
+                    notyf.Error("Nema podataka za izabrane kriterijume.", 3);
+                    return RedirectToAction("StanicniRacun");
+                }
+
                 ViewBag.stanicniRacuni = query;
                 ViewBag.Admin = true;
                 ViewBag.Stanica = stanica;
