@@ -15,7 +15,7 @@
                     <strong>Stanični račun K-1P</strong>
                 </div>
 
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                <div class="col-md-2">
                     <label>Stanica</label>
                     <input class="form-control form-control-sm" list="myDatalistSR" id="myDatalistInputSR" name="stanica" value="@ViewBag.Stanica" autocomplete="off" required />
                     <datalist id="myDatalistSR" open="open">
@@ -25,8 +25,15 @@
                     </div>
                 </div>
 
+                <div class="col-md-2">
+                    <label>Godina</label>
+                    <input class="form-control form-control-sm" name="fakturaGod" id="fakturaGod" value="@ViewBag.FakturaGod" autocomplete="off" required />
+                    <div class="invalid-feedback">
+                        Unesite godinu.
+                    </div>
+                </div>
 
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-6">
+                <div class="col-md-2">
                     <label>Broj računa</label>
                     <input class="form-control form-control-sm" name="racunBr" id="racunBr" autocomplete="off" />
                     <div class="invalid-feedback">
@@ -48,9 +55,14 @@
         /***************************** PRVI SEKTOR KADA KORISNIK NIJE ADMIN *************************************/
         /***************************** PRVI RED *****************************************************************/
 
-        <form asp-page-handler="Save" class="needs-validation" novalidate>
+        <form asp-page-handler="Save" class="needs-validation" novalidate enctype="multipart/form-data">
 
-            <div class="row mt-5">
+            <div class="row mt-3">
+
+                <div class="alert alert-primary" role="alert">
+                    <strong>Unos stanične fakture.</strong>
+                </div>
+
 
                 @if (ViewBag.Admin == true)
                 {
@@ -74,13 +86,13 @@
                 }
 
                 <div class="col-md-3">
-                    <label class="mb-0">Šifra.</label>
+                    <label class="mb-0">Šifra</label>
                     <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.SifraStanice" asp-for="Stanica" />
                 </div>
 
                 <div class="col-md-2">
                     <label class="mb-0">Mesto izdavanja računa</label>
-                    <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.Stanica" />
+                    <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.MestoIzdavanjaRacuna" />
                 </div>
 
             </div>
@@ -91,23 +103,28 @@
             <div class="row">
                 <div class="col-md-3">
                     <label class="mb-0">Blagajna</label>
-                    <select class="form-select form-select-sm" aria-label="Default select example" name="tipBlagajna" required>
-                        <option></option>
+                    <select class="form-select form-select-sm" aria-label="Default select example" name="tipBlagajna" asp-items="@ViewBag.BlagajnaTip" required>
+                        @*<option></option>
                         <option value="P">Prispeća</option>
-                        <option value="O">Otpravljanja</option>
+                        <option value="O">Otpravljanja</option>*@
                     </select>
                     <div class="invalid-feedback">
                         Unesite tip blagajne.
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                @*<div class="col-md-3">
                     <label class="mb-0">Šifra</label>
                     <select class="form-select form-select-sm" aria-label="Default select example" name="blagajna" asp-for="Blagajna">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
+                </div>*@
+
+                <div class="col-md-3">
+                    <label class="mb-0">Šifra</label>
+                    <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.SifraBlagajne" asp-for="Blagajna" />
                 </div>
 
                 <div class="col-md-2">
@@ -231,7 +248,7 @@
 
                 <div class="col-md-2">
                     <label class="mb-0">Datum nastanka obaveze</label>
-                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumNO" name="DatumNO" asp-for="FakturaDatum" required />
+                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumNO" name="DatumNO" asp-for="FakturaDatum" required asp-format="{0:dd\.MM\.yyyy}"/>
                     <div class="invalid-feedback">
                         Unesite datum.
                     </div>
@@ -239,9 +256,17 @@
 
                 <div class="col-md-2">
                     <label class="mb-0">Datum plaćanja</label>
-                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumP" name="DatumP" asp-for="FakturaDatumP" required/>
+                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumP" name="DatumP" asp-for="FakturaDatumP" required asp-format="{0:dd\.MM\.yyyy}"/>
                     <div class="invalid-feedback">
                         Unesite datum.
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="formFileSm" class="form-label mb-0">Prilog fakturi</label>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file" asp-for="Fpath" asp-items="@ViewBag.Putanja" required>
+                    <div class="invalid-feedback">
+                        Odaberite fajl.
                     </div>
                 </div>
 
@@ -270,38 +295,33 @@
 
                 <div class="col-md-2">
                     <label class="mb-0">Datum prometa usluga</label>
-                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumPU" name="DatumPU" asp-for="FakturaDatumPromet" required/>
-                    <div class="invalid-feedback">
-                        Unesite datum.
-                    </div>
+                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumPU" name="DatumPU" asp-for="FakturaDatumPromet" required asp-format="{0:dd\.MM\.yyyy}"/>
+                  
                 </div>
                 <div class="col-md-1">
                     <label class="mb-0">Jed. mera</label>
-                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjedinica" required/>
-                    <div class="valid-feedback">
-                        <p class="text-white m-0">Looks good!</p>
-                    </div>
+                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjedinica" />
                 </div>
                 <div class="col-md-1">
                     <label class="mb-0">Količina</label>
-                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fkolicina" required />
-                    <div class="valid-feedback">
-                        <p class="text-white m-0">Looks good!</p>
-                    </div>
+                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fkolicina"/>
                 </div>
                 <div class="col-md-2">
                     <label class="mb-0">Jedinična cena dinara</label>
-                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjcena" required />
-                    <div class="valid-feedback">
-                        <p class="text-white m-0">Looks good!</p>
-                    </div>
+                    <input class="form-control form-control-sm" autocomplete="off" asp-for="Fjcena"/>
                 </div>
                 <div class="col-md-2">
-                    <label class="mb-0">Ukupno dinara</label>
-                    <input class="form-control form-control-sm" autocomplete="off" id="ukupnoDinara" required />
-                    <div class="invalid-feedback">
-                        Unesite iznos.
+                    <div class="row">
+                        <div class="col-auto pr-0">
+                            <label class="mb-0">Ukupno dinara</label>
+                            <input class="form-control form-control-sm" autocomplete="off" id="ukupnoDinara" asp-for="FakturaOsnovica" required />
+                            
+                        </div>
+                        <div class="col-auto px-1 pt-4" style="padding-top:2px" >
+                            <i class="bi bi-info-circle"  data-bs-toggle="tooltip" data-bs-placement="top" title="Unosi se osnovica."></i>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
 
@@ -360,14 +380,27 @@
                 </div>
                 <div class="col-md-2">
                     <label class="mb-0">Datum izdavanja</label>
-                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumI" name="DatumI" asp-for="DatumIzdavanja" required />
+                    <input class="form-control form-control-sm" autocomplete="off" type="text" id="DatumI" name="DatumI" asp-for="DatumIzdavanja"  required asp-format="{0:dd\.MM\.yyyy}" />
                     <div class="invalid-feedback">
                         Unesite datum.
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 form-inline">
 
-                    <button type="submit" class="btn btn-sm btn-primary" asp-controller="StanicniRacun" asp-action="Save">Upiši u bazu</button>
+                    @if (Model == null)
+                    {
+
+                        <button type="submit" class="btn btn-sm btn-primary" asp-controller="StanicniRacun" asp-action="Save">Upiši u bazu</button>
+                        @if (ViewBag.PDFbtn == true)
+                        {
+                            <a class="btn btn-sm btn-primary mx-2" asp-controller="StanicniRacun" asp-action="LastEntryPDF" target="_blank">PDF</a>
+                        }
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-sm btn-primary" asp-controller="StanicniRacun" asp-action="EditSave">Izmeni</button>
+                    }
+
                 </div>
             </div>
 
@@ -377,14 +410,6 @@
         </form>
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -405,23 +430,35 @@
                 <tbody>
                     @foreach (var item in ((IEnumerable<SrFaktura>)ViewBag.stanicniRacuni))
                     {
-                        <tr>
-                            <td scope="row">@item.Stanica</td>
-                            <td>@item.FakturaBroj</td>
+                    <tr>
+                        <td scope="row">@item.Stanica</td>
+                        <td>@item.FakturaBroj</td>
 
-                            @if (item.FakturaDatum.HasValue)
+                        @if (item.FakturaDatum.HasValue)
+                        {
+                            <td>@item.FakturaDatum.Value.ToString("dd.MM.yyyy")</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+
+                        <td>@item.Primalac</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="PDF" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" target="_blank">PDF</a>
+                            @if (ViewBag.Admin == false)
                             {
-                                <td>@item.FakturaDatum.Value.ToString("dd.MM.yyyy")</td>
+                                <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="Edit" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Izmeni</a>
                             }
                             else
                             {
-                                <td></td>
+                                <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="Realizovano" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Realizovano</a>
                             }
 
-                            <td>@item.Primalac</td>
-                            <td><a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="PDF" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" target="_blank">PDF</a></td>
+                        </td>
+                        
 
-                        </tr>
+                    </tr>
                     }
                 </tbody>
 
@@ -567,27 +604,70 @@
 
 
 
+
+
+
+
         }) // kraj  $(window).on('load', function () {
 
         $(document).ready(function () {
 
-            $('#ukupnoDinara').on('input', function () {
+            $('#ukupnoDinara').on('input', function () {                                        // da na osnovu unosa polja "Unosa dinara" popuni polja poreska osnovica, PDV, i Ukupna vrednost. Sa zaokruženim vrednodnostima decimala na pr 12,46 => 12,50
 
                 decimals(this.getAttribute('Id'), this.value, 18, 2)
                 numbersAndDotOnly(this.getAttribute('Id'), this.value)
 
                 var ukupnoDinara = $('#ukupnoDinara').val()
-                var poreskaOsnovica = ukupnoDinara
-                var pdv = (poreskaOsnovica * 0.2).toFixed(2)
-                var ukupnaVrednost = (parseFloat(poreskaOsnovica) + parseFloat(pdv)).toFixed(2)
+                var poreskaOsnovica = numberFormat(parseFloat(ukupnoDinara).toFixed(1)) + '0'
+                var pdv = numberFormat((poreskaOsnovica * 0.2).toFixed(1))
+                var ukupnaVrednost = (parseFloat(poreskaOsnovica) + parseFloat(pdv)).toFixed(1)
 
-                $('#poreskaOsnovica').val(numberFormat(ukupnoDinara))
-                $('#pdv').val(numberFormat(pdv))
-                $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost))
-
+                if (ukupnoDinara != "") {
+                    $('#poreskaOsnovica').val(poreskaOsnovica)
+                    $('#pdv').val(pdv + '0')
+                    $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
+                } else {
+                    $('#poreskaOsnovica').val('')
+                    $('#pdv').val('')
+                    $('#ukupnaVrednost').val('')
+                }
             })
 
-            $('#racunBr, #myDatalistInput').on('input', function () {                   //na osnovu popunjenih polja prikazuje dugme "Prikaži" ili "PDF" i setuje atribut target, "_blank" kada je PDF dugme
+            $('#poreskaOsnovica').on('input', function () {                                     //Da na osnovu unosa polja Poreska Osnovica prekopira vrednost u polje Ukupnp Dinara i preracuna i popuni polja PDV i Ukupna Vrednost. Sa zaokruženim vrednodnostima decimala na pr 12,46 => 12,50
+
+                decimals(this.getAttribute('Id'), this.value, 18, 2)
+                numbersAndDotOnly(this.getAttribute('Id'), this.value)
+
+                var poreskaOsnovica = this.value
+                $('#ukupnoDinara').val(poreskaOsnovica)
+
+                if (poreskaOsnovica != "") {
+                    var pdv = numberFormat((poreskaOsnovica * 0.2).toFixed(1))
+                    var ukupnaVrednost = (parseFloat(poreskaOsnovica) + parseFloat(pdv)).toFixed(1)
+
+                    $('#pdv').val(pdv + '0')
+                    $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
+                } else {
+                    $('#pdv').val('')
+                    $('#ukupnaVrednost').val('')
+                }
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $('#racunBr, #myDatalistInput').on('input', function () {                   //na osnovu popunjenih polja prikazuje dugme "Prikaži" ili "PDF" i setuje atribut target="_blank" kada je PDF dugme
                 var value = $('#racunBr').val();
                 var stanica = $('#myDatalistInput').val();
 
@@ -603,7 +683,11 @@
 
          
 
-
+            $('#fakturaGod').keypress(function (e) {                            //dozvoljava samo brojeve
+                var charCode = (e.which) ? e.which : event.keyCode
+                if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                    return false;
+            });
 
 
 
