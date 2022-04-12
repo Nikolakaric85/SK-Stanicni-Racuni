@@ -29,6 +29,7 @@ namespace SK_Stanicni_Racuni
             //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionHOME")));
 
             services.AddTransient<UserLogin>();
+            services.AddTransient<DirectoryAndFiles>();
 
             services.AddControllersWithViews();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
@@ -41,6 +42,8 @@ namespace SK_Stanicni_Racuni
             }
 
             );
+
+            services.AddAutoMapper(typeof(ApplicationMapper));
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

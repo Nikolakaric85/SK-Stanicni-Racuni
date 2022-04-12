@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,10 +7,13 @@ using Microsoft.Reporting.NETCore;
 using SK_Stanicni_Racuni.Classes;
 using SK_Stanicni_Racuni.CustomModelBinding.StanicniRacunDatumi;
 using SK_Stanicni_Racuni.Models;
+using SK_Stanicni_Racuni.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,24 +25,29 @@ namespace SK_Stanicni_Racuni.Controllers
         private readonly INotyfService notyf;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly UserLogin userLogin;
+        private readonly IMapper mapper;
+        private readonly DirectoryAndFiles directoryAndFiles;
         private string blagajnik = string.Empty;
         CultureInfo elGR = CultureInfo.CreateSpecificCulture("el-GR");  //koristim da na izvestaju thousand separator 100.000. i slicno
 
-        public StanicniRacunController(AppDbContext context, INotyfService notyf, IWebHostEnvironment webHostEnvironment, UserLogin userLogin )
+        public StanicniRacunController(AppDbContext context, INotyfService notyf, IWebHostEnvironment webHostEnvironment, UserLogin userLogin,
+            IMapper mapper, DirectoryAndFiles directoryAndFiles)
         {
             this.context = context;
             this.notyf = notyf;
             this.webHostEnvironment = webHostEnvironment;
             this.userLogin = userLogin;
+            this.mapper = mapper;
+            this.directoryAndFiles = directoryAndFiles;
         }
 
         public IActionResult StanicniRacun()
         {
 
-         //   var user3 = userLogin.LoggedInUser();
+            var user = userLogin.LoggedInUser();
 
-            var UserId = HttpContext.User.Identity.Name; // daje UserId
-            var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
+            //var UserId = HttpContext.User.Identity.Name; // daje UserId
+            //var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
 
             if (user != null)
             {
@@ -47,7 +56,18 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.blagajnik = user.Naziv.Trim();
                     ViewBag.Admin = true;
                     TempData["blagajnik"] = user.Naziv.Trim();
-                    ViewBag.stanicniRacuni = context.SrFakturas.Where(x => x.Realizovano == "N");
+
+                    var model = context.SrFakturas.Where(x => x.Realizovano == "N");
+                    var viewModelList = mapper.Map<List<SrFakturaViewModel>>(model);
+
+                    foreach (var item in viewModelList)
+                    {
+                        item.NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == item.Stanica).Select(x => x.Naziv).FirstOrDefault();
+                    }
+
+                    ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
+
+                    ViewBag.samoNfakture = true;
                 }
                 else
                 {
@@ -61,7 +81,15 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.SifraStanice = user.Stanica;
                     ViewBag.UserID = user.UserId;
 
-                    ViewBag.stanicniRacuni = context.SrFakturas.Where(x => x.Stanica == user.Stanica);
+                    var model = context.SrFakturas.Where(x => x.Stanica == user.Stanica);
+                    var viewModelList = mapper.Map<List<SrFakturaViewModel>>(model);
+
+                    foreach (var item in viewModelList)
+                    {
+                        item.NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == item.Stanica).Select(x => x.Naziv).FirstOrDefault();
+                    }
+
+                    ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
                 }
 
                 ViewBag.BlagajnaTip = new SelectList(BlagajnaTip());
@@ -106,7 +134,7 @@ namespace SK_Stanicni_Racuni.Controllers
             return blagajnaTip;
         }
 
-        public IActionResult PDF(string stanica, string racunBr, int fakturaGod)
+        public IActionResult PDF(string stanica, string racunBr, int fakturaGod, bool sveFakture, bool samoNfakture)
         {
 
             //kada iz tabele poziva PDF onda proverava da li je parametar stanica string ili int
@@ -213,12 +241,24 @@ namespace SK_Stanicni_Racuni.Controllers
                 var pdf = localReport.Render(renderFormat);
                 return File(pdf, mimtype);
 
-            }
+            }                                                                                                                                   //***************** ODAVDE IDE PRETRAGA NA ADMIN FORMI
             else if (!string.IsNullOrEmpty(stanica) && !string.IsNullOrEmpty(fakturaGod.ToString()) && string.IsNullOrEmpty(racunBr))
             {
                 // ovde ide popunjavanje GRID-a faktura broj je racun broj
 
-                var query = context.SrFakturas.Where(x => x.Stanica == sifraStanice && x.FakturaGodina == fakturaGod && x.Realizovano == "N").AsEnumerable();
+                var query = Enumerable.Empty<SrFaktura>();
+
+                if (sveFakture)
+                {
+                    ViewBag.sveFakture = true;  //sluzi za setovanje na formi chekbox-va, sta je izabrano da to i ostane
+                    ViewBag.samoNfakture = false;
+                    query = context.SrFakturas.Where(x => x.Stanica == sifraStanice && x.FakturaGodina == fakturaGod).AsEnumerable();
+                } else
+                {
+                    ViewBag.sveFakture = false;
+                    ViewBag.samoNfakture = true;
+                    query = context.SrFakturas.Where(x => x.Stanica == sifraStanice && x.FakturaGodina == fakturaGod && x.Realizovano == "N").AsEnumerable();
+                }
 
                 if (!query.Any())
                 {
@@ -226,53 +266,133 @@ namespace SK_Stanicni_Racuni.Controllers
                     return RedirectToAction("StanicniRacun");
                 }
 
-                ViewBag.stanicniRacuni = query;
+                var viewModelList = mapper.Map<List<SrFakturaViewModel>>(query);
+
+                foreach (var item in viewModelList)
+                {
+                    item.NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == item.Stanica).Select(x => x.Naziv).FirstOrDefault();
+                }
+
+                ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
                 ViewBag.Admin = true;
                 ViewBag.Stanica = stanica;
                 ViewBag.FakturaGod = fakturaGod;
 
                 return View("StanicniRacun");
+            }
+            else if (string.IsNullOrEmpty(stanica) && fakturaGod == 0 && string.IsNullOrEmpty(racunBr))
+            {
+                // kada vrsi pretragu samo po checkbox-vima
 
+
+                var query = Enumerable.Empty<SrFaktura>();
+
+                if (sveFakture)
+                {
+                    ViewBag.sveFakture = true;  //sluzi za setovanje na formi chekbox-va, sta je izabrano da to i ostane
+                    ViewBag.samoNfakture = false;
+                    query = context.SrFakturas.AsEnumerable();
+                }
+                else
+                {
+                    ViewBag.sveFakture = false;
+                    ViewBag.samoNfakture = true;
+                    query = context.SrFakturas.Where(x => x.Realizovano == "N").AsEnumerable();
+                }
+
+                if (!query.Any())
+                {
+                    notyf.Error("Nema podataka za izabrane kriterijume.", 3);
+                    return RedirectToAction("StanicniRacun");
+                }
+
+                var viewModelList = mapper.Map<List<SrFakturaViewModel>>(query);
+
+                foreach (var item in viewModelList)
+                {
+                    item.NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == item.Stanica).Select(x => x.Naziv).FirstOrDefault();
+                }
+
+                ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
+                ViewBag.Admin = true;
+              //  ViewBag.Stanica = stanica;
+              //  ViewBag.FakturaGod = fakturaGod;
+
+                return View("StanicniRacun");
             }
 
             return RedirectToAction("StanicniRacun");
         }
 
 
-        public IActionResult Save(SrFaktura model, string tipBlagajna,
+
+
+        public IActionResult Save(SrFakturaViewModel viewModel, string tipBlagajna,
             [ModelBinder(typeof(FakturaDatumModelBinder))] DateTime FakturaDatum,
             [ModelBinder(typeof(DatumIzdavanjaModelBinder))] DateTime DatumIzadavanja,
             [ModelBinder(typeof(FakturaDatumPModelBinder))] DateTime FakturaDatumP,
             [ModelBinder(typeof(FakturaDatumPuModelBinder))] DateTime FakturaDatumPU)
         {
 
-            var query = context.SrFakturas.Where(x => x.Stanica == model.Stanica && x.FakturaBroj == model.FakturaBroj && x.FakturaGodina == model.FakturaGodina);
+            var query = context.SrFakturas.Where(x => x.Stanica == viewModel.Stanica && x.FakturaBroj == viewModel.FakturaBroj && x.FakturaGodina == viewModel.FakturaGodina);
 
             if (query.Any())
             {
                 notyf.Error("Postoji već račun pod tim brojem.",5);
-                ViewBag.stanicniRacuni = Enumerable.Empty<SrFaktura>();
-                return View("StanicniRacun", model);
+                ViewBag.stanicniRacuni = Enumerable.Empty<SrFakturaViewModel>();
+                return View("StanicniRacun", viewModel);
             }
 
             string nullDate = "1/1/0001 12:00:00 AM";
 
-            model.FakturaDatum = FakturaDatum.ToString() != nullDate ? FakturaDatum : null;
-            model.DatumIzdavanja = DatumIzadavanja.ToString() != nullDate ? DatumIzadavanja : null ;
-            model.FakturaDatumP = FakturaDatumP.ToString() != nullDate ? FakturaDatumP : null ;
-            model.FakturaDatumPromet = FakturaDatumPU.ToString() != nullDate ? FakturaDatumPU: null ;
+            viewModel.FakturaDatum = FakturaDatum.ToString() != nullDate ? FakturaDatum : null;
+            viewModel.DatumIzdavanja = DatumIzadavanja.ToString() != nullDate ? DatumIzadavanja : null ;
+            viewModel.FakturaDatumP = FakturaDatumP.ToString() != nullDate ? FakturaDatumP : null ;
+            viewModel.FakturaDatumPromet = FakturaDatumPU.ToString() != nullDate ? FakturaDatumPU: null ;
 
-            model.BlagajnaTip = tipBlagajna == "P" ? "P" : "O";
+            viewModel.Realizovano = viewModel.Realizovano == null ? "N" : "D";
+
+            viewModel.BlagajnaTip = tipBlagajna == "P" ? "P" : "O";
+
+            var NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == viewModel.Stanica).Select(x => x.Naziv).FirstOrDefault();
+            var model = new SrFaktura();
+            mapper.Map(viewModel, model);
+
+            if (!directoryAndFiles.IsDirectoryExist(NazivStanice))
+            {
+                directoryAndFiles.CreateDirectory(NazivStanice);   
+            }
+
+            if (!directoryAndFiles.IsFileExist(viewModel.UploadFile.FileName, NazivStanice))
+            {
+                model.Fpath = viewModel.UploadFile.FileName;
+                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + viewModel.UploadFile.FileName;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    viewModel.UploadFile.CopyTo(fileStream);
+                }
+
+                model.Fpath = path;
+            } else
+            {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.UploadFile.FileName;
+                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + uniqueFileName;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    viewModel.UploadFile.CopyTo(fileStream);
+                }
+                model.Fpath = path;
+            }
 
             try
             {
                 notyf.Success("Uspešno uneti podaci.", 3);
                 context.SrFakturas.Add(model);
-                context.SaveChanges();
+              //  context.SaveChanges();
 
                 TempData["PoslednjiUnos"] = true;
-                TempData["Stanica"] = model.Stanica;
-                TempData["FakturaBroj"] = model.FakturaBroj;
+                TempData["Stanica"] = viewModel.Stanica;
+                TempData["FakturaBroj"] = viewModel.FakturaBroj;
                
             }
             catch (Exception)
@@ -306,17 +426,52 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var query = context.SrFakturas.Where(x => x.Stanica == stanica && x.FakturaBroj == racunBr && x.FakturaGodina == fakturaGod).FirstOrDefault();
 
-            @ViewBag.Putanja = query.Fpath; // NE PRIKAZUJE IME FAJLA. OVO SA VIEWBAGO-OM NE RADI
+            var viewModel = new SrFakturaViewModel();
+
+//            var path =  $"{this.webHostEnvironment.WebRootPath}\\files\\Prikazi.pdf";
+
+            //using (var fileStream = new FileStream(path, FileMode.Open))
+            //{
+                
+            //    try
+            //    {
+                    
+            //        viewModel.UploadFile.CopyTo(fileStream);
+            //    }
+            //    catch (NullReferenceException e)
+            //    {
+            //        var a = e.Message;
+                    
+            //    }
+                
+            //}
+
+
+            mapper.Map(query, viewModel);
+
 
             var tipBlagajne = query.BlagajnaTip == "P" ? "Prispeća" : "Otpravljanja";
             ViewBag.BlagajnaTip = new SelectList(BlagajnaTip(), tipBlagajne);
 
-            ViewBag.stanicniRacuni = context.SrFakturas.Where(x => x.Stanica == user.Stanica);
-            return View("StanicniRacun", query);
+
+            var modelTEMP = context.SrFakturas.Where(x => x.Stanica == user.Stanica).OrderByDescending(x => x.DatumIzdavanja);
+
+            var viewModelList = mapper.Map<List<SrFakturaViewModel>>(modelTEMP);        // ovo mozda ce se pojednostavniti kada se resi kako da se prikaze putanja i ostalo
+
+            foreach (var item in viewModelList)
+            {
+                item.NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == item.Stanica).Select(x => x.Naziv).FirstOrDefault();
+            }
+
+            ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
+
+
+           //ViewBag.stanicniRacuni = context.SrFakturas.Where(x => x.Stanica == user.Stanica);
+            return View("StanicniRacun", viewModel);
         }
 
 
-        public IActionResult EditSave(SrFaktura model, string tipBlagajna,
+        public IActionResult EditSave(SrFakturaViewModel viewModel, string tipBlagajna,
             [ModelBinder(typeof(FakturaDatumModelBinder))] DateTime FakturaDatum,
             [ModelBinder(typeof(DatumIzdavanjaModelBinder))] DateTime DatumIzadavanja,
             [ModelBinder(typeof(FakturaDatumPModelBinder))] DateTime FakturaDatumP,
@@ -325,12 +480,58 @@ namespace SK_Stanicni_Racuni.Controllers
 
             string nullDate = "1/1/0001 12:00:00 AM";
 
-            model.FakturaDatum = FakturaDatum.ToString() != nullDate ? FakturaDatum : null;
-            model.DatumIzdavanja = DatumIzadavanja.ToString() != nullDate ? DatumIzadavanja : null;
-            model.FakturaDatumP = FakturaDatumP.ToString() != nullDate ? FakturaDatumP : null;
-            model.FakturaDatumPromet = FakturaDatumPU.ToString() != nullDate ? FakturaDatumPU : null;
+            viewModel.FakturaDatum = FakturaDatum.ToString() != nullDate ? FakturaDatum : null;
+            viewModel.DatumIzdavanja = DatumIzadavanja.ToString() != nullDate ? DatumIzadavanja : null;
+            viewModel.FakturaDatumP = FakturaDatumP.ToString() != nullDate ? FakturaDatumP : null;
+            viewModel.FakturaDatumPromet = FakturaDatumPU.ToString() != nullDate ? FakturaDatumPU : null;
 
-            model.BlagajnaTip = tipBlagajna == "Prispeća" ? "P" : "O";
+            viewModel.BlagajnaTip = tipBlagajna == "Prispeća" ? "P" : "O";
+
+            var NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == viewModel.Stanica).Select(x => x.Naziv).FirstOrDefault();
+
+            var model = new SrFaktura();
+            mapper.Map(viewModel, model);
+
+
+            if (!directoryAndFiles.IsDirectoryExist(NazivStanice))
+            {
+                directoryAndFiles.CreateDirectory(NazivStanice);
+            }
+
+            if (!directoryAndFiles.IsFileExist(viewModel.UploadFile.FileName, NazivStanice))
+            {
+                model.Fpath = viewModel.UploadFile.FileName;
+                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + viewModel.UploadFile.FileName;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    viewModel.UploadFile.CopyTo(fileStream);
+                }
+
+                model.Fpath = path;
+            }
+            else
+            {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.UploadFile.FileName;
+                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + uniqueFileName;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    viewModel.UploadFile.CopyTo(fileStream);
+                }
+                model.Fpath = path;
+            }
+
+
+            try
+            {
+                var update = context.SrFakturas.Attach(model);
+                update.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+                notyf.Success("Uspešna izmena", 3);
+            }
+            catch (Exception)
+            {
+                notyf.Error("Greška prilikom izmene podataka.", 5);
+            }
 
             return RedirectToAction("StanicniRacun");
         }
@@ -353,9 +554,42 @@ namespace SK_Stanicni_Racuni.Controllers
             {
                 notyf.Error("Greška prilikom realziacije.", 5);
             }
-            
-            return RedirectToAction("StanicniRacun");
 
+           return View("StanicniRacun");
+        }
+
+        public IActionResult Prilog(string stanica, string racunBr, int fakturaGod, bool sveFakture, bool samoNfakture)
+        {
+            var query = context.SrFakturas.Where(x => x.Stanica == stanica && x.FakturaBroj == racunBr && x.FakturaGodina == fakturaGod).Select(x => x.Fpath).FirstOrDefault();
+
+            if (query == null)
+            {
+                notyf.Information("Nema priloga", 3);
+            } else
+            {
+                ViewBag.Stanica = stanica;
+                ViewBag.FakturaGod = racunBr;
+                ViewBag.sveFakture = sveFakture;
+                ViewBag.samoNfakture = samoNfakture;
+
+
+                try
+                {
+                    Process.Start(new ProcessStartInfo(query) { UseShellExecute = true });
+                }
+                catch (Exception)
+                {
+                    notyf.Error("Neispravna putanja ili fajl.", 5);
+                    
+                }
+            }
+
+            ViewBag.Admin = true;
+
+            ViewBag.stanicniRacuni = Enumerable.Empty<SrFakturaViewModel>();
+
+            //return RedirectToAction("PDF", new { stanica, racunBr, fakturaGod,  sveFakture, samoNfakture } );
+            return View("StanicniRacun");
         }
 
 

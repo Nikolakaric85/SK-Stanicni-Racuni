@@ -49,7 +49,7 @@ namespace SK_Stanicni_Racuni.Controllers
             var query = from k in context.Komitents
                         join u in context.Ugovoris on k.Sifra equals u.SifraKorisnika
                         where u.VaziDo >= DateTime.Now
-                        && k.Naziv.Contains(data)
+                        && k.Naziv.StartsWith(data)
                         select new
                         {
                             Naziv = k.Naziv.Trim(),
