@@ -17,7 +17,7 @@ namespace SK_Stanicni_Racuni.CustomModelBinding.Datumi
             }
 
             var data = bindingContext.HttpContext.Request.Form;
-            var resultDatum = data.TryGetValue("DatumNO", out var VaziOd);
+            var resultDatum = data.TryGetValue("DatumOd", out var VaziOd);
 
             if (resultDatum)
             {

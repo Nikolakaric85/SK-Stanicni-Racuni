@@ -57,14 +57,16 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
             <Top>0.43607cm</Top>
-            <Left>19.5208cm</Left>
+            <Left>19.39815cm</Left>
             <Height>0.6cm</Height>
-            <Width>0.93896cm</Width>
+            <Width>1.02707cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -83,7 +85,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!MestoIzdavanjaRacuna.Value</Value>
+                    <Value>=Parameters!MestoStanice.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -93,10 +95,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MestoIzdavanjaRacuna</rd:DefaultName>
-            <Top>2.47018cm</Top>
-            <Left>16.09078cm</Left>
+            <Top>1.70593cm</Top>
+            <Left>16.1113cm</Left>
             <Height>0.6cm</Height>
-            <Width>4.405cm</Width>
+            <Width>4.33444cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -126,8 +128,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>2.47018cm</Top>
-            <Left>11.87099cm</Left>
+            <Top>1.70593cm</Top>
+            <Left>11.89151cm</Left>
             <Height>0.6cm</Height>
             <Width>4.21979cm</Width>
             <ZIndex>3</ZIndex>
@@ -136,6 +138,8 @@
                 <Style>None</Style>
               </Border>
               <VerticalAlign>Bottom</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
@@ -157,10 +161,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MestoIzdavanjaRacuna</rd:DefaultName>
-            <Top>4.09323cm</Top>
-            <Left>14.5121cm</Left>
+            <Top>3.30555cm</Top>
+            <Left>14.53262cm</Left>
             <Height>0.6cm</Height>
-            <Width>5.98368cm</Width>
+            <Width>5.91312cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -191,8 +195,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>4.09323cm</Top>
-            <Left>11.87099cm</Left>
+            <Top>3.30555cm</Top>
+            <Left>11.89151cm</Left>
             <Height>0.6cm</Height>
             <Width>2.60584cm</Width>
             <ZIndex>5</ZIndex>
@@ -214,7 +218,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value />
+                    <Value>=Parameters!TekuciRacun.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -224,10 +228,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MestoIzdavanjaRacuna</rd:DefaultName>
-            <Top>3.31684cm</Top>
-            <Left>14.5121cm</Left>
+            <Top>2.50574cm</Top>
+            <Left>14.53262cm</Left>
             <Height>0.6cm</Height>
-            <Width>5.98368cm</Width>
+            <Width>5.91312cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -258,8 +262,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>3.31684cm</Top>
-            <Left>11.87099cm</Left>
+            <Top>2.50574cm</Top>
+            <Left>11.89151cm</Left>
             <Height>0.6cm</Height>
             <Width>2.60583cm</Width>
             <ZIndex>7</ZIndex>
@@ -268,6 +272,8 @@
                 <Style>None</Style>
               </Border>
               <VerticalAlign>Bottom</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
@@ -289,10 +295,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MestoIzdavanjaRacuna</rd:DefaultName>
-            <Top>4.86962cm</Top>
-            <Left>14.5121cm</Left>
+            <Top>4.10537cm</Top>
+            <Left>14.53262cm</Left>
             <Height>0.6cm</Height>
-            <Width>5.98368cm</Width>
+            <Width>5.91312cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -323,8 +329,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>4.86962cm</Top>
-            <Left>11.87099cm</Left>
+            <Top>4.10537cm</Top>
+            <Left>11.89151cm</Left>
             <Height>0.6cm</Height>
             <Width>2.60584cm</Width>
             <ZIndex>9</ZIndex>
@@ -333,6 +339,8 @@
                 <Style>None</Style>
               </Border>
               <VerticalAlign>Bottom</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
@@ -344,7 +352,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!MestoIzdavanjaRacuna.Value</Value>
+                    <Value>=Parameters!NazivStanice.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -354,8 +362,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MestoIzdavanjaRacuna1</rd:DefaultName>
-            <Top>3.31684cm</Top>
-            <Left>0.54024cm</Left>
+            <Top>2.50574cm</Top>
+            <Left>0.56076cm</Left>
             <Height>0.6cm</Height>
             <Width>6.01896cm</Width>
             <ZIndex>10</ZIndex>
@@ -390,8 +398,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Stanica</rd:DefaultName>
-            <Top>3.31684cm</Top>
-            <Left>8.36675cm</Left>
+            <Top>2.50574cm</Top>
+            <Left>8.38727cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>11</ZIndex>
@@ -410,7 +418,7 @@
             </Style>
           </Textbox>
           <Line Name="Line1">
-            <Top>5.95cm</Top>
+            <Top>5.38204cm</Top>
             <Left>0.54024cm</Left>
             <Height>0cm</Height>
             <Width>19.91952cm</Width>
@@ -438,8 +446,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MestoIzdavanjaRacuna1</rd:DefaultName>
-            <Top>4.7075cm</Top>
-            <Left>2.24569cm</Left>
+            <Top>4.10537cm</Top>
+            <Left>2.26621cm</Left>
             <Height>0.6cm</Height>
             <Width>4.87795cm</Width>
             <ZIndex>13</ZIndex>
@@ -472,8 +480,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>4.7075cm</Top>
-            <Left>0.54024cm</Left>
+            <Top>4.10537cm</Top>
+            <Left>0.56076cm</Left>
             <Height>0.6cm</Height>
             <Width>1.70545cm</Width>
             <ZIndex>14</ZIndex>
@@ -503,8 +511,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Stanica</rd:DefaultName>
-            <Top>4.7075cm</Top>
-            <Left>8.36675cm</Left>
+            <Top>4.10537cm</Top>
+            <Left>8.38727cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>15</ZIndex>
@@ -541,8 +549,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>3.9874cm</Top>
-            <Left>0.54024cm</Left>
+            <Top>3.10574cm</Top>
+            <Left>0.56076cm</Left>
             <Height>0.33542cm</Height>
             <Width>6.8cm</Width>
             <ZIndex>16</ZIndex>
@@ -570,10 +578,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>6.33773cm</Top>
-            <Left>11.45371cm</Left>
+            <Top>5.58218cm</Top>
+            <Left>11.41917cm</Left>
             <Height>0.6cm</Height>
-            <Width>9.06579cm</Width>
+            <Width>9.00605cm</Width>
             <ZIndex>17</ZIndex>
             <Style>
               <Border>
@@ -605,8 +613,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>7.62646cm</Top>
-            <Left>11.45371cm</Left>
+            <Top>6.87091cm</Top>
+            <Left>11.41917cm</Left>
             <Height>0.6cm</Height>
             <Width>4.4cm</Width>
             <ZIndex>18</ZIndex>
@@ -640,8 +648,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>7.62646cm</Top>
-            <Left>16.11948cm</Left>
+            <Top>6.87091cm</Top>
+            <Left>16.08494cm</Left>
             <Height>0.6cm</Height>
             <Width>4.34028cm</Width>
             <ZIndex>19</ZIndex>
@@ -673,8 +681,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>8.73771cm</Top>
-            <Left>11.45371cm</Left>
+            <Top>7.98216cm</Top>
+            <Left>11.41917cm</Left>
             <Height>0.6cm</Height>
             <Width>1.69584cm</Width>
             <ZIndex>20</ZIndex>
@@ -701,8 +709,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>9.44354cm</Top>
-            <Left>11.45371cm</Left>
+            <Top>8.68799cm</Top>
+            <Left>11.41917cm</Left>
             <Height>1.07597cm</Height>
             <Width>2.33564cm</Width>
             <ZIndex>21</ZIndex>
@@ -729,8 +737,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>10.51951cm</Top>
-            <Left>11.45371cm</Left>
+            <Top>9.76396cm</Top>
+            <Left>11.41917cm</Left>
             <Height>0.6cm</Height>
             <Width>2.33564cm</Width>
             <ZIndex>22</ZIndex>
@@ -757,8 +765,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>11.2959cm</Top>
-            <Left>11.45371cm</Left>
+            <Top>10.54035cm</Top>
+            <Left>11.41917cm</Left>
             <Height>0.6cm</Height>
             <Width>0.88604cm</Width>
             <ZIndex>23</ZIndex>
@@ -787,8 +795,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>8.73771cm</Top>
-            <Left>13.22011cm</Left>
+            <Top>7.98216cm</Top>
+            <Left>13.18557cm</Left>
             <Height>0.6cm</Height>
             <Width>7.23965cm</Width>
             <ZIndex>24</ZIndex>
@@ -822,8 +830,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>9.44354cm</Top>
-            <Left>13.85991cm</Left>
+            <Top>8.68799cm</Top>
+            <Left>13.82537cm</Left>
             <Height>0.6cm</Height>
             <Width>6.59985cm</Width>
             <ZIndex>25</ZIndex>
@@ -858,8 +866,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>10.51951cm</Top>
-            <Left>13.78935cm</Left>
+            <Top>9.76396cm</Top>
+            <Left>13.75481cm</Left>
             <Height>0.6cm</Height>
             <Width>6.67041cm</Width>
             <ZIndex>26</ZIndex>
@@ -893,8 +901,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>11.2959cm</Top>
-            <Left>12.33976cm</Left>
+            <Top>10.54035cm</Top>
+            <Left>12.30522cm</Left>
             <Height>0.6cm</Height>
             <Width>8.12cm</Width>
             <ZIndex>27</ZIndex>
@@ -928,8 +936,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>4.05796cm</Top>
-            <Left>9.11675cm</Left>
+            <Top>3.1763cm</Top>
+            <Left>9.13727cm</Left>
             <Height>0.33542cm</Height>
             <Width>1cm</Width>
             <ZIndex>28</ZIndex>
@@ -957,8 +965,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>5.44861cm</Top>
-            <Left>9.11675cm</Left>
+            <Top>4.84648cm</Top>
+            <Left>9.13727cm</Left>
             <Height>0.33542cm</Height>
             <Width>1cm</Width>
             <ZIndex>29</ZIndex>
@@ -986,8 +994,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>7.04356cm</Top>
-            <Left>14.5358cm</Left>
+            <Top>6.28801cm</Top>
+            <Left>14.50126cm</Left>
             <Height>0.33542cm</Height>
             <Width>2.94979cm</Width>
             <ZIndex>30</ZIndex>
@@ -1014,8 +1022,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>8.26146cm</Top>
-            <Left>13.19871cm</Left>
+            <Top>7.50591cm</Top>
+            <Left>13.16417cm</Left>
             <Height>0.33542cm</Height>
             <Width>0.91cm</Width>
             <ZIndex>31</ZIndex>
@@ -1042,8 +1050,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>8.26146cm</Top>
-            <Left>17.49281cm</Left>
+            <Top>7.50591cm</Top>
+            <Left>17.45827cm</Left>
             <Height>0.33542cm</Height>
             <Width>1.65333cm</Width>
             <ZIndex>32</ZIndex>
@@ -1071,8 +1079,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox38</rd:DefaultName>
-            <Top>8.17245cm</Top>
-            <Left>0.96884cm</Left>
+            <Top>7.4169cm</Top>
+            <Left>0.9343cm</Left>
             <Height>0.65401cm</Height>
             <Width>3.83442cm</Width>
             <ZIndex>33</ZIndex>
@@ -1102,8 +1110,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>8.26146cm</Top>
-            <Left>4.83854cm</Left>
+            <Top>7.50591cm</Top>
+            <Left>4.804cm</Left>
             <Height>0.6cm</Height>
             <Width>3.15745cm</Width>
             <ZIndex>34</ZIndex>
@@ -1138,8 +1146,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>8.26146cm</Top>
-            <Left>8.17238cm</Left>
+            <Top>7.50591cm</Top>
+            <Left>8.13784cm</Left>
             <Height>0.6cm</Height>
             <Width>1.5cm</Width>
             <ZIndex>35</ZIndex>
@@ -1176,8 +1184,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>8.93202cm</Top>
-            <Left>8.67633cm</Left>
+            <Top>8.17647cm</Top>
+            <Left>8.64179cm</Left>
             <Height>0.33542cm</Height>
             <Width>0.61896cm</Width>
             <ZIndex>36</ZIndex>
@@ -1203,7 +1211,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox42</rd:DefaultName>
-            <Top>12.00201cm</Top>
+            <Top>11.36701cm</Top>
             <Left>0.71034cm</Left>
             <Height>0.6cm</Height>
             <Width>4.23403cm</Width>
@@ -1234,7 +1242,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>12.00201cm</Top>
+            <Top>11.36701cm</Top>
             <Left>4.94437cm</Left>
             <Height>0.6cm</Height>
             <Width>2cm</Width>
@@ -1266,7 +1274,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox42</rd:DefaultName>
-            <Top>12.00201cm</Top>
+            <Top>11.36701cm</Top>
             <Left>7.32902cm</Left>
             <Height>0.6cm</Height>
             <Width>2.80825cm</Width>
@@ -1297,7 +1305,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>12.00201cm</Top>
+            <Top>11.36701cm</Top>
             <Left>10.13727cm</Left>
             <Height>0.6cm</Height>
             <Width>2cm</Width>
@@ -1331,7 +1339,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>12.67257cm</Top>
+            <Top>12.03757cm</Top>
             <Left>5.48937cm</Left>
             <Height>0.33542cm</Height>
             <Width>0.91cm</Width>
@@ -1360,7 +1368,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>12.67257cm</Top>
+            <Top>12.03757cm</Top>
             <Left>10.68227cm</Left>
             <Height>0.33542cm</Height>
             <Width>0.91cm</Width>
@@ -2089,7 +2097,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!JedCenaDin.Value</Value>
+                                  <Value>=Parameters!JedCenaDin.Value + "," + Parameters!JedCenaDinDecimal.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2122,8 +2130,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!PoreskaOsnovica.Value</Value>
-                                  <Style />
+                                  <Value>=Parameters!PoreskaOsnovica.Value + "," + Parameters!PoreskaOsnovicaDecimal.Value</Value>
+                                  <Style>
+                                    <Format>0.00;(0.00)</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2199,7 +2209,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!PoreskaOsnovica.Value</Value>
+                                  <Value>=Parameters!PoreskaOsnovica.Value + "," + Parameters!PoreskaOsnovicaDecimal.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2276,7 +2286,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!PDV.Value</Value>
+                                  <Value>=Parameters!PDV.Value + "," + Parameters!PDV_Decimal.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2353,7 +2363,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!UkupnaVrednost.Value</Value>
+                                  <Value>=Parameters!UkupnaVrednost.Value + "," + Parameters!UkupnaVrednostDecimal.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2439,6 +2449,10 @@
                                   <Value>УКУПНО ДИНАРА (словима):</Value>
                                   <Style />
                                 </TextRun>
+                                <TextRun>
+                                  <Value>=Parameters!FakturaTekst.Value</Value>
+                                  <Style />
+                                </TextRun>
                               </TextRuns>
                               <Style>
                                 <TextAlign>Left</TextAlign>
@@ -2495,7 +2509,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>StanicniRacun</DataSetName>
-            <Top>13.15274cm</Top>
+            <Top>12.51774cm</Top>
             <Left>0.54024cm</Left>
             <Height>7.96698cm</Height>
             <Width>19.91952cm</Width>
@@ -2521,7 +2535,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox127</rd:DefaultName>
-            <Top>21.155cm</Top>
+            <Top>20.52cm</Top>
             <Left>0.65062cm</Left>
             <Height>0.6cm</Height>
             <Width>4.23403cm</Width>
@@ -2560,7 +2574,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>21.155cm</Top>
+            <Top>20.52cm</Top>
             <Left>4.88465cm</Left>
             <Height>0.6cm</Height>
             <Width>6.54206cm</Width>
@@ -2598,7 +2612,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>21.79028cm</Top>
+            <Top>21.15528cm</Top>
             <Left>5.8408cm</Left>
             <Height>0.33542cm</Height>
             <Width>4.62977cm</Width>
@@ -2625,8 +2639,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox130</rd:DefaultName>
-            <Top>22.30209cm</Top>
-            <Left>0.65062cm</Left>
+            <Top>21.52598cm</Top>
+            <Left>0.60672cm</Left>
             <Height>0.6cm</Height>
             <Width>9.08891cm</Width>
             <ZIndex>47</ZIndex>
@@ -2658,8 +2672,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>22.93737cm</Top>
-            <Left>0.65062cm</Left>
+            <Top>22.16126cm</Top>
+            <Left>0.60672cm</Left>
             <Height>0.6cm</Height>
             <Width>2.25947cm</Width>
             <ZIndex>48</ZIndex>
@@ -2689,8 +2703,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox132</rd:DefaultName>
-            <Top>23.41695cm</Top>
-            <Left>2.91009cm</Left>
+            <Top>22.64084cm</Top>
+            <Left>2.86619cm</Left>
             <Height>0.5cm</Height>
             <Width>17.54967cm</Width>
             <ZIndex>49</ZIndex>
@@ -2722,8 +2736,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox132</rd:DefaultName>
-            <Top>23.85883cm</Top>
-            <Left>2.91009cm</Left>
+            <Top>23.08272cm</Top>
+            <Left>2.86619cm</Left>
             <Height>0.5cm</Height>
             <Width>17.54967cm</Width>
             <ZIndex>50</ZIndex>
@@ -2755,8 +2769,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>24.53522cm</Top>
-            <Left>0.65062cm</Left>
+            <Top>23.75911cm</Top>
+            <Left>0.60672cm</Left>
             <Height>0.6cm</Height>
             <Width>2.80066cm</Width>
             <ZIndex>51</ZIndex>
@@ -2786,8 +2800,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>24.49994cm</Top>
-            <Left>17.25092cm</Left>
+            <Top>24.04133cm</Top>
+            <Left>17.20702cm</Left>
             <Height>0.6cm</Height>
             <Width>3.20884cm</Width>
             <ZIndex>52</ZIndex>
@@ -2817,8 +2831,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>26.39755cm</Top>
-            <Left>0.65062cm</Left>
+            <Top>25.7843cm</Top>
+            <Left>0.60672cm</Left>
             <Height>0.6cm</Height>
             <Width>4.4cm</Width>
             <ZIndex>53</ZIndex>
@@ -2851,8 +2865,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>27.33297cm</Top>
-            <Left>0.65062cm</Left>
+            <Top>26.76852cm</Top>
+            <Left>0.60672cm</Left>
             <Height>0.6cm</Height>
             <Width>2.80066cm</Width>
             <ZIndex>54</ZIndex>
@@ -2882,8 +2896,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>27.87977cm</Top>
-            <Left>13.82537cm</Left>
+            <Top>27.24477cm</Top>
+            <Left>13.78147cm</Left>
             <Height>0.6cm</Height>
             <Width>6.63439cm</Width>
             <ZIndex>55</ZIndex>
@@ -2918,8 +2932,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>25.77003cm</Top>
-            <Left>1.61286cm</Left>
+            <Top>24.99392cm</Top>
+            <Left>1.56896cm</Left>
             <Height>0.33542cm</Height>
             <Width>2.47552cm</Width>
             <ZIndex>56</ZIndex>
@@ -2947,8 +2961,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>25.20578cm</Top>
-            <Left>0.65062cm</Left>
+            <Top>24.42967cm</Top>
+            <Left>0.60672cm</Left>
             <Height>0.6cm</Height>
             <Width>4.4cm</Width>
             <ZIndex>57</ZIndex>
@@ -2984,8 +2998,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>26.96227cm</Top>
-            <Left>2.63948cm</Left>
+            <Top>26.36255cm</Top>
+            <Left>2.35172cm</Left>
             <Height>0.33542cm</Height>
             <Width>0.91cm</Width>
             <ZIndex>58</ZIndex>
@@ -3013,8 +3027,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>27.80922cm</Top>
-            <Left>0.65062cm</Left>
+            <Top>27.24477cm</Top>
+            <Left>0.60672cm</Left>
             <Height>0.6cm</Height>
             <Width>4.4cm</Width>
             <ZIndex>59</ZIndex>
@@ -3050,7 +3064,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>28.43645cm</Top>
+            <Top>27.872cm</Top>
             <Left>1.42678cm</Left>
             <Height>0.33542cm</Height>
             <Width>2.47552cm</Width>
@@ -3079,8 +3093,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>25.1705cm</Top>
-            <Left>15.11583cm</Left>
+            <Top>24.42967cm</Top>
+            <Left>15.07193cm</Left>
             <Height>0.6cm</Height>
             <Width>5.34393cm</Width>
             <ZIndex>61</ZIndex>
@@ -3114,8 +3128,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>26.36227cm</Top>
-            <Left>15.11583cm</Left>
+            <Top>25.7843cm</Top>
+            <Left>15.07193cm</Left>
             <Height>0.6cm</Height>
             <Width>5.34393cm</Width>
             <ZIndex>62</ZIndex>
@@ -3151,8 +3165,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>26.96227cm</Top>
-            <Left>16.70914cm</Left>
+            <Top>26.73708cm</Top>
+            <Left>16.59973cm</Left>
             <Height>0.33542cm</Height>
             <Width>2.28833cm</Width>
             <ZIndex>63</ZIndex>
@@ -3180,8 +3194,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>25.1705cm</Top>
-            <Left>7.54729cm</Left>
+            <Top>24.39439cm</Top>
+            <Left>7.50339cm</Left>
             <Height>0.6cm</Height>
             <Width>4.4cm</Width>
             <ZIndex>64</ZIndex>
@@ -3205,7 +3219,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!UkupnaVrednost.Value</Value>
+                    <Value>=Parameters!UkupnaVrednost.Value + "," + Parameters!UkupnaVrednostDecimal.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3215,8 +3229,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NazivPrimaocaRacuna</rd:DefaultName>
-            <Top>26.36227cm</Top>
-            <Left>7.54729cm</Left>
+            <Top>25.7843cm</Top>
+            <Left>7.50339cm</Left>
             <Height>0.6cm</Height>
             <Width>4.4cm</Width>
             <ZIndex>65</ZIndex>
@@ -3252,8 +3266,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>25.7705cm</Top>
-            <Left>7.62508cm</Left>
+            <Top>24.99439cm</Top>
+            <Left>7.58118cm</Left>
             <Height>0.33542cm</Height>
             <Width>4.24443cm</Width>
             <ZIndex>66</ZIndex>
@@ -3456,11 +3470,59 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="MestoStanice">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NazivStanice">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PoreskaOsnovicaDecimal">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PDV_Decimal">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="UkupnaVrednostDecimal">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FakturaTekst">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="JedCenaDinDecimal">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TekuciRacun">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>8</NumberOfRows>
+      <NumberOfRows>10</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -3606,6 +3668,46 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>7</RowIndex>
           <ParameterName>Blagajnik</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>MestoStanice</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>NazivStanice</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>PoreskaOsnovicaDecimal</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>PDV_Decimal</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>UkupnaVrednostDecimal</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>FakturaTekst</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>JedCenaDinDecimal</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>TekuciRacun</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

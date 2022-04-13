@@ -30,6 +30,7 @@ namespace SK_Stanicni_Racuni
 
             services.AddTransient<UserLogin>();
             services.AddTransient<DirectoryAndFiles>();
+            services.AddTransient<RealizovanoPrilog>();
 
             services.AddControllersWithViews();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();

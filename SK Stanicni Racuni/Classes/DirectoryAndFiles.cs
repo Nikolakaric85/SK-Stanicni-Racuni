@@ -26,13 +26,17 @@ namespace SK_Stanicni_Racuni.Classes
         public bool IsFileExist(string fileName, string nazivStanice)
         {
             bool check = false;
-            var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + nazivStanice;
+            var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + nazivStanice ;
             DirectoryInfo folderInfo = new DirectoryInfo(path);
             if (folderInfo.GetFiles().Length > 0)
             {
                 foreach (FileInfo fileInfo in folderInfo.GetFiles())
                 {
                     check = fileInfo.Name == fileName ? false : true;
+                    if (!check)
+                    {
+                        break;
+                    }
                 }
             }
             else
