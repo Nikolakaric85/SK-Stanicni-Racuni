@@ -36,30 +36,30 @@ namespace SK_Stanicni_Racuni.Classes
             {
                 if (string.IsNullOrEmpty(stanicaPretragaSifra) && fakturaGodPretraga == 0)
                 {
-                    queryPretraga = context.SrFakturas;
+                    queryPretraga = context.SrFakturas.OrderByDescending(x => x.DatumIzdavanja);
                 }
                 else if (!string.IsNullOrEmpty(stanicaPretragaSifra) && fakturaGodPretraga == 0)
                 {
-                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra);
+                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra).OrderByDescending(x => x.DatumIzdavanja);
                 }
                 else if (!string.IsNullOrEmpty(stanicaPretragaSifra) && fakturaGodPretraga != 0)
                 {
-                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra && x.FakturaGodina == fakturaGodPretraga);
+                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra && x.FakturaGodina == fakturaGodPretraga).OrderByDescending(x => x.DatumIzdavanja);
                 }
             }
             else
             {
                 if (string.IsNullOrEmpty(stanicaPretragaSifra) && fakturaGodPretraga == 0)
                 {
-                    queryPretraga = context.SrFakturas.Where(x => x.Realizovano == "N");
+                    queryPretraga = context.SrFakturas.Where(x => x.Realizovano == "N").OrderByDescending(x => x.DatumIzdavanja);
                 }
                 else if (!string.IsNullOrEmpty(stanicaPretragaSifra) && fakturaGodPretraga == 0)
                 {
-                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra && x.Realizovano == "N");
+                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra && x.Realizovano == "N").OrderByDescending(x => x.DatumIzdavanja);
                 }
                 else if (!string.IsNullOrEmpty(stanicaPretragaSifra) && fakturaGodPretraga != 0)
                 {
-                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra && x.FakturaGodina == fakturaGodPretraga && x.Realizovano == "N");
+                    queryPretraga = context.SrFakturas.Where(x => x.Stanica == stanicaPretragaSifra && x.FakturaGodina == fakturaGodPretraga && x.Realizovano == "N").OrderByDescending(x=>x.DatumIzdavanja);
                 }
 
             }

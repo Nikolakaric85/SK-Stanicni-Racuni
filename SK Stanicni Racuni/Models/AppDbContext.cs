@@ -41,8 +41,6 @@ namespace SK_Stanicni_Racuni.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=10.3.4.37;Initial Catalog=WinRoba; User ID=radnik; password=roba2006;");
             }
         }
 
@@ -830,6 +828,10 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
+                entity.Property(e => e.DateStamp)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.DatumIzdavanja).HasColumnType("date");
 
                 entity.Property(e => e.DatumR)
@@ -860,6 +862,11 @@ namespace SK_Stanicni_Racuni.Models
                 entity.Property(e => e.FakturaTekst).HasMaxLength(200);
 
                 entity.Property(e => e.FakturaTotal).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.Fiznos)
+                    .HasColumnType("decimal(18, 2)")
+                    .HasColumnName("FIznos")
+                    .HasComment("Ukupno dinara, nezaokruženo na 0,1");
 
                 entity.Property(e => e.Fjcena)
                     .HasColumnType("decimal(18, 2)")
@@ -1339,7 +1346,7 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Blagajna).HasDefaultValueSql("(1)");
+                entity.Property(e => e.Blagajna).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Carina)
                     .HasMaxLength(1)
@@ -1381,9 +1388,7 @@ namespace SK_Stanicni_Racuni.Models
                     .IsUnicode(false)
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Mesto)
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                entity.Property(e => e.Mesto).HasMaxLength(50);
 
                 entity.Property(e => e.NadzornaStanicaNaziv)
                     .HasMaxLength(30)

@@ -44,8 +44,8 @@
 
                 $.ajax({
                     type: "GET",
-                    //url: baseUrl + "/ListaStanica/ListaUnutrasnjihStanicaStanicniRacun",
-                    url: "/ListaStanica/ListaUnutrasnjihStanicaStanicniRacun",
+                    url: baseUrl + "/ListaStanica/ListaUnutrasnjihStanicaStanicniRacun",
+                   // url: "/ListaStanica/ListaUnutrasnjihStanicaStanicniRacun",
                     cache: false,
                     data: { data: data },
                     success: function (data) {

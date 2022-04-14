@@ -35,6 +35,7 @@ namespace SK_Stanicni_Racuni.ViewModels
         public string Fjedinica { get; set; }
         public string Fkolicina { get; set; }
         public decimal? Fjcena { get; set; }
+        public decimal? Fiznos { get; set; }
         public decimal? FakturaOsnovica { get; set; }
         public decimal? FakturaPdv { get; set; }
         public decimal? FakturaTotal { get; set; }

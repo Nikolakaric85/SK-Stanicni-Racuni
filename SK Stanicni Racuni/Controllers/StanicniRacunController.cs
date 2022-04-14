@@ -45,11 +45,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
         public IActionResult StanicniRacun()
         {
-
             var user = userLogin.LoggedInUser();
-
-            //var UserId = HttpContext.User.Identity.Name; // daje UserId
-            //var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
 
             if (user != null)
             {
@@ -68,8 +64,8 @@ namespace SK_Stanicni_Racuni.Controllers
                     }
 
                     ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
-
                     ViewBag.samoNfakture = true;
+                    ViewBag.FakturaGod = DateTime.Now.Year;
                 }
                 else
                 {
@@ -150,13 +146,6 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var sifraStanice = stanicaInt == true ? stanica : context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
 
-
-
-
-
-            //var nazivStanice = stanicaInt == true ? stanica : context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.Naziv).FirstOrDefault();
-            //var mestoStacice = stanicaInt == true ? stanica : context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.Mesto).FirstOrDefault();
-
             if (!string.IsNullOrEmpty(stanica) && !string.IsNullOrEmpty(racunBr))
             {
 
@@ -202,7 +191,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     JedMera = item.Fjedinica;
                     Kolicina = item.Fkolicina;
                     JedCenaDin = item.Fjcena.ToString();
-                    UkupnoDinara = item.FakturaOsnovica.ToString();
+                    UkupnoDinara = item.Fiznos.ToString();
                     PoreskaOsnovica = item.FakturaOsnovica.ToString();
                     PDV = item.FakturaPdv.ToString();
                     UkupnaVrednost = item.FakturaTotal.ToString();
@@ -214,20 +203,31 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 SifraBlagajne = context.ElsSkStaniceRacunis.Where(x => x.Sifra == sifraStanice).Select(x => x.SifraBlagajne.ToString()).FirstOrDefault();
 
-                string[] pOsnovica = new string[2];
+                string[] _ukupnoDinara = new string[2];
+                string[] _pOsnovica = new string[2];
                 string[] _pdv = new string[2];
                 string[] _ukupnaVrednost = new string[2];
                 string[] _jedCenaDinara = new string[2];
-                
 
-                if (PoreskaOsnovica == "0" || string.IsNullOrEmpty(PoreskaOsnovica))
+                if (UkupnoDinara == "0" || string.IsNullOrEmpty(UkupnoDinara))
                 {
-                    pOsnovica[0] = "0";
-                    pOsnovica[1] = "0";
+                    _ukupnoDinara[0] = "0";
+                    _ukupnoDinara[1] = "0";
                 }
                 else
                 {
-                    pOsnovica = PoreskaOsnovica.Split(".");
+                    _ukupnoDinara = UkupnoDinara.Split(".");
+                }
+
+
+                if (PoreskaOsnovica == "0" || string.IsNullOrEmpty(PoreskaOsnovica))
+                {
+                    _pOsnovica[0] = "0";
+                    _pOsnovica[1] = "0";
+                }
+                else
+                {
+                    _pOsnovica = PoreskaOsnovica.Split(".");
                 }
 
                 if (PDV == "0" || string.IsNullOrEmpty(PDV))
@@ -259,9 +259,6 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     _jedCenaDinara = JedCenaDin.Split(".");
                 }
-
-           
-
 
                 var dt = new DataTable();
                 string renderFormat = "PDF";
@@ -297,12 +294,13 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("Kolicina", Kolicina),
 
                     new ReportParameter("JedCenaDin", string.Format(elGR,"{0:0,0}", Double.Parse(_jedCenaDinara[0], ftm))),
-                    new ReportParameter("JedCenaDinDecimal", string.Format(elGR,"{0:0,0}", Double.Parse(_jedCenaDinara[1], ftm))),
+                    new ReportParameter("JedCenaDinDecimal", _jedCenaDinara[1]),
 
-                    new ReportParameter("UkupnoDinara", UkupnoDinara.ToString()),
+                    new ReportParameter("UkupnoDinara", string.Format(elGR,"{0:0,0}", Double.Parse(_ukupnoDinara[0], ftm))),
+                    new ReportParameter("UkupnoDinaraDecimal", _ukupnoDinara[1]),
 
-                    new ReportParameter("PoreskaOsnovica", string.Format(elGR,"{0:0,0}", Double.Parse(pOsnovica[0], ftm))),
-                    new ReportParameter("PoreskaOsnovicaDecimal", pOsnovica[1]),
+                    new ReportParameter("PoreskaOsnovica", string.Format(elGR,"{0:0,0}", Double.Parse(_pOsnovica[0], ftm))),
+                    new ReportParameter("PoreskaOsnovicaDecimal", _pOsnovica[1]),
 
                     new ReportParameter("PDV", string.Format(elGR,"{0:0,0}", Double.Parse(_pdv[0],ftm))),
                     new ReportParameter("PDV_Decimal", _pdv[1]),
@@ -344,7 +342,9 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (!query.Any())
                 {
-                    notyf.Error("Nema podataka za izabrane kriterijume.", 3);
+                    TempData.Remove("stancaPretraga"); // uklanja ove podatke jer ako se pre toga kliknulo na dugme PRETRAŽI, onda kada se klikne na dugme PRILOG popuni polja za stanicu i godinu
+                    TempData.Remove("fakturaGodPretraga");
+                    notyf.Error("Nema podataka za izabrane kriterijume.", 3);   
                     return RedirectToAction("StanicniRacun");
                 }
 
@@ -384,6 +384,8 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 if (!query.Any())
                 {
+                    TempData.Remove("stancaPretraga"); // uklanja ove podatke jer ako se pre toga kliknulo na dugme PRETRAŽI, onda kada se klikne na dugme PRILOG popuni polja za stanicu i godinu
+                    TempData.Remove("fakturaGodPretraga");
                     notyf.Error("Nema podataka za izabrane kriterijume.", 3);
                     return RedirectToAction("StanicniRacun");
                 }
@@ -397,10 +399,11 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
                 ViewBag.Admin = true;
-              //  ViewBag.Stanica = stanica;
-              //  ViewBag.FakturaGod = fakturaGod;
 
                 return View("StanicniRacun");
+            } else
+            {
+                notyf.Error("Nema podataka za izabrane kriterijume.", 3);
             }
 
             return RedirectToAction("StanicniRacun");
@@ -445,16 +448,16 @@ namespace SK_Stanicni_Racuni.Controllers
                 directoryAndFiles.CreateDirectory(NazivStanice);   
             }
 
-            if (!directoryAndFiles.IsFileExist(viewModel.UploadFile.FileName, NazivStanice))
+            if (directoryAndFiles.IsFileExist(viewModel.UploadFile.FileName, NazivStanice))
             {
-                model.Fpath = viewModel.UploadFile.FileName;
+                //model.Fpath = viewModel.UploadFile.FileName;
                 var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + viewModel.UploadFile.FileName;
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     viewModel.UploadFile.CopyTo(fileStream);
                 }
-
-                model.Fpath = path;
+                //model.Fpath = path;
+                model.Fpath = NazivStanice + "\\" + viewModel.UploadFile.FileName;
             } else
             {
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.UploadFile.FileName;
@@ -463,7 +466,7 @@ namespace SK_Stanicni_Racuni.Controllers
                 {
                     viewModel.UploadFile.CopyTo(fileStream);
                 }
-                model.Fpath = path;
+                model.Fpath = NazivStanice + "\\" + uniqueFileName;
             }
 
             try
@@ -510,27 +513,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
             var viewModel = new SrFakturaViewModel();
 
-//            var path =  $"{this.webHostEnvironment.WebRootPath}\\files\\Prikazi.pdf";
-
-            //using (var fileStream = new FileStream(path, FileMode.Open))
-            //{
-                
-            //    try
-            //    {
-                    
-            //        viewModel.UploadFile.CopyTo(fileStream);
-            //    }
-            //    catch (NullReferenceException e)
-            //    {
-            //        var a = e.Message;
-                    
-            //    }
-                
-            //}
-
-
             mapper.Map(query, viewModel);
-
 
             var tipBlagajne = query.BlagajnaTip == "P" ? "Prispeća" : "Otpravljanja";
             ViewBag.BlagajnaTip = new SelectList(BlagajnaTip(), tipBlagajne);
@@ -547,8 +530,6 @@ namespace SK_Stanicni_Racuni.Controllers
 
             ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
 
-
-           //ViewBag.stanicniRacuni = context.SrFakturas.Where(x => x.Stanica == user.Stanica);
             return View("StanicniRacun", viewModel);
         }
 
@@ -559,7 +540,6 @@ namespace SK_Stanicni_Racuni.Controllers
             [ModelBinder(typeof(FakturaDatumPModelBinder))] DateTime FakturaDatumP,
             [ModelBinder(typeof(FakturaDatumPuModelBinder))] DateTime FakturaDatumPU)
         {
-
             string nullDate = "1/1/0001 12:00:00 AM";
 
             viewModel.FakturaDatum = FakturaDatum.ToString() != nullDate ? FakturaDatum : null;
@@ -570,7 +550,6 @@ namespace SK_Stanicni_Racuni.Controllers
             viewModel.BlagajnaTip = tipBlagajna == "Prispeća" ? "P" : "O";
 
             var NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == viewModel.Stanica).Select(x => x.Naziv).FirstOrDefault();
-
 
             var model = new SrFaktura();
             mapper.Map(viewModel, model);
@@ -605,9 +584,6 @@ namespace SK_Stanicni_Racuni.Controllers
                     model.Fpath = path;
                 }
             }
-        
-            
-            
 
             try
             {
@@ -669,12 +645,17 @@ namespace SK_Stanicni_Racuni.Controllers
             {
                 try
                 {
-                    Process.Start(new ProcessStartInfo(query) { UseShellExecute = true });
+                    //string path = "http://10.3.4.80/StR/files/" + query.Replace(@"\","/");
+                    string path = @"http://10.3.4.80/StR/files/SMEDEREVO/net-framework.pdf";
+                    //string path = @"10.3.4.80/StR/files/SMEDEREVO/net-framework.pdf";
+                    //string path = @"D:\SITEs\SR\wwwroot\files\SMEDEREVO\net-framework.pdf";
+                    Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+                    GetLearningReport();
+
                 }
                 catch (Exception)
                 {
                     notyf.Error("Neispravna putanja ili fajl.", 5);
-                    
                 }
             }
 
@@ -684,7 +665,7 @@ namespace SK_Stanicni_Racuni.Controllers
             bool samoNfakturePretraga = TempData.ContainsKey("samoNfakturePretraga") ? (bool)TempData.Peek("samoNfakturePretraga") : true; //setovano je true jer kada udje na formu i ne vrsi nikakvu pretragu onda TempDate nisu setovane, a po defoltu je setovano da prikaze samo N fakture
 
             ViewBag.Stanica = stancaPretraga;
-            ViewBag.FakturaGod = fakturaGodPretraga == 0 ? null : string.Empty;     //Da vrati na view-u unete paramtre pretrage
+            ViewBag.FakturaGod = fakturaGodPretraga == 0 ? null : fakturaGodPretraga.ToString();     //Da vrati na view-u unete paramtre pretrage
             ViewBag.sveFakture = sveFakturePretraga;
             ViewBag.samoNfakture = samoNfakturePretraga;
             ViewBag.Admin = true;
@@ -692,6 +673,24 @@ namespace SK_Stanicni_Racuni.Controllers
             ViewBag.stanicniRacuni = realizovanoPrilog.SearchResults(stancaPretraga, fakturaGodPretraga, sveFakturePretraga, samoNfakturePretraga);
             return View("StanicniRacun");
 
+        }
+
+        
+        public FileResult GetLearningReport()
+        {
+            //string path = "/download/workplace-learning-report-2021.pdf";
+           // string path = @"D:\SITEs\SR\wwwroot\files\SMEDEREVO\net-framework.pdf";
+            string path = @"C:\Users\nikola.karic\source\repos\SK-Stanicni-Racuni\SK Stanicni Racuni\wwwroot\files\SMEDEREVO\ZADATAK.txt";
+
+            //try
+            //{
+            //    return File(path, "application/pdf");
+            //}
+            //catch (Exception)
+            //{
+            //    notyf.Error("Greska kod return File(path, application / pdf);", 5);
+            //}
+            return File(path, "application/pdf");
         }
 
 

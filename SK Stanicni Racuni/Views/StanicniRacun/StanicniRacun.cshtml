@@ -4,8 +4,6 @@
 <div class="container">
 
 
-
-
     @if (ViewBag.Admin == true)
     {
         <form asp-page-handler="PDF" class="needs-validation" novalidate id="form1">
@@ -42,7 +40,7 @@
                     <div class="form-check mb-0">
                         <input class="form-check-input" type="checkbox" value="true" id="samoNfakture" name="samoNfakture" checked="@ViewBag.samoNfakture">
                         <label class="form-check-label" for="flexCheckChecked">
-                            Samo 'N' fakture
+                            Samo nerealizovane fakture
                         </label>
                     </div>
 
@@ -300,7 +298,7 @@
         <div class="col-md-2">
             <label class="mb-0">Ukupno dinara</label>
             <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Unosi se osnovica."></i>
-            <input class="form-control form-control-sm" autocomplete="off" id="ukupnoDinara" asp-for="FakturaOsnovica" required />
+            <input class="form-control form-control-sm" autocomplete="off" id="ukupnoDinara" asp-for="Fiznos" required />
         </div>
 
     </div>
@@ -423,25 +421,27 @@
 
                             <td>@item.Primalac</td>
                             <td>@item.Realizovano</td>
-                            <td>
-                                <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="PDF" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" target="_blank">PDF</a>
-                                @if (ViewBag.Admin == false)
+                            @*<td><a href="http://10.3.4.80/StR/files/SMEDEREVO/net-framework.pdf" target="_blank">pdf</a></td>*@
+                        <td>
+                            <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="PDF" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" target="_blank">PDF</a>
+                            @if (ViewBag.Admin == false)
                                 {
-                                    <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="Edit" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Izmeni</a>
+                            <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="Edit" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Izmeni</a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="Prilog" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Prilog</a>
+                                    @*<a class="btn btn-sm btn-primary" href="@item.Fpath" role="button" asp-controller="StanicniRacun" asp-action="Prilog" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Prilog</a>*@
+                                    <a class="btn btn-sm btn-primary" href="@item.Fpath" target="_blank">Prilog2 - @item.Fpath</a>
                                     @if (item.Realizovano != "D")
-                                    {
-                                        <a class="btn btn-sm btn-success" role="button" asp-controller="StanicniRacun" asp-action="Realizovano" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina" onclick="return confirm('Da li želite da fakturu: @item.FakturaBroj označite kao realizovanu?')">
-                                            Realizuj
-                                        </a>
+                                            {
+                                    <a class="btn btn-sm btn-success" role="button" asp-controller="StanicniRacun" asp-action="Realizovano" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina" onclick="return confirm('Da li želite da fakturu: @item.FakturaBroj označite kao realizovanu?')">
+                                        Realizuj
+                                    </a>
                                     }
 
                                 }
 
-                            </td>
+                        </td>
 
 
                         </tr>
@@ -480,10 +480,10 @@
 
                 var input = $('#myDatalistInputNPR').val()
 
-                //var getUrl = window.location;
-                //var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-                //console.log("baseUrl " + baseUrl)
+              //  console.log("baseUrl " + baseUrl)
                 //ovo radi na hostingu, na mom racunaru ne radi. Da bi radilo mora da bude url: "/ListaStanica/KomintentIUgovor"
 
                 $.ajax({
@@ -493,14 +493,13 @@
                     cache: false,
                     data: { data: input },
                     success: function (data) {
+                        
                         var options = '';
                         var object;
                         $.each(data, function (key, value) {
-
-                            options += '<option value="' + value.naziv + '" />';
+                            options += '<option value="' + $.trim(value.naziv) + '" />';
                             object = value 
                         })
-
                         $('#myDatalistNPR').html(options)
 
                         //kada nema u polju nista onda izbaci grešku zato ide try catxh
@@ -512,7 +511,8 @@
 
                         // ako je ono sto je uneto u polje "Naziv pirmaoca računa" i sa onim što je našao u bazi popuni ostala polja
                         if (input == naziv) {
-                       
+
+                            $('#myDatalistInputNPR').val(naziv);
                             $('#brUgovora').val(object.brojUgovora);
                             $('#mesto').val(object.mesto);
                             $('#adresa').val(object.adresa);
@@ -556,6 +556,7 @@
                               */
 
                         } else {
+                            
                             $('#brUgovora').val('');
                             $('#mesto').val('');
                             $('#adresa').val('');
@@ -607,7 +608,7 @@
                 numbersAndDotOnly(this.getAttribute('Id'), this.value)
 
                 var ukupnoDinara = $('#ukupnoDinara').val()
-                var poreskaOsnovica = parseFloat(ukupnoDinara).toFixed(1) + '0'
+                var poreskaOsnovica = parseFloat(ukupnoDinara).toFixed(1) 
                 //console.log("poreskaOsnovica " + poreskaOsnovica)
                 //var poreskaOsnovicaValue = parseFloat(ukupnoDinara).toFixed(1) + '0'
                 //console.log("poreskaOsnovicaValue " + poreskaOsnovicaValue)
@@ -622,8 +623,8 @@
               //  console.log("pdv " + pdv)
 
                 if (ukupnoDinara != "") {
-                    $('#poreskaOsnovica').val(poreskaOsnovica)
-                    $('#pdv').val(pdv + '0')
+                    $('#poreskaOsnovica').val(numberFormat(poreskaOsnovica) + '0')
+                    $('#pdv').val(numberFormat(pdv) + '0')
                     $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
                 } else {
                     $('#poreskaOsnovica').val('')
