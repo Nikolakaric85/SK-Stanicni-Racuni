@@ -43,7 +43,7 @@ namespace SK_Stanicni_Racuni.Controllers
             this.realizovanoPrilog = realizovanoPrilog;
         }
 
-        public IActionResult StanicniRacun()
+        public IActionResult StanicniRacun(string stanica, int fakturaGod, bool sveFakture, bool samoNfakture)
         {
             var user = userLogin.LoggedInUser();
 
@@ -64,8 +64,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     }
 
                     ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
-                    ViewBag.samoNfakture = true;
-                    ViewBag.FakturaGod = DateTime.Now.Year;
+                    ViewBag.sveFakture = sveFakture;
+                    ViewBag.samoNfakture = sveFakture == true ? false : true;
+                    ViewBag.FakturaGod = fakturaGod != 0 && fakturaGod != DateTime.Now.Year ? fakturaGod : DateTime.Now.Year;
+                    ViewBag.Stanica = stanica;
                 }
                 else
                 {
@@ -322,9 +324,11 @@ namespace SK_Stanicni_Racuni.Controllers
                 return File(pdf, mimtype);
 
             }                                                                                                                                   //***************** ODAVDE IDE PRETRAGA NA ADMIN FORMI
-            else if (!string.IsNullOrEmpty(stanica) && !string.IsNullOrEmpty(fakturaGod.ToString()) && string.IsNullOrEmpty(racunBr))
+            else if (!string.IsNullOrEmpty(stanica) && fakturaGod !=0  && string.IsNullOrEmpty(racunBr))
             {
                 // ovde ide popunjavanje GRID-a faktura broj je racun broj
+
+                var klas = new PretragaStanicniRacun(stanica, racunBr, fakturaGod,  sveFakture, samoNfakture);
 
                 var query = Enumerable.Empty<SrFaktura>();
 
@@ -345,7 +349,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     TempData.Remove("stancaPretraga"); // uklanja ove podatke jer ako se pre toga kliknulo na dugme PRETRAŽI, onda kada se klikne na dugme PRILOG popuni polja za stanicu i godinu
                     TempData.Remove("fakturaGodPretraga");
                     notyf.Error("Nema podataka za izabrane kriterijume.", 3);   
-                    return RedirectToAction("StanicniRacun");
+                    return RedirectToAction("StanicniRacun", new {  stanica,  fakturaGod,  sveFakture,  samoNfakture });
                 }
 
                 var viewModelList = mapper.Map<List<SrFakturaViewModel>>(query);
@@ -365,7 +369,6 @@ namespace SK_Stanicni_Racuni.Controllers
             else if (string.IsNullOrEmpty(stanica) && fakturaGod == 0 && string.IsNullOrEmpty(racunBr))
             {
                 // kada vrsi pretragu samo po checkbox-vima
-
 
                 var query = Enumerable.Empty<SrFaktura>();
 
@@ -387,7 +390,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     TempData.Remove("stancaPretraga"); // uklanja ove podatke jer ako se pre toga kliknulo na dugme PRETRAŽI, onda kada se klikne na dugme PRILOG popuni polja za stanicu i godinu
                     TempData.Remove("fakturaGodPretraga");
                     notyf.Error("Nema podataka za izabrane kriterijume.", 3);
-                    return RedirectToAction("StanicniRacun");
+                    return RedirectToAction("StanicniRacun", new { stanica, fakturaGod, sveFakture, samoNfakture });
                 }
 
                 var viewModelList = mapper.Map<List<SrFakturaViewModel>>(query);
@@ -399,9 +402,94 @@ namespace SK_Stanicni_Racuni.Controllers
 
                 ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
                 ViewBag.Admin = true;
+                ViewBag.FakturaGod = string.Empty;
 
                 return View("StanicniRacun");
-            } else
+            }
+            else if (string.IsNullOrEmpty(stanica) && fakturaGod != 0 && string.IsNullOrEmpty(racunBr))
+            {
+                // kada vrsi pretragu samo po godini i checkboxovima
+
+                var query = Enumerable.Empty<SrFaktura>();
+
+                if (sveFakture)
+                {
+                    ViewBag.sveFakture = true;  //sluzi za setovanje na formi chekbox-va, sta je izabrano da to i ostane
+                    ViewBag.samoNfakture = false;
+                    query = context.SrFakturas.Where(x=>x.FakturaGodina == fakturaGod).AsEnumerable();
+                }
+                else
+                {
+                    ViewBag.sveFakture = false;
+                    ViewBag.samoNfakture = true;
+                    query = context.SrFakturas.Where(x =>  x.FakturaGodina == fakturaGod && x.Realizovano == "N").AsEnumerable();
+                }
+
+                if (!query.Any())
+                {
+                    TempData.Remove("stancaPretraga"); // uklanja ove podatke jer ako se pre toga kliknulo na dugme PRETRAŽI, onda kada se klikne na dugme PRILOG popuni polja za stanicu i godinu
+                    TempData.Remove("fakturaGodPretraga");
+                    notyf.Error("Nema podataka za izabrane kriterijume.", 3);
+                    return RedirectToAction("StanicniRacun", new { stanica, fakturaGod, sveFakture, samoNfakture });
+                }
+
+                var viewModelList = mapper.Map<List<SrFakturaViewModel>>(query);
+
+                foreach (var item in viewModelList)
+                {
+                    item.NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == item.Stanica).Select(x => x.Naziv).FirstOrDefault();
+                }
+
+                ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
+                ViewBag.Admin = true;
+                ViewBag.FakturaGod = fakturaGod;
+
+                return View("StanicniRacun");
+
+
+            }
+            else if (!string.IsNullOrEmpty(stanica) && fakturaGod == 0 && string.IsNullOrEmpty(racunBr))
+            {
+                // kada vrsi pretragu samo po nazivu stanice i checkboxovima
+
+                var query = Enumerable.Empty<SrFaktura>();
+
+                if (sveFakture)
+                {
+                    ViewBag.sveFakture = true;  //sluzi za setovanje na formi chekbox-va, sta je izabrano da to i ostane
+                    ViewBag.samoNfakture = false;
+                    query = context.SrFakturas.Where(x => x.Stanica == sifraStanice).AsEnumerable();
+                }
+                else
+                {
+                    ViewBag.sveFakture = false;
+                    ViewBag.samoNfakture = true;
+                    query = context.SrFakturas.Where(x => x.Stanica == sifraStanice && x.Realizovano == "N").AsEnumerable();
+                }
+
+                if (!query.Any())
+                {
+                    TempData.Remove("stancaPretraga"); // uklanja ove podatke jer ako se pre toga kliknulo na dugme PRETRAŽI, onda kada se klikne na dugme PRILOG popuni polja za stanicu i godinu
+                    TempData.Remove("fakturaGodPretraga");
+                    notyf.Error("Nema podataka za izabrane kriterijume.", 3);
+                    return RedirectToAction("StanicniRacun", new { stanica, fakturaGod, sveFakture, samoNfakture });
+                }
+
+                var viewModelList = mapper.Map<List<SrFakturaViewModel>>(query);
+
+                foreach (var item in viewModelList)
+                {
+                    item.NazivStanice = context.ZsStanices.Where(x => x.SifraStanice1 == item.Stanica).Select(x => x.Naziv).FirstOrDefault();
+                }
+
+                ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
+                ViewBag.Admin = true;
+                ViewBag.FakturaGod = string.Empty;
+                ViewBag.Stanica = stanica;
+
+                return View("StanicniRacun");
+            }
+            else
             {
                 notyf.Error("Nema podataka za izabrane kriterijume.", 3);
             }
@@ -450,23 +538,21 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (directoryAndFiles.IsFileExist(viewModel.UploadFile.FileName, NazivStanice))
             {
-                //model.Fpath = viewModel.UploadFile.FileName;
                 var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + viewModel.UploadFile.FileName;
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     viewModel.UploadFile.CopyTo(fileStream);
                 }
-                //model.Fpath = path;
-                model.Fpath = NazivStanice + "\\" + viewModel.UploadFile.FileName;
+                model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + viewModel.UploadFile.FileName; ;
             } else
             {
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.UploadFile.FileName;
-                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + uniqueFileName;
+                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + uniqueFileName;              
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     viewModel.UploadFile.CopyTo(fileStream);
                 }
-                model.Fpath = NazivStanice + "\\" + uniqueFileName;
+                model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + uniqueFileName ;
             }
 
             try
@@ -570,8 +656,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     {
                         viewModel.UploadFile.CopyTo(fileStream);
                     }
-
-                    model.Fpath = path;
+                    model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + viewModel.UploadFile.FileName; 
                 }
                 else
                 {
@@ -581,7 +666,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     {
                         viewModel.UploadFile.CopyTo(fileStream);
                     }
-                    model.Fpath = path;
+                    model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + uniqueFileName; 
                 }
             }
 
@@ -634,64 +719,46 @@ namespace SK_Stanicni_Racuni.Controllers
             return View("StanicniRacun");
         }
 
-        public IActionResult Prilog(string stanica, string racunBr, int fakturaGod, bool sveFakture, bool samoNfakture)
-        {
-            var query = context.SrFakturas.Where(x => x.Stanica == stanica && x.FakturaBroj == racunBr && x.FakturaGodina == fakturaGod).Select(x => x.Fpath).FirstOrDefault();
+        //public IActionResult Prilog(string stanica, string racunBr, int fakturaGod, bool sveFakture, bool samoNfakture)
+        //{
+        //    var query = context.SrFakturas.Where(x => x.Stanica == stanica && x.FakturaBroj == racunBr && x.FakturaGodina == fakturaGod).Select(x => x.Fpath).FirstOrDefault();
 
-            if (query == null)
-            {
-                notyf.Information("Nema priloga", 3);
-            } else
-            {
-                try
-                {
-                    //string path = "http://10.3.4.80/StR/files/" + query.Replace(@"\","/");
-                    string path = @"http://10.3.4.80/StR/files/SMEDEREVO/net-framework.pdf";
-                    //string path = @"10.3.4.80/StR/files/SMEDEREVO/net-framework.pdf";
-                    //string path = @"D:\SITEs\SR\wwwroot\files\SMEDEREVO\net-framework.pdf";
-                    Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
-                    GetLearningReport();
+        //    if (query == null)
+        //    {
+        //        notyf.Information("Nema priloga", 3);
+        //    } else
+        //    {
+        //        try
+        //        {
+                   
+        //            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+        //            GetLearningReport();
 
-                }
-                catch (Exception)
-                {
-                    notyf.Error("Neispravna putanja ili fajl.", 5);
-                }
-            }
+        //        }
+        //        catch (Exception)
+        //        {
+        //            notyf.Error("Neispravna putanja ili fajl.", 5);
+        //        }
+        //    }
 
-            string stancaPretraga = (string)TempData.Peek("stancaPretraga");
-            int fakturaGodPretraga = TempData.ContainsKey("fakturaGodPretraga") ? (int)TempData.Peek("fakturaGodPretraga") : 0;
-            bool sveFakturePretraga = TempData.ContainsKey("sveFakturePretraga")? (bool)TempData.Peek("sveFakturePretraga") : false;
-            bool samoNfakturePretraga = TempData.ContainsKey("samoNfakturePretraga") ? (bool)TempData.Peek("samoNfakturePretraga") : true; //setovano je true jer kada udje na formu i ne vrsi nikakvu pretragu onda TempDate nisu setovane, a po defoltu je setovano da prikaze samo N fakture
+        //    string stancaPretraga = (string)TempData.Peek("stancaPretraga");
+        //    int fakturaGodPretraga = TempData.ContainsKey("fakturaGodPretraga") ? (int)TempData.Peek("fakturaGodPretraga") : 0;
+        //    bool sveFakturePretraga = TempData.ContainsKey("sveFakturePretraga")? (bool)TempData.Peek("sveFakturePretraga") : false;
+        //    bool samoNfakturePretraga = TempData.ContainsKey("samoNfakturePretraga") ? (bool)TempData.Peek("samoNfakturePretraga") : true; //setovano je true jer kada udje na formu i ne vrsi nikakvu pretragu onda TempDate nisu setovane, a po defoltu je setovano da prikaze samo N fakture
 
-            ViewBag.Stanica = stancaPretraga;
-            ViewBag.FakturaGod = fakturaGodPretraga == 0 ? null : fakturaGodPretraga.ToString();     //Da vrati na view-u unete paramtre pretrage
-            ViewBag.sveFakture = sveFakturePretraga;
-            ViewBag.samoNfakture = samoNfakturePretraga;
-            ViewBag.Admin = true;
+        //    ViewBag.Stanica = stancaPretraga;
+        //    ViewBag.FakturaGod = fakturaGodPretraga == 0 ? null : fakturaGodPretraga.ToString();     //Da vrati na view-u unete paramtre pretrage
+        //    ViewBag.sveFakture = sveFakturePretraga;
+        //    ViewBag.samoNfakture = samoNfakturePretraga;
+        //    ViewBag.Admin = true;
 
-            ViewBag.stanicniRacuni = realizovanoPrilog.SearchResults(stancaPretraga, fakturaGodPretraga, sveFakturePretraga, samoNfakturePretraga);
-            return View("StanicniRacun");
+        //    ViewBag.stanicniRacuni = realizovanoPrilog.SearchResults(stancaPretraga, fakturaGodPretraga, sveFakturePretraga, samoNfakturePretraga);
+        //    return View("StanicniRacun");
 
-        }
+        //}
 
         
-        public FileResult GetLearningReport()
-        {
-            //string path = "/download/workplace-learning-report-2021.pdf";
-           // string path = @"D:\SITEs\SR\wwwroot\files\SMEDEREVO\net-framework.pdf";
-            string path = @"C:\Users\nikola.karic\source\repos\SK-Stanicni-Racuni\SK Stanicni Racuni\wwwroot\files\SMEDEREVO\ZADATAK.txt";
-
-            //try
-            //{
-            //    return File(path, "application/pdf");
-            //}
-            //catch (Exception)
-            //{
-            //    notyf.Error("Greska kod return File(path, application / pdf);", 5);
-            //}
-            return File(path, "application/pdf");
-        }
+ 
 
 
     }

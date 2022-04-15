@@ -1,0 +1,8 @@
+K161f
+za kurs dinara da bude 4 decimale 117,1234, 
+faktura osnovia, faktura pdv
+k167 NIVELACIJA KOLONA U PDF IZVESTAJU
+
+delovodnik
+
+Kombo box u Izboru kategorije modal popup, da za sada ima tipa 1,2,3  i da onsnu toga izbaci grupu kojoj pripada ID1

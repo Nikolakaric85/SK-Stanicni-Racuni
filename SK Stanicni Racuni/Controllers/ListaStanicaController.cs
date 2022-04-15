@@ -70,5 +70,15 @@ namespace SK_Stanicni_Racuni.Controllers
 
             return Json(res);
         }
+
+        public ActionResult PdfCheck(string racunBr, string stanica, int fakturaGod)
+        {
+            var sifraStanice = context.ZsStanices.Where(x => x.Naziv == stanica).Select(x => x.SifraStanice1).FirstOrDefault();
+            var query = context.SrFakturas.Where(x => x.FakturaBroj == racunBr && x.Stanica == sifraStanice && x.FakturaGodina == fakturaGod);
+
+            bool check = query.Any() ? true : false;
+
+            return Json(check);
+        }
     }
 }

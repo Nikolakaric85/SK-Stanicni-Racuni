@@ -30,7 +30,7 @@
                     <input class="form-control form-control-sm" name="racunBr" id="racunBr" autocomplete="off" />
                 </div>
 
-                <div class="col-md-2  ">
+                <div class="col-md-3  ">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="true" checked="@ViewBag.sveFakture" id="sveFakture" name="sveFakture">
                         <label class="form-check-label" for="flexCheckDefault">
@@ -47,7 +47,8 @@
                 </div>
 
                 <div class="col-xxl-1 col-xl-1 col-lg col-md mt-4">
-                    <button class="btn btn-sm btn-primary" style="margin-top:7px" asp-controller="StanicniRacun" asp-action="PDF" id="pretraziBtn" >Pretraži</button>
+                    @*<button class="btn btn-sm btn-primary" style="margin-top:7px" asp-controller="StanicniRacun" asp-action="PDF" id="pretraziBtn" >Pretraži</button>*@
+                    <button class="btn btn-sm btn-primary" style="margin-top:7px" @*asp-controller="StanicniRacun" asp-action="PDF"*@ id="pretraziBtn" onclick="pdfCheck()">Pretraži</button>
                 </div>
 
             </div>
@@ -398,7 +399,9 @@
                         <th scope="col">Datum izdavanja</th>
                         <th scope="col">Primalac</th>
                         <th scope="col">Realizovano</th>
-                        <th scope="col">Prikaži</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
 
                     </tr>
                 </thead>
@@ -421,27 +424,33 @@
 
                             <td>@item.Primalac</td>
                             <td>@item.Realizovano</td>
-                            @*<td><a href="http://10.3.4.80/StR/files/SMEDEREVO/net-framework.pdf" target="_blank">pdf</a></td>*@
-                        <td>
-                            <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="PDF" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" target="_blank">PDF</a>
-                            @if (ViewBag.Admin == false)
+                                
+                            <td class="px-0">
+                                <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="PDF" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" target="_blank">PDF</a>
+
+                                @if (ViewBag.Admin == false)
                                 {
-                            <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="Edit" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Izmeni</a>
+                                    <a class="btn btn-sm btn-primary" role="button" asp-controller="StanicniRacun" asp-action="Edit" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">
+                                        Izmeni
+                                    </a>
                                 }
-                                else
+                            </td>
+
+                            <td class="px-0">
+                                @if (ViewBag.Admin == true && item.Fpath != null)
                                 {
-                                    @*<a class="btn btn-sm btn-primary" href="@item.Fpath" role="button" asp-controller="StanicniRacun" asp-action="Prilog" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina">Prilog</a>*@
-                                    <a class="btn btn-sm btn-primary" href="@item.Fpath" target="_blank">Prilog2 - @item.Fpath</a>
-                                    @if (item.Realizovano != "D")
-                                            {
+                                    <a class="btn btn-sm btn-primary" href="@item.Fpath" target="_blank">Prilog</a>
+                                }
+                            </td>
+
+                            <td class="px-0">
+                                @if (ViewBag.Admin == true && item.Realizovano != "D")
+                                {
                                     <a class="btn btn-sm btn-success" role="button" asp-controller="StanicniRacun" asp-action="Realizovano" asp-route-stanica="@item.Stanica" asp-route-racunBr="@item.FakturaBroj" asp-route-fakturaGod="@item.FakturaGodina" onclick="return confirm('Da li želite da fakturu: @item.FakturaBroj označite kao realizovanu?')">
                                         Realizuj
                                     </a>
-                                    }
-
                                 }
-
-                        </td>
+                            </td>
 
 
                         </tr>
@@ -483,13 +492,12 @@
                 var getUrl = window.location;
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-              //  console.log("baseUrl " + baseUrl)
                 //ovo radi na hostingu, na mom racunaru ne radi. Da bi radilo mora da bude url: "/ListaStanica/KomintentIUgovor"
 
                 $.ajax({
                     type: "GET",
-                  //  url: baseUrl + "/ListaStanica/KomintentIUgovor",
-                    url: "/ListaStanica/KomintentIUgovor",
+                    url: baseUrl + "/ListaStanica/KomintentIUgovor",
+                  //  url: "/ListaStanica/KomintentIUgovor",
                     cache: false,
                     data: { data: input },
                     success: function (data) {
@@ -520,41 +528,6 @@
                             $('#tr').val(object.tr);
                             $('#mb').val(object.mb);
                             $('#pib').val(object.pib);
-
-                            //***/
-
-                       
-                          /*
-
-                            var sirinaTeksta = $('#tr').textWidth()
-                            var sirina = $('#tr').width()
-
-                            if (sirinaTeksta > sirina) {
-                                console.log("vece je sirina teksta od sirine input polja")
-                                //var text_input = $('#tr');
-                                //text_input.css("font-size", "8px");
-
-                                //$('#tr').val(text_input)
-
-                                //$('#tr').css("font-size", "10");
-
-                                $("#tr")[0].style.fontSize = "8px";
-                            }
-                            
-
-                            var size = $("#pib").css("font-size");
-                            var sizeTr = $("#tr").css("font-size");
-                            size = parseInt(size, 10);
-                            sizeTr = parseInt(sizeTr, 10);
-                            console.log("size " + size)
-                            console.log("sizeTr " + sizeTr)
-
-
-
-                            console.log("sirina " + sirina)
-
-                              */
-
                         } else {
                             
                             $('#brUgovora').val('');
@@ -654,6 +627,7 @@
             })
 
 
+        
 
 
 
@@ -663,20 +637,73 @@
 
 
 
+            $('#racunBr, #myDatalistInput, #fakturaGod').on('input', function () {                   //na osnovu popunjenih polja prikazuje dugme "Prikaži" ili "PDF" i setuje atribut target="_blank" kada je PDF dugme
+                var racunBr = $('#racunBr').val();
+                var stanica = $('#myDatalistInputSR').val();
+                var fakturaGod = $('#fakturaGod').val();
 
+                //console.log("racunBr " + racunBr + " stanica " + stanica + " fakturaGod " + fakturaGod)
 
-            $('#racunBr, #myDatalistInput').on('input', function () {                   //na osnovu popunjenih polja prikazuje dugme "Prikaži" ili "PDF" i setuje atribut target="_blank" kada je PDF dugme
-                var value = $('#racunBr').val();
-                var stanica = $('#myDatalistInput').val();
+                //var pdf = pdfCheck(racunBr, stanica, fakturaGod);
 
-                if (value != "" && stanica != "") {
-                    $('#form1').attr('target', '_blank');
-                    $('#pretraziBtn').text("PDF");
+                //console.log("pdf " + pdfCheck(racunBr, stanica, fakturaGod))
+
+                var res;
+
+                $.ajax({
+                    type: "GET",
+                    //  url: baseUrl + "/ListaStanica/PdfCheck",
+                    url: "/ListaStanica/PdfCheck",
+                    cache: false,
+                    data: { 'racunBr': racunBr, 'stanica': stanica, 'fakturaGod': fakturaGod },
+                    success: function (data) {
+                        console.log('data ' + data)
+                        res = data
+                        console.log('resssssss ' + res)
+
+                    }
+                });
+
+                if (res) {
+                    if (racunBr != "" && stanica != "" && fakturaGod != "") {
+                        $('#form1').attr('target', '_blank');
+                        $('#pretraziBtn').text("PDF");
+
+                    } else {
+                        $('#form1').removeAttr('target', '_blank');
+                        $('#pretraziBtn').text("Pretraži");
+                    }
                 } else {
-                    $('#form1').removeAttr('target', '_blank');
-                    $('#pretraziBtn').text("Pretraži");
+                    alert('nema')
                 }
+
+         
             })
+
+
+
+            //function pdfCheck(racunBr, stanica, fakturaGod) {
+
+            //    var res;
+
+            //    $.ajax({
+            //        type: "GET",
+            //        //  url: baseUrl + "/ListaStanica/PdfCheck",
+            //        url: "/ListaStanica/PdfCheck",
+            //        cache: false,
+            //        data: { 'racunBr': racunBr, 'stanica': stanica, 'fakturaGod': fakturaGod },
+            //        success: function (data) {
+            //            console.log('data ' + data)
+            //            res = data
+            //            console.log('resssssss ' + res)
+                   
+            //        }
+            //    });
+
+            //    console.log("res " + res)
+            //    return res;
+            //}
+
 
 
          
