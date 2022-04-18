@@ -74,8 +74,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.Admin = false;
                     var pripadajucaStanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).Select(x => new { x.Naziv, x.Mesto} ).FirstOrDefault();
                     ViewBag.Stanica = pripadajucaStanica.Naziv;
+                    TempData["StanicaNaziv"] = pripadajucaStanica.Naziv;
                     ViewBag.MestoIzdavanjaRacuna = pripadajucaStanica.Mesto;
                     ViewBag.SifraBlagajne = context.ElsSkStaniceRacunis.Where(x => x.Sifra == user.Stanica).Select(x => x.SifraBlagajne).FirstOrDefault();
+                    TempData["SifraBlagajne"] = ViewBag.SifraBlagajne;
                     ViewBag.blagajnik = user.Naziv.Trim() + " " + user.Grupa.Trim();
                     TempData["blagajnik"] = user.Naziv.Trim();
                     ViewBag.SifraStanice = user.Stanica;
@@ -120,8 +122,6 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.PDFbtn = true;
                 }
             }
-
-           // ViewBag.stanicniRacuni = Enumerable.Empty<SrFaktura>();
             return View();
         }
 
@@ -511,6 +511,16 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (query.Any())
             {
+                ViewBag.Stanica = TempData.Peek("StanicaNaziv");
+                ViewBag.SifraStanice = viewModel.Stanica;
+                ViewBag.MestoIzdavanjaRacuna = context.ZsStanices.Where(x => x.SifraStanice1 == viewModel.Stanica).Select(x => x.Mesto).FirstOrDefault();
+
+                string bTip = viewModel.BlagajnaTip == "P" ? "Prispeća" : "Otpravljanja";
+
+                ViewBag.BlagajnaTip = new SelectList(BlagajnaTip(), bTip );
+                ViewBag.SifraBlagajne = TempData.Peek("SifraBlagajne");
+                ViewBag.blagajnik = TempData.Peek("blagajnik");
+
                 notyf.Error("Postoji već račun pod tim brojem.",5);
                 ViewBag.stanicniRacuni = Enumerable.Empty<SrFakturaViewModel>();
                 return View("StanicniRacun", viewModel);
@@ -598,12 +608,13 @@ namespace SK_Stanicni_Racuni.Controllers
             var query = context.SrFakturas.Where(x => x.Stanica == stanica && x.FakturaBroj == racunBr && x.FakturaGodina == fakturaGod).FirstOrDefault();
 
             var viewModel = new SrFakturaViewModel();
-
             mapper.Map(query, viewModel);
+
+            string[] imeFajleArray = viewModel.Fpath.Split('/');
+            ViewBag.ImeFajla = imeFajleArray[imeFajleArray.Length - 1];
 
             var tipBlagajne = query.BlagajnaTip == "P" ? "Prispeća" : "Otpravljanja";
             ViewBag.BlagajnaTip = new SelectList(BlagajnaTip(), tipBlagajne);
-
 
             var modelTEMP = context.SrFakturas.Where(x => x.Stanica == user.Stanica).OrderByDescending(x => x.DatumIzdavanja);
 
