@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-xxl-1 col-xl-1 col-lg col-md mt-4">
-                    <button class="btn btn-sm btn-primary" style="margin-top:7px" asp-controller="StanicniRacun" asp-action="PDF" id="pretraziBtn" onclick="pdfCheck()">Pretraži</button>
+                    <button class="btn btn-sm btn-primary" style="margin-top:7px" asp-controller="StanicniRacun" asp-action="PDF" id="pretraziBtn">Pretraži</button>
                     <a class="btn btn-sm btn-primary text-white" style="margin-top:7px" id="pdfBtn" hidden onclick="return confirm('Nema podataka za izabrane kriterijume.')" >PDF</a>
                 </div>
 
@@ -98,7 +98,7 @@
                 }
 
             <div class="col-md-3">
-                <label class="mb-0">Šifra</label>
+                <label class="mb-0">Šifra stanice</label>
                 <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.SifraStanice" asp-for="Stanica" readonly/>
                 <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.SifraStanice" asp-for="Stanica" hidden/>
             </div>
@@ -124,7 +124,7 @@
 
 
                 <div class="col-md-3">
-                    <label class="mb-0">Šifra</label>
+                    <label class="mb-0">Šifra blagajne</label>
                     <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.SifraBlagajne" asp-for="Blagajna" readonly/>
                     <input class="form-control form-control-sm" autocomplete="off" value="@ViewBag.SifraBlagajne" asp-for="Blagajna" hidden/>
                 </div>
@@ -354,7 +354,7 @@
             <div class="row mt-1">
                 <label for="inputPassword" class="col-sm-3 col-form-label">UKUPNO DINARA (slovima):</label>
                 <div class="col-sm">
-                    <input type="text" class="form-control" asp-for="FakturaTekst">
+                    <input type="text" class="form-control" id="fakturaTekst" asp-for="FakturaTekst">
                 </div>
             </div>
 
@@ -492,6 +492,10 @@
 
         $(window).on('load', function () {
 
+            var getUrl = window.location;
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                //ovo radi na hostingu, na mom racunaru ne radi. Da bi radilo kod mene mora da bude url: "/ListaStanica/KomintentIUgovor"
+
             $('#DatumP, #DatumPU, #DatumI, #DatumNO').datepicker()
 
              //setuje sadašnju godinu               
@@ -501,15 +505,10 @@
 
                 var input = $('#myDatalistInputNPR').val()
 
-                var getUrl = window.location;
-                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-
-                //ovo radi na hostingu, na mom racunaru ne radi. Da bi radilo mora da bude url: "/ListaStanica/KomintentIUgovor"
-
                 $.ajax({
                     type: "GET",
-                  //  url: baseUrl + "/ListaStanica/KomintentIUgovor",
-                    url: "/ListaStanica/KomintentIUgovor",
+                    url: baseUrl + "/ListaStanica/KomintentIUgovor",
+                    //url: "/ListaStanica/KomintentIUgovor",
                     cache: false,
                     data: { data: input },
                     success: function (data) {
@@ -577,15 +576,16 @@
                 $('#formFileSm').attr("required")
             }
 
-
-
-
-
-
-
         }) // kraj  $(window).on('load', function () {
 
+
+        /************************************************************************************************************************************************************************************************************/
+
         $(document).ready(function () {
+
+            var getUrl = window.location;
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                //ovo radi na hostingu, na mom racunaru ne radi. Da bi radilo kod mene mora da bude url: "/ListaStanica/KomintentIUgovor"
 
             $('#ukupnoDinara').on('input', function () {                                        // da na osnovu unosa polja "Unosa dinara" popuni polja poreska osnovica, PDV, i Ukupna vrednost. Sa zaokruženim vrednodnostima decimala na pr 12,46 => 12,50
 
@@ -601,10 +601,12 @@
                     $('#poreskaOsnovica').val(numberFormat(poreskaOsnovica) + '0')
                     $('#pdv').val(numberFormat(pdv) + '0')
                     $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
+                    $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
                 } else {
                     $('#poreskaOsnovica').val('')
                     $('#pdv').val('')
                     $('#ukupnaVrednost').val('')
+                    $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
                 }
             })
 
@@ -622,9 +624,11 @@
 
                     $('#pdv').val(pdv + '0')
                     $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
+                    $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
                 } else {
                     $('#pdv').val('')
                     $('#ukupnaVrednost').val('')
+                    $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
                 }
             })
 
@@ -640,8 +644,8 @@
 
                 $.ajax({
                     type: "GET",
-                    //  url: baseUrl + "/ListaStanica/PdfCheck",
-                    url: "/ListaStanica/PdfCheck",
+                      url: baseUrl + "/ListaStanica/PdfCheck",
+                   // url: "/ListaStanica/PdfCheck",
                     cache: false,
                     data: { 'racunBr': racunBr, 'stanica': stanica, 'fakturaGod': fakturaGod },
                     success: function (data) {                        
@@ -703,6 +707,34 @@
             $(document).on('click', 'input[type="checkbox"]', function () {                     //da bude samo jedan checkBox selektovan
                 $('input[type="checkbox"]').not(this).prop('checked', false);
             });
+
+
+
+
+
+            $('#ukupnaVrednost').on('change', function () {                  // Konveretuje ukupnu vrednost u tekst
+                var input = $('#ukupnaVrednost').val()
+                $.ajax({
+                    type: "POST",
+                    url: baseUrl + "/CurrencyToText/CurrencyToText",
+                    //url: "/CurrencyToText/CurrencyToText",
+                    cache: false,
+                    data: { data: input },
+                    success: function (data) {
+                        console.log(data)
+                        if (data != "") {
+                            $('#fakturaTekst').val(data)
+                        } else if (data == "") {
+                            $('#fakturaTekst').val('')
+                        }
+
+                    }
+                });
+            })
+
+
+
+
 
 
             /********************       OGRANIČAVANJE UNOSA       ******************************/
