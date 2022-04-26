@@ -32,7 +32,7 @@ namespace SK_Stanicni_Racuni.Controllers
             var user = context.UserTabs.Where(x => x.UserId == UserId).FirstOrDefault();
             if (user != null)
             {
-                if (user.Stanica.StartsWith("000"))
+                if (user.Stanica.StartsWith("00099"))
                 {
                     ViewBag.Admin = true;
                 }

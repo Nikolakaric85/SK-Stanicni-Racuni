@@ -34,7 +34,7 @@ namespace SK_Stanicni_Racuni.Controllers
 
             if (user != null)
             {
-                if (user.Stanica.StartsWith("000"))
+                if (user.Stanica.StartsWith("00099"))
                 {
                     ViewBag.Admin = true;
                 }

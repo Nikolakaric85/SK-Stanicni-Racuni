@@ -43,9 +43,17 @@ namespace SK_Stanicni_Racuni.Controllers
                     return RedirectToAction("Login");
                 }
 
+
+                if (user.Stanica.StartsWith("000") && !user.Stanica.StartsWith("00099"))
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    notyf.Error("Nemate prava pristupa.");
+                    return RedirectToAction("Login");
+                }
+
                 var claims = (dynamic)null;
 
-                if (!user.Stanica.StartsWith("000"))
+                if (!user.Stanica.StartsWith("00099"))
                 {
                     claims = new List<Claim>
                         {
