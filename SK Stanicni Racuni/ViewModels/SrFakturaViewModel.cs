@@ -21,6 +21,7 @@ namespace SK_Stanicni_Racuni.ViewModels
         public DateTime? FakturaDatum { get; set; }
         public DateTime? DatumIzdavanja { get; set; }
         public string Primalac { get; set; }
+        public string PrimalacMesto { get; set; }
         public string PrimalacUg { get; set; }
         public string PrimalacAdresa { get; set; }
         public string PrimalacZemlja { get; set; }

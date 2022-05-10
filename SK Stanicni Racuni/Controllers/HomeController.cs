@@ -5,6 +5,7 @@ using SK_Stanicni_Racuni.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -33,6 +34,14 @@ namespace SK_Stanicni_Racuni.Controllers
         {
             return View();
         }
+
+
+        public IActionResult GetPdf()
+        {
+            var stream = new FileStream(@"wwwroot\pdf\Stanicni racun uputstvo.pdf", FileMode.Open);
+            return new FileStreamResult(stream, "application/pdf");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

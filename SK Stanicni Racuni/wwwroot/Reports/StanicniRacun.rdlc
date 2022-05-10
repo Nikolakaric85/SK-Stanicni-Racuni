@@ -595,7 +595,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value />
+                    <Value>=Parameters!MestoPrimaoca.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -3516,6 +3516,12 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="MestoPrimaoca">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -3711,6 +3717,11 @@
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>9</RowIndex>
           <ParameterName>UkupnoDinaraDecimal</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>MestoPrimaoca</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

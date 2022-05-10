@@ -69,13 +69,17 @@ namespace SK_Stanicni_Racuni.Controllers
                     ViewBag.FakturaGod = fakturaGod != 0 && fakturaGod != DateTime.Now.Year ? fakturaGod : DateTime.Now.Year;
                     ViewBag.Stanica = stanica;
                 }
-                else
+                else if(!user.Stanica.StartsWith("00099") && !user.Stanica.StartsWith("000"))
                 {
                     ViewBag.Admin = false;
                     var pripadajucaStanica = context.ZsStanices.Where(x => x.SifraStanice1 == user.Stanica).Select(x => new { x.Naziv, x.Mesto} ).FirstOrDefault();
-                    ViewBag.Stanica = pripadajucaStanica.Naziv;
-                    TempData["StanicaNaziv"] = pripadajucaStanica.Naziv;
-                    ViewBag.MestoIzdavanjaRacuna = pripadajucaStanica.Mesto;
+                    if (pripadajucaStanica != null)
+                    {
+                        ViewBag.Stanica = pripadajucaStanica.Naziv;
+                        TempData["StanicaNaziv"] = pripadajucaStanica.Naziv;
+                        ViewBag.MestoIzdavanjaRacuna = pripadajucaStanica.Mesto;
+                    }
+                    
                     ViewBag.SifraBlagajne = context.ElsSkStaniceRacunis.Where(x => x.Sifra == user.Stanica).Select(x => x.SifraBlagajne).FirstOrDefault();
                     TempData["SifraBlagajne"] = ViewBag.SifraBlagajne;
                     ViewBag.blagajnik = user.Naziv.Trim() + " " + user.Grupa.Trim();
@@ -92,6 +96,10 @@ namespace SK_Stanicni_Racuni.Controllers
                     }
 
                     ViewBag.stanicniRacuni = viewModelList.OrderByDescending(x => x.DatumIzdavanja);
+                } else
+                {
+                    notyf.Error("Nemate prava pristupa.", 3);
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ViewBag.BlagajnaTip = new SelectList(BlagajnaTip());
@@ -164,7 +172,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     Adresa = string.Empty, Telefon = string.Empty, PrialacTr = string.Empty, PrimalacMb = string.Empty, PrimalacPib = string.Empty, DatumNastankaObaveze = string.Empty,
                     DatumPlacanja = string.Empty, VrstaDobaraiUslugaOpis = string.Empty, DatumPrometaUsluga = string.Empty, JedMera = string.Empty, Kolicina = string.Empty,
                     JedCenaDin = string.Empty, UkupnoDinara = string.Empty, PoreskaOsnovica = string.Empty, PDV = string.Empty, UkupnaVrednost = string.Empty, Fakturisao = string.Empty, DatumIzdavanja = string.Empty,
-                    SifraBlagajne = string.Empty, MestoStacice = string.Empty, NazivStnice = string.Empty, FakturaTekst = string.Empty ;
+                    SifraBlagajne = string.Empty, MestoStacice = string.Empty, NazivStnice = string.Empty, FakturaTekst = string.Empty, MestoPrimaoca = string.Empty;
 
                 //decimal PoreskaOsnovica = 0;
                 foreach (var item in query)
@@ -181,6 +189,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     FakuraBroj = item.FakturaBroj;
                     FakturaGodina = item.FakturaGodina.ToString();
                     NazivPrimaocaRacuna = item.Primalac;
+                    MestoPrimaoca = item.PrimalacMesto;
                     Adresa = item.PrimalacAdresa;
                     Telefon = item.PrimalacTelefon;
                     PrialacTr = item.PrimalacTr;
@@ -283,6 +292,7 @@ namespace SK_Stanicni_Racuni.Controllers
                     new ReportParameter("FakuraBroj", FakuraBroj),
                     new ReportParameter("FakturaGodina", FakturaGodina),
                     new ReportParameter("NazivPrimaocaRacuna", NazivPrimaocaRacuna),
+                    new ReportParameter("MestoPrimaoca", MestoPrimaoca),
                     new ReportParameter("Adresa", Adresa),
                     new ReportParameter("Telefon", Telefon),
                     new ReportParameter("PrialacTr", PrialacTr),
@@ -546,24 +556,30 @@ namespace SK_Stanicni_Racuni.Controllers
                 directoryAndFiles.CreateDirectory(NazivStanice);   
             }
 
-            if (directoryAndFiles.IsFileExist(viewModel.UploadFile.FileName, NazivStanice))
+            if (viewModel.UploadFile != null)
             {
-                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + viewModel.UploadFile.FileName;
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                if (directoryAndFiles.IsFileExist(viewModel.UploadFile.FileName, NazivStanice))
                 {
-                    viewModel.UploadFile.CopyTo(fileStream);
+                    var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + viewModel.UploadFile.FileName;
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        viewModel.UploadFile.CopyTo(fileStream);
+                    }
+                    model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + viewModel.UploadFile.FileName; ;
                 }
-                model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + viewModel.UploadFile.FileName; ;
-            } else
-            {
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.UploadFile.FileName;
-                var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + uniqueFileName;              
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                else
                 {
-                    viewModel.UploadFile.CopyTo(fileStream);
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.UploadFile.FileName;
+                    var path = $"{this.webHostEnvironment.WebRootPath}\\files\\" + NazivStanice + "\\" + uniqueFileName;
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        viewModel.UploadFile.CopyTo(fileStream);
+                    }
+                    model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + uniqueFileName;
                 }
-                model.Fpath = "http://10.3.4.80/StR/files" + "/" + NazivStanice + "/" + uniqueFileName ;
             }
+
+          
 
             try
             {
@@ -610,8 +626,11 @@ namespace SK_Stanicni_Racuni.Controllers
             var viewModel = new SrFakturaViewModel();
             mapper.Map(query, viewModel);
 
-            string[] imeFajleArray = viewModel.Fpath.Split('/');
-            ViewBag.ImeFajla = imeFajleArray[imeFajleArray.Length - 1];
+            if (viewModel.Fpath != null)
+            {
+                string[] imeFajleArray = viewModel.Fpath.Split('/');
+                ViewBag.ImeFajla = imeFajleArray[imeFajleArray.Length - 1];
+            }
 
             var tipBlagajne = query.BlagajnaTip == "P" ? "Prispeća" : "Otpravljanja";
             ViewBag.BlagajnaTip = new SelectList(BlagajnaTip(), tipBlagajne);

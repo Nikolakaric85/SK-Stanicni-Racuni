@@ -88,6 +88,15 @@
                     <a class="nav-link active" aria-current="page" asp-controller="StanicniRacun" asp-action="StanicniRacun">Stanični račun K-1P</a>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pomoć
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" @*asp-controller="Home" asp-action="GetPdf"*@ href="http://10.3.4.80/StR/pdf/Stanicni racun uputstvo.pdf" target="_blank">PDF - Stanični račun K-1P</a>
+                    </div>
+                </li>
+
 
             </ul>
 

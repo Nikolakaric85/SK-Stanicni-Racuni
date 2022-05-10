@@ -206,7 +206,7 @@
 
                 <div class="col-md-3">
                     <label class="mb-0">Mesto</label>
-                    <input class="form-control form-control-sm" autocomplete="off" id="mesto" />
+                    <input class="form-control form-control-sm" autocomplete="off" id="mesto"  asp-for="PrimalacMesto"/>
                 </div>
 
                 <div class="col-md-2">
@@ -331,8 +331,20 @@
                 <div class="col-md-3">
                     <label class="mb-0">Poreska stopa  % i iznos PDV</label>
                 </div>
-                <div class="col-md-2">
-                    <input class="form-control form-control-sm" autocomplete="off" id="pdv" asp-for="FakturaPdv" />
+                <div class="col-md-8">
+                    <div class="row justify-content-end">
+                        <div class="col-md-3 pr-0">
+                            <div class="form-inline justify-content-end">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Bez PDV-a
+                                </label>
+                                <input class="form-check-input ml-2" type="checkbox" value="" id="bezPdvCheckBox">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control form-control-sm" autocomplete="off" id="pdv" asp-for="FakturaPdv" />
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -576,6 +588,23 @@
                 $('#formFileSm').attr("required")
             }
 
+
+            var pdv = $('#pdv').val();                          //da cekira i setuje readonly atribut prilikom load strane
+            var ukupnaVrednost = $('#ukupnaVrednost').val()
+
+            if (pdv == '' && ukupnaVrednost != '') {
+                $('#bezPdvCheckBox').attr('checked', 'checked')
+                $('#pdv').attr('readonly', 'true')
+            } else {
+                $('#pdv').removeAttr('readonly')
+            }
+
+            
+
+
+
+
+
         }) // kraj  $(window).on('load', function () {
 
 
@@ -596,15 +625,27 @@
                 var poreskaOsnovica = parseFloat(ukupnoDinara).toFixed(1) 
                 var pdv = (poreskaOsnovica * 0.2).toFixed(1)
                 var ukupnaVrednost = (parseFloat(poreskaOsnovica) + parseFloat(pdv)).toFixed(1)
+                
 
                 if (ukupnoDinara != "") {
-                    $('#poreskaOsnovica').val(numberFormat(poreskaOsnovica) + '0')
-                    $('#pdv').val(numberFormat(pdv) + '0')
-                    $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
-                    $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
+
+                    if ($('#bezPdvCheckBox').is(":checked")) {
+                        // it is checked
+                       
+                        $('#poreskaOsnovica').val(numberFormat(poreskaOsnovica) + '0')
+                        $('#ukupnaVrednost').val(numberFormat(poreskaOsnovica) + '0')
+                        $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
+                    } else {
+                        
+                        $('#poreskaOsnovica').val(numberFormat(poreskaOsnovica) + '0')
+                        $('#pdv').val(numberFormat(pdv) + '0')
+                        $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
+                        $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
+                    }
+
+                    
                 } else {
                     $('#poreskaOsnovica').val('')
-                    $('#pdv').val('')
                     $('#ukupnaVrednost').val('')
                     $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
                 }
@@ -622,14 +663,34 @@
                     var pdv = numberFormat((poreskaOsnovica * 0.2).toFixed(1))
                     var ukupnaVrednost = (parseFloat(poreskaOsnovica) + parseFloat(pdv)).toFixed(1)
 
-                    $('#pdv').val(pdv + '0')
-                    $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
-                    $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
+                    if ($('#bezPdvCheckBox').is(":checked")) {
+                        $('#ukupnaVrednost').val(numberFormat(poreskaOsnovica) )
+                        $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
+                    } else {
+                        $('#pdv').val(pdv + '0')
+                        $('#ukupnaVrednost').val(numberFormat(ukupnaVrednost) + '0')
+                        $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
+                    }
+
+                    
                 } else {
                     $('#pdv').val('')
                     $('#ukupnaVrednost').val('')
                     $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
                 }
+            })
+
+            $('#bezPdvCheckBox').on('change', function () {                 //na osnovu checkbox-a Bez PDV-a, ako je bez PDV-a onda obrise iznos PDV-a i ukupnu vrednost izjednaci sa ukupno dinara ili poreskom osnovicom
+                if ($('#bezPdvCheckBox').is(":checked")) {
+                    $('#pdv').val('')
+                    $('#pdv').attr('readonly', 'true')
+                    var ukupnoDinara = $('#ukupnoDinara').val()
+                    $('#ukupnaVrednost').val(numberFormat(ukupnoDinara))
+                    $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
+                } else {
+                    $('#pdv').removeAttr('readonly')
+                }
+                
             })
 
 
