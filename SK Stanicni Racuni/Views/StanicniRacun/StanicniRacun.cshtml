@@ -775,11 +775,11 @@
 
             $('#ukupnaVrednost').on('change', function () {                  // Konveretuje ukupnu vrednost u tekst
                 var input = $('#ukupnaVrednost').val()
-                console.log("inpit on change za CurrencyToText " + input)
+                //console.log("inpit on change za CurrencyToText " + input)
                 $.ajax({
                     type: "POST",
-                   // url: baseUrl + "/CurrencyToText/CurrencyToText",
-                   url: "/CurrencyToText/CurrencyToText",
+                   url: baseUrl + "/CurrencyToText/CurrencyToText",
+                   //url: "/CurrencyToText/CurrencyToText",
                     cache: false,
                     data: { data: input },
                     success: function (data) {
