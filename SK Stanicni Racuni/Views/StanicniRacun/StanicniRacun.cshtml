@@ -685,7 +685,7 @@
                     $('#pdv').val('')
                     $('#pdv').attr('readonly', 'true')
                     var ukupnoDinara = $('#ukupnoDinara').val()
-                    $('#ukupnaVrednost').val(numberFormat(ukupnoDinara))
+                    $('#ukupnaVrednost').val(numberFormat(ukupnoDinara) + '.00')
                     $('#ukupnaVrednost').trigger('change'); //da trigeruje promene zbog konverrzije Ukupne vrednosti u tekst
                 } else {
                     $('#pdv').removeAttr('readonly')
@@ -775,14 +775,15 @@
 
             $('#ukupnaVrednost').on('change', function () {                  // Konveretuje ukupnu vrednost u tekst
                 var input = $('#ukupnaVrednost').val()
+                console.log("inpit on change za CurrencyToText " + input)
                 $.ajax({
                     type: "POST",
-                    url: baseUrl + "/CurrencyToText/CurrencyToText",
-                    //url: "/CurrencyToText/CurrencyToText",
+                   // url: baseUrl + "/CurrencyToText/CurrencyToText",
+                   url: "/CurrencyToText/CurrencyToText",
                     cache: false,
                     data: { data: input },
                     success: function (data) {
-                        console.log(data)
+                        
                         if (data != "") {
                             $('#fakturaTekst').val(data)
                         } else if (data == "") {

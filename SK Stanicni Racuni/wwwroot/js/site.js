@@ -106,7 +106,7 @@
                 monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
                 today: "Danas",
                 clear: "Clear",
-                // format: "mm/dd/yyyy",
+                format: 'dd.mm.yyyy',
                 //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
                 weekStart: 1
             };
